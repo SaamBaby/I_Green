@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "934715062690",
+    "firebase_url": "https://igreen-736c7.firebaseio.com",
+    "project_id": "igreen-736c7",
+    "storage_bucket": "igreen-736c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934715062690:android:2cbf442289a976b0675afb",
+        "android_client_info": {
+          "package_name": "com.Quete"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934715062690-qke7v6pmegchn4hh4bji81u1t7g0tabm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJIKoz7XqXQIOtIYuvvuMHDVyQ62Q6QhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934715062690-qke7v6pmegchn4hh4bji81u1t7g0tabm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
