@@ -184,12 +184,11 @@ class _onBoardState extends State<onBoard> {
           Text(
             content,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black45,
-              fontSize: getProportionateScreenSize(20, mediaQuery),
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Futura Book',
-            ),
+            style:TextStyle(
+                fontFamily: 'Futura Book',
+                color: Colors.black.withOpacity(.5),
+                fontSize: 18,
+                fontWeight: FontWeight.w700),
 
           ),
 

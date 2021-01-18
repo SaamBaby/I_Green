@@ -1,9 +1,11 @@
+
 import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../root.dart';
 import 'ForgotPassword.dart';
 import 'SignUp.dart';
 
@@ -26,6 +28,16 @@ class _LoginState extends State<Login> {
 
   Widget _appBar() => AppBar(
         backgroundColor: Colors.white,
+    title:  Text(
+      "Sign in",
+      textAlign: TextAlign.center,
+      style:TextStyle(
+          fontFamily: 'Futura Book',
+          color: Colors.black,
+          fontSize: 18,
+          fontWeight: FontWeight.w700),
+
+    ),
 
       );
 }
@@ -38,42 +50,50 @@ class body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    return SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: EdgeInsets.only(
-            right: getProportionateScreenWidth(30, mediaQuery),
-            left: getProportionateScreenWidth(30, mediaQuery),
-            top: getProportionateScreenWidth(2, mediaQuery)),
-        child: Column(
-          children: <Widget>[
-            Image.asset('assets/images/introduction/gLogo.png', width: MediaQuery.of(context).size.width*.15, height: MediaQuery.of(context).size.height*.15,),
-            Text(
-              " Welcome Back Sam!",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: 'Futura Heavy',
-                  color: Colors.black,
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold),
+    return Stack(
+      children: [
+
+        Container(
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.only(
+                right: getProportionateScreenWidth(30, mediaQuery),
+                left: getProportionateScreenWidth(30, mediaQuery),
+                top: getProportionateScreenWidth(2, mediaQuery)),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  " Welcome Back Sam!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Futura Heavy',
+                      color: Colors.black,
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 1,
+                ),
+                Text(
+                  "Sign in with your username and password  \n or continue using our social login  ",
+                  textAlign: TextAlign.center,
+                  style:TextStyle(
+                      fontFamily: 'Futura Book',
+                      color: Colors.black.withOpacity(.5),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+
+                ),
+                SizedBox(height: 50),
+                SignInForm()
+              ],
             ),
-            SizedBox(
-              height: 1,
-            ),
-            Text(
-              "Sign in with your username and password  \n or continue using our social login  ",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: 'Futura Book',
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400),
-            ),
-            SizedBox(height: 50),
-            SignInForm()
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -115,13 +135,23 @@ class SignInFormState extends State<SignInForm> {
                           isCheck = value;
                         });
                       }),
-                  Text("Remember me",style: TextStyle(color: Colors.grey, fontSize: 18, fontFamily: 'Futura Book'),),
+                  Text("Remember me",style:TextStyle(
+                      fontFamily: 'Futura Book',
+                      color: Colors.black.withOpacity(.5),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700), ),
                   Spacer(),
                   RichText(
                     text:  TextSpan(
-                        text: 'Forgot Password?',
+                        text: 'Forgot Password ?',
                         style:
-                        TextStyle(color: Colors.grey, fontSize: 14, fontFamily: 'Futura Book' ),
+                        TextStyle(
+                            fontFamily: 'Futura Book',
+                            color: Colors.black.withOpacity(.5),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700),
+
+
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Navigator.push(context, MaterialPageRoute(builder:(context)=> ForgotPassword()));
@@ -134,9 +164,7 @@ class SignInFormState extends State<SignInForm> {
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                  }
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=> Root()));
                 },
                 child: AnimatedContainer(
                     margin: EdgeInsets.only(bottom: 10),
@@ -149,11 +177,11 @@ class SignInFormState extends State<SignInForm> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Text(
-                      "Continue",
+                      "Sign in ",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w700,
                         fontFamily: 'Futura Heavy',
                       ),
                     )),
@@ -167,9 +195,9 @@ class SignInFormState extends State<SignInForm> {
                   "Or sign in with",
                   style: TextStyle(
                       fontFamily: 'Futura Book',
-                      color: Colors.black,
+                      color: Colors.black.withOpacity(.5),
                       fontSize: 18,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w700),
                 ),
                 Expanded(child: Divider()),
               ]),
@@ -179,9 +207,9 @@ class SignInFormState extends State<SignInForm> {
                     text: 'Don\'t have an account?',
                     style: TextStyle(
                         fontFamily: 'Futura Book',
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400),
+                        color: Colors.black.withOpacity(.5),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700),
                     children: <TextSpan>[
                       TextSpan(
                           text: ' Sign up',

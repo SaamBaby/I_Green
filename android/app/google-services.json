@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "934715062690",
-    "firebase_url": "https://igreen-736c7.firebaseio.com",
-    "project_id": "igreen-736c7",
-    "storage_bucket": "igreen-736c7.appspot.com"
+    "project_number": "941691876537",
+    "project_id": "igreen-458f7",
+    "storage_bucket": "igreen-458f7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:934715062690:android:2cbf442289a976b0675afb",
+        "mobilesdk_app_id": "1:941691876537:android:4993805c38e0d809ae1768",
         "android_client_info": {
           "package_name": "com.Quete"
         }
       },
       "oauth_client": [
         {
-          "client_id": "934715062690-qke7v6pmegchn4hh4bji81u1t7g0tabm.apps.googleusercontent.com",
+          "client_id": "941691876537-ji1dc0180blh31dqmutfq8kb9d24hfqt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAJIKoz7XqXQIOtIYuvvuMHDVyQ62Q6QhA"
+          "current_key": "AIzaSyC8CZF5UF5ztvPw6klsnL5BOX2O0dCFaJ0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "934715062690-qke7v6pmegchn4hh4bji81u1t7g0tabm.apps.googleusercontent.com",
+              "client_id": "941691876537-ji1dc0180blh31dqmutfq8kb9d24hfqt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
