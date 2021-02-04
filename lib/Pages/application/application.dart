@@ -1,6 +1,10 @@
 import 'package:Quete/Pages/schedule/Schedule.dart';
+import 'package:Quete/providers/appliedJobs_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+import 'AppliedJobCard.dart';
 
 
 class Applications extends StatefulWidget {
@@ -9,8 +13,19 @@ class Applications extends StatefulWidget {
 }
 
 class _ApplicationsState extends State<Applications> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero).then((value) => Provider.of<AppliedJobs>(context,listen: false).fetchAppliedJobs());
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    final loadedAppliedJobs= Provider.of<AppliedJobs>(context).items;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -23,255 +38,23 @@ class _ApplicationsState extends State<Applications> {
                   color: Colors.white,
                   child: Column(
                     children: [
+
                       Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          width: double.infinity,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffeaeaea)),
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffeaeaea),
-                                spreadRadius: 0,
-                                blurRadius: 3,
-                                offset: Offset(1, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.black),
-                                    child: Icon(
-                                      FontAwesomeIcons.twitter,
-                                      size: 22,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Fulltime  contract".toUpperCase(),
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Heavy',
-                                            color: Color(0xFFa6e76c),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      Text(
-                                        "Senior Mobile Developer",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      Text(
-                                        "Twitter . California . CA",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black.withOpacity(.6),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: 10,),
-                              Text(
-                                "Applied on 21 July 2020",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontFamily: 'Futura Book',
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          width: double.infinity,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffeaeaea)),
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffeaeaea),
-                                spreadRadius: 0,
-                                blurRadius: 3,
-                                offset: Offset(1, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.black),
-                                    child: Icon(
-                                      FontAwesomeIcons.twitter,
-                                      size: 22,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Fulltime  contract".toUpperCase(),
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.lightGreen,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      Text(
-                                        "Senior Mobile Developer",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      Text(
-                                        "Twitter . California . CA",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black.withOpacity(.6),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                        child:  ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount:loadedAppliedJobs.length ,
+                          itemBuilder: (BuildContext context, int index) =>
+                              Visibility(
+                                  visible: (!loadedAppliedJobs.values.toList()[index].isApproved),
+                                  child: AppliedJobsCard(
+                                    date: loadedAppliedJobs.values.toList()[index].appliedDate, jobId:loadedAppliedJobs.values.toList()[index].jobId ,)
                               ),
 
-                            ],
-                          )),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          width: double.infinity,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffeaeaea)),
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffeaeaea),
-                                spreadRadius: 0,
-                                blurRadius: 3,
-                                offset: Offset(1, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.black),
-                                    child: Icon(
-                                      FontAwesomeIcons.twitter,
-                                      size: 22,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Fulltime  contract".toUpperCase(),
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.lightGreen,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      Text(
-                                        "Senior Mobile Developer",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      Text(
-                                        "Twitter . California . CA",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black.withOpacity(.6),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
 
-                            ],
-                          )),
-                      SizedBox(
-                        height: 20,
+                        ),
                       ),
+
                     ],
                   )
                 ),
@@ -282,95 +65,19 @@ class _ApplicationsState extends State<Applications> {
                   child: Column(
 
                     children: [
-                      SizedBox(height: 20,),
                       Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          width: double.infinity,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xffeaeaea)),
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffeaeaea),
-                                spreadRadius: 0,
-                                blurRadius: 3,
-                                offset: Offset(1, 1), // changes position of shadow
+                        child:  ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: loadedAppliedJobs.length ,
+                          itemBuilder: (BuildContext context, int index) =>
+                              Visibility(
+                                  visible:loadedAppliedJobs.values.toList()[index].isApproved,
+                                  child: AppliedJobsCard(date: loadedAppliedJobs.values.toList()[index].appliedDate,jobId:loadedAppliedJobs.values.toList()[index].jobId,)
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.black),
-                                    child: Icon(
-                                      FontAwesomeIcons.twitter,
-                                      size: 22,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Fulltime  contract".toUpperCase(),
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Heavy',
-                                            color: Color(0xFFa6e76c),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      Text(
-                                        "Senior Mobile Developer",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w900),
-                                      ),
-                                      Text(
-                                        "Twitter . California . CA",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black.withOpacity(.6),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: 13,),
-                              Text(
-                                "Approved on 21 July 2020",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontFamily: 'Futura Book',
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )),
-                      SizedBox(
-                        height: 20,
+
+
+                        ),
                       ),
 
                     ],
@@ -478,3 +185,5 @@ class _ApplicationsState extends State<Applications> {
     );
   }
 }
+
+

@@ -10,7 +10,7 @@ class Schedule extends StatefulWidget {
 }
 
 class _ScheduleState extends State<Schedule> {
-   CalendarController _calendarController;
+    CalendarController _calendarController;
 
   @override
   void initState() {

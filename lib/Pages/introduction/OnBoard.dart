@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../auth/Login.dart';
 
 class onBoard extends StatefulWidget {
+  static const routName ='/onboard-screen';
   @override
   _onBoardState createState() => _onBoardState();
 }
@@ -15,8 +16,9 @@ class onBoard extends StatefulWidget {
 
 class _onBoardState extends State<onBoard> {
 
+
   get mediaQuery => MediaQueryData.fromWindow(WidgetsBinding.instance.window);
-  PageController _pageController;
+   PageController _pageController;
   int currentIndex = 0;
 
   @override

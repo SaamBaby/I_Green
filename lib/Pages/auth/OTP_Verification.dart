@@ -14,6 +14,8 @@ class _OtpVerificationState extends State<OtpVerification> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
       appBar: _appBar(),
       body: body(),
     );
@@ -42,8 +44,8 @@ class body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    return SizedBox(
-      width: double.infinity,
+    return SingleChildScrollView(
+
       child: Padding(
         padding: EdgeInsets.only(
             right: getProportionateScreenWidth(30, mediaQuery),
@@ -96,7 +98,7 @@ class body extends StatelessWidget {
               ],
             ),
             SizedBox(height: 50),
-            ForgotPasswordForm()
+            OTPverificationForm()
           ],
         ),
       ),
@@ -104,24 +106,24 @@ class body extends StatelessWidget {
   }
 }
 
-class ForgotPasswordForm extends StatefulWidget {
+class OTPverificationForm extends StatefulWidget {
   @override
-  ForgotPasswordFormState createState() {
-    return ForgotPasswordFormState();
+  OTPverificationFormState createState() {
+    return OTPverificationFormState();
   }
 }
 
-class ForgotPasswordFormState extends State<ForgotPasswordForm> {
+class OTPverificationFormState extends State<OTPverificationForm> {
   final _formKey = GlobalKey<FormState>();
-  final List<String> errors = ["Demo Error"];
-  FocusNode _focusNode1;
+
+
   FocusNode _focusNode2;
   FocusNode _focusNode3;
   FocusNode _focusNode4;
 
   @override
   void initState() {
-    _focusNode1=FocusNode();
+
     _focusNode2=FocusNode();
     _focusNode3=FocusNode();
     _focusNode4=FocusNode();

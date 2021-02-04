@@ -1,8 +1,11 @@
+import 'package:Quete/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var userProvider =Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.white,toolbarHeight: 20,),
       body: Container(
@@ -101,12 +104,17 @@ class Profile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Logout",
-                  style: TextStyle(
-                      fontFamily: 'Futura Book',
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900),),
+                GestureDetector(
+                  onTap: (){
+                    userProvider.signOut();
+                  },
+                  child: Text("Logout",
+                    style: TextStyle(
+                        fontFamily: 'Futura Book',
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900),),
+                ),
 
               ],),
             SizedBox(height: 10,),

@@ -1,9 +1,12 @@
 import 'package:Quete/Pages/auth/SignUp_Basicinfo.dart';
 import 'package:Quete/Utils/sizeConfiguration.dart';
-import 'package:flutter/gestures.dart';
+import 'package:Quete/models/User.dart';
+import 'package:Quete/providers/user_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -11,30 +14,31 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  get mediaQuery => MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _appBar(),
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
       body: body(),
     );
   }
 
   Widget _appBar() => AppBar(
-    backgroundColor: Colors.white,
-    centerTitle: true,
-    toolbarHeight: 80,
-    title: Text("Step One",style: TextStyle(color: Colors.black),),
-    iconTheme: IconThemeData(
-      color: Colors.black,
-      //change your color here
-    ),
-  );
-
-
-
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        toolbarHeight: 80,
+        title: Text(
+          "Step One",
+          style: TextStyle(color: Colors.black),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.black,
+          //change your color here
+        ),
+      );
 }
 
 class body extends StatelessWidget {
@@ -45,13 +49,13 @@ class body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    return SizedBox(
-      width: double.infinity,
+
+    return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(
             right: getProportionateScreenWidth(30, mediaQuery),
             left: getProportionateScreenWidth(30, mediaQuery),
-            top: getProportionateScreenWidth(30, mediaQuery)),
+            top: getProportionateScreenWidth(0, mediaQuery)),
         child: Column(
           children: <Widget>[
             Text(
@@ -66,7 +70,6 @@ class body extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-
             Text(
               "Complete the sign up form   \n or continue using our social media sign up   ",
               textAlign: TextAlign.center,
@@ -94,24 +97,129 @@ class SignUpForm extends StatefulWidget {
 
 class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  final List<String> errors = ["Demo Error"];
+ TextEditingController controllerPassword = TextEditingController();
+  TextEditingController controllerConfirmPassword = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController();
+  var user = UserModel(
+      firstName: '',
+      lastName: '',
+      address: '',
+      email: '',
+      phoneNumber: 0,
+      password: '',
+      id: '');
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controllerEmail.text = FirebaseAuth.instance.currentUser.email;
+    });
+
+    super.initState();
+  }
+
+  String password;
+  final passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'password is required'),
+    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+//    PatternValidator(r'(?=.*?[#?!@$%^&*-])', errorText: 'passwords must have at least one special character')
+  ]);
+  final emailValidator = MultiValidator([
+    RequiredValidator(errorText: 'Email is required'),
+    EmailValidator(errorText: 'enter a valid email address'),
+  ]);
+
+
 
   @override
   Widget build(BuildContext context) {
-    var isCheck = false;
+    var userProvider =Provider.of<UserProvider>(context);
+    _onPressed() async {
+      if (_formKey.currentState.validate()) {
+        _formKey.currentState.save();
+        await userProvider.signUp(user);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BasicInfo()));
+      }
+    }
+
     return Form(
         key: _formKey,
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              buildEmailFormField(),
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                controller: controllerEmail,
+                validator: emailValidator,
+                onSaved: (value) {
+                  user = UserModel(
+                      email: value,
+                      id: user.id,
+                      firstName: user.firstName,
+                      lastName: user.lastName,
+                      phoneNumber: user.phoneNumber,
+                      password: user.password,
+                      address: user.address);
+                },
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  hintText: "Enter your Email",
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
+                    child: Icon(Icons.email),
+                  ),
+                ),
+              ),
+
               SizedBox(
                 height: 20,
               ),
-              buildPasswordFormField(),
+              TextFormField(
+                validator: passwordValidator,
+                obscureText: false,
+                controller: controllerPassword,
+                onSaved: (value) {
+                  user = UserModel(
+                      email: user.email,
+                      id: user.id,
+                      firstName: user.firstName,
+                      lastName: user.lastName,
+                      phoneNumber: user.phoneNumber,
+                      password: value,
+                      address: user.address);
+                },
+                onChanged: (val) => password = val,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  hintText: "Enter your Password",
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
+                    child: Icon(Icons.lock),
+                  ),
+                ),
+              ),
 //              FormError(errors: errors),
               SizedBox(height: 20),
-              buildConfirmPasswordFormField(),
+              TextFormField(
+                controller: controllerConfirmPassword,
+                obscureText: false,
+                validator: (val) =>
+                    MatchValidator(errorText: 'passwords do not match')
+                        .validateMatch(val, password),
+                decoration: InputDecoration(
+                  labelText: "Confirm Password",
+                  hintText: "Re-enter  your Password",
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
+                    child: Icon(Icons.lock),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
               SizedBox(
                 height: 20,
               ),
@@ -119,10 +227,7 @@ class SignUpFormState extends State<SignUpForm> {
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                  }
-                  Navigator.push(context, MaterialPageRoute(builder:(context)=> BasicInfo()));
+                  _onPressed();
                 },
                 child: AnimatedContainer(
                     margin: EdgeInsets.only(bottom: 10),
@@ -169,67 +274,8 @@ class SignUpFormState extends State<SignUpForm> {
                     fontSize: 16,
                     fontWeight: FontWeight.w400),
               ),
-
-
             ]));
-  }
 
-  TextFormField buildPasswordFormField() {
-    return TextFormField(
-      obscureText: true,
-      decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your Password",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
-          child: Icon(
-              Icons.lock
-          ),
-        ),
-      ),
-    );
-  }
-  TextFormField buildConfirmPasswordFormField() {
-    return TextFormField(
-      obscureText: true,
-      decoration: InputDecoration(
-        labelText: "Confirm Password",
-        hintText: "Re-enter  your Password",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
-          child: Icon(
-              Icons.lock
-          ),
-        ),
-      ),
-    );
-  }
-
-  TextFormField buildEmailFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      validator: (value) {
-        if (value.isEmpty) {
-          setState(() {
-            errors.add("Please enter your email address");
-          });
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your Email",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
-          child: Icon(
-              Icons.email
-          ),
-        ),
-      ),
-    );
   }
 }
 

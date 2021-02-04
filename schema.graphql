@@ -1,0 +1,1584 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+# columns and relationships of "AppliedJobs"
+type AppliedJobs {
+  # An object relationship
+  User: User!
+  applied_date: date!
+  approved_date: date
+  id: Int!
+  job_id: uuid!
+  user_id: String!
+}
+
+# aggregated selection of "AppliedJobs"
+type AppliedJobs_aggregate {
+  aggregate: AppliedJobs_aggregate_fields
+  nodes: [AppliedJobs!]!
+}
+
+# aggregate fields of "AppliedJobs"
+type AppliedJobs_aggregate_fields {
+  avg: AppliedJobs_avg_fields
+  count(columns: [AppliedJobs_select_column!], distinct: Boolean): Int
+  max: AppliedJobs_max_fields
+  min: AppliedJobs_min_fields
+  stddev: AppliedJobs_stddev_fields
+  stddev_pop: AppliedJobs_stddev_pop_fields
+  stddev_samp: AppliedJobs_stddev_samp_fields
+  sum: AppliedJobs_sum_fields
+  var_pop: AppliedJobs_var_pop_fields
+  var_samp: AppliedJobs_var_samp_fields
+  variance: AppliedJobs_variance_fields
+}
+
+# order by aggregate values of table "AppliedJobs"
+input AppliedJobs_aggregate_order_by {
+  avg: AppliedJobs_avg_order_by
+  count: order_by
+  max: AppliedJobs_max_order_by
+  min: AppliedJobs_min_order_by
+  stddev: AppliedJobs_stddev_order_by
+  stddev_pop: AppliedJobs_stddev_pop_order_by
+  stddev_samp: AppliedJobs_stddev_samp_order_by
+  sum: AppliedJobs_sum_order_by
+  var_pop: AppliedJobs_var_pop_order_by
+  var_samp: AppliedJobs_var_samp_order_by
+  variance: AppliedJobs_variance_order_by
+}
+
+# input type for inserting array relation for remote table "AppliedJobs"
+input AppliedJobs_arr_rel_insert_input {
+  data: [AppliedJobs_insert_input!]!
+  on_conflict: AppliedJobs_on_conflict
+}
+
+# aggregate avg on columns
+type AppliedJobs_avg_fields {
+  id: Float
+}
+
+# order by avg() on columns of table "AppliedJobs"
+input AppliedJobs_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "AppliedJobs". All fields are combined with a logical 'AND'.
+input AppliedJobs_bool_exp {
+  User: User_bool_exp
+  _and: [AppliedJobs_bool_exp]
+  _not: AppliedJobs_bool_exp
+  _or: [AppliedJobs_bool_exp]
+  applied_date: date_comparison_exp
+  approved_date: date_comparison_exp
+  id: Int_comparison_exp
+  job_id: uuid_comparison_exp
+  user_id: String_comparison_exp
+}
+
+# unique or primary key constraints on table "AppliedJobs"
+enum AppliedJobs_constraint {
+  # unique or primary key constraint
+  AppliedJobs_pkey
+}
+
+# input type for incrementing integer column in table "AppliedJobs"
+input AppliedJobs_inc_input {
+  id: Int
+}
+
+# input type for inserting data into table "AppliedJobs"
+input AppliedJobs_insert_input {
+  User: User_obj_rel_insert_input
+  applied_date: date
+  approved_date: date
+  id: Int
+  job_id: uuid
+  user_id: String
+}
+
+# aggregate max on columns
+type AppliedJobs_max_fields {
+  applied_date: date
+  approved_date: date
+  id: Int
+  job_id: uuid
+  user_id: String
+}
+
+# order by max() on columns of table "AppliedJobs"
+input AppliedJobs_max_order_by {
+  applied_date: order_by
+  approved_date: order_by
+  id: order_by
+  job_id: order_by
+  user_id: order_by
+}
+
+# aggregate min on columns
+type AppliedJobs_min_fields {
+  applied_date: date
+  approved_date: date
+  id: Int
+  job_id: uuid
+  user_id: String
+}
+
+# order by min() on columns of table "AppliedJobs"
+input AppliedJobs_min_order_by {
+  applied_date: order_by
+  approved_date: order_by
+  id: order_by
+  job_id: order_by
+  user_id: order_by
+}
+
+# response of any mutation on the table "AppliedJobs"
+type AppliedJobs_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [AppliedJobs!]!
+}
+
+# input type for inserting object relation for remote table "AppliedJobs"
+input AppliedJobs_obj_rel_insert_input {
+  data: AppliedJobs_insert_input!
+  on_conflict: AppliedJobs_on_conflict
+}
+
+# on conflict condition type for table "AppliedJobs"
+input AppliedJobs_on_conflict {
+  constraint: AppliedJobs_constraint!
+  update_columns: [AppliedJobs_update_column!]!
+  where: AppliedJobs_bool_exp
+}
+
+# ordering options when selecting data from "AppliedJobs"
+input AppliedJobs_order_by {
+  User: User_order_by
+  applied_date: order_by
+  approved_date: order_by
+  id: order_by
+  job_id: order_by
+  user_id: order_by
+}
+
+# primary key columns input for table: "AppliedJobs"
+input AppliedJobs_pk_columns_input {
+  id: Int!
+}
+
+# select columns of table "AppliedJobs"
+enum AppliedJobs_select_column {
+  # column name
+  applied_date
+
+  # column name
+  approved_date
+
+  # column name
+  id
+
+  # column name
+  job_id
+
+  # column name
+  user_id
+}
+
+# input type for updating data in table "AppliedJobs"
+input AppliedJobs_set_input {
+  applied_date: date
+  approved_date: date
+  id: Int
+  job_id: uuid
+  user_id: String
+}
+
+# aggregate stddev on columns
+type AppliedJobs_stddev_fields {
+  id: Float
+}
+
+# order by stddev() on columns of table "AppliedJobs"
+input AppliedJobs_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type AppliedJobs_stddev_pop_fields {
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "AppliedJobs"
+input AppliedJobs_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type AppliedJobs_stddev_samp_fields {
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "AppliedJobs"
+input AppliedJobs_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
+type AppliedJobs_sum_fields {
+  id: Int
+}
+
+# order by sum() on columns of table "AppliedJobs"
+input AppliedJobs_sum_order_by {
+  id: order_by
+}
+
+# update columns of table "AppliedJobs"
+enum AppliedJobs_update_column {
+  # column name
+  applied_date
+
+  # column name
+  approved_date
+
+  # column name
+  id
+
+  # column name
+  job_id
+
+  # column name
+  user_id
+}
+
+# aggregate var_pop on columns
+type AppliedJobs_var_pop_fields {
+  id: Float
+}
+
+# order by var_pop() on columns of table "AppliedJobs"
+input AppliedJobs_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type AppliedJobs_var_samp_fields {
+  id: Float
+}
+
+# order by var_samp() on columns of table "AppliedJobs"
+input AppliedJobs_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
+type AppliedJobs_variance_fields {
+  id: Float
+}
+
+# order by variance() on columns of table "AppliedJobs"
+input AppliedJobs_variance_order_by {
+  id: order_by
+}
+
+# expression to compare columns of type Boolean. All fields are combined with logical 'AND'.
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+scalar date
+
+# expression to compare columns of type date. All fields are combined with logical 'AND'.
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+scalar float8
+
+# expression to compare columns of type float8. All fields are combined with logical 'AND'.
+input float8_comparison_exp {
+  _eq: float8
+  _gt: float8
+  _gte: float8
+  _in: [float8!]
+  _is_null: Boolean
+  _lt: float8
+  _lte: float8
+  _neq: float8
+  _nin: [float8!]
+}
+
+# expression to compare columns of type Int. All fields are combined with logical 'AND'.
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+# columns and relationships of "Jobs"
+type Jobs {
+  isContract: Boolean!
+  isFulltime: Boolean!
+  isPartTime: Boolean!
+  jobDescription: String!
+  jobId: uuid!
+  jobLocation: String!
+  jobLogo: String!
+  jobName: String!
+  jobQualitifcation: String!
+  jobResponsibilities: String
+  salaryRange: float8
+}
+
+# aggregated selection of "Jobs"
+type Jobs_aggregate {
+  aggregate: Jobs_aggregate_fields
+  nodes: [Jobs!]!
+}
+
+# aggregate fields of "Jobs"
+type Jobs_aggregate_fields {
+  avg: Jobs_avg_fields
+  count(columns: [Jobs_select_column!], distinct: Boolean): Int
+  max: Jobs_max_fields
+  min: Jobs_min_fields
+  stddev: Jobs_stddev_fields
+  stddev_pop: Jobs_stddev_pop_fields
+  stddev_samp: Jobs_stddev_samp_fields
+  sum: Jobs_sum_fields
+  var_pop: Jobs_var_pop_fields
+  var_samp: Jobs_var_samp_fields
+  variance: Jobs_variance_fields
+}
+
+# order by aggregate values of table "Jobs"
+input Jobs_aggregate_order_by {
+  avg: Jobs_avg_order_by
+  count: order_by
+  max: Jobs_max_order_by
+  min: Jobs_min_order_by
+  stddev: Jobs_stddev_order_by
+  stddev_pop: Jobs_stddev_pop_order_by
+  stddev_samp: Jobs_stddev_samp_order_by
+  sum: Jobs_sum_order_by
+  var_pop: Jobs_var_pop_order_by
+  var_samp: Jobs_var_samp_order_by
+  variance: Jobs_variance_order_by
+}
+
+# input type for inserting array relation for remote table "Jobs"
+input Jobs_arr_rel_insert_input {
+  data: [Jobs_insert_input!]!
+  on_conflict: Jobs_on_conflict
+}
+
+# aggregate avg on columns
+type Jobs_avg_fields {
+  salaryRange: Float
+}
+
+# order by avg() on columns of table "Jobs"
+input Jobs_avg_order_by {
+  salaryRange: order_by
+}
+
+# Boolean expression to filter rows from the table "Jobs". All fields are combined with a logical 'AND'.
+input Jobs_bool_exp {
+  _and: [Jobs_bool_exp]
+  _not: Jobs_bool_exp
+  _or: [Jobs_bool_exp]
+  isContract: Boolean_comparison_exp
+  isFulltime: Boolean_comparison_exp
+  isPartTime: Boolean_comparison_exp
+  jobDescription: String_comparison_exp
+  jobId: uuid_comparison_exp
+  jobLocation: String_comparison_exp
+  jobLogo: String_comparison_exp
+  jobName: String_comparison_exp
+  jobQualitifcation: String_comparison_exp
+  jobResponsibilities: String_comparison_exp
+  salaryRange: float8_comparison_exp
+}
+
+# unique or primary key constraints on table "Jobs"
+enum Jobs_constraint {
+  # unique or primary key constraint
+  Jobs_pkey
+}
+
+# input type for incrementing integer column in table "Jobs"
+input Jobs_inc_input {
+  salaryRange: float8
+}
+
+# input type for inserting data into table "Jobs"
+input Jobs_insert_input {
+  isContract: Boolean
+  isFulltime: Boolean
+  isPartTime: Boolean
+  jobDescription: String
+  jobId: uuid
+  jobLocation: String
+  jobLogo: String
+  jobName: String
+  jobQualitifcation: String
+  jobResponsibilities: String
+  salaryRange: float8
+}
+
+# aggregate max on columns
+type Jobs_max_fields {
+  jobDescription: String
+  jobId: uuid
+  jobLocation: String
+  jobLogo: String
+  jobName: String
+  jobQualitifcation: String
+  jobResponsibilities: String
+  salaryRange: float8
+}
+
+# order by max() on columns of table "Jobs"
+input Jobs_max_order_by {
+  jobDescription: order_by
+  jobId: order_by
+  jobLocation: order_by
+  jobLogo: order_by
+  jobName: order_by
+  jobQualitifcation: order_by
+  jobResponsibilities: order_by
+  salaryRange: order_by
+}
+
+# aggregate min on columns
+type Jobs_min_fields {
+  jobDescription: String
+  jobId: uuid
+  jobLocation: String
+  jobLogo: String
+  jobName: String
+  jobQualitifcation: String
+  jobResponsibilities: String
+  salaryRange: float8
+}
+
+# order by min() on columns of table "Jobs"
+input Jobs_min_order_by {
+  jobDescription: order_by
+  jobId: order_by
+  jobLocation: order_by
+  jobLogo: order_by
+  jobName: order_by
+  jobQualitifcation: order_by
+  jobResponsibilities: order_by
+  salaryRange: order_by
+}
+
+# response of any mutation on the table "Jobs"
+type Jobs_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [Jobs!]!
+}
+
+# input type for inserting object relation for remote table "Jobs"
+input Jobs_obj_rel_insert_input {
+  data: Jobs_insert_input!
+  on_conflict: Jobs_on_conflict
+}
+
+# on conflict condition type for table "Jobs"
+input Jobs_on_conflict {
+  constraint: Jobs_constraint!
+  update_columns: [Jobs_update_column!]!
+  where: Jobs_bool_exp
+}
+
+# ordering options when selecting data from "Jobs"
+input Jobs_order_by {
+  isContract: order_by
+  isFulltime: order_by
+  isPartTime: order_by
+  jobDescription: order_by
+  jobId: order_by
+  jobLocation: order_by
+  jobLogo: order_by
+  jobName: order_by
+  jobQualitifcation: order_by
+  jobResponsibilities: order_by
+  salaryRange: order_by
+}
+
+# primary key columns input for table: "Jobs"
+input Jobs_pk_columns_input {
+  jobId: uuid!
+}
+
+# select columns of table "Jobs"
+enum Jobs_select_column {
+  # column name
+  isContract
+
+  # column name
+  isFulltime
+
+  # column name
+  isPartTime
+
+  # column name
+  jobDescription
+
+  # column name
+  jobId
+
+  # column name
+  jobLocation
+
+  # column name
+  jobLogo
+
+  # column name
+  jobName
+
+  # column name
+  jobQualitifcation
+
+  # column name
+  jobResponsibilities
+
+  # column name
+  salaryRange
+}
+
+# input type for updating data in table "Jobs"
+input Jobs_set_input {
+  isContract: Boolean
+  isFulltime: Boolean
+  isPartTime: Boolean
+  jobDescription: String
+  jobId: uuid
+  jobLocation: String
+  jobLogo: String
+  jobName: String
+  jobQualitifcation: String
+  jobResponsibilities: String
+  salaryRange: float8
+}
+
+# aggregate stddev on columns
+type Jobs_stddev_fields {
+  salaryRange: Float
+}
+
+# order by stddev() on columns of table "Jobs"
+input Jobs_stddev_order_by {
+  salaryRange: order_by
+}
+
+# aggregate stddev_pop on columns
+type Jobs_stddev_pop_fields {
+  salaryRange: Float
+}
+
+# order by stddev_pop() on columns of table "Jobs"
+input Jobs_stddev_pop_order_by {
+  salaryRange: order_by
+}
+
+# aggregate stddev_samp on columns
+type Jobs_stddev_samp_fields {
+  salaryRange: Float
+}
+
+# order by stddev_samp() on columns of table "Jobs"
+input Jobs_stddev_samp_order_by {
+  salaryRange: order_by
+}
+
+# aggregate sum on columns
+type Jobs_sum_fields {
+  salaryRange: float8
+}
+
+# order by sum() on columns of table "Jobs"
+input Jobs_sum_order_by {
+  salaryRange: order_by
+}
+
+# update columns of table "Jobs"
+enum Jobs_update_column {
+  # column name
+  isContract
+
+  # column name
+  isFulltime
+
+  # column name
+  isPartTime
+
+  # column name
+  jobDescription
+
+  # column name
+  jobId
+
+  # column name
+  jobLocation
+
+  # column name
+  jobLogo
+
+  # column name
+  jobName
+
+  # column name
+  jobQualitifcation
+
+  # column name
+  jobResponsibilities
+
+  # column name
+  salaryRange
+}
+
+# aggregate var_pop on columns
+type Jobs_var_pop_fields {
+  salaryRange: Float
+}
+
+# order by var_pop() on columns of table "Jobs"
+input Jobs_var_pop_order_by {
+  salaryRange: order_by
+}
+
+# aggregate var_samp on columns
+type Jobs_var_samp_fields {
+  salaryRange: Float
+}
+
+# order by var_samp() on columns of table "Jobs"
+input Jobs_var_samp_order_by {
+  salaryRange: order_by
+}
+
+# aggregate variance on columns
+type Jobs_variance_fields {
+  salaryRange: Float
+}
+
+# order by variance() on columns of table "Jobs"
+input Jobs_variance_order_by {
+  salaryRange: order_by
+}
+
+# mutation root
+type mutation_root {
+  # delete data from the table: "AppliedJobs"
+  delete_AppliedJobs(
+    # filter the rows which have to be deleted
+    where: AppliedJobs_bool_exp!
+  ): AppliedJobs_mutation_response
+
+  # delete single row from the table: "AppliedJobs"
+  delete_AppliedJobs_by_pk(id: Int!): AppliedJobs
+
+  # delete data from the table: "Jobs"
+  delete_Jobs(
+    # filter the rows which have to be deleted
+    where: Jobs_bool_exp!
+  ): Jobs_mutation_response
+
+  # delete single row from the table: "Jobs"
+  delete_Jobs_by_pk(jobId: uuid!): Jobs
+
+  # delete data from the table: "User"
+  delete_User(
+    # filter the rows which have to be deleted
+    where: User_bool_exp!
+  ): User_mutation_response
+
+  # delete single row from the table: "User"
+  delete_User_by_pk(firebaseUuid: String!): User
+
+  # insert data into the table: "AppliedJobs"
+  insert_AppliedJobs(
+    # the rows to be inserted
+    objects: [AppliedJobs_insert_input!]!
+
+    # on conflict condition
+    on_conflict: AppliedJobs_on_conflict
+  ): AppliedJobs_mutation_response
+
+  # insert a single row into the table: "AppliedJobs"
+  insert_AppliedJobs_one(
+    # the row to be inserted
+    object: AppliedJobs_insert_input!
+
+    # on conflict condition
+    on_conflict: AppliedJobs_on_conflict
+  ): AppliedJobs
+
+  # insert data into the table: "Jobs"
+  insert_Jobs(
+    # the rows to be inserted
+    objects: [Jobs_insert_input!]!
+
+    # on conflict condition
+    on_conflict: Jobs_on_conflict
+  ): Jobs_mutation_response
+
+  # insert a single row into the table: "Jobs"
+  insert_Jobs_one(
+    # the row to be inserted
+    object: Jobs_insert_input!
+
+    # on conflict condition
+    on_conflict: Jobs_on_conflict
+  ): Jobs
+
+  # insert data into the table: "User"
+  insert_User(
+    # the rows to be inserted
+    objects: [User_insert_input!]!
+
+    # on conflict condition
+    on_conflict: User_on_conflict
+  ): User_mutation_response
+
+  # insert a single row into the table: "User"
+  insert_User_one(
+    # the row to be inserted
+    object: User_insert_input!
+
+    # on conflict condition
+    on_conflict: User_on_conflict
+  ): User
+
+  # update data of the table: "AppliedJobs"
+  update_AppliedJobs(
+    # increments the integer columns with given value of the filtered values
+    _inc: AppliedJobs_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: AppliedJobs_set_input
+
+    # filter the rows which have to be updated
+    where: AppliedJobs_bool_exp!
+  ): AppliedJobs_mutation_response
+
+  # update single row of the table: "AppliedJobs"
+  update_AppliedJobs_by_pk(
+    # increments the integer columns with given value of the filtered values
+    _inc: AppliedJobs_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: AppliedJobs_set_input
+    pk_columns: AppliedJobs_pk_columns_input!
+  ): AppliedJobs
+
+  # update data of the table: "Jobs"
+  update_Jobs(
+    # increments the integer columns with given value of the filtered values
+    _inc: Jobs_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: Jobs_set_input
+
+    # filter the rows which have to be updated
+    where: Jobs_bool_exp!
+  ): Jobs_mutation_response
+
+  # update single row of the table: "Jobs"
+  update_Jobs_by_pk(
+    # increments the integer columns with given value of the filtered values
+    _inc: Jobs_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: Jobs_set_input
+    pk_columns: Jobs_pk_columns_input!
+  ): Jobs
+
+  # update data of the table: "User"
+  update_User(
+    # increments the integer columns with given value of the filtered values
+    _inc: User_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: User_set_input
+
+    # filter the rows which have to be updated
+    where: User_bool_exp!
+  ): User_mutation_response
+
+  # update single row of the table: "User"
+  update_User_by_pk(
+    # increments the integer columns with given value of the filtered values
+    _inc: User_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: User_set_input
+    pk_columns: User_pk_columns_input!
+  ): User
+}
+
+scalar numeric
+
+# expression to compare columns of type numeric. All fields are combined with logical 'AND'.
+input numeric_comparison_exp {
+  _eq: numeric
+  _gt: numeric
+  _gte: numeric
+  _in: [numeric!]
+  _is_null: Boolean
+  _lt: numeric
+  _lte: numeric
+  _neq: numeric
+  _nin: [numeric!]
+}
+
+# column ordering options
+enum order_by {
+  # in the ascending order, nulls last
+  asc
+
+  # in the ascending order, nulls first
+  asc_nulls_first
+
+  # in the ascending order, nulls last
+  asc_nulls_last
+
+  # in the descending order, nulls first
+  desc
+
+  # in the descending order, nulls first
+  desc_nulls_first
+
+  # in the descending order, nulls last
+  desc_nulls_last
+}
+
+# query root
+type query_root {
+  # fetch data from the table: "AppliedJobs"
+  AppliedJobs(
+    # distinct select on columns
+    distinct_on: [AppliedJobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [AppliedJobs_order_by!]
+
+    # filter the rows returned
+    where: AppliedJobs_bool_exp
+  ): [AppliedJobs!]!
+
+  # fetch aggregated fields from the table: "AppliedJobs"
+  AppliedJobs_aggregate(
+    # distinct select on columns
+    distinct_on: [AppliedJobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [AppliedJobs_order_by!]
+
+    # filter the rows returned
+    where: AppliedJobs_bool_exp
+  ): AppliedJobs_aggregate!
+
+  # fetch data from the table: "AppliedJobs" using primary key columns
+  AppliedJobs_by_pk(id: Int!): AppliedJobs
+
+  # fetch data from the table: "Jobs"
+  Jobs(
+    # distinct select on columns
+    distinct_on: [Jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [Jobs_order_by!]
+
+    # filter the rows returned
+    where: Jobs_bool_exp
+  ): [Jobs!]!
+
+  # fetch aggregated fields from the table: "Jobs"
+  Jobs_aggregate(
+    # distinct select on columns
+    distinct_on: [Jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [Jobs_order_by!]
+
+    # filter the rows returned
+    where: Jobs_bool_exp
+  ): Jobs_aggregate!
+
+  # fetch data from the table: "Jobs" using primary key columns
+  Jobs_by_pk(jobId: uuid!): Jobs
+
+  # fetch data from the table: "User"
+  User(
+    # distinct select on columns
+    distinct_on: [User_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [User_order_by!]
+
+    # filter the rows returned
+    where: User_bool_exp
+  ): [User!]!
+
+  # fetch aggregated fields from the table: "User"
+  User_aggregate(
+    # distinct select on columns
+    distinct_on: [User_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [User_order_by!]
+
+    # filter the rows returned
+    where: User_bool_exp
+  ): User_aggregate!
+
+  # fetch data from the table: "User" using primary key columns
+  User_by_pk(firebaseUuid: String!): User
+}
+
+# expression to compare columns of type String. All fields are combined with logical 'AND'.
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+# subscription root
+type subscription_root {
+  # fetch data from the table: "AppliedJobs"
+  AppliedJobs(
+    # distinct select on columns
+    distinct_on: [AppliedJobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [AppliedJobs_order_by!]
+
+    # filter the rows returned
+    where: AppliedJobs_bool_exp
+  ): [AppliedJobs!]!
+
+  # fetch aggregated fields from the table: "AppliedJobs"
+  AppliedJobs_aggregate(
+    # distinct select on columns
+    distinct_on: [AppliedJobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [AppliedJobs_order_by!]
+
+    # filter the rows returned
+    where: AppliedJobs_bool_exp
+  ): AppliedJobs_aggregate!
+
+  # fetch data from the table: "AppliedJobs" using primary key columns
+  AppliedJobs_by_pk(id: Int!): AppliedJobs
+
+  # fetch data from the table: "Jobs"
+  Jobs(
+    # distinct select on columns
+    distinct_on: [Jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [Jobs_order_by!]
+
+    # filter the rows returned
+    where: Jobs_bool_exp
+  ): [Jobs!]!
+
+  # fetch aggregated fields from the table: "Jobs"
+  Jobs_aggregate(
+    # distinct select on columns
+    distinct_on: [Jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [Jobs_order_by!]
+
+    # filter the rows returned
+    where: Jobs_bool_exp
+  ): Jobs_aggregate!
+
+  # fetch data from the table: "Jobs" using primary key columns
+  Jobs_by_pk(jobId: uuid!): Jobs
+
+  # fetch data from the table: "User"
+  User(
+    # distinct select on columns
+    distinct_on: [User_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [User_order_by!]
+
+    # filter the rows returned
+    where: User_bool_exp
+  ): [User!]!
+
+  # fetch aggregated fields from the table: "User"
+  User_aggregate(
+    # distinct select on columns
+    distinct_on: [User_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [User_order_by!]
+
+    # filter the rows returned
+    where: User_bool_exp
+  ): User_aggregate!
+
+  # fetch data from the table: "User" using primary key columns
+  User_by_pk(firebaseUuid: String!): User
+}
+
+# columns and relationships of "User"
+type User {
+  # An array relationship
+  AppliedJobs(
+    # distinct select on columns
+    distinct_on: [AppliedJobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [AppliedJobs_order_by!]
+
+    # filter the rows returned
+    where: AppliedJobs_bool_exp
+  ): [AppliedJobs!]!
+
+  # An aggregated array relationship
+  AppliedJobs_aggregate(
+    # distinct select on columns
+    distinct_on: [AppliedJobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [AppliedJobs_order_by!]
+
+    # filter the rows returned
+    where: AppliedJobs_bool_exp
+  ): AppliedJobs_aggregate!
+  emailId: String!
+  firebaseUuid: String!
+  firstName: String!
+  isEmailVerified: Boolean!
+  isPhoneVerified: Boolean!
+  isProfileCompleted: Boolean!
+  lastName: String!
+  phoneNumber: numeric!
+  profilePicture: String!
+  shortBio: String!
+  userId: Int!
+}
+
+# aggregated selection of "User"
+type User_aggregate {
+  aggregate: User_aggregate_fields
+  nodes: [User!]!
+}
+
+# aggregate fields of "User"
+type User_aggregate_fields {
+  avg: User_avg_fields
+  count(columns: [User_select_column!], distinct: Boolean): Int
+  max: User_max_fields
+  min: User_min_fields
+  stddev: User_stddev_fields
+  stddev_pop: User_stddev_pop_fields
+  stddev_samp: User_stddev_samp_fields
+  sum: User_sum_fields
+  var_pop: User_var_pop_fields
+  var_samp: User_var_samp_fields
+  variance: User_variance_fields
+}
+
+# order by aggregate values of table "User"
+input User_aggregate_order_by {
+  avg: User_avg_order_by
+  count: order_by
+  max: User_max_order_by
+  min: User_min_order_by
+  stddev: User_stddev_order_by
+  stddev_pop: User_stddev_pop_order_by
+  stddev_samp: User_stddev_samp_order_by
+  sum: User_sum_order_by
+  var_pop: User_var_pop_order_by
+  var_samp: User_var_samp_order_by
+  variance: User_variance_order_by
+}
+
+# input type for inserting array relation for remote table "User"
+input User_arr_rel_insert_input {
+  data: [User_insert_input!]!
+  on_conflict: User_on_conflict
+}
+
+# aggregate avg on columns
+type User_avg_fields {
+  phoneNumber: Float
+  userId: Float
+}
+
+# order by avg() on columns of table "User"
+input User_avg_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+# Boolean expression to filter rows from the table "User". All fields are combined with a logical 'AND'.
+input User_bool_exp {
+  AppliedJobs: AppliedJobs_bool_exp
+  _and: [User_bool_exp]
+  _not: User_bool_exp
+  _or: [User_bool_exp]
+  emailId: String_comparison_exp
+  firebaseUuid: String_comparison_exp
+  firstName: String_comparison_exp
+  isEmailVerified: Boolean_comparison_exp
+  isPhoneVerified: Boolean_comparison_exp
+  isProfileCompleted: Boolean_comparison_exp
+  lastName: String_comparison_exp
+  phoneNumber: numeric_comparison_exp
+  profilePicture: String_comparison_exp
+  shortBio: String_comparison_exp
+  userId: Int_comparison_exp
+}
+
+# unique or primary key constraints on table "User"
+enum User_constraint {
+  # unique or primary key constraint
+  User_pkey
+
+  # unique or primary key constraint
+  Users_firebaseUuid_key
+
+  # unique or primary key constraint
+  Users_phoneNumber_key
+}
+
+# input type for incrementing integer column in table "User"
+input User_inc_input {
+  phoneNumber: numeric
+  userId: Int
+}
+
+# input type for inserting data into table "User"
+input User_insert_input {
+  AppliedJobs: AppliedJobs_arr_rel_insert_input
+  emailId: String
+  firebaseUuid: String
+  firstName: String
+  isEmailVerified: Boolean
+  isPhoneVerified: Boolean
+  isProfileCompleted: Boolean
+  lastName: String
+  phoneNumber: numeric
+  profilePicture: String
+  shortBio: String
+  userId: Int
+}
+
+# aggregate max on columns
+type User_max_fields {
+  emailId: String
+  firebaseUuid: String
+  firstName: String
+  lastName: String
+  phoneNumber: numeric
+  profilePicture: String
+  shortBio: String
+  userId: Int
+}
+
+# order by max() on columns of table "User"
+input User_max_order_by {
+  emailId: order_by
+  firebaseUuid: order_by
+  firstName: order_by
+  lastName: order_by
+  phoneNumber: order_by
+  profilePicture: order_by
+  shortBio: order_by
+  userId: order_by
+}
+
+# aggregate min on columns
+type User_min_fields {
+  emailId: String
+  firebaseUuid: String
+  firstName: String
+  lastName: String
+  phoneNumber: numeric
+  profilePicture: String
+  shortBio: String
+  userId: Int
+}
+
+# order by min() on columns of table "User"
+input User_min_order_by {
+  emailId: order_by
+  firebaseUuid: order_by
+  firstName: order_by
+  lastName: order_by
+  phoneNumber: order_by
+  profilePicture: order_by
+  shortBio: order_by
+  userId: order_by
+}
+
+# response of any mutation on the table "User"
+type User_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [User!]!
+}
+
+# input type for inserting object relation for remote table "User"
+input User_obj_rel_insert_input {
+  data: User_insert_input!
+  on_conflict: User_on_conflict
+}
+
+# on conflict condition type for table "User"
+input User_on_conflict {
+  constraint: User_constraint!
+  update_columns: [User_update_column!]!
+  where: User_bool_exp
+}
+
+# ordering options when selecting data from "User"
+input User_order_by {
+  AppliedJobs_aggregate: AppliedJobs_aggregate_order_by
+  emailId: order_by
+  firebaseUuid: order_by
+  firstName: order_by
+  isEmailVerified: order_by
+  isPhoneVerified: order_by
+  isProfileCompleted: order_by
+  lastName: order_by
+  phoneNumber: order_by
+  profilePicture: order_by
+  shortBio: order_by
+  userId: order_by
+}
+
+# primary key columns input for table: "User"
+input User_pk_columns_input {
+  firebaseUuid: String!
+}
+
+# select columns of table "User"
+enum User_select_column {
+  # column name
+  emailId
+
+  # column name
+  firebaseUuid
+
+  # column name
+  firstName
+
+  # column name
+  isEmailVerified
+
+  # column name
+  isPhoneVerified
+
+  # column name
+  isProfileCompleted
+
+  # column name
+  lastName
+
+  # column name
+  phoneNumber
+
+  # column name
+  profilePicture
+
+  # column name
+  shortBio
+
+  # column name
+  userId
+}
+
+# input type for updating data in table "User"
+input User_set_input {
+  emailId: String
+  firebaseUuid: String
+  firstName: String
+  isEmailVerified: Boolean
+  isPhoneVerified: Boolean
+  isProfileCompleted: Boolean
+  lastName: String
+  phoneNumber: numeric
+  profilePicture: String
+  shortBio: String
+  userId: Int
+}
+
+# aggregate stddev on columns
+type User_stddev_fields {
+  phoneNumber: Float
+  userId: Float
+}
+
+# order by stddev() on columns of table "User"
+input User_stddev_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+# aggregate stddev_pop on columns
+type User_stddev_pop_fields {
+  phoneNumber: Float
+  userId: Float
+}
+
+# order by stddev_pop() on columns of table "User"
+input User_stddev_pop_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+# aggregate stddev_samp on columns
+type User_stddev_samp_fields {
+  phoneNumber: Float
+  userId: Float
+}
+
+# order by stddev_samp() on columns of table "User"
+input User_stddev_samp_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+# aggregate sum on columns
+type User_sum_fields {
+  phoneNumber: numeric
+  userId: Int
+}
+
+# order by sum() on columns of table "User"
+input User_sum_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+# update columns of table "User"
+enum User_update_column {
+  # column name
+  emailId
+
+  # column name
+  firebaseUuid
+
+  # column name
+  firstName
+
+  # column name
+  isEmailVerified
+
+  # column name
+  isPhoneVerified
+
+  # column name
+  isProfileCompleted
+
+  # column name
+  lastName
+
+  # column name
+  phoneNumber
+
+  # column name
+  profilePicture
+
+  # column name
+  shortBio
+
+  # column name
+  userId
+}
+
+# aggregate var_pop on columns
+type User_var_pop_fields {
+  phoneNumber: Float
+  userId: Float
+}
+
+# order by var_pop() on columns of table "User"
+input User_var_pop_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+# aggregate var_samp on columns
+type User_var_samp_fields {
+  phoneNumber: Float
+  userId: Float
+}
+
+# order by var_samp() on columns of table "User"
+input User_var_samp_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+# aggregate variance on columns
+type User_variance_fields {
+  phoneNumber: Float
+  userId: Float
+}
+
+# order by variance() on columns of table "User"
+input User_variance_order_by {
+  phoneNumber: order_by
+  userId: order_by
+}
+
+scalar uuid
+
+# expression to compare columns of type uuid. All fields are combined with logical 'AND'.
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+

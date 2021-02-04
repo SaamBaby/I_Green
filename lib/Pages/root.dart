@@ -15,7 +15,7 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   int _currentIndex = 0;
-   PageController _pageController;
+    PageController _pageController;
 
   @override
   void initState() {

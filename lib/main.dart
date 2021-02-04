@@ -1,12 +1,17 @@
+import 'package:Quete/models/Job.dart';
+import 'package:Quete/providers/appliedJobs_provider.dart';
+import 'package:Quete/providers/jobs_provider.dart';
+import 'package:Quete/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-import 'file:///C:/Users/SamBaby/georgian/Productive_Dev/android/i_green/lib/Pages/introduction/notConnected.dart';
-
+import 'Pages/home/JobDetails.dart';
 import 'Pages/introduction/OnBoard.dart';
 import 'Pages/introduction/Splash.dart';
+import 'Pages/introduction/notConnected.dart';
 import 'Pages/root.dart';
 import 'Utils/theme.dart';
 
@@ -30,7 +35,21 @@ void main() async {
       }
     });
 
-    runApp(new IGreen());
+    runApp(MultiProvider(providers: [
+      ChangeNotifierProvider(
+          create: (context) => UserProvider.initialize()),
+      ChangeNotifierProvider(
+        create: (context) => Jobs(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => JobModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => AppliedJobs(),
+      ),
+
+
+    ], child: new IGreen()));
   });
 }
 
@@ -45,8 +64,11 @@ class IGreen extends StatelessWidget {
       theme: theme(),
       home: _initialRoute,
       routes: {
-        'onBoard': (context) => onBoard(),
-        'notConnected': (context) => notConnected()
+        onBoard.routName: (context) => onBoard(),
+        JobDetails.routName: (context) => JobDetails(),
+        NotConnected.routName: (context) => NotConnected()
+
+//        'notConnected': (context) => NotConnected()
       },
     );
   }

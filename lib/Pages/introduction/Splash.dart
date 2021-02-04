@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import 'OnBoard.dart';
+import 'notConnected.dart';
 
 
 
@@ -20,12 +21,11 @@ class _SplashState extends State<Splash> {
     Timer( Duration( seconds: 2), (){
       if(connectivityResult == ConnectivityResult.mobile||connectivityResult == ConnectivityResult.wifi){
        print("Connected to Mobile Networks");
-//     Navigator.of(context).pushReplacementNamed('onBoard');
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> onBoard()));
+      Navigator.of(context).pushNamed(onBoard.routName);
       }
       else{
         print("Not connected to Mobile Networks");
-        Navigator.of(context).pushReplacementNamed('notConnected');}
+        Navigator.of(context).pushReplacementNamed(NotConnected.routName);}
     });
   }
 
