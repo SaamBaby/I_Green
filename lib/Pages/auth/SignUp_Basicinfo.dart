@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/models/User.dart';
-import 'package:Quete/providers/user_provider.dart';
+import 'package:Quete/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -148,11 +148,13 @@ class SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider =Provider.of<UserProvider>(context);
+    var userProvider =Provider.of<AuthProvider>(context);
     _onPressed() async {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        await userProvider.UpdateUser(user);
+        await userProvider.updateUser(user);
+
+
         Navigator.push(
             context,
             MaterialPageRoute(

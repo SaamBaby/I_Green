@@ -1,7 +1,8 @@
 import 'package:Quete/Pages/auth/SignUp_Basicinfo.dart';
 import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/models/User.dart';
-import 'package:Quete/providers/user_provider.dart';
+import 'package:Quete/models/http_exception.dart';
+import 'package:Quete/providers/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -133,13 +134,51 @@ class SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider =Provider.of<UserProvider>(context);
-    _onPressed() async {
+    var userProvider =Provider.of<AuthProvider>(context);
+    void _showErrorDialog(String message){
+      showDialog(context:context, builder:(context)=>AlertDialog(
+        title: Text("An error occurred during the process "),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: (){Navigator.of(context).pop();},
+            child: Text("Okay"),
+          )
+        ],
+
+      ));
+    }
+     _onPressed() {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        await userProvider.signUp(user);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BasicInfo()));
+        userProvider.signUp(user).then((value) {
+          if(value!=null){
+            var errorMessage="Please try again later";
+            if(value.contains('EMAIL_EXISTS')){
+              errorMessage = "This Email address already exists";
+            }else if (value.contains('TOO_MANY_ATTEMPTS_TRY_LATER')) {
+              errorMessage = "Too many attempts to login ";
+            } else if (value.contains('INVALID_ID_TOKEN')) {
+              errorMessage = "Invalid Id";
+            } else if (value.contains('WEAK_PASSWORD')) {
+              errorMessage = "Weak password";
+            } else if (value.contains('INVALID_EMAIL')) {
+              errorMessage = "Invalid Email address";
+            } else if (value.contains('INVALID_PASSWORD')) {
+              errorMessage = "Invalid Password";
+            }
+            _showErrorDialog(errorMessage);
+          }
+
+        }).catchError((onError){
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BasicInfo()));
+
+        });
+
+
       }
     }
 

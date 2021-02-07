@@ -1,6 +1,7 @@
 import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/models/User.dart';
-import 'package:Quete/providers/user_provider.dart';
+import 'package:Quete/models/http_exception.dart';
+import 'package:Quete/providers/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -54,44 +55,43 @@ class body extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
 
     return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-                right: getProportionateScreenWidth(30, mediaQuery),
-                left: getProportionateScreenWidth(30, mediaQuery),
-                top: getProportionateScreenWidth(2, mediaQuery)),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  " Welcome Back !",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Futura Heavy',
-                      color: Colors.black,
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 1,
-                ),
-                Text(
-                  "Sign in with your username and password  \n or continue using our social login  ",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Futura Book',
-                      color: Colors.black.withOpacity(.5),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: 50),
-                SignInForm()
-              ],
+      child: Padding(
+        padding: EdgeInsets.only(
+            right: getProportionateScreenWidth(30, mediaQuery),
+            left: getProportionateScreenWidth(30, mediaQuery),
+            top: getProportionateScreenWidth(2, mediaQuery)),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 40,
             ),
-          ),
-        );
-
+            Text(
+              " Welcome Back !",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: 'Futura Heavy',
+                  color: Colors.black,
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 1,
+            ),
+            Text(
+              "Sign in with your username and password  \n or continue using our social login  ",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: 'Futura Book',
+                  color: Colors.black.withOpacity(.5),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700),
+            ),
+            SizedBox(height: 50),
+            SignInForm()
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -136,24 +136,55 @@ class SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
     var isCheck = false;
-    var userProvider = Provider.of<UserProvider>(context);
+    var userProvider = Provider.of<AuthProvider>(context);
+    void _showErrorDialog(String message){
+      showDialog(context:context, builder:(context)=>AlertDialog(
+        title: Text("An error occurred during the process "),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: (){Navigator.of(context).pop();},
+            child: Text("Okay"),
+          )
+        ],
+
+      ));
+    }
     _onPressed() async {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        print(user.email);
-        print(user.password);
 
-        await userProvider.signIn(user);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Root()));
-      }
+        try {
+          await userProvider.signIn(user);
+        } on HttpException catch (e) {
+          var errorMessage = "Authentication Failed";
+          if (e.toString().contains('EMAIL_EXISTS')) {
+            errorMessage = "This Email address already exists";
+          } else if (e.toString().contains('TOO_MANY_ATTEMPTS_TRY_LATER')) {
+            errorMessage = "Too many attempts to login ";
+          } else if (e.toString().contains('INVALID_ID_TOKEN')) {
+            errorMessage = "Invalid Id";
+          } else if (e.toString().contains('WEAK_PASSWORD')) {
+            errorMessage = "Weak password";
+          } else if (e.toString().contains('INVALID_EMAIL')) {
+            errorMessage = "Invalid Email address";
+          } else if (e.toString().contains('INVALID_PASSWORD')) {
+            errorMessage = "Invalid Password";
+          }
+          _showErrorDialog(errorMessage);
+        } catch (e) {
+          if ((e.toString()).contains('called on null')) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Root()));
+          }
+        }}
     }
+
     return Form(
         key: _formKey,
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-
               buildEmailFormField(),
               SizedBox(
                 height: 20,
@@ -203,7 +234,6 @@ class SignInFormState extends State<SignInForm> {
                 highlightColor: Colors.transparent,
                 onTap: () {
                   _onPressed();
-
                 },
                 child: AnimatedContainer(
                     margin: EdgeInsets.only(bottom: 10),
@@ -266,17 +296,12 @@ class SignInFormState extends State<SignInForm> {
             ]));
   }
 
-
-
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
       validator: passwordValidator,
       onSaved: (value) {
-        user = UserModel(
-          password: value,
-          email: user.email
-        );
+        user = UserModel(password: value, email: user.email);
       },
       decoration: InputDecoration(
         labelText: "Password",
@@ -292,15 +317,12 @@ class SignInFormState extends State<SignInForm> {
       ),
     );
   }
+
   TextFormField buildEmailFormField() {
     return TextFormField(
-
       validator: emailValidator,
       onSaved: (value) {
-        user = UserModel(
-          email: value,
-          password: user.password
-        );
+        user = UserModel(email: value, password: user.password);
       },
       decoration: InputDecoration(
         labelText: "Email",
@@ -316,7 +338,6 @@ class SignInFormState extends State<SignInForm> {
       ),
     );
   }
-
 }
 
 class socialCard extends StatelessWidget {

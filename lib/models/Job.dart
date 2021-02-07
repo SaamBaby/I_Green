@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class JobModel  with ChangeNotifier{
   final String jobId;
@@ -18,7 +20,7 @@ class JobModel  with ChangeNotifier{
   JobModel(
       {
       this.jobId,
-      this.isFavourite=false,
+      this.isFavourite= false,
       this.jobName,
       this.jobDescription,
       this.jobResponsibilities,
@@ -30,8 +32,22 @@ class JobModel  with ChangeNotifier{
       this.isContract,
       this.isUrgent,
       this.jobSalary});
-  void toggleFavoriteStatus(){
+  void toggleFavoriteStatus(String id) async{
+    final oldFavourite= isFavourite;
     isFavourite=!isFavourite;
     notifyListeners();
+    final  url = 'https://igreen-458f7-default-rtdb.firebaseio.com/available_jobs/$id.json';
+//    try{
+//      await http.patch(url,body:json.encode({
+//        'isFavourite':isFavourite
+//      }),
+//
+//    );
+//      print(isFavourite);
+//    }
+//    catch(error){
+//      isFavourite=oldFavourite;
+//      print(error);
+//    }
   }
 }

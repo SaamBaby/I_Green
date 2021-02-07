@@ -1,7 +1,7 @@
 import 'package:Quete/models/Job.dart';
 import 'package:Quete/providers/appliedJobs_provider.dart';
 import 'package:Quete/providers/jobs_provider.dart';
-import 'package:Quete/providers/user_provider.dart';
+import 'package:Quete/providers/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,6 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     WidgetsFlutterBinding.ensureInitialized();
-
     await Firebase.initializeApp();
 
     FirebaseAuth.instance.authStateChanges().listen((event) {
@@ -34,10 +33,11 @@ void main() async {
         _initialRoute = Root();
       }
     });
+    
 
     runApp(MultiProvider(providers: [
       ChangeNotifierProvider(
-          create: (context) => UserProvider.initialize()),
+          create: (context) => AuthProvider()),
       ChangeNotifierProvider(
         create: (context) => Jobs(),
       ),
@@ -53,16 +53,15 @@ void main() async {
   });
 }
 
-// Portraitmode mixin  is to force the app to be on portrait mode if the orientation is not in portrait
 class IGreen extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return Consumer<AuthProvider>( builder: (context,auth,_)=>MaterialApp(
       title: 'I Green',
       debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: _initialRoute,
+      home: auth.isAuth?Root():Splash(),
       routes: {
         onBoard.routName: (context) => onBoard(),
         JobDetails.routName: (context) => JobDetails(),
@@ -70,6 +69,6 @@ class IGreen extends StatelessWidget {
 
 //        'notConnected': (context) => NotConnected()
       },
-    );
+    ));
   }
 }

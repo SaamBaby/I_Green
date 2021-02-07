@@ -471,7 +471,7 @@ class _JobDetailsState extends State<JobDetails> {
                           builder: (context, jobData, _) => GestureDetector(
                             onTap: () {
                               print(jobData.isFavourite);
-                              jobData.toggleFavoriteStatus();
+                              jobData.toggleFavoriteStatus(jobId);
                             },
                             child: Container(
                               width: 50.0,
@@ -482,10 +482,10 @@ class _JobDetailsState extends State<JobDetails> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Icon(
-                                  jobData.isFavourite
+                                  loadedJobData.isFavourite
                                       ? Icons.bookmark
                                       : Icons.bookmark_border,
-                                  color: jobData.isFavourite
+                                  color: loadedJobData.isFavourite
                                       ? Colors.lightGreenAccent
                                       : Colors.black),
                             ),
