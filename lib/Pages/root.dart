@@ -34,7 +34,7 @@ class _RootState extends State<Root> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        toolbarHeight: 50,
+        toolbarHeight: 30,
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

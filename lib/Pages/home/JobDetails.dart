@@ -19,8 +19,8 @@ class _JobDetailsState extends State<JobDetails> {
   @override
   Widget build(BuildContext context) {
     final jobId = ModalRoute.of(context).settings.arguments as String;
-    final loadedJobData = Provider.of<Jobs>(context, listen: false)
-        .items
+    final loadedJobData = Provider.of<Jobs>(context, listen: true)
+        .itemsList
         .firstWhere((element) => element.jobId == jobId);
 
     return DefaultTabController(
@@ -503,7 +503,7 @@ class _JobDetailsState extends State<JobDetails> {
                                 try {
                                   Provider.of<AppliedJobs>(context,
                                           listen: false)
-                                      .addJob(jobId);
+                                      .applyJob(jobId);
                                 } catch (error) {
                                   showDialog(
                                       context: (context),

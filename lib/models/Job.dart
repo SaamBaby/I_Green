@@ -37,17 +37,18 @@ class JobModel  with ChangeNotifier{
     isFavourite=!isFavourite;
     notifyListeners();
     final  url = 'https://igreen-458f7-default-rtdb.firebaseio.com/available_jobs/$id.json';
-//    try{
-//      await http.patch(url,body:json.encode({
-//        'isFavourite':isFavourite
-//      }),
-//
-//    );
-//      print(isFavourite);
-//    }
-//    catch(error){
-//      isFavourite=oldFavourite;
-//      print(error);
-//    }
+    try{
+      await http.patch(url,body:json.encode({
+        'isFavourite':isFavourite
+      }),
+        
+
+    ).then((value) => {print(value.body)});
+      print(isFavourite);
+    }
+    catch(error){
+      isFavourite=oldFavourite;
+      print(error);
+    }
   }
 }

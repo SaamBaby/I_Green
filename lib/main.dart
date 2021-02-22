@@ -1,7 +1,10 @@
+import 'package:Quete/Pages/schedule/AddHours.dart';
 import 'package:Quete/models/Job.dart';
+import 'package:Quete/Pages/auth/Login.dart';
 import 'package:Quete/providers/appliedJobs_provider.dart';
 import 'package:Quete/providers/jobs_provider.dart';
 import 'package:Quete/providers/auth_provider.dart';
+import 'package:Quete/providers/shifts.schedule.provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +16,9 @@ import 'Pages/introduction/OnBoard.dart';
 import 'Pages/introduction/Splash.dart';
 import 'Pages/introduction/notConnected.dart';
 import 'Pages/root.dart';
+import 'Utils/session.service.dart';
 import 'Utils/theme.dart';
 
-Widget _initialRoute;
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
@@ -26,26 +29,25 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
 
-    FirebaseAuth.instance.authStateChanges().listen((event) {
-      if (event == null) {
-        _initialRoute = Splash();
-      } else {
-        _initialRoute = Root();
-      }
-    });
-    
+
 
     runApp(MultiProvider(providers: [
       ChangeNotifierProvider(
-          create: (context) => AuthProvider()),
-      ChangeNotifierProvider(
-        create: (context) => Jobs(),
+          create: (context) => AuthProvider.initialize()),
+      ChangeNotifierProxyProvider<AuthProvider,Jobs>(
+        update: (context,auth,previousState) => Jobs(auth.idToken,previousState==null?{}:previousState.items),
       ),
       ChangeNotifierProvider(
-        create: (context) => JobModel(),
+        create: (context,) =>  JobModel(),
+      ),
+      ChangeNotifierProxyProvider<AuthProvider,ShiftProvider>(
+        update: (context,auth,previousState) => ShiftProvider(auth.idToken,previousState==null?{}:previousState.items),
+      ),
+      ChangeNotifierProxyProvider<AuthProvider,AppliedJobs>(
+        update: (context,auth,previousState) => AppliedJobs(auth.idToken,previousState==null?{}:previousState.items),
       ),
       ChangeNotifierProvider(
-        create: (context) => AppliedJobs(),
+        create: (context) => SessionService(),
       ),
 
 
@@ -61,14 +63,31 @@ class IGreen extends StatelessWidget {
       title: 'I Green',
       debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: auth.isAuth?Root():Splash(),
+      home: ScreensController(),
       routes: {
         onBoard.routName: (context) => onBoard(),
         JobDetails.routName: (context) => JobDetails(),
-        NotConnected.routName: (context) => NotConnected()
+        NotConnected.routName: (context) => NotConnected(),
+        AddHours.routName:(context)=> AddHours()
 
 //        'notConnected': (context) => NotConnected()
       },
     ));
+  }
+}
+class ScreensController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+    switch (auth.status) {
+      case Status.Uninitialized:
+        return Splash();
+      case Status.Unauthenticated:
+      case Status.Authenticating:
+        return Login();
+      case Status.Authenticated:
+        return Root();
+
+    }
   }
 }

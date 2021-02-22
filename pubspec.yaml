@@ -18,22 +18,27 @@ dependencies:
   auto_size_text: ^2.1.0
   font_awesome_flutter: ^8.10.0
   bottom_navy_bar: ^5.6.0
-  smooth_star_rating: 1.1.1
   table_calendar: ^2.3.3
-  firebase_core: "^0.7.0"
-  firebase_auth: "^0.20.0+1"
   graphql: ^3.0.0
   http: "0.12.2"
   form_field_validator: ^1.0.1
   graphql_flutter: ^3.0.0
-  google_maps_webservice:
+  uuid: ^2.2.2
   stream_transform: ^1.2.0
+  #firebase
+  firebase_core: "^0.7.0"
+  firebase_auth: "^0.20.0+1"
   cloud_firestore: "^0.16.0"
+  #    cloud_functions: "^0.9.0"
+  #    firebase_storage: "^7.0.0"
+  #    firebase_messaging: "^8.0.0-dev.14"
+  # location
+  flutter_google_places: ^0.2.6
+  google_maps_webservice:
+  google_maps_flutter: ^1.2.0
+  geolocator:
 
 
-#    cloud_functions: "^0.9.0"
-#    firebase_storage: "^7.0.0"
-#    firebase_messaging: "^8.0.0-dev.14"
 
 
 
@@ -62,7 +67,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/introduction/
+    - assets/images/Schedule/
     - assets/icons/
+    - assets/utils/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'package:Quete/Utils/const.dart';
+import 'package:Quete/Utils/session.service.dart';
 import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/models/User.dart';
 import 'package:Quete/providers/auth_provider.dart';
@@ -9,16 +10,16 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
 import 'package:stream_transform/stream_transform.dart';
-
 import 'OTP_Verification.dart';
 
 class BasicInfo extends StatefulWidget {
   @override
   _BasicInfoState createState() => _BasicInfoState();
 }
-
+const String _kGoogleApiKey = Constants.locationAPI;
 class _BasicInfoState extends State<BasicInfo> {
   get mediaQuery => MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +105,7 @@ class SignUpForm extends StatefulWidget {
 
 class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  static var _kGoogleApiKey = "AIzaSyACcwHClXpnQmR20ZSCOPuamWCK8CFB6ZE";
-  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: _kGoogleApiKey);
+
 
   final fieldValidator = MultiValidator([
     RequiredValidator(errorText: 'This field is required'),
@@ -120,9 +120,12 @@ class SignUpFormState extends State<SignUpForm> {
         errorText: 'passwords must have at least one special character')
   ]);
   final _controllerAddress = TextEditingController();
-
+  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: _kGoogleApiKey);
+  // ignore: close_sinks
+  StreamController<String> streamController = StreamController<String>();
+  final places = List<Prediction>();
+  String _tempAddress;
   FocusNode _focusUnit;
-
   var user = UserModel(
       firstName: '',
       lastName: '',
@@ -132,9 +135,14 @@ class SignUpFormState extends State<SignUpForm> {
       password: '',
       id: '');
 
+
+
   @override
   void initState() {
     _focusUnit = FocusNode();
+    streamController.stream
+        .debounce(Duration(milliseconds: 250))
+        .listen((s) => _validateValues());
     super.initState();
   }
 
@@ -144,7 +152,21 @@ class SignUpFormState extends State<SignUpForm> {
     super.dispose();
   }
 
+  _validateValues() async {
+    var text = _controllerAddress.text;
 
+    var placesAutocomplete = await _places.autocomplete(text,
+        language: 'en',
+        sessionToken:
+        Provider.of<SessionService>(context, listen: false).session,
+        types: ['address'],
+        region: 'CA');
+
+    places.clear();
+    setState(() {
+      places.addAll(placesAutocomplete.predictions);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +183,7 @@ class SignUpFormState extends State<SignUpForm> {
                 builder: (context) => OtpVerification()));
       }
     }
+
     return Form(
         key: _formKey,
         child: Column(
@@ -178,6 +201,92 @@ class SignUpFormState extends State<SignUpForm> {
               SizedBox(height: 20),
 
               _adressFormField(),
+              if (places.length != 0)
+                Container(
+                  margin: EdgeInsets.only(top: 16),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(.09),
+                            offset: Offset(0, 3),
+                            blurRadius: 6)
+                      ]),
+                  child: ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: places.length ?? 0,
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Divider(),
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        final p = places[index];
+
+                        return ListTile(
+                          //Todo:
+                          trailing: p.distanceMeters != null
+                              ? Text(p.distanceMeters.toString())
+                              : null,
+                          leading: CircleAvatar(
+                              backgroundColor: Colors.blueAccent,
+                              child: Icon(
+                                Icons.location_on,
+                                size: 15,
+                              )),
+                          title: Text(p.structuredFormatting.mainText),
+                          subtitle: Text(p.structuredFormatting.secondaryText),
+                          onTap: () async {
+                            setState(() {
+                              _controllerAddress.text = p.description;
+                              places.clear();
+                            });
+
+                            Future.delayed(Duration(milliseconds: 100),
+                                    () => _focusUnit.requestFocus());
+
+                            final place =
+                                (await _places.getDetailsByPlaceId(p.placeId))
+                                    .result;
+
+                            final streetNumber = place.addressComponents
+                                .singleWhere(
+                                    (element) =>
+                                    element.types.contains('street_number'),
+                                orElse: () => null);
+                            final route = place.addressComponents.singleWhere(
+                                    (element) => element.types.contains('route'),
+                                orElse: () => null);
+                            final neighborhood = place.addressComponents
+                                .singleWhere(
+                                    (element) =>
+                                    element.types.contains('neighborhood'),
+                                orElse: () => null);
+                            final locality = place.addressComponents
+                                .singleWhere(
+                                    (element) =>
+                                    element.types.contains('locality'),
+                                orElse: () => null);
+                            final administrativeAreaLevel1 =
+                            place.addressComponents.singleWhere(
+                                    (element) => element.types.contains(
+                                    'administrative_area_level_2'),
+                                orElse: () => null);
+                            final administrativeAreaLevel2 =
+                            place.addressComponents.singleWhere(
+                                    (element) => element.types.contains(
+                                    'administrative_area_level_1'),
+                                orElse: () => null);
+                            final postalCode = place.addressComponents
+                                .singleWhere(
+                                    (element) =>
+                                    element.types.contains('postal_code'),
+                                orElse: () => null);
+                          },
+                        );
+                      }),
+                ),
               SizedBox(
                 height: 20,
               ),
@@ -302,6 +411,14 @@ class SignUpFormState extends State<SignUpForm> {
   TextFormField _adressFormField() {
     return TextFormField(
       keyboardType: TextInputType.streetAddress,
+      autofocus: true,
+      textInputAction: TextInputAction.next,
+      controller: _controllerAddress,
+      onChanged: (text) async {
+        if (_tempAddress == text) return;
+        _tempAddress = text;
+        streamController.add(text);
+      },
       onSaved: (value) {
         user = UserModel(
             email: user.email,

@@ -21,8 +21,6 @@ class _ApplicationsState extends State<Applications> {
   }
 
 
-
-
   @override
   Widget build(BuildContext context) {
     final loadedAppliedJobs= Provider.of<AppliedJobs>(context).items;
@@ -33,31 +31,33 @@ class _ApplicationsState extends State<Applications> {
         appBar: buildAppBar(context),
         body: TabBarView(
           children: [
-            Container(
-                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                  color: Colors.white,
-                  child: Column(
-                    children: [
+            SingleChildScrollView(
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                    color: Colors.white,
+                    child: Column(
+                      children: [
 
-                      Container(
-                        child:  ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount:loadedAppliedJobs.length ,
-                          itemBuilder: (BuildContext context, int index) =>
-                              Visibility(
-                                  visible: (!loadedAppliedJobs.values.toList()[index].isApproved),
-                                  child: AppliedJobsCard(
-                                    date: loadedAppliedJobs.values.toList()[index].appliedDate, jobId:loadedAppliedJobs.values.toList()[index].jobId ,)
-                              ),
+                        Container(
+                          child:  ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: Provider.of<AppliedJobs>(context).notApprovedJobsCount(),
+                            itemBuilder: (BuildContext context, int index) =>
+                                Visibility(
+                                    visible: (!loadedAppliedJobs.values.toList()[index].isApproved),
+                                    child: AppliedJobsCard(
+                                      date: loadedAppliedJobs.values.toList()[index].appliedDate, jobId:loadedAppliedJobs.values.toList()[index].jobId ,)
+                                ),
 
 
+                          ),
                         ),
-                      ),
 
-                    ],
-                  )
-                ),
+                      ],
+                    )
+                  ),
+            ),
             Center(
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -69,7 +69,7 @@ class _ApplicationsState extends State<Applications> {
                         child:  ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          itemCount: loadedAppliedJobs.length ,
+                          itemCount: Provider.of<AppliedJobs>(context).notApprovedJobsCount(),
                           itemBuilder: (BuildContext context, int index) =>
                               Visibility(
                                   visible:loadedAppliedJobs.values.toList()[index].isApproved,
@@ -95,7 +95,7 @@ class _ApplicationsState extends State<Applications> {
 
       backgroundColor: Colors.white,
       elevation: 0,
-      centerTitle: false,
+      centerTitle: true,
       brightness: Brightness.light,
       title: Text("Applications",
           style: TextStyle(
@@ -123,7 +123,7 @@ class _ApplicationsState extends State<Applications> {
           child: Align(
             alignment: Alignment.topRight,
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
+              margin: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
@@ -154,7 +154,7 @@ class _ApplicationsState extends State<Applications> {
                         ),
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text("Applied (35)",
+                          child: Text("Applied (${Provider.of<AppliedJobs>(context).notApprovedJobsCount()})",
                               style: TextStyle(
                                   fontFamily: 'Futura Book',
                                   color: Colors.black,
@@ -170,7 +170,7 @@ class _ApplicationsState extends State<Applications> {
                         ),
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text("Approved (15)",
+                          child:Text("Approved (${Provider.of<AppliedJobs>(context).approvedJobsCount()})",
                               style:TextStyle(
                                   fontFamily: 'Futura Book',
                                   color: Colors.black,

@@ -5,40 +5,41 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class Jobs extends ChangeNotifier {
-  List<JobModel> loadedAppliedJobs = [];
-  List<JobModel> _items = [];
+  Map<String, JobModel> _items = {};
+  var authToken;
 
-  List<JobModel> get items {
-    return [..._items];
+  Jobs(this.authToken, this._items);
+
+  Map<String, JobModel> get items{
+    return {..._items};
+  }
+  List<JobModel> get itemsList {
+    fetchAvailableJobs();
+    return {..._items}.values.toList();
   }
 
-  Future<void> fetchAppliedJobs() async {
-    const url =
-        'https://igreen-458f7-default-rtdb.firebaseio.com/available_jobs.json';
+  Future<void> fetchAvailableJobs() async {
+    final  url =
+        'https://igreen-458f7-default-rtdb.firebaseio.com/available_jobs.json?auth=$authToken';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-
-      print(response.statusCode);
-
       extractedData.forEach((id, appliedJobsData) {
-        _items.add(
-          JobModel(
-            jobId: id,
-            jobName: appliedJobsData['jobName'],
-            jobDescription: appliedJobsData['jobDescription'],
-            jobLocation: appliedJobsData['jobLocation'],
-            jobLogo: appliedJobsData['jobLogo'],
-            jobQualifications: appliedJobsData['jobQualifications'],
-            jobSalary: double.parse(appliedJobsData['jobSalary']),
-            jobResponsibilities: appliedJobsData['jobResponsibilities'],
-            isContract: appliedJobsData['isContract'],
-            isFullTime: appliedJobsData['isFullTime'],
-            isUrgent: appliedJobsData['isUrgent'],
-            isPartTime: appliedJobsData['isPartTime'],
-            isFavourite: appliedJobsData['isFavourite'],
-          ),
-        );
+        _items.putIfAbsent(id, () => JobModel(
+          jobId: id,
+          jobName: appliedJobsData['jobName'],
+          jobDescription: appliedJobsData['jobDescription'],
+          jobLocation: appliedJobsData['jobLocation'],
+          jobLogo: appliedJobsData['jobLogo'],
+          jobQualifications: appliedJobsData['jobQualifications'],
+          jobSalary: double.parse(appliedJobsData['jobSalary']),
+          jobResponsibilities: appliedJobsData['jobResponsibilities'],
+          isContract: appliedJobsData['isContract'],
+          isFullTime: appliedJobsData['isFullTime'],
+          isUrgent: appliedJobsData['isUrgent'],
+          isPartTime: appliedJobsData['isPartTime'],
+          isFavourite: appliedJobsData['isFavourite'],
+        ),);
         notifyListeners();
       });
     } catch (error) {
@@ -49,11 +50,11 @@ class Jobs extends ChangeNotifier {
   }
 
   List<JobModel> get urgentJobs {
-    return _items.where((element) => element.isUrgent).toList();
+    return itemsList.where((element) => element.isUrgent).toList();
   }
 
   JobModel getJobById(String id) {
-    return _items.firstWhere((element) => element.jobId == id);
+    return itemsList.firstWhere((element) => element.jobId == id);
   }
 
   void addJobs() {

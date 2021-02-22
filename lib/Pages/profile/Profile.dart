@@ -106,7 +106,8 @@ class Profile extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: (){
-
+                    userProvider.signOut();
+//                    userProvider.onStateChanged();
                   },
                   child: Text("Logout",
                     style: TextStyle(

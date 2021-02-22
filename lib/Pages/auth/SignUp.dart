@@ -1,7 +1,6 @@
 import 'package:Quete/Pages/auth/SignUp_Basicinfo.dart';
 import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/models/User.dart';
-import 'package:Quete/models/http_exception.dart';
 import 'package:Quete/providers/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _appBar(),
-      resizeToAvoidBottomPadding: false,
+      appBar: _appBar(),resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       body: body(),
     );
@@ -154,27 +152,29 @@ class SignUpFormState extends State<SignUpForm> {
         userProvider.signUp(user).then((value) {
           if(value!=null){
             var errorMessage="Please try again later";
-            if(value.contains('EMAIL_EXISTS')){
+            if(value.contains('firebase_auth/email-already-in-use')){
               errorMessage = "This Email address already exists";
-            }else if (value.contains('TOO_MANY_ATTEMPTS_TRY_LATER')) {
-              errorMessage = "Too many attempts to login ";
-            } else if (value.contains('INVALID_ID_TOKEN')) {
+            }else if (value.contains('auth/wrong-password')) {
+              errorMessage = "Wrong Password ";
+            } else if (value.contains('auth/invalid-user-token')) {
               errorMessage = "Invalid Id";
-            } else if (value.contains('WEAK_PASSWORD')) {
-              errorMessage = "Weak password";
-            } else if (value.contains('INVALID_EMAIL')) {
+            } else if (value.contains('auth/network-request-failed')) {
+              errorMessage = "No Network Connectivity";
+            } else if (value.contains('invalid-email')) {
               errorMessage = "Invalid Email address";
-            } else if (value.contains('INVALID_PASSWORD')) {
-              errorMessage = "Invalid Password";
+            } else if (value.contains('auth/null-user')) {
+              errorMessage = "User Credentials Not Found";
             }
             _showErrorDialog(errorMessage);
+          }else{
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BasicInfo()));
           }
 
         }).catchError((onError){
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => BasicInfo()));
+          print(onError.toString());
 
         });
 

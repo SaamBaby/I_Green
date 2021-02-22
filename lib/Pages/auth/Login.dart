@@ -1,6 +1,5 @@
 import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/models/User.dart';
-import 'package:Quete/models/http_exception.dart';
 import 'package:Quete/providers/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -8,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
-
 import '../root.dart';
 import 'ForgotPassword.dart';
 import 'SignUp.dart';
@@ -102,10 +101,17 @@ class SignInForm extends StatefulWidget {
   }
 }
 
+const String _kGoogleApiKey = 'AIzaSyA2qmfY7TLkwQuKPFXL2CtpRLg4w3SWeVI';
+
 class SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
+
+  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: _kGoogleApiKey);
+
   TextEditingController controllerPassword = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerAddress = TextEditingController();
+
   var user = UserModel(
       firstName: '',
       lastName: '',
@@ -137,47 +143,52 @@ class SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     var isCheck = false;
     var userProvider = Provider.of<AuthProvider>(context);
-    void _showErrorDialog(String message){
-      showDialog(context:context, builder:(context)=>AlertDialog(
-        title: Text("An error occurred during the process "),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: (){Navigator.of(context).pop();},
-            child: Text("Okay"),
-          )
-        ],
-
-      ));
+    void _showErrorDialog(String message) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("An error occurred during the process "),
+                content: Text(message),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Okay"),
+                  )
+                ],
+              ));
     }
+
     _onPressed() async {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-
-        try {
-          await userProvider.signIn(user);
-        } on HttpException catch (e) {
-          var errorMessage = "Authentication Failed";
-          if (e.toString().contains('EMAIL_EXISTS')) {
-            errorMessage = "This Email address already exists";
-          } else if (e.toString().contains('TOO_MANY_ATTEMPTS_TRY_LATER')) {
-            errorMessage = "Too many attempts to login ";
-          } else if (e.toString().contains('INVALID_ID_TOKEN')) {
-            errorMessage = "Invalid Id";
-          } else if (e.toString().contains('WEAK_PASSWORD')) {
-            errorMessage = "Weak password";
-          } else if (e.toString().contains('INVALID_EMAIL')) {
-            errorMessage = "Invalid Email address";
-          } else if (e.toString().contains('INVALID_PASSWORD')) {
-            errorMessage = "Invalid Password";
-          }
-          _showErrorDialog(errorMessage);
-        } catch (e) {
-          if ((e.toString()).contains('called on null')) {
+        await userProvider.signIn(user).then((value) {
+          print(value);
+          if (value != null) {
+            var errorMessage = value;
+            if (value.contains('firebase_auth/email-already-in-use')) {
+              errorMessage = "This Email address already exists";
+            } else if (value.contains('TOO_MANY_ATTEMPTS_TRY_LATER')) {
+              errorMessage = "Too many attempts to login ";
+            } else if (value.contains('INVALID_ID_TOKEN')) {
+              errorMessage = "Invalid Id";
+            } else if (value.contains('WEAK_PASSWORD')) {
+              errorMessage = "Weak password";
+            } else if (value.contains('INVALID_EMAIL')) {
+              errorMessage = "Invalid Email address";
+            } else if (value.contains('firebase_auth/wrong-password')) {
+              errorMessage = "Invalid Password";
+            }
+            _showErrorDialog(errorMessage);
+          } else {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Root()));
           }
-        }}
+        }).catchError((onError) {
+          print(onError.toString());
+        });
+      }
     }
 
     return Form(
@@ -190,6 +201,7 @@ class SignInFormState extends State<SignInForm> {
                 height: 20,
               ),
               buildPasswordFormField(),
+              SizedBox(height: 20),
               SizedBox(height: 20),
               Row(
                 children: [

@@ -184,11 +184,6 @@ class UrgentJobCard extends StatelessWidget {
 
 
 class JobCard extends StatelessWidget {
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     final jobData = Provider.of<JobModel>(context);
@@ -250,7 +245,7 @@ class JobCard extends StatelessWidget {
                               " contract,".toUpperCase(),
                               style: TextStyle(
                                   fontFamily: 'Futura Heavy',
-                                  color: Color(0xFFa6e76c),
+                                  color: Color(0xFF00bf6f),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900),
                             ),
@@ -264,7 +259,7 @@ class JobCard extends StatelessWidget {
                               " Full-time,".toUpperCase(),
                               style: TextStyle(
                                   fontFamily: 'Futura Heavy',
-                                  color: Color(0xFFa6e76c),
+                                  color: Color(0xFF00bf6f),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900),
                             ),
@@ -278,7 +273,7 @@ class JobCard extends StatelessWidget {
                               " Part-time".toUpperCase(),
                               style: TextStyle(
                                   fontFamily: 'Futura Heavy',
-                                  color: Color(0xFFa6e76c),
+                                  color: Color(0xFF00bf6f),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900),
                             ),

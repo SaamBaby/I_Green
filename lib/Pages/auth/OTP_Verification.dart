@@ -13,8 +13,7 @@ class _OtpVerificationState extends State<OtpVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
+      backgroundColor: Colors.white,resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: _appBar(),
       body: body(),

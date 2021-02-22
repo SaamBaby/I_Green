@@ -1,30 +1,78 @@
-import 'package:flutter/gestures.dart';
+import 'package:Quete/providers/shifts.schedule.provider.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import 'ShiftCard.dart';
+import 'package:Quete/models/job_shifts.dart';
 class Schedule extends StatefulWidget {
   @override
   _ScheduleState createState() => _ScheduleState();
 }
 
-class _ScheduleState extends State<Schedule> {
-    CalendarController _calendarController;
+class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
+  CalendarController _calendarController;
+  AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
     _calendarController = CalendarController();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+
+    _animationController.forward();
+    Future.delayed(Duration.zero).then((value) =>
+        Provider.of<ShiftProvider>(context, listen: false)
+            .fetchAvailableShifts());
   }
 
   @override
   void dispose() {
     _calendarController.dispose();
   }
+  Map<DateTime, List<ShiftModel>> _groupedEvents;
 
+  _groupEvents(List<ShiftModel> events){
+    _groupedEvents={};
+    events.forEach((element) {
+      DateTime date= DateTime.utc(element.shiftDateTime.year,element.shiftDateTime.month,element.shiftDateTime.day,12);
+      _groupedEvents.putIfAbsent(date, () =>_eventstoList(events,element.shiftDateTime));
+    });
+
+  }
+  List<ShiftModel> _eventstoList(List<ShiftModel> events,DateTime dateTime){
+    List<ShiftModel> groupedList=[];
+    events.forEach((element) {if(element.shiftDateTime==dateTime){
+      groupedList.add(element);
+    }});
+    return groupedList;
+  }
+  Widget _buildEventsMarker(DateTime date, List events) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 600),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: _calendarController.isSelected(date) ? Colors.white: _calendarController.isToday(date)
+            ? Color(0xFFffffff).withOpacity(.8)
+            : Color(0xFF0000000).withOpacity(.8),
+      ),
+      width: 7,
+      height: 7.0,
+      child: Center(
+        child: Icon(Icons.circle,size: 2,color: _calendarController.isSelected(date) ? Colors.white:Colors.black,)
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
+    final loadedAvailableShifts = Provider.of<ShiftProvider>(context).itemsList;
+    _groupEvents(loadedAvailableShifts);
+    DateTime _selectedDate= _calendarController.selectedDay;
+    final _selectedEvents= _groupedEvents[_selectedDate]??[];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(context),
@@ -36,323 +84,151 @@ class _ScheduleState extends State<Schedule> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${DateTime.now().day} ',
-                            style: TextStyle(
-                                fontFamily: 'Futura Heavy',
-                                color: Color(0xffff6e6e).withOpacity(.8),
-                                fontSize: 100,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '${(DateFormat('EE . MMMM . yyyy').format(DateTime.now()))}',
-                            style: TextStyle(
-                                fontFamily: 'Futura Book',
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(
-                                    Icons.circle,
-                                    size: 12,
-                                    color: Colors.lightBlue.shade300,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "  ",
-                                ),
-                                TextSpan(
-                                  text: "Total upcoming plans",
-                                  style: TextStyle(
-                                      fontFamily: 'Futura Book',
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(
-                                    Icons.circle,
-                                    size: 12,
-                                    color: Color(0xffff6e6e),
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "  ",
-                                ),
-                                TextSpan(
-                                  text: "Total upcoming plans",
-                                  style: TextStyle(
-                                      fontFamily: 'Futura Book',
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(
-                                    Icons.circle,
-                                    size: 12,
-                                    color: Colors.purpleAccent.shade200,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "  ",
-                                ),
-                                TextSpan(
-                                  text: "Total upcoming plans",
-                                  style: TextStyle(
-                                      fontFamily: 'Futura Book',
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          margin: EdgeInsets.only(right: 15),
-                          width: 120,
-                          height: 35,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Color(0xff6f7cd1).withOpacity(.8)),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 80,
-                                child: Text(
-                                  "Lorem ipsum dolor sit amet, ",
-                                  maxLines: 1,
-                                  softWrap: false,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontFamily: 'Futura Book',
-                                      color: Colors.white.withOpacity(.8),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w900),
-                                ),
-                              ),
-                              Icon(
-                                Icons.play_circle_filled,
-                                size: 17,
-                                color: Colors.white,
-                              ),
-                            ],
-                          )),
-                      Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          margin: EdgeInsets.only(right: 15),
-                          width: 120,
-                          height: 35,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Color(0xffff6e6e)),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 80,
-                                child: Text(
-                                  "Lorem ipsum dolor sit amet, ",
-                                  maxLines: 1,
-                                  softWrap: false,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontFamily: 'Futura Book',
-                                      color: Colors.white.withOpacity(.8),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w900),
-                                ),
-                              ),
-                              Icon(
-                                Icons.play_circle_filled,
-                                size: 17,
-                                color: Colors.white,
-                              ),
-                            ],
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
-            TableCalendar(
-              calendarStyle: CalendarStyle(
-                  selectedColor: Color(0xffff6e6e).withOpacity(.8),
-                  weekendStyle: TextStyle(color: Color(0xFFffce89))),
-              daysOfWeekStyle: DaysOfWeekStyle(
-                weekendStyle: TextStyle(color: Color(0xFFffce89),fontWeight: FontWeight.w900,fontFamily: "Futura Heavy"),
-                weekdayStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.w900,fontFamily: "Futura Heavy"),
-              ),
-              calendarController: _calendarController,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
+                  TableCalendar(
+                  events:  _groupedEvents,
+                    formatAnimation: FormatAnimation.slide,
+                    builders: CalendarBuilders(
+                     selectedDayBuilder:(context, date, _){
+                       return Container(
+                         margin: const EdgeInsets.all(4.0),
+                         padding: EdgeInsets.all(13),
+                         decoration: BoxDecoration(
+                           shape: BoxShape.circle,
+                           color: Color(0xFF00bf6f).withOpacity(.8),
+                         ),
 
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Upcoming Events ",
-                    style: TextStyle(
-                        fontFamily: 'Futura Heavy',
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "See All",
-                    style: TextStyle(
-                        fontFamily: 'Futura Book',
-                        color: Colors.grey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
+                         width: 50,
+                         height: 50,
+                         child: Text(
+                           '${date.day}',
+                           style: TextStyle().copyWith(fontSize: 16.0,color: Colors.white,fontWeight: FontWeight.w900),
 
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: 20, horizontal: 20),
-                padding: EdgeInsets.symmetric(
-                    vertical: 20, horizontal: 20),
-                width: double.infinity,
-                height: 100,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xffeaeaea)),
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xffeaeaea),
-                      spreadRadius: 0,
-                      blurRadius: 3,
-                      offset: Offset(1, 1), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.start,
-                      children: [
-                        Container(
+                         ),
+                       );
+                     },
+                      outsideHolidayDayBuilder: (context, date, _){
+                        return Container(
+                          margin: const EdgeInsets.all(4.0),
+                          padding: EdgeInsets.all(13),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFF00bf6f).withOpacity(.8),
+                          ),
+
                           width: 50,
                           height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              color:Color(0xffff6e6e)),
-                          child: Center(
-                            child: Text(
-                              '${DateTime.now().day} ',
-                              style: TextStyle(
-                                  fontFamily: 'Futura Heavy',
-                                  color: Colors.white,
-                                  fontSize: 70,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                          child: Text(
+                            '${date.day}',
+                            style: TextStyle().copyWith(fontSize: 16.0,color: Colors.white,fontWeight: FontWeight.w900),
+
                           ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${(DateFormat('h:mm a').format(DateTime.now()))}',
-                              style: TextStyle(
-                                  fontFamily: 'Futura Heavy',
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  height: 2,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            Text(
-                              "House Keeping shift ",
-                              style: TextStyle(
-                                  fontFamily: 'Futura Book',
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  height: 1.4,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            Text(
-                              '${(DateFormat('EE . MMMM . yyyy').format(DateTime.now()))}',
-                              style: TextStyle(
-                                  fontFamily: 'Futura Book',
-                                  color: Colors.black54,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900),
-                            ),
+                        );
+                      },
+                      todayDayBuilder: (context, date, _) {
+                        return Container(
+                          margin: const EdgeInsets.all(4.0),
+                          padding: EdgeInsets.all(13),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFF00bf6f),
+                          ),
 
-                          ],
-                        )
-                      ],
+                          width: 50,
+                          height: 50,
+                          child: Text(
+                            '${date.day}',
+                            style: TextStyle().copyWith(fontSize: 16.0,color: Colors.white,fontWeight: FontWeight.w900),
+
+                          ),
+                        );
+                      },
+                      markersBuilder: (context, date, events, holidays) {
+                        final children = <Widget>[];
+
+                        if (events.isNotEmpty) {
+                          children.add(
+                            Positioned(
+                              right: 22,
+                              bottom: 8,
+                              child: _buildEventsMarker(date, events),
+                            ),
+                          );
+                        }
+
+                        return children;
+                      },
                     ),
+                    calendarStyle: CalendarStyle(
+                        todayColor: Color(0xFF00bf6f).withOpacity(.8),
+                        weekendStyle: TextStyle(color: Color(0xFFffce89))),
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                      weekendStyle: TextStyle(
+                          color: Color(0xFFffce89),
+                          fontWeight: FontWeight.w900,
+                          fontFamily: "Futura Heavy"),
+                      weekdayStyle: TextStyle(
+                          color: Color(0xff344644),
+                          fontWeight: FontWeight.w900,
+                          fontFamily: "Futura Heavy"),
+                    ),
+                    calendarController: _calendarController,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 0,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Daily Shifts",
+                    style: TextStyle(
+                        fontFamily: 'Futura Book',
+                        color: Color(0xff344644),
+                        fontSize: 24,
+                        letterSpacing: 1.5,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
 
-                  ],
-                )),
+            _selectedEvents.length!=0?
+            Container(
+              margin:EdgeInsets.only(top:0),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount:  _selectedEvents.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      ChangeNotifierProvider.value(
+                        value:  _selectedEvents[index],
+                        child: ShiftCard(),
+                      )),
+            ):
+            Center(
+              child: Container(
+                  padding:EdgeInsets.symmetric(horizontal: 20,vertical: 0),
+                  child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/Schedule/noData.png',
+                    height: 240.0,
+                    width: 240.0,
+
+                  ),
+                  Text("No Shifts for Today")
+                ],
+              )),
+            )
           ],
         ),
       ),
@@ -362,28 +238,35 @@ class _ScheduleState extends State<Schedule> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
-      centerTitle: true,
-      toolbarHeight: 60,
-      leading: Transform.translate(
-        offset: Offset(15, 0),
-        child: FlatButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20,
+      centerTitle: false,
+      toolbarHeight: 70,
+      title: Padding(
+        padding: EdgeInsets.only(left: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+          Text(
+            "Monthly",
+            style: TextStyle(
+                fontFamily: 'Futura Book',
+                color: Color(0xff344644),
+                fontSize: 25,
+                letterSpacing: 1.5,
+                height: 2,
+                fontWeight: FontWeight.bold),
           ),
-        ),
-      ),
-      title: Text(
-        "Today's Plan",
-        style: TextStyle(
-            fontFamily: 'Futura Heavy',
-            color: Colors.black,
-            fontSize: 22,
-            fontWeight: FontWeight.bold),
+          Text(
+            "Shift Availabilities",
+
+            style: TextStyle(
+                fontFamily: 'Futura Heavy',
+                color: Color(0xff344644),
+                fontSize: 30,
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.bold),
+          )
+        ],),
       ),
       actions: [
         FlatButton(
