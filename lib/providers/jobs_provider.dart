@@ -46,7 +46,7 @@ class Jobs extends ChangeNotifier {
       print(error);
     };
 
-    notifyListeners();
+
   }
 
   List<JobModel> get urgentJobs {

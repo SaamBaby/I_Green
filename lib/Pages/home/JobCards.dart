@@ -85,6 +85,7 @@ class UrgentJobCard extends StatelessWidget {
                           )
                         ]),
                   ),
+
                 ],
               ),
               SizedBox(
@@ -93,21 +94,45 @@ class UrgentJobCard extends StatelessWidget {
               Text(
                 jobName,
                 style: TextStyle(
-                    fontFamily: 'Futura Book',
-                    color: Colors.white,
+                    fontFamily: 'Futura Heavy',
+                    color: Color(0xffffffff).withOpacity(.8),
                     fontSize: 18,
+                    letterSpacing: 1,
                     fontWeight: FontWeight.w900),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
-              Text(
-                jobLocation,
-                style: TextStyle(
-                    fontFamily: 'Futura Book',
-                    color: Colors.white.withOpacity(.8),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700),
+              RichText(
+                text: TextSpan(
+                    text: jobLocation.replaceAll(',', ' .').split(".").first,
+                    style: TextStyle(
+                        fontFamily: 'Futura Book',
+                        color: Colors.white.withOpacity(.8),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: ' . ',
+                          style:
+                          TextStyle(
+                              fontFamily: 'Futura Book',
+                              color: Colors.white.withOpacity(.8),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700),
+                         ),
+                      TextSpan(
+                        text: jobLocation.replaceAll(',', ' .').split(".").last,
+                        style: TextStyle(
+
+                            fontFamily: 'Futura Book',
+                            color: Colors.white.withOpacity(.8),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700),
+
+                      )
+
+                    ]),
               ),
               SizedBox(
                 height: 10,
@@ -242,10 +267,10 @@ class JobCard extends StatelessWidget {
                           Visibility(
                             visible: jobData.isContract,
                             child: Text(
-                              " contract,".toUpperCase(),
+                              " contract .".toUpperCase(),
                               style: TextStyle(
                                   fontFamily: 'Futura Heavy',
-                                  color: Color(0xFF00bf6f),
+                                  color: Color(0xFF54E597),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900),
                             ),
@@ -256,10 +281,10 @@ class JobCard extends StatelessWidget {
                           Visibility(
                             visible: jobData.isFullTime,
                             child: Text(
-                              " Full-time,".toUpperCase(),
+                              " Full-time .".toUpperCase(),
                               style: TextStyle(
                                   fontFamily: 'Futura Heavy',
-                                  color: Color(0xFF00bf6f),
+                                  color: Color(0xFF54E597),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900),
                             ),
@@ -270,10 +295,10 @@ class JobCard extends StatelessWidget {
                           Visibility(
                             visible: jobData.isPartTime,
                             child: Text(
-                              " Part-time".toUpperCase(),
+                              " Part-time .".toUpperCase(),
                               style: TextStyle(
                                   fontFamily: 'Futura Heavy',
-                                  color: Color(0xFF00bf6f),
+                                  color: Color(0xFF54E597),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900),
                             ),
@@ -286,24 +311,65 @@ class JobCard extends StatelessWidget {
                       Text(
                         jobData.jobName,
                         style: TextStyle(
-                            fontFamily: 'Futura Book',
-                            color: Colors.black,
+                            fontFamily: 'Futura Heavy',
+                            color: Color(0xff000000).withOpacity(.8),
                             fontSize: 18,
                             fontWeight: FontWeight.w900),
                       ),
-                      Text(
-                        jobData.jobLocation,
-                        style: TextStyle(
-                            fontFamily: 'Futura Book',
-                            color: Colors.black.withOpacity(.6),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700),
+                      RichText(
+                        text: TextSpan(
+                            text: jobData.jobLocation.replaceAll(',', ' .').split(".").first,
+                            style: TextStyle(
+                                fontFamily: 'Futura Book',
+                                color: Colors.black.withOpacity(.5),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: ' . ',
+                                style:
+                                TextStyle(
+
+                                    fontFamily: 'Futura Book',
+                                    color: Colors.black.withOpacity(.5),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              TextSpan(
+                                text: jobData.jobLocation.replaceAll(',', ' .').split(".").last,
+                                style: TextStyle(
+
+                                    fontFamily: 'Futura Book',
+                                    color: Colors.black.withOpacity(.5),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700),
+
+                              )
+
+                            ]),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
+                    Spacer(),
+                  Consumer<JobModel>(
+                    builder: (context, jobData, _) => GestureDetector(
+                      onTap: () {
+                        print(jobData.isFavourite);
+                        jobData.toggleFavoriteStatus(jobData.jobId);
+                      },
+                      child: Container(
+                        width: 50.0,
+                        height: 50.0,
+                        child: Icon(
+                            jobData.isFavourite
+                                ? Icons.bookmark
+                                : Icons.bookmark_border,
+                            color: jobData.isFavourite
+                                ? Colors.lightGreenAccent
+                                : Colors.black),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ],

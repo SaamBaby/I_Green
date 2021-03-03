@@ -133,7 +133,7 @@ class _JobFeedsState extends State<JobFeeds> {
                   height: 50,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Color(0xFF00bf6f)),
+                      color: Color(0xFF54E597)),
                   child: Icon(
                     Icons.filter_list,
                     size: 22,
@@ -142,47 +142,50 @@ class _JobFeedsState extends State<JobFeeds> {
                 )
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              width: double.infinity,
-              height: 100,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color(0xFFa6e76c).withOpacity(.3)),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25.0,
-                    backgroundColor: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Complete your profile ",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontFamily: 'Futura Bold',
-                        color: Color(0xFF00bf6f),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+
+            Visibility(
+              visible: false,
+              child: Container(
+                margin:EdgeInsets.only(top: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xFFa6e76c).withOpacity(.3)),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25.0,
+                      backgroundColor: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Complete your profile ",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontFamily: 'Futura Bold',
+                          color: Color(0xFF54E597),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(
               height: 25,
             ),
             Text(
-              "Urgently needed Replacements",
+              "Urgent replacements",
               style: TextStyle(
-                  fontFamily: 'Futura Book',
-                  color: Colors.black,
+                  fontFamily: 'Futura Heavy',
+                  color: Color(0xff000000).withOpacity(.8),
                   fontSize: 18,
-                  fontWeight: FontWeight.w600),
+                  letterSpacing: 1.1,
+                  fontWeight: FontWeight.w900),
             ),
             SizedBox(
               height: 15,
@@ -210,21 +213,17 @@ class _JobFeedsState extends State<JobFeeds> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
-            SizedBox(
-              height: 25,
-            ),
+
             Text(
               "Available Jobs for You",
-              style: TextStyle(
-                  fontFamily: 'Futura Book',
-                  color: Colors.black,
+              style:TextStyle(
+                  fontFamily: 'Futura Heavy',
+                  color: Color(0xff000000).withOpacity(.8),
                   fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 20,
+                  letterSpacing: 1.1,
+                  fontWeight: FontWeight.w900),
             ),
             Container(
               child:  ListView.builder(

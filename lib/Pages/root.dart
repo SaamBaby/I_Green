@@ -75,7 +75,7 @@ class _RootState extends State<Root> {
                       height: 2,
                       fontWeight: FontWeight.w700),
                 ),
-                activeColor: Color(0xFFa6e76c),
+                activeColor: Color(0xFF24D665),
                 inactiveColor: Color(0xffdfe6eb)),
             BottomNavyBarItem(
                 icon: Icon(

@@ -49,19 +49,32 @@ class _JobDetailsState extends State<JobDetails> {
                       ),
                     ),
                   ),
+
                   backgroundColor: Colors.white,
                   elevation: 0,
                   toolbarHeight: 400,
                   actions: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(right: 25.0),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Icon(
-                            Icons.more_vert_outlined,
-                            color: Colors.black,
+                        child:  Consumer<JobModel>(
+                          builder: (context, jobData, _) => GestureDetector(
+                            onTap: () {
+                              print(jobData.isFavourite);
+                              jobData.toggleFavoriteStatus(jobId);
+                            },
+                            child: Container(
+                              width: 50.0,
+                              height: 50.0,
+                              child: Icon(
+                                  loadedJobData.isFavourite
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_border,
+                                  color: loadedJobData.isFavourite
+                                      ? Colors.lightGreenAccent
+                                      : Colors.black),
+                            ),
                           ),
-                        )),
+                        ),),
                   ],
                   bottom: PreferredSize(
                     preferredSize: Size.fromHeight(30),
@@ -99,27 +112,51 @@ class _JobDetailsState extends State<JobDetails> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
+
                                         Text(
                                           loadedJobData.jobName,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontFamily: 'Futura Heavy',
-                                              color: Colors.black,
-                                              fontSize: 27,
+                                              color: Color(0xff000000).withOpacity(.8),
+                                              fontSize: 26,
+                                              letterSpacing: 1.1,
                                               fontWeight: FontWeight.w900),
                                         ),
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        Text(
-                                          loadedJobData.jobLocation,
-                                          style: TextStyle(
-                                              fontFamily: 'Futura Book',
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              height: 1.5,
-                                              fontWeight: FontWeight.w700),
+                                        RichText(
+                                          text: TextSpan(
+                                              text:  loadedJobData.jobLocation.replaceAll(',', ' .').split(".").first,
+                                              style: TextStyle(
+                                                  fontFamily: 'Futura Book',
+                                                  color: Colors.black.withOpacity(.8),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: ' . ',
+                                                  style:
+                                                  TextStyle(
+                                                      fontFamily: 'Futura Book',
+                                                      color: Colors.black.withOpacity(.8),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w700),
+                                                ),
+                                                TextSpan(
+                                                  text:  loadedJobData.jobLocation.replaceAll(',', ' .').split(".").last,
+                                                  style: TextStyle(
+                                                      fontFamily: 'Futura Book',
+                                                      color: Colors.black.withOpacity(.8),
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w700),
+
+                                                )
+
+                                              ]),
                                         ),
+
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -467,80 +504,63 @@ class _JobDetailsState extends State<JobDetails> {
                     color: Colors.white,
                     child: Row(
                       children: <Widget>[
-                        Consumer<JobModel>(
-                          builder: (context, jobData, _) => GestureDetector(
-                            onTap: () {
-                              print(jobData.isFavourite);
-                              jobData.toggleFavoriteStatus(jobId);
-                            },
-                            child: Container(
-                              width: 50.0,
-                              height: 50.0,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black.withOpacity(.5)),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Icon(
-                                  loadedJobData.isFavourite
-                                      ? Icons.bookmark
-                                      : Icons.bookmark_border,
-                                  color: loadedJobData.isFavourite
-                                      ? Colors.lightGreenAccent
-                                      : Colors.black),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 15.0),
+
                         Expanded(
                           child: SizedBox(
-                            height: 50.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                try {
-                                  Provider.of<AppliedJobs>(context,
-                                          listen: false)
-                                      .applyJob(jobId);
-                                } catch (error) {
-                                  showDialog(
-                                      context: (context),
-                                      builder: (ctx) => AlertDialog(
-                                            title: Text(
-                                                'An error occured while applying the job!'),
-                                            content: Text(error.toString()),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                child: Text("Okay!"),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              )
-                                            ],
-                                          ));
-                                }finally{
-                                setState(() {
-                                _isLoading = false;
-                                });
+                            height: 65.0,
+                            child: InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  try {
+                                    Provider.of<AppliedJobs>(context,
+                                        listen: false)
+                                        .applyJob(jobId);
+                                  } catch (error) {
+                                    showDialog(
+                                        context: (context),
+                                        builder: (ctx) => AlertDialog(
+                                          title: Text(
+                                              'An error occured while applying the job!'),
+                                          content: Text(error.toString()),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text("Okay!"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        ));
+                                  }finally{
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
 
-                                Navigator.of(context).pop();
-                                }
-                              },
-                              color: Color(0xFFa6e76c),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Text(
-                                "Apply ",
-                                style: TextStyle(
-                                    fontFamily: 'Futura Book',
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w900),
-                              ),
-                            ),
+                                    Navigator.of(context).pop();
+                                  }
+                                },
+                                child: Container(
+                                    margin: EdgeInsets.only(bottom: 10),
+                                    height: 60,
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFa6e76c),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text(
+                                      "Apply ",
+                                      style: TextStyle(
+                                          fontFamily: 'Futura Book',
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w900),
+                                    )
+                                )),
                           ),
                         ),
                       ],

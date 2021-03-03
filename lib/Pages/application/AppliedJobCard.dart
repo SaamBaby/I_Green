@@ -114,14 +114,39 @@ class AppliedJobsCard extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.w900),
                     ),
-                    Text(
-                      jobsData.getJobById(jobId).jobLocation,
-                      style: TextStyle(
-                          fontFamily: 'Futura Book',
-                          color: Colors.black.withOpacity(.6),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700),
+                    RichText(
+                      text: TextSpan(
+                          text: jobsData.getJobById(jobId).jobLocation.replaceAll(',', ' .').split(".").first,
+                          style: TextStyle(
+                              fontFamily: 'Futura Book',
+                              color: Colors.black.withOpacity(.5),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: ' . ',
+                              style:
+                              TextStyle(
+
+                                  fontFamily: 'Futura Book',
+                                  color: Colors.black.withOpacity(.5),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            TextSpan(
+                              text: jobsData.getJobById(jobId).jobLocation.replaceAll(',', ' .').split(".").last,
+                              style: TextStyle(
+
+                                  fontFamily: 'Futura Book',
+                                  color: Colors.black.withOpacity(.5),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700),
+
+                            )
+
+                          ]),
                     ),
+
                   ],
                 )
               ],
