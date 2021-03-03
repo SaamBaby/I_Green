@@ -2,9 +2,6 @@
   <br>
  <img alt="icon" width="200" height="128" src="https://user-images.githubusercontent.com/46653727/109748094-435eb580-7ba6-11eb-858e-f7646a517350.png">
  </h1>
-<h1 align="center">
-  I Green
-</h1>
 
 <div align="center">
   
