@@ -1,17 +1,30 @@
-# Quete
+<h1 align="center">
+  <br>
+ <img alt="icon" width="200" height="128" src="https://user-images.githubusercontent.com/46653727/109748094-435eb580-7ba6-11eb-858e-f7646a517350.png">
+ </h1>
+<h1 align="center">
+  I Green
+</h1>
 
-A new Flutter application.
+<div align="center">
+  
+  A compleate HR management app that help users find their perfect jobs and employers to maintain the user engagements and shifts
+</div>
+<br />
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+*  mobile-only (iOS / Android)
+* Automatically lists all the available shifts for the user and open shifts available
+* Keeps track of every user interactions including shift history, job applicaitons etc
+* Push notifications for shift approval and associate timers with shifts to track the shifts
+* Personal Calender Options for keeping track of the  shifts schedule!
+* Automatic light mode / dark mode based on your device settings
+* 
+## ScreenShots
+<div align="center">
+    <img alt="Screenshot" src="https://user-images.githubusercontent.com/46653727/109749625-0647f280-7ba9-11eb-9ff6-22f18c657198.jpg" height="480"> 
+</div>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# I_Green" 
