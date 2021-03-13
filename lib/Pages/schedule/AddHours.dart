@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:Quete/providers/jobs_provider.dart';
+import 'package:Quete/models/direction.dart';
 import 'package:Quete/providers/shifts.schedule.provider.dart';
 import 'package:Quete/services/location_helper/location.helper.services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
+
     show SystemChrome, SystemUiOverlayStyle, rootBundle;
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,16 +23,21 @@ class AddHours extends StatefulWidget {
   @override
   _AddHoursState createState() => _AddHoursState();
 }
-
+// sam
 class _AddHoursState extends State<AddHours> {
+  String _mapStyle;
   @override
   void initState() {
     locateCurrentPosition();
+    rootBundle.loadString('assets/utils/map_style.txt').then((string) {
+      _mapStyle = string;
+    });
     super.initState();
 
   }
   Position _currentLocation;
   bool isActive=false;
+  bool isShitStarted = false;
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   GoogleMapController _googleMapController;
   List<LatLng> polyLineCoordinates =[];
@@ -40,6 +47,7 @@ class _AddHoursState extends State<AddHours> {
   Set<Marker> markers={};
   Set<Circle> circles={};
   String _currentAddress;
+  DirectionDetails details=DirectionDetails(distanceText: "0 km away");
   CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
@@ -62,15 +70,14 @@ class _AddHoursState extends State<AddHours> {
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
-  Future<void> shiftLocation(address) async {
+  Future<bool> shiftLocation(address) async {
     Position destination= await LocationHelper.searchAddressCoordinate(address);
-    var details= await LocationHelper.getAddressDirection(_currentLocation, destination);
+     details= await LocationHelper.getAddressDirection(_currentLocation, destination);
     PolylinePoints  polylinePoints =PolylinePoints();
     List<PointLatLng> decodePolyLinePointsResult= polylinePoints.decodePolyline(details.encodePoints);
     polyLineCoordinates.clear();
     if(decodePolyLinePointsResult.isNotEmpty){
       decodePolyLinePointsResult.forEach((PointLatLng pointLatLng) {
-
         polyLineCoordinates.add(LatLng(pointLatLng.latitude,pointLatLng.longitude));
       });
       
@@ -79,10 +86,10 @@ class _AddHoursState extends State<AddHours> {
     setState(() {
       Polyline polyline =Polyline(
         polylineId: PolylineId("PolylineId"),
-        color: Color(0xFF00bf6f).withOpacity(.8),
+        color: Colors.black,
         jointType: JointType.round,
         points: polyLineCoordinates,
-        width: 4,
+        width: 3,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
         geodesic: true,
@@ -122,7 +129,7 @@ class _AddHoursState extends State<AddHours> {
     );
     Marker destinationLocationMarker=Marker(
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-        infoWindow: InfoWindow(title:address,snippet: "Your Destinatin" ),
+        infoWindow: InfoWindow(title:address,snippet: "Your Destination" ),
         position: LatLng(destination.latitude, destination.longitude),
         markerId: MarkerId("destinationLocationId")
     );
@@ -130,8 +137,11 @@ class _AddHoursState extends State<AddHours> {
 
       markers.add(destinationLocationMarker);
     });
-    if(destination == _currentLocation){
-      isActive=true;
+    if(destination != _currentLocation){
+      setState(() {
+        isActive=true;
+      });
+
     }
 
   }
@@ -152,28 +162,35 @@ class _AddHoursState extends State<AddHours> {
         children: [
           GoogleMap(
             padding: EdgeInsets.only(top: 400, right: 10, bottom: 00),
-            mapType: MapType.normal,
             myLocationButtonEnabled: true,
             myLocationEnabled: true,
             zoomControlsEnabled: true,
             polylines: polyLineSet,
             markers: markers,
             circles: circles,
+
             zoomGesturesEnabled: true,
             initialCameraPosition:_kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               locateCurrentPosition();
               shiftLocation(loadedJobData.jobLocation);
+              controller.setMapStyle(_mapStyle);
+              print(_mapStyle);
               _controllerGoogleMap.complete(controller);
+
             },
+
           ),
-          Positioned(
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 500),
             bottom: 0,
             right: 0,
             left: 0,
+            top: isShitStarted?MediaQuery.of(context).size.height*
+                .38:MediaQuery.of(context).size.height*.71,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              height: 230,
+              height: 250,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -220,17 +237,18 @@ class _AddHoursState extends State<AddHours> {
                       SizedBox(
                         width:200,
                         child: Text(
-                          loadedJobData .jobLocation,
+                          '${loadedJobData .jobLocation}',
                           style: TextStyle(
                               fontFamily: 'Futura Book',
                               color: Colors.black54.withOpacity(.7),
                               fontSize: 16,
+                              letterSpacing: 1.2,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(width: 5,),
+                      Spacer(),
                       Text(
-                        "(55km away)",
+                        '( ${details.distanceText} away )',
                         style: TextStyle(
                             fontFamily: 'Futura Book',
                             color: Colors.black54.withOpacity(.7),
@@ -241,7 +259,7 @@ class _AddHoursState extends State<AddHours> {
 
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 20,),
                   Text(
                     loadedJobData.jobName,
 
@@ -260,6 +278,7 @@ class _AddHoursState extends State<AddHours> {
                         fontFamily: 'Futura Book',
                         color: Colors.black54.withOpacity(.7),
                         fontSize: 16,
+                        letterSpacing: 1.4,
 
                         fontWeight: FontWeight.bold),
                   ),
@@ -271,7 +290,7 @@ class _AddHoursState extends State<AddHours> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
-
+                          shiftLocation(loadedJobData.jobLocation);
                         },
                         child: AnimatedContainer(
                             margin: EdgeInsets.only(bottom: 10),
@@ -284,7 +303,7 @@ class _AddHoursState extends State<AddHours> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
-                              "Start Timer ",
+                              isShitStarted? "Stop Timer ":"Start Timer",
                               style: TextStyle(
                                 color: isActive?Colors.white:Colors.black12,
                                 fontSize: 18,
@@ -298,7 +317,7 @@ class _AddHoursState extends State<AddHours> {
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () {
-                            print("just checking${loadedJobData .jobLocation.replaceAll(" ", "+")}");
+
                           },
                           child: Container(
                               margin: EdgeInsets.only(bottom: 10),
@@ -333,18 +352,15 @@ class _AddHoursState extends State<AddHours> {
                                 color: Colors.blue,
                                 size: 17,
                               ))),
-                      SizedBox(
-                        width: 10,
-                      ),
 
-                      SizedBox(
-                        width: 10,
-                      ),
+
+
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+
 
                     ],
                   )

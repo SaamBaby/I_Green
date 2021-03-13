@@ -109,7 +109,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                       outsideHolidayDayBuilder: (context, date, _){
                         return Container(
                           margin: const EdgeInsets.all(4.0),
-                          padding: EdgeInsets.all(13),
+                          padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Color(0xFF00bf6f).withOpacity(.8),
@@ -183,18 +183,18 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
               height: 0,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     "Daily Shifts",
                     style: TextStyle(
-                        fontFamily: 'Futura Book',
-                        color: Color(0xff344644),
-                        fontSize: 24,
-                        letterSpacing: 1.5,
-                        fontWeight: FontWeight.bold),
+                        fontFamily: 'Futura Heavy',
+                        color: Color(0xff000000).withOpacity(.8),
+                        fontSize: 20,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w900),
                   ),
                 ],
               ),

@@ -69,7 +69,7 @@ class AppliedJobsCard extends StatelessWidget {
                             " contract,".toUpperCase(),
                             style: TextStyle(
                                 fontFamily: 'Futura Heavy',
-                                color: Color(0xFFa6e76c),
+                                color: Color(0xFF54E597),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w900),
                           ),
@@ -83,7 +83,7 @@ class AppliedJobsCard extends StatelessWidget {
                             " Full-time,".toUpperCase(),
                             style: TextStyle(
                                 fontFamily: 'Futura Heavy',
-                                color: Color(0xFFa6e76c),
+                                color: Color(0xFF54E597),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w900),
                           ),
@@ -97,7 +97,7 @@ class AppliedJobsCard extends StatelessWidget {
                             " Part-time".toUpperCase(),
                             style: TextStyle(
                                 fontFamily: 'Futura Heavy',
-                                color: Color(0xFFa6e76c),
+                                color: Color(0xFF54E597),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w900),
                           ),
@@ -109,10 +109,10 @@ class AppliedJobsCard extends StatelessWidget {
                     Text(
                       jobsData.getJobById(jobId).jobName,
                       style: TextStyle(
-                          fontFamily: 'Futura Book',
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900),
+                          fontFamily: 'Futura Heavy',
+                          color: Color(0xff000000).withOpacity(.8),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700),
                     ),
                     RichText(
                       text: TextSpan(
@@ -120,7 +120,7 @@ class AppliedJobsCard extends StatelessWidget {
                           style: TextStyle(
                               fontFamily: 'Futura Book',
                               color: Colors.black.withOpacity(.5),
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: FontWeight.w700),
                           children: <TextSpan>[
                             TextSpan(
@@ -130,7 +130,7 @@ class AppliedJobsCard extends StatelessWidget {
 
                                   fontFamily: 'Futura Book',
                                   color: Colors.black.withOpacity(.5),
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w700),
                             ),
                             TextSpan(

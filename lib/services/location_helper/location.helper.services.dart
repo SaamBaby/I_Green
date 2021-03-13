@@ -42,8 +42,9 @@ class LocationHelper {
 
     directionDetails.durationValue =
         response["routes"][0]["legs"][0]["duration"]["value"];
-    directionDetails.distanceText =
+    directionDetails.durationText =
         response["routes"][0]["legs"][0]["duration"]["text"];
+
     return directionDetails;
   }
 

@@ -37,8 +37,8 @@ void main() async {
       ChangeNotifierProxyProvider<AuthProvider,Jobs>(
         update: (context,auth,previousState) => Jobs(auth.idToken,previousState==null?{}:previousState.items),
       ),
-      ChangeNotifierProvider(
-        create: (context,) =>  JobModel(),
+      ChangeNotifierProxyProvider<AuthProvider,JobModel>(
+        update: (context, auth,_)=>JobModel(authToken: auth.idToken),
       ),
       ChangeNotifierProxyProvider<AuthProvider,ShiftProvider>(
         update: (context,auth,previousState) => ShiftProvider(auth.idToken,previousState==null?{}:previousState.items),

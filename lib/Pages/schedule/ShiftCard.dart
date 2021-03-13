@@ -37,7 +37,7 @@ class ShiftCard extends StatelessWidget {
                             0],
                         style: TextStyle(
                             fontFamily: 'Futura Heavy',
-                            color: Colors.red,
+                            color: Colors.blueAccent,
                             fontSize: 51,
                             fontWeight: FontWeight.bold),
                       ),
@@ -61,9 +61,9 @@ class ShiftCard extends StatelessWidget {
                       Text(
                         '${(DateFormat('h:mm a').format(shiftData.shiftDateTime))}',
                         style: TextStyle(
-                            fontFamily: 'Futura Heavy',
+                            fontFamily: 'Futura Book',
                             color: Color(0xff344644),
-                            fontSize: 15,
+                            fontSize: 14,
                             height: 2,
                             letterSpacing: 2,
                             fontWeight: FontWeight.w900),
@@ -71,12 +71,12 @@ class ShiftCard extends StatelessWidget {
                       Text(
                         shiftData.shiftName,
                         style: TextStyle(
-                            fontFamily: 'Futura Book',
-                            color: Colors.black,
-                            fontSize: 18,
-                            height: 2,
-                            letterSpacing: 1.5,
-                            fontWeight: FontWeight.w900),
+                            fontFamily: 'Futura Heavy',
+                            color: Color(0xff000000).withOpacity(.8),
+                            fontSize: 19,
+                            letterSpacing: 1,
+                            height: 1.5,
+                            fontWeight: FontWeight.w700),
                       ),
                       Text(
                         '${(DateFormat('EE . MMMM . yyyy').format(shiftData.shiftDateTime))}',

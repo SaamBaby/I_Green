@@ -183,8 +183,8 @@ class _JobFeedsState extends State<JobFeeds> {
               style: TextStyle(
                   fontFamily: 'Futura Heavy',
                   color: Color(0xff000000).withOpacity(.8),
-                  fontSize: 18,
-                  letterSpacing: 1.1,
+                  fontSize: 20,
+                  letterSpacing: 1,
                   fontWeight: FontWeight.w900),
             ),
             SizedBox(

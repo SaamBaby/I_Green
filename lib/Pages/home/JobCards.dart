@@ -96,12 +96,11 @@ class UrgentJobCard extends StatelessWidget {
                 style: TextStyle(
                     fontFamily: 'Futura Heavy',
                     color: Color(0xffffffff).withOpacity(.8),
-                    fontSize: 18,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w900),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700),
               ),
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               RichText(
                 text: TextSpan(
@@ -313,8 +312,8 @@ class JobCard extends StatelessWidget {
                         style: TextStyle(
                             fontFamily: 'Futura Heavy',
                             color: Color(0xff000000).withOpacity(.8),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700),
                       ),
                       RichText(
                         text: TextSpan(
@@ -358,12 +357,13 @@ class JobCard extends StatelessWidget {
                         jobData.toggleFavoriteStatus(jobData.jobId);
                       },
                       child: Container(
-                        width: 50.0,
-                        height: 50.0,
+                        width: 55.0,
+                        height: 55.0,
                         child: Icon(
                             jobData.isFavourite
                                 ? Icons.bookmark
                                 : Icons.bookmark_border,
+                            size: 28,
                             color: jobData.isFavourite
                                 ? Colors.lightGreenAccent
                                 : Colors.black),

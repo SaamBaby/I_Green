@@ -91,7 +91,7 @@ class _RootState extends State<Root> {
                       height: 2,
                       fontWeight: FontWeight.w700),
                 ),
-                activeColor: Color(0xFFa6e76c),
+                activeColor:Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
             BottomNavyBarItem(
                 icon: Icon(Icons.timer),
@@ -104,7 +104,7 @@ class _RootState extends State<Root> {
                       height: 2,
                       fontWeight: FontWeight.w700),
                 ),
-                activeColor: Color(0xFFa6e76c),
+                activeColor:Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
             BottomNavyBarItem(
                 icon: Icon(FontAwesomeIcons.facebookMessenger),
@@ -117,7 +117,7 @@ class _RootState extends State<Root> {
                       height: 2,
                       fontWeight: FontWeight.w700),
                 ),
-                activeColor: Color(0xFFa6e76c),
+                activeColor: Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
           ],
         ),
