@@ -175,7 +175,6 @@ class _AddHoursState extends State<AddHours> {
               locateCurrentPosition();
               shiftLocation(loadedJobData.jobLocation);
               controller.setMapStyle(_mapStyle);
-              print(_mapStyle);
               _controllerGoogleMap.complete(controller);
 
             },
