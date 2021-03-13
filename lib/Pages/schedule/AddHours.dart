@@ -25,12 +25,12 @@ class AddHours extends StatefulWidget {
 }
 // sam
 class _AddHoursState extends State<AddHours> {
-  String _mapStyle;
+  String mapStyle;
   @override
   void initState() {
     locateCurrentPosition();
     rootBundle.loadString('assets/utils/map_style.txt').then((string) {
-      _mapStyle = string;
+      mapStyle = string;
     });
     super.initState();
 
@@ -174,7 +174,7 @@ class _AddHoursState extends State<AddHours> {
             onMapCreated: (GoogleMapController controller) {
               locateCurrentPosition();
               shiftLocation(loadedJobData.jobLocation);
-              controller.setMapStyle(_mapStyle);
+              controller.setMapStyle(mapStyle);
               _controllerGoogleMap.complete(controller);
 
             },
