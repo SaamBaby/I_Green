@@ -3,9 +3,9 @@ import 'package:avatar_glow/avatar_glow.dart';
 
 
 class glowButton extends StatelessWidget {
-  final String imgurl;
+  final String imgUrl;
 
-  const glowButton({Key key, this.imgurl}) : super(key: key);
+  const glowButton({Key key, this.imgUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class glowButton extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(160.0)),
-          child: Image.asset(imgurl, width: MediaQuery.of(context).size.width*.1, height: MediaQuery.of(context).size.height*.1,),
+          child: Image.asset(imgUrl, width: MediaQuery.of(context).size.width*.1, height: MediaQuery.of(context).size.height*.1,),
         ),
       ),
     );

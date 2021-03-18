@@ -41,10 +41,10 @@ void main() async {
         update: (context, auth,_)=>JobModel(authToken: auth.idToken),
       ),
       ChangeNotifierProxyProvider<AuthProvider,ShiftProvider>(
-        update: (context,auth,previousState) => ShiftProvider(auth.idToken,previousState==null?{}:previousState.items),
+        update: (context,auth,previousState) => ShiftProvider(auth.idToken, auth.firebaseUuid,previousState==null?{}:previousState.items),
       ),
       ChangeNotifierProxyProvider<AuthProvider,AppliedJobs>(
-        update: (context,auth,previousState) => AppliedJobs(auth.idToken,previousState==null?{}:previousState.items),
+        update: (context,auth,previousState) => AppliedJobs(auth.idToken, auth.firebaseUuid,previousState==null?{}:previousState.items),
       ),
       ChangeNotifierProvider(
         create: (context) => SessionService(),

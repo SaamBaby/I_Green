@@ -7,8 +7,10 @@ import 'package:http/http.dart' as http;
 class AppliedJobs with ChangeNotifier {
   Map<String, AppliedJobsModel> _items = {};
   var authToken;
+  var uuid;
 
-  AppliedJobs(this.authToken, this._items);
+  AppliedJobs(this.authToken, this.uuid, this._items);
+
 
   Map<String, AppliedJobsModel> get items {
     fetchAppliedJobs();
@@ -17,11 +19,13 @@ class AppliedJobs with ChangeNotifier {
 
   Future<void> fetchAppliedJobs() async {
     final url =
-        'https://igreen-458f7-default-rtdb.firebaseio.com/applied_jobs.json?auth=$authToken';
+        'https://igreen-458f7-default-rtdb.firebaseio'
+        '.com/users/$uuid/activities/applied_jobs.json?auth=$authToken';
+
+
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-
       extractedData.forEach((id, appliedJobsData) {
         _items.putIfAbsent(
             appliedJobsData['jobId'],
@@ -41,8 +45,10 @@ class AppliedJobs with ChangeNotifier {
   }
 
   Future<void> applyJob(String jobId) async {
-    final url =
-        'https://igreen-458f7-default-rtdb.firebaseio.com/applied_jobs.json?auth=$authToken';
+
+    final url='https://igreen-458f7-default-rtdb.firebaseio'
+        '.com/users/$uuid/activities/applied_jobs.json?auth=$authToken';
+
     try {
       final value = await http.post(
         url,
@@ -56,8 +62,10 @@ class AppliedJobs with ChangeNotifier {
           'isApproved': false
         }),
       );
+
+
       notifyListeners();
-      print("testing ${json.decode(value.body)['name']}");
+
     } catch (error) {
       throw error;
     }

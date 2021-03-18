@@ -15,7 +15,7 @@ class NotConnected extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * .4,
             ),
-            glowButton(imgurl: 'assets/images/introduction/Logo.png'),
+            glowButton(imgUrl: 'assets/images/introduction/Logo.png'),
             Text(
               "Can't connect to Greenline",
               style: new TextStyle(

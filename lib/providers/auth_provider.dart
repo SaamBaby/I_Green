@@ -35,9 +35,10 @@ class AuthProvider with ChangeNotifier {
     } else {
       _user = firebaseUser;
       _status = Status.Authenticated;
-
+      firebaseUuid=_user.uid;
       await _user.getIdToken(true).then((value) {
         _idToken = value;
+        print(_idToken);
       });
     }
     notifyListeners();
@@ -60,8 +61,8 @@ class AuthProvider with ChangeNotifier {
           .then((result) async {
         _user = result.user;
         _status = Status.Authenticating;
-        firebaseUuid = result.user.uid;
-        onStateChanged(result.user);
+        firebaseUuid = _user.uid;
+        onStateChanged(_user);
         notifyListeners();
       });
     } on FirebaseAuthException catch (e) {

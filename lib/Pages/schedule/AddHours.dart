@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:Quete/Utils/Widgets/schedule.stopwatch.dart';
+import 'package:Quete/models/job_shifts.dart';
 import 'package:Quete/providers/jobs_provider.dart';
 import 'package:Quete/models/direction.dart';
 import 'package:Quete/providers/shifts.schedule.provider.dart';
@@ -13,6 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps_webservice/directions.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -32,12 +35,19 @@ class _AddHoursState extends State<AddHours> {
     rootBundle.loadString('assets/utils/map_style.txt').then((string) {
       mapStyle = string;
     });
+    _stopwatch = Stopwatch();
+    _timer = new Timer.periodic(new Duration(milliseconds: 30), (timer) {
+      setState(() {});
+    });
     super.initState();
 
   }
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
   Position _currentLocation;
-  bool isActive=false;
-  bool isShitStarted = false;
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   GoogleMapController _googleMapController;
   List<LatLng> polyLineCoordinates =[];
@@ -52,13 +62,139 @@ class _AddHoursState extends State<AddHours> {
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
+  // Stop Watch variables
+  bool isActive=false;
+  bool isShitStarted = false;
+
+  Stopwatch _stopwatch;
+  Timer _timer;
+
+  // Shift Model for saving the model
+   var shiftData =ShiftModel(
+       shiftName: '',
+       jobId:'',
+       shiftStartTime:DateTime.now(),
+       shiftEndTime:DateTime.now(),
+       shiftDateTime:DateTime.now(),
+       isComplete:false
+   );
+
+
+  void handleStartStop() {
+    if (_stopwatch.isRunning) {
+      showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: Text(
+              "Do you want to Clock Out?",
+              style: TextStyle(
+                  fontFamily: 'Futura Heavy',
+                  color: Colors.black,
+                  fontSize: 25,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w900),
+            ),
+            actions: [
+              InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () {
+                  _stopwatch.stop();
+                  setState(() {
+                    shiftData =ShiftModel(
+                        shiftName: shiftData.shiftName,
+                        jobId:shiftData.jobId,
+                        shiftStartTime:shiftData.shiftStartTime,
+                        shiftEndTime:DateTime.now(),
+                        shiftDateTime:shiftData.shiftDateTime,
+                        isComplete:shiftData.isComplete
+                    );
+                    isShitStarted=false;
+
+                  });
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    height: 35,
+                    alignment: Alignment.center,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF00bf6f).withOpacity(.8),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: RichText(
+                      text: TextSpan(
+                          children: [
+                            WidgetSpan(
+                              child: Icon(Icons.alarm_on_outlined,
+                                size: 16,color: Colors.white,),
+                            ),
+                            TextSpan(
+                                text: "  "
+                            ),
+                            TextSpan(
+                              text: "End Shift",
+                              style: TextStyle(
+                                color: isActive?Colors.white:Colors.black12,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w900,
+                                fontFamily: 'Futura Book',
+                              ),
+                            )
+                          ]
+                      ),
+                    ) ),
+              ),
+
+              FlatButton(
+                onPressed: (){
+                      Navigator.of(context).pop();
+                },
+                child:  Text(
+                  "Cancel",
+                  style: TextStyle(
+                      fontFamily: 'Futura Book',
+                      color: Colors.black,
+                      fontSize: 14,
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.w900),
+                ),
+              )
+            ],
+            content:  Text(
+              "This will be saved as your clock out location.Press to "
+                  "confirm",
+              style: TextStyle(
+                  fontFamily: 'Futura Book',
+                  color: Colors.black,
+                  fontSize: 16,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w900),
+            ),
+          );
+        }
+      );
+    } else {
+      _stopwatch.start();
+      setState(() {
+        isShitStarted=true;
+      });
+    }
+
+    setState(() {});
+  }
+
+
 
   void locateCurrentPosition() async {
     _googleMapController = await _controllerGoogleMap.future;
     _currentLocation = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       await placemarkFromCoordinates(_currentLocation.latitude, _currentLocation.longitude).then((placemarks) {
-
-
     });
 
     //  convert current location using api
@@ -70,7 +206,7 @@ class _AddHoursState extends State<AddHours> {
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
-  Future<bool> shiftLocation(address) async {
+  Future<void> shiftLocation(address) async {
     Position destination= await LocationHelper.searchAddressCoordinate(address);
      details= await LocationHelper.getAddressDirection(_currentLocation, destination);
     PolylinePoints  polylinePoints =PolylinePoints();
@@ -80,7 +216,6 @@ class _AddHoursState extends State<AddHours> {
       decodePolyLinePointsResult.forEach((PointLatLng pointLatLng) {
         polyLineCoordinates.add(LatLng(pointLatLng.latitude,pointLatLng.longitude));
       });
-      
     }
 
     setState(() {
@@ -98,7 +233,8 @@ class _AddHoursState extends State<AddHours> {
     });
 
     LatLngBounds latLngBounds;
-    if(_currentLocation.latitude>destination.latitude&& _currentLocation.longitude>destination.longitude)
+    if(_currentLocation.latitude>destination.latitude&& _currentLocation
+        .longitude>destination.longitude)
       {
         latLngBounds= LatLngBounds(southwest: LatLng(destination.latitude,destination.longitude),northeast: LatLng(_currentLocation.latitude, _currentLocation.longitude));
       }
@@ -120,13 +256,6 @@ class _AddHoursState extends State<AddHours> {
 
     _googleMapController
         .animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, 70));
-
-    Marker currentLocationMarker=Marker(
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-      infoWindow: InfoWindow(title:_currentAddress,snippet: "Current Location" ),
-      position: LatLng(_currentLocation.latitude, _currentLocation.longitude),
-      markerId: MarkerId("currentLocationId")
-    );
     Marker destinationLocationMarker=Marker(
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         infoWindow: InfoWindow(title:address,snippet: "Your Destination" ),
@@ -137,11 +266,19 @@ class _AddHoursState extends State<AddHours> {
 
       markers.add(destinationLocationMarker);
     });
-    if(destination != _currentLocation){
+    if(destination == _currentLocation){
       setState(() {
         isActive=true;
       });
-
+    }else{
+      final snackBar = SnackBar(
+        content: Text('You have to be at the workplace to start the timer',style: TextStyle(
+            fontFamily: 'Futura Book',
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold),),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
   }
@@ -172,6 +309,7 @@ class _AddHoursState extends State<AddHours> {
             zoomGesturesEnabled: true,
             initialCameraPosition:_kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
+              print("please work");
               locateCurrentPosition();
               shiftLocation(loadedJobData.jobLocation);
               controller.setMapStyle(mapStyle);
@@ -181,14 +319,14 @@ class _AddHoursState extends State<AddHours> {
 
           ),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 0),
             bottom: 0,
             right: 0,
             left: 0,
-            top: isShitStarted?MediaQuery.of(context).size.height*
-                .38:MediaQuery.of(context).size.height*.71,
+            top: isActive?MediaQuery.of(context).size.height*
+                .6:MediaQuery.of(context).size.height*.685,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              padding: EdgeInsets.only(right: 20,left: 20,bottom: 30),
               height: 250,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -206,12 +344,14 @@ class _AddHoursState extends State<AddHours> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                      padding: EdgeInsets.only(top: 5,left: 100,right: 100,bottom: 30),
+                      padding: EdgeInsets.only(top: 0,left: 100,right: 100,
+                          bottom: 15),
                       child:  Divider(
                         thickness: 3.8,
                         color: Color(0xff344644).withOpacity(.2),
                       )),
-
+                  isActive?StopWatch(stopWatch: _stopwatch,):SizedBox(height: 1,),
+                  SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -281,6 +421,7 @@ class _AddHoursState extends State<AddHours> {
 
                         fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(height: 5,),
                   Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -289,11 +430,14 @@ class _AddHoursState extends State<AddHours> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
-                          shiftLocation(loadedJobData.jobLocation);
+                         if(isActive==false){
+                          shiftLocation(loadedJobData.jobLocation);}
+                         else if(isActive){
+                           handleStartStop();
+                         }
                         },
-                        child: AnimatedContainer(
+                        child: Container(
                             margin: EdgeInsets.only(bottom: 10),
-                            duration: Duration(milliseconds: 300),
                             height: 45,
                             alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width*.45,
@@ -301,22 +445,39 @@ class _AddHoursState extends State<AddHours> {
                               color: isActive?Color(0xFF00bf6f).withOpacity(.8):Color(0xfff2f2f2),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Text(
-                              isShitStarted? "Stop Timer ":"Start Timer",
-                              style: TextStyle(
-                                color: isActive?Colors.white:Colors.black12,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'Futura Book',
+                            child: RichText(
+                              text: TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: Icon(Icons.access_time_rounded,
+                                          size: 20,color: Colors.white,),
+                                    ),
+                                TextSpan(
+                                  text: "  "
+                                ),
+                                TextSpan(
+                                  text:  isShitStarted? "Stop Shift ":"Start "
+                                      "Shift",
+                                  style: TextStyle(
+                                    color: isActive?Colors.white:Colors.black12,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w900,
+                                    fontFamily: 'Futura Book',
+                                  ),
+                                )
+                                  ]
                               ),
-                            )),
+                            ) ),
                       ),
                       Spacer(),
                       InkWell(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () {
+                            setState(() {
+                              isActive=(!isActive);
 
+                            });
                           },
                           child: Container(
                               margin: EdgeInsets.only(bottom: 10),
@@ -356,17 +517,18 @@ class _AddHoursState extends State<AddHours> {
 
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+
+                  SizedBox(
+                    height: 10,
+                  ),
 
 
-                    ],
-                  )
                 ],
               ),
             ),
           ),
+
+          // Floating appbar
           Positioned(
             top: 70.0,
             left: 20,

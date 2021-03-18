@@ -7,8 +7,9 @@ import 'package:http/http.dart' as http;
 class ShiftProvider with ChangeNotifier {
   Map<String, ShiftModel> _items = {};
   var authToken;
+  var uuid;
 
-  ShiftProvider(this.authToken, this._items);
+  ShiftProvider(this.authToken, this.uuid, this._items,);
 
   Map<String, ShiftModel> get items {
     return {..._items};
@@ -21,8 +22,8 @@ class ShiftProvider with ChangeNotifier {
   }
 
   Future<void> fetchAvailableShifts() async {
-    final url =
-        'https://igreen-458f7-default-rtdb.firebaseio.com/available_Shifts.json?auth=$authToken';
+    final url = 'https://igreen-458f7-default-rtdb.firebaseio'
+        '.com/users/$uuid/activities/shift_History.json?auth=$authToken';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -35,7 +36,7 @@ class ShiftProvider with ChangeNotifier {
                       DateTime.parse(availableShiftsData['shiftDate']),
                   jobId: availableShiftsData['jobId'],
                   shiftName: availableShiftsData['shiftName'],
-                  userIds: availableShiftsData['userIds'],
+
                 ));
         notifyListeners();
       });
@@ -44,7 +45,5 @@ class ShiftProvider with ChangeNotifier {
     }
   }
 
-  List<ShiftModel> availableShifts(id) {
-    return itemsList.where((element) => element.userIds.contains(id)).toList();
-  }
+
 }
