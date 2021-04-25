@@ -1,23 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screen_util.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ThemeData theme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    textTheme: TextTheme(bodyText2: TextStyle(
-        fontFamily: 'Futura Book',
-        color: Colors.black,
-        fontSize: 15,
-        fontWeight: FontWeight.w700)),
-    fontFamily: "Futura Book",
+    primaryColor:    Color(0xFF54E597),
+    textTheme: TextTheme(
+      headline1: GoogleFonts.montserrat(
+        color: Color.fromRGBO(52, 43, 37, 1),
+        fontSize: ScreenUtil().setSp(25),
+        fontWeight: FontWeight.w900,
+      ),
+      headline2: GoogleFonts.montserrat(
+        fontSize: ScreenUtil().setSp(40),
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+      headline3: GoogleFonts.montserrat(
+        color: Colors.white,
+        fontSize: ScreenUtil().setSp(14),
+        fontWeight: FontWeight.w900,
+      ),
+      headline4: GoogleFonts.montserrat(
+        color: Color.fromRGBO(52, 43, 37, 1),
+        fontSize: ScreenUtil().setSp(14),
+        fontWeight: FontWeight.w900,
+      ),
+      bodyText2:GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(12),
+        color: Color.fromRGBO(52, 43, 37, 1),
+        fontWeight: FontWeight.w600,
+      ),
+      bodyText1:GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(14),
+        color: Color.fromRGBO(52, 43, 37, 1),
+        fontWeight: FontWeight.w700,
+      ),
+      subtitle1: GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(11),
+        color: Colors.white,
+        fontWeight: FontWeight.w700,
+  ),
+      subtitle2: GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(11),
+        color: Colors.grey,
+        fontWeight: FontWeight.w700,
+      ),
+      button: GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(14),
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+      caption: GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(11),
+        color: Colors.grey,
+        fontWeight: FontWeight.w600,
+      ),
+      // headline5: TextStyle(fontSize: 34, color: Colors.black),
+      // headline4: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+      // headline3: TextStyle(fontSize: 28, color: Colors.black),
+      // headline2: TextStyle(fontSize: 22, color: Colors.black),
+      // headline1: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: Colors.black),
+
+      // subtitle1: TextStyle(fontSize: 17),
+      // subtitle2: TextStyle(fontSize: 15),
+      // caption: TextStyle(fontSize: 12),
+    ),
     appBarTheme: appBarTheme(),
     visualDensity: VisualDensity.comfortable,
     inputDecorationTheme: inputDecorationTheme(),
   );
 }
 
+
+
+
 InputDecorationTheme inputDecorationTheme() {
   var outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(28),
+    borderRadius: BorderRadius.circular(10),
     borderSide: BorderSide(color: Colors.grey),
     gapPadding: 12,
   );
@@ -37,7 +98,6 @@ AppBarTheme appBarTheme() {
     color: Colors.white,
     elevation: 0,
     centerTitle: true,
-
     brightness: Brightness.light,
     textTheme: TextTheme(
       headline: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),
@@ -45,7 +105,5 @@ AppBarTheme appBarTheme() {
   );
 }
 
-InputDecorationTheme otpInputDecorationTheme() {
 
-}
 

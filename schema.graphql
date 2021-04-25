@@ -4,292 +4,337 @@ schema {
   subscription: subscription_root
 }
 
-# columns and relationships of "AppliedJobs"
-type AppliedJobs {
+# columns and relationships of "activities"
+type activities {
+  activity_id: Int!
+  is_accepted: Boolean!
+  is_completed: Boolean
+
   # An object relationship
-  User: User!
-  applied_date: date!
-  approved_date: date
-  id: Int!
-  job_id: uuid!
+  shift: shifts!
+  shift_endtime: String
+  shift_id: Int!
+  shift_starttime: String
+
+  # An object relationship
+  user: users!
   user_id: String!
 }
 
-# aggregated selection of "AppliedJobs"
-type AppliedJobs_aggregate {
-  aggregate: AppliedJobs_aggregate_fields
-  nodes: [AppliedJobs!]!
+# aggregated selection of "activities"
+type activities_aggregate {
+  aggregate: activities_aggregate_fields
+  nodes: [activities!]!
 }
 
-# aggregate fields of "AppliedJobs"
-type AppliedJobs_aggregate_fields {
-  avg: AppliedJobs_avg_fields
-  count(columns: [AppliedJobs_select_column!], distinct: Boolean): Int
-  max: AppliedJobs_max_fields
-  min: AppliedJobs_min_fields
-  stddev: AppliedJobs_stddev_fields
-  stddev_pop: AppliedJobs_stddev_pop_fields
-  stddev_samp: AppliedJobs_stddev_samp_fields
-  sum: AppliedJobs_sum_fields
-  var_pop: AppliedJobs_var_pop_fields
-  var_samp: AppliedJobs_var_samp_fields
-  variance: AppliedJobs_variance_fields
+# aggregate fields of "activities"
+type activities_aggregate_fields {
+  avg: activities_avg_fields
+  count(columns: [activities_select_column!], distinct: Boolean): Int!
+  max: activities_max_fields
+  min: activities_min_fields
+  stddev: activities_stddev_fields
+  stddev_pop: activities_stddev_pop_fields
+  stddev_samp: activities_stddev_samp_fields
+  sum: activities_sum_fields
+  var_pop: activities_var_pop_fields
+  var_samp: activities_var_samp_fields
+  variance: activities_variance_fields
 }
 
-# order by aggregate values of table "AppliedJobs"
-input AppliedJobs_aggregate_order_by {
-  avg: AppliedJobs_avg_order_by
+# order by aggregate values of table "activities"
+input activities_aggregate_order_by {
+  avg: activities_avg_order_by
   count: order_by
-  max: AppliedJobs_max_order_by
-  min: AppliedJobs_min_order_by
-  stddev: AppliedJobs_stddev_order_by
-  stddev_pop: AppliedJobs_stddev_pop_order_by
-  stddev_samp: AppliedJobs_stddev_samp_order_by
-  sum: AppliedJobs_sum_order_by
-  var_pop: AppliedJobs_var_pop_order_by
-  var_samp: AppliedJobs_var_samp_order_by
-  variance: AppliedJobs_variance_order_by
+  max: activities_max_order_by
+  min: activities_min_order_by
+  stddev: activities_stddev_order_by
+  stddev_pop: activities_stddev_pop_order_by
+  stddev_samp: activities_stddev_samp_order_by
+  sum: activities_sum_order_by
+  var_pop: activities_var_pop_order_by
+  var_samp: activities_var_samp_order_by
+  variance: activities_variance_order_by
 }
 
-# input type for inserting array relation for remote table "AppliedJobs"
-input AppliedJobs_arr_rel_insert_input {
-  data: [AppliedJobs_insert_input!]!
-  on_conflict: AppliedJobs_on_conflict
+# input type for inserting array relation for remote table "activities"
+input activities_arr_rel_insert_input {
+  data: [activities_insert_input!]!
+
+  # on conflict condition
+  on_conflict: activities_on_conflict
 }
 
 # aggregate avg on columns
-type AppliedJobs_avg_fields {
-  id: Float
+type activities_avg_fields {
+  activity_id: Float
+  shift_id: Float
 }
 
-# order by avg() on columns of table "AppliedJobs"
-input AppliedJobs_avg_order_by {
-  id: order_by
+# order by avg() on columns of table "activities"
+input activities_avg_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
-# Boolean expression to filter rows from the table "AppliedJobs". All fields are combined with a logical 'AND'.
-input AppliedJobs_bool_exp {
-  User: User_bool_exp
-  _and: [AppliedJobs_bool_exp]
-  _not: AppliedJobs_bool_exp
-  _or: [AppliedJobs_bool_exp]
-  applied_date: date_comparison_exp
-  approved_date: date_comparison_exp
-  id: Int_comparison_exp
-  job_id: uuid_comparison_exp
+# Boolean expression to filter rows from the table "activities". All fields are combined with a logical 'AND'.
+input activities_bool_exp {
+  _and: [activities_bool_exp!]
+  _not: activities_bool_exp
+  _or: [activities_bool_exp!]
+  activity_id: Int_comparison_exp
+  is_accepted: Boolean_comparison_exp
+  is_completed: Boolean_comparison_exp
+  shift: shifts_bool_exp
+  shift_endtime: String_comparison_exp
+  shift_id: Int_comparison_exp
+  shift_starttime: String_comparison_exp
+  user: users_bool_exp
   user_id: String_comparison_exp
 }
 
-# unique or primary key constraints on table "AppliedJobs"
-enum AppliedJobs_constraint {
+# unique or primary key constraints on table "activities"
+enum activities_constraint {
   # unique or primary key constraint
-  AppliedJobs_pkey
+  activities_activity_id_key
+
+  # unique or primary key constraint
+  activities_pkey
 }
 
-# input type for incrementing integer column in table "AppliedJobs"
-input AppliedJobs_inc_input {
-  id: Int
+# input type for incrementing numeric columns in table "activities"
+input activities_inc_input {
+  activity_id: Int
+  shift_id: Int
 }
 
-# input type for inserting data into table "AppliedJobs"
-input AppliedJobs_insert_input {
-  User: User_obj_rel_insert_input
-  applied_date: date
-  approved_date: date
-  id: Int
-  job_id: uuid
+# input type for inserting data into table "activities"
+input activities_insert_input {
+  activity_id: Int
+  is_accepted: Boolean
+  is_completed: Boolean
+  shift: shifts_obj_rel_insert_input
+  shift_endtime: String
+  shift_id: Int
+  shift_starttime: String
+  user: users_obj_rel_insert_input
   user_id: String
 }
 
 # aggregate max on columns
-type AppliedJobs_max_fields {
-  applied_date: date
-  approved_date: date
-  id: Int
-  job_id: uuid
+type activities_max_fields {
+  activity_id: Int
+  shift_endtime: String
+  shift_id: Int
+  shift_starttime: String
   user_id: String
 }
 
-# order by max() on columns of table "AppliedJobs"
-input AppliedJobs_max_order_by {
-  applied_date: order_by
-  approved_date: order_by
-  id: order_by
-  job_id: order_by
+# order by max() on columns of table "activities"
+input activities_max_order_by {
+  activity_id: order_by
+  shift_endtime: order_by
+  shift_id: order_by
+  shift_starttime: order_by
   user_id: order_by
 }
 
 # aggregate min on columns
-type AppliedJobs_min_fields {
-  applied_date: date
-  approved_date: date
-  id: Int
-  job_id: uuid
+type activities_min_fields {
+  activity_id: Int
+  shift_endtime: String
+  shift_id: Int
+  shift_starttime: String
   user_id: String
 }
 
-# order by min() on columns of table "AppliedJobs"
-input AppliedJobs_min_order_by {
-  applied_date: order_by
-  approved_date: order_by
-  id: order_by
-  job_id: order_by
+# order by min() on columns of table "activities"
+input activities_min_order_by {
+  activity_id: order_by
+  shift_endtime: order_by
+  shift_id: order_by
+  shift_starttime: order_by
   user_id: order_by
 }
 
-# response of any mutation on the table "AppliedJobs"
-type AppliedJobs_mutation_response {
-  # number of affected rows by the mutation
+# response of any mutation on the table "activities"
+type activities_mutation_response {
+  # number of rows affected by the mutation
   affected_rows: Int!
 
-  # data of the affected rows by the mutation
-  returning: [AppliedJobs!]!
+  # data from the rows affected by the mutation
+  returning: [activities!]!
 }
 
-# input type for inserting object relation for remote table "AppliedJobs"
-input AppliedJobs_obj_rel_insert_input {
-  data: AppliedJobs_insert_input!
-  on_conflict: AppliedJobs_on_conflict
+# on conflict condition type for table "activities"
+input activities_on_conflict {
+  constraint: activities_constraint!
+  update_columns: [activities_update_column!]!
+  where: activities_bool_exp
 }
 
-# on conflict condition type for table "AppliedJobs"
-input AppliedJobs_on_conflict {
-  constraint: AppliedJobs_constraint!
-  update_columns: [AppliedJobs_update_column!]!
-  where: AppliedJobs_bool_exp
-}
-
-# ordering options when selecting data from "AppliedJobs"
-input AppliedJobs_order_by {
-  User: User_order_by
-  applied_date: order_by
-  approved_date: order_by
-  id: order_by
-  job_id: order_by
+# Ordering options when selecting data from "activities".
+input activities_order_by {
+  activity_id: order_by
+  is_accepted: order_by
+  is_completed: order_by
+  shift: shifts_order_by
+  shift_endtime: order_by
+  shift_id: order_by
+  shift_starttime: order_by
+  user: users_order_by
   user_id: order_by
 }
 
-# primary key columns input for table: "AppliedJobs"
-input AppliedJobs_pk_columns_input {
-  id: Int!
+# primary key columns input for table: activities
+input activities_pk_columns_input {
+  activity_id: Int!
 }
 
-# select columns of table "AppliedJobs"
-enum AppliedJobs_select_column {
+# select columns of table "activities"
+enum activities_select_column {
   # column name
-  applied_date
+  activity_id
 
   # column name
-  approved_date
+  is_accepted
 
   # column name
-  id
+  is_completed
 
   # column name
-  job_id
+  shift_endtime
+
+  # column name
+  shift_id
+
+  # column name
+  shift_starttime
 
   # column name
   user_id
 }
 
-# input type for updating data in table "AppliedJobs"
-input AppliedJobs_set_input {
-  applied_date: date
-  approved_date: date
-  id: Int
-  job_id: uuid
+# input type for updating data in table "activities"
+input activities_set_input {
+  activity_id: Int
+  is_accepted: Boolean
+  is_completed: Boolean
+  shift_endtime: String
+  shift_id: Int
+  shift_starttime: String
   user_id: String
 }
 
 # aggregate stddev on columns
-type AppliedJobs_stddev_fields {
-  id: Float
+type activities_stddev_fields {
+  activity_id: Float
+  shift_id: Float
 }
 
-# order by stddev() on columns of table "AppliedJobs"
-input AppliedJobs_stddev_order_by {
-  id: order_by
+# order by stddev() on columns of table "activities"
+input activities_stddev_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
 # aggregate stddev_pop on columns
-type AppliedJobs_stddev_pop_fields {
-  id: Float
+type activities_stddev_pop_fields {
+  activity_id: Float
+  shift_id: Float
 }
 
-# order by stddev_pop() on columns of table "AppliedJobs"
-input AppliedJobs_stddev_pop_order_by {
-  id: order_by
+# order by stddev_pop() on columns of table "activities"
+input activities_stddev_pop_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
 # aggregate stddev_samp on columns
-type AppliedJobs_stddev_samp_fields {
-  id: Float
+type activities_stddev_samp_fields {
+  activity_id: Float
+  shift_id: Float
 }
 
-# order by stddev_samp() on columns of table "AppliedJobs"
-input AppliedJobs_stddev_samp_order_by {
-  id: order_by
+# order by stddev_samp() on columns of table "activities"
+input activities_stddev_samp_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
 # aggregate sum on columns
-type AppliedJobs_sum_fields {
-  id: Int
+type activities_sum_fields {
+  activity_id: Int
+  shift_id: Int
 }
 
-# order by sum() on columns of table "AppliedJobs"
-input AppliedJobs_sum_order_by {
-  id: order_by
+# order by sum() on columns of table "activities"
+input activities_sum_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
-# update columns of table "AppliedJobs"
-enum AppliedJobs_update_column {
+# update columns of table "activities"
+enum activities_update_column {
   # column name
-  applied_date
+  activity_id
 
   # column name
-  approved_date
+  is_accepted
 
   # column name
-  id
+  is_completed
 
   # column name
-  job_id
+  shift_endtime
+
+  # column name
+  shift_id
+
+  # column name
+  shift_starttime
 
   # column name
   user_id
 }
 
 # aggregate var_pop on columns
-type AppliedJobs_var_pop_fields {
-  id: Float
+type activities_var_pop_fields {
+  activity_id: Float
+  shift_id: Float
 }
 
-# order by var_pop() on columns of table "AppliedJobs"
-input AppliedJobs_var_pop_order_by {
-  id: order_by
+# order by var_pop() on columns of table "activities"
+input activities_var_pop_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
 # aggregate var_samp on columns
-type AppliedJobs_var_samp_fields {
-  id: Float
+type activities_var_samp_fields {
+  activity_id: Float
+  shift_id: Float
 }
 
-# order by var_samp() on columns of table "AppliedJobs"
-input AppliedJobs_var_samp_order_by {
-  id: order_by
+# order by var_samp() on columns of table "activities"
+input activities_var_samp_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
 # aggregate variance on columns
-type AppliedJobs_variance_fields {
-  id: Float
+type activities_variance_fields {
+  activity_id: Float
+  shift_id: Float
 }
 
-# order by variance() on columns of table "AppliedJobs"
-input AppliedJobs_variance_order_by {
-  id: order_by
+# order by variance() on columns of table "activities"
+input activities_variance_order_by {
+  activity_id: order_by
+  shift_id: order_by
 }
 
-# expression to compare columns of type Boolean. All fields are combined with logical 'AND'.
+# Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
 input Boolean_comparison_exp {
   _eq: Boolean
   _gt: Boolean
@@ -302,9 +347,287 @@ input Boolean_comparison_exp {
   _nin: [Boolean!]
 }
 
+# columns and relationships of "closed_shifts"
+type closed_shifts {
+  closed_shifts_id: Int!
+
+  # An object relationship
+  shift: shifts!
+  shift_id: Int!
+
+  # An object relationship
+  user: users!
+  user_id: String!
+}
+
+# aggregated selection of "closed_shifts"
+type closed_shifts_aggregate {
+  aggregate: closed_shifts_aggregate_fields
+  nodes: [closed_shifts!]!
+}
+
+# aggregate fields of "closed_shifts"
+type closed_shifts_aggregate_fields {
+  avg: closed_shifts_avg_fields
+  count(columns: [closed_shifts_select_column!], distinct: Boolean): Int!
+  max: closed_shifts_max_fields
+  min: closed_shifts_min_fields
+  stddev: closed_shifts_stddev_fields
+  stddev_pop: closed_shifts_stddev_pop_fields
+  stddev_samp: closed_shifts_stddev_samp_fields
+  sum: closed_shifts_sum_fields
+  var_pop: closed_shifts_var_pop_fields
+  var_samp: closed_shifts_var_samp_fields
+  variance: closed_shifts_variance_fields
+}
+
+# order by aggregate values of table "closed_shifts"
+input closed_shifts_aggregate_order_by {
+  avg: closed_shifts_avg_order_by
+  count: order_by
+  max: closed_shifts_max_order_by
+  min: closed_shifts_min_order_by
+  stddev: closed_shifts_stddev_order_by
+  stddev_pop: closed_shifts_stddev_pop_order_by
+  stddev_samp: closed_shifts_stddev_samp_order_by
+  sum: closed_shifts_sum_order_by
+  var_pop: closed_shifts_var_pop_order_by
+  var_samp: closed_shifts_var_samp_order_by
+  variance: closed_shifts_variance_order_by
+}
+
+# input type for inserting array relation for remote table "closed_shifts"
+input closed_shifts_arr_rel_insert_input {
+  data: [closed_shifts_insert_input!]!
+
+  # on conflict condition
+  on_conflict: closed_shifts_on_conflict
+}
+
+# aggregate avg on columns
+type closed_shifts_avg_fields {
+  closed_shifts_id: Float
+  shift_id: Float
+}
+
+# order by avg() on columns of table "closed_shifts"
+input closed_shifts_avg_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
+# Boolean expression to filter rows from the table "closed_shifts". All fields are combined with a logical 'AND'.
+input closed_shifts_bool_exp {
+  _and: [closed_shifts_bool_exp!]
+  _not: closed_shifts_bool_exp
+  _or: [closed_shifts_bool_exp!]
+  closed_shifts_id: Int_comparison_exp
+  shift: shifts_bool_exp
+  shift_id: Int_comparison_exp
+  user: users_bool_exp
+  user_id: String_comparison_exp
+}
+
+# unique or primary key constraints on table "closed_shifts"
+enum closed_shifts_constraint {
+  # unique or primary key constraint
+  closed_shifts_closed_shifts_id_key
+
+  # unique or primary key constraint
+  closed_shifts_pkey
+}
+
+# input type for incrementing numeric columns in table "closed_shifts"
+input closed_shifts_inc_input {
+  closed_shifts_id: Int
+  shift_id: Int
+}
+
+# input type for inserting data into table "closed_shifts"
+input closed_shifts_insert_input {
+  closed_shifts_id: Int
+  shift: shifts_obj_rel_insert_input
+  shift_id: Int
+  user: users_obj_rel_insert_input
+  user_id: String
+}
+
+# aggregate max on columns
+type closed_shifts_max_fields {
+  closed_shifts_id: Int
+  shift_id: Int
+  user_id: String
+}
+
+# order by max() on columns of table "closed_shifts"
+input closed_shifts_max_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+  user_id: order_by
+}
+
+# aggregate min on columns
+type closed_shifts_min_fields {
+  closed_shifts_id: Int
+  shift_id: Int
+  user_id: String
+}
+
+# order by min() on columns of table "closed_shifts"
+input closed_shifts_min_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+  user_id: order_by
+}
+
+# response of any mutation on the table "closed_shifts"
+type closed_shifts_mutation_response {
+  # number of rows affected by the mutation
+  affected_rows: Int!
+
+  # data from the rows affected by the mutation
+  returning: [closed_shifts!]!
+}
+
+# on conflict condition type for table "closed_shifts"
+input closed_shifts_on_conflict {
+  constraint: closed_shifts_constraint!
+  update_columns: [closed_shifts_update_column!]!
+  where: closed_shifts_bool_exp
+}
+
+# Ordering options when selecting data from "closed_shifts".
+input closed_shifts_order_by {
+  closed_shifts_id: order_by
+  shift: shifts_order_by
+  shift_id: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+# primary key columns input for table: closed_shifts
+input closed_shifts_pk_columns_input {
+  closed_shifts_id: Int!
+}
+
+# select columns of table "closed_shifts"
+enum closed_shifts_select_column {
+  # column name
+  closed_shifts_id
+
+  # column name
+  shift_id
+
+  # column name
+  user_id
+}
+
+# input type for updating data in table "closed_shifts"
+input closed_shifts_set_input {
+  closed_shifts_id: Int
+  shift_id: Int
+  user_id: String
+}
+
+# aggregate stddev on columns
+type closed_shifts_stddev_fields {
+  closed_shifts_id: Float
+  shift_id: Float
+}
+
+# order by stddev() on columns of table "closed_shifts"
+input closed_shifts_stddev_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate stddev_pop on columns
+type closed_shifts_stddev_pop_fields {
+  closed_shifts_id: Float
+  shift_id: Float
+}
+
+# order by stddev_pop() on columns of table "closed_shifts"
+input closed_shifts_stddev_pop_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate stddev_samp on columns
+type closed_shifts_stddev_samp_fields {
+  closed_shifts_id: Float
+  shift_id: Float
+}
+
+# order by stddev_samp() on columns of table "closed_shifts"
+input closed_shifts_stddev_samp_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate sum on columns
+type closed_shifts_sum_fields {
+  closed_shifts_id: Int
+  shift_id: Int
+}
+
+# order by sum() on columns of table "closed_shifts"
+input closed_shifts_sum_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
+# update columns of table "closed_shifts"
+enum closed_shifts_update_column {
+  # column name
+  closed_shifts_id
+
+  # column name
+  shift_id
+
+  # column name
+  user_id
+}
+
+# aggregate var_pop on columns
+type closed_shifts_var_pop_fields {
+  closed_shifts_id: Float
+  shift_id: Float
+}
+
+# order by var_pop() on columns of table "closed_shifts"
+input closed_shifts_var_pop_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate var_samp on columns
+type closed_shifts_var_samp_fields {
+  closed_shifts_id: Float
+  shift_id: Float
+}
+
+# order by var_samp() on columns of table "closed_shifts"
+input closed_shifts_var_samp_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate variance on columns
+type closed_shifts_variance_fields {
+  closed_shifts_id: Float
+  shift_id: Float
+}
+
+# order by variance() on columns of table "closed_shifts"
+input closed_shifts_variance_order_by {
+  closed_shifts_id: order_by
+  shift_id: order_by
+}
+
 scalar date
 
-# expression to compare columns of type date. All fields are combined with logical 'AND'.
+# Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'.
 input date_comparison_exp {
   _eq: date
   _gt: date
@@ -317,22 +640,277 @@ input date_comparison_exp {
   _nin: [date!]
 }
 
-scalar float8
+# columns and relationships of "documents"
+type documents {
+  document_id: Int!
+  document_name: String!
+  document_url: String!
 
-# expression to compare columns of type float8. All fields are combined with logical 'AND'.
-input float8_comparison_exp {
-  _eq: float8
-  _gt: float8
-  _gte: float8
-  _in: [float8!]
-  _is_null: Boolean
-  _lt: float8
-  _lte: float8
-  _neq: float8
-  _nin: [float8!]
+  # An object relationship
+  user: users!
+  user_id: String!
 }
 
-# expression to compare columns of type Int. All fields are combined with logical 'AND'.
+# aggregated selection of "documents"
+type documents_aggregate {
+  aggregate: documents_aggregate_fields
+  nodes: [documents!]!
+}
+
+# aggregate fields of "documents"
+type documents_aggregate_fields {
+  avg: documents_avg_fields
+  count(columns: [documents_select_column!], distinct: Boolean): Int!
+  max: documents_max_fields
+  min: documents_min_fields
+  stddev: documents_stddev_fields
+  stddev_pop: documents_stddev_pop_fields
+  stddev_samp: documents_stddev_samp_fields
+  sum: documents_sum_fields
+  var_pop: documents_var_pop_fields
+  var_samp: documents_var_samp_fields
+  variance: documents_variance_fields
+}
+
+# order by aggregate values of table "documents"
+input documents_aggregate_order_by {
+  avg: documents_avg_order_by
+  count: order_by
+  max: documents_max_order_by
+  min: documents_min_order_by
+  stddev: documents_stddev_order_by
+  stddev_pop: documents_stddev_pop_order_by
+  stddev_samp: documents_stddev_samp_order_by
+  sum: documents_sum_order_by
+  var_pop: documents_var_pop_order_by
+  var_samp: documents_var_samp_order_by
+  variance: documents_variance_order_by
+}
+
+# input type for inserting array relation for remote table "documents"
+input documents_arr_rel_insert_input {
+  data: [documents_insert_input!]!
+
+  # on conflict condition
+  on_conflict: documents_on_conflict
+}
+
+# aggregate avg on columns
+type documents_avg_fields {
+  document_id: Float
+}
+
+# order by avg() on columns of table "documents"
+input documents_avg_order_by {
+  document_id: order_by
+}
+
+# Boolean expression to filter rows from the table "documents". All fields are combined with a logical 'AND'.
+input documents_bool_exp {
+  _and: [documents_bool_exp!]
+  _not: documents_bool_exp
+  _or: [documents_bool_exp!]
+  document_id: Int_comparison_exp
+  document_name: String_comparison_exp
+  document_url: String_comparison_exp
+  user: users_bool_exp
+  user_id: String_comparison_exp
+}
+
+# unique or primary key constraints on table "documents"
+enum documents_constraint {
+  # unique or primary key constraint
+  documents_document_id_key
+
+  # unique or primary key constraint
+  documents_pkey
+}
+
+# input type for incrementing numeric columns in table "documents"
+input documents_inc_input {
+  document_id: Int
+}
+
+# input type for inserting data into table "documents"
+input documents_insert_input {
+  document_id: Int
+  document_name: String
+  document_url: String
+  user: users_obj_rel_insert_input
+  user_id: String
+}
+
+# aggregate max on columns
+type documents_max_fields {
+  document_id: Int
+  document_name: String
+  document_url: String
+  user_id: String
+}
+
+# order by max() on columns of table "documents"
+input documents_max_order_by {
+  document_id: order_by
+  document_name: order_by
+  document_url: order_by
+  user_id: order_by
+}
+
+# aggregate min on columns
+type documents_min_fields {
+  document_id: Int
+  document_name: String
+  document_url: String
+  user_id: String
+}
+
+# order by min() on columns of table "documents"
+input documents_min_order_by {
+  document_id: order_by
+  document_name: order_by
+  document_url: order_by
+  user_id: order_by
+}
+
+# response of any mutation on the table "documents"
+type documents_mutation_response {
+  # number of rows affected by the mutation
+  affected_rows: Int!
+
+  # data from the rows affected by the mutation
+  returning: [documents!]!
+}
+
+# on conflict condition type for table "documents"
+input documents_on_conflict {
+  constraint: documents_constraint!
+  update_columns: [documents_update_column!]!
+  where: documents_bool_exp
+}
+
+# Ordering options when selecting data from "documents".
+input documents_order_by {
+  document_id: order_by
+  document_name: order_by
+  document_url: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+# primary key columns input for table: documents
+input documents_pk_columns_input {
+  document_id: Int!
+}
+
+# select columns of table "documents"
+enum documents_select_column {
+  # column name
+  document_id
+
+  # column name
+  document_name
+
+  # column name
+  document_url
+
+  # column name
+  user_id
+}
+
+# input type for updating data in table "documents"
+input documents_set_input {
+  document_id: Int
+  document_name: String
+  document_url: String
+  user_id: String
+}
+
+# aggregate stddev on columns
+type documents_stddev_fields {
+  document_id: Float
+}
+
+# order by stddev() on columns of table "documents"
+input documents_stddev_order_by {
+  document_id: order_by
+}
+
+# aggregate stddev_pop on columns
+type documents_stddev_pop_fields {
+  document_id: Float
+}
+
+# order by stddev_pop() on columns of table "documents"
+input documents_stddev_pop_order_by {
+  document_id: order_by
+}
+
+# aggregate stddev_samp on columns
+type documents_stddev_samp_fields {
+  document_id: Float
+}
+
+# order by stddev_samp() on columns of table "documents"
+input documents_stddev_samp_order_by {
+  document_id: order_by
+}
+
+# aggregate sum on columns
+type documents_sum_fields {
+  document_id: Int
+}
+
+# order by sum() on columns of table "documents"
+input documents_sum_order_by {
+  document_id: order_by
+}
+
+# update columns of table "documents"
+enum documents_update_column {
+  # column name
+  document_id
+
+  # column name
+  document_name
+
+  # column name
+  document_url
+
+  # column name
+  user_id
+}
+
+# aggregate var_pop on columns
+type documents_var_pop_fields {
+  document_id: Float
+}
+
+# order by var_pop() on columns of table "documents"
+input documents_var_pop_order_by {
+  document_id: order_by
+}
+
+# aggregate var_samp on columns
+type documents_var_samp_fields {
+  document_id: Float
+}
+
+# order by var_samp() on columns of table "documents"
+input documents_var_samp_order_by {
+  document_id: order_by
+}
+
+# aggregate variance on columns
+type documents_variance_fields {
+  document_id: Float
+}
+
+# order by variance() on columns of table "documents"
+input documents_variance_order_by {
+  document_id: order_by
+}
+
+# Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 input Int_comparison_exp {
   _eq: Int
   _gt: Int
@@ -345,556 +923,954 @@ input Int_comparison_exp {
   _nin: [Int!]
 }
 
-# columns and relationships of "Jobs"
-type Jobs {
-  isContract: Boolean!
-  isFulltime: Boolean!
-  isPartTime: Boolean!
-  jobDescription: String!
-  jobId: uuid!
-  jobLocation: String!
-  jobLogo: String!
-  jobName: String!
-  jobQualitifcation: String!
-  jobResponsibilities: String
-  salaryRange: float8
+# columns and relationships of "jobs"
+type jobs {
+  is_contract: Boolean!
+  is_fulltime: Boolean!
+  is_parttime: Boolean!
+  job_description: String!
+  job_id: Int!
+  job_location: String!
+  job_logo: String!
+  job_name: String!
+  job_qualifications: String
+  job_responsibilities: String
+  job_salary: String
+
+  # An array relationship
+  shifts(
+    # distinct select on columns
+    distinct_on: [shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [shifts_order_by!]
+
+    # filter the rows returned
+    where: shifts_bool_exp
+  ): [shifts!]!
+
+  # An aggregate relationship
+  shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [shifts_order_by!]
+
+    # filter the rows returned
+    where: shifts_bool_exp
+  ): shifts_aggregate!
 }
 
-# aggregated selection of "Jobs"
-type Jobs_aggregate {
-  aggregate: Jobs_aggregate_fields
-  nodes: [Jobs!]!
+# aggregated selection of "jobs"
+type jobs_aggregate {
+  aggregate: jobs_aggregate_fields
+  nodes: [jobs!]!
 }
 
-# aggregate fields of "Jobs"
-type Jobs_aggregate_fields {
-  avg: Jobs_avg_fields
-  count(columns: [Jobs_select_column!], distinct: Boolean): Int
-  max: Jobs_max_fields
-  min: Jobs_min_fields
-  stddev: Jobs_stddev_fields
-  stddev_pop: Jobs_stddev_pop_fields
-  stddev_samp: Jobs_stddev_samp_fields
-  sum: Jobs_sum_fields
-  var_pop: Jobs_var_pop_fields
-  var_samp: Jobs_var_samp_fields
-  variance: Jobs_variance_fields
-}
-
-# order by aggregate values of table "Jobs"
-input Jobs_aggregate_order_by {
-  avg: Jobs_avg_order_by
-  count: order_by
-  max: Jobs_max_order_by
-  min: Jobs_min_order_by
-  stddev: Jobs_stddev_order_by
-  stddev_pop: Jobs_stddev_pop_order_by
-  stddev_samp: Jobs_stddev_samp_order_by
-  sum: Jobs_sum_order_by
-  var_pop: Jobs_var_pop_order_by
-  var_samp: Jobs_var_samp_order_by
-  variance: Jobs_variance_order_by
-}
-
-# input type for inserting array relation for remote table "Jobs"
-input Jobs_arr_rel_insert_input {
-  data: [Jobs_insert_input!]!
-  on_conflict: Jobs_on_conflict
+# aggregate fields of "jobs"
+type jobs_aggregate_fields {
+  avg: jobs_avg_fields
+  count(columns: [jobs_select_column!], distinct: Boolean): Int!
+  max: jobs_max_fields
+  min: jobs_min_fields
+  stddev: jobs_stddev_fields
+  stddev_pop: jobs_stddev_pop_fields
+  stddev_samp: jobs_stddev_samp_fields
+  sum: jobs_sum_fields
+  var_pop: jobs_var_pop_fields
+  var_samp: jobs_var_samp_fields
+  variance: jobs_variance_fields
 }
 
 # aggregate avg on columns
-type Jobs_avg_fields {
-  salaryRange: Float
+type jobs_avg_fields {
+  job_id: Float
 }
 
-# order by avg() on columns of table "Jobs"
-input Jobs_avg_order_by {
-  salaryRange: order_by
+# Boolean expression to filter rows from the table "jobs". All fields are combined with a logical 'AND'.
+input jobs_bool_exp {
+  _and: [jobs_bool_exp!]
+  _not: jobs_bool_exp
+  _or: [jobs_bool_exp!]
+  is_contract: Boolean_comparison_exp
+  is_fulltime: Boolean_comparison_exp
+  is_parttime: Boolean_comparison_exp
+  job_description: String_comparison_exp
+  job_id: Int_comparison_exp
+  job_location: String_comparison_exp
+  job_logo: String_comparison_exp
+  job_name: String_comparison_exp
+  job_qualifications: String_comparison_exp
+  job_responsibilities: String_comparison_exp
+  job_salary: String_comparison_exp
+  shifts: shifts_bool_exp
 }
 
-# Boolean expression to filter rows from the table "Jobs". All fields are combined with a logical 'AND'.
-input Jobs_bool_exp {
-  _and: [Jobs_bool_exp]
-  _not: Jobs_bool_exp
-  _or: [Jobs_bool_exp]
-  isContract: Boolean_comparison_exp
-  isFulltime: Boolean_comparison_exp
-  isPartTime: Boolean_comparison_exp
-  jobDescription: String_comparison_exp
-  jobId: uuid_comparison_exp
-  jobLocation: String_comparison_exp
-  jobLogo: String_comparison_exp
-  jobName: String_comparison_exp
-  jobQualitifcation: String_comparison_exp
-  jobResponsibilities: String_comparison_exp
-  salaryRange: float8_comparison_exp
-}
-
-# unique or primary key constraints on table "Jobs"
-enum Jobs_constraint {
+# unique or primary key constraints on table "jobs"
+enum jobs_constraint {
   # unique or primary key constraint
-  Jobs_pkey
+  jobs_pkey
 }
 
-# input type for incrementing integer column in table "Jobs"
-input Jobs_inc_input {
-  salaryRange: float8
+# input type for incrementing numeric columns in table "jobs"
+input jobs_inc_input {
+  job_id: Int
 }
 
-# input type for inserting data into table "Jobs"
-input Jobs_insert_input {
-  isContract: Boolean
-  isFulltime: Boolean
-  isPartTime: Boolean
-  jobDescription: String
-  jobId: uuid
-  jobLocation: String
-  jobLogo: String
-  jobName: String
-  jobQualitifcation: String
-  jobResponsibilities: String
-  salaryRange: float8
+# input type for inserting data into table "jobs"
+input jobs_insert_input {
+  is_contract: Boolean
+  is_fulltime: Boolean
+  is_parttime: Boolean
+  job_description: String
+  job_id: Int
+  job_location: String
+  job_logo: String
+  job_name: String
+  job_qualifications: String
+  job_responsibilities: String
+  job_salary: String
+  shifts: shifts_arr_rel_insert_input
 }
 
 # aggregate max on columns
-type Jobs_max_fields {
-  jobDescription: String
-  jobId: uuid
-  jobLocation: String
-  jobLogo: String
-  jobName: String
-  jobQualitifcation: String
-  jobResponsibilities: String
-  salaryRange: float8
-}
-
-# order by max() on columns of table "Jobs"
-input Jobs_max_order_by {
-  jobDescription: order_by
-  jobId: order_by
-  jobLocation: order_by
-  jobLogo: order_by
-  jobName: order_by
-  jobQualitifcation: order_by
-  jobResponsibilities: order_by
-  salaryRange: order_by
+type jobs_max_fields {
+  job_description: String
+  job_id: Int
+  job_location: String
+  job_logo: String
+  job_name: String
+  job_qualifications: String
+  job_responsibilities: String
+  job_salary: String
 }
 
 # aggregate min on columns
-type Jobs_min_fields {
-  jobDescription: String
-  jobId: uuid
-  jobLocation: String
-  jobLogo: String
-  jobName: String
-  jobQualitifcation: String
-  jobResponsibilities: String
-  salaryRange: float8
+type jobs_min_fields {
+  job_description: String
+  job_id: Int
+  job_location: String
+  job_logo: String
+  job_name: String
+  job_qualifications: String
+  job_responsibilities: String
+  job_salary: String
 }
 
-# order by min() on columns of table "Jobs"
-input Jobs_min_order_by {
-  jobDescription: order_by
-  jobId: order_by
-  jobLocation: order_by
-  jobLogo: order_by
-  jobName: order_by
-  jobQualitifcation: order_by
-  jobResponsibilities: order_by
-  salaryRange: order_by
-}
-
-# response of any mutation on the table "Jobs"
-type Jobs_mutation_response {
-  # number of affected rows by the mutation
+# response of any mutation on the table "jobs"
+type jobs_mutation_response {
+  # number of rows affected by the mutation
   affected_rows: Int!
 
-  # data of the affected rows by the mutation
-  returning: [Jobs!]!
+  # data from the rows affected by the mutation
+  returning: [jobs!]!
 }
 
-# input type for inserting object relation for remote table "Jobs"
-input Jobs_obj_rel_insert_input {
-  data: Jobs_insert_input!
-  on_conflict: Jobs_on_conflict
+# input type for inserting object relation for remote table "jobs"
+input jobs_obj_rel_insert_input {
+  data: jobs_insert_input!
+
+  # on conflict condition
+  on_conflict: jobs_on_conflict
 }
 
-# on conflict condition type for table "Jobs"
-input Jobs_on_conflict {
-  constraint: Jobs_constraint!
-  update_columns: [Jobs_update_column!]!
-  where: Jobs_bool_exp
+# on conflict condition type for table "jobs"
+input jobs_on_conflict {
+  constraint: jobs_constraint!
+  update_columns: [jobs_update_column!]!
+  where: jobs_bool_exp
 }
 
-# ordering options when selecting data from "Jobs"
-input Jobs_order_by {
-  isContract: order_by
-  isFulltime: order_by
-  isPartTime: order_by
-  jobDescription: order_by
-  jobId: order_by
-  jobLocation: order_by
-  jobLogo: order_by
-  jobName: order_by
-  jobQualitifcation: order_by
-  jobResponsibilities: order_by
-  salaryRange: order_by
+# Ordering options when selecting data from "jobs".
+input jobs_order_by {
+  is_contract: order_by
+  is_fulltime: order_by
+  is_parttime: order_by
+  job_description: order_by
+  job_id: order_by
+  job_location: order_by
+  job_logo: order_by
+  job_name: order_by
+  job_qualifications: order_by
+  job_responsibilities: order_by
+  job_salary: order_by
+  shifts_aggregate: shifts_aggregate_order_by
 }
 
-# primary key columns input for table: "Jobs"
-input Jobs_pk_columns_input {
-  jobId: uuid!
+# primary key columns input for table: jobs
+input jobs_pk_columns_input {
+  job_id: Int!
 }
 
-# select columns of table "Jobs"
-enum Jobs_select_column {
+# select columns of table "jobs"
+enum jobs_select_column {
   # column name
-  isContract
+  is_contract
 
   # column name
-  isFulltime
+  is_fulltime
 
   # column name
-  isPartTime
+  is_parttime
 
   # column name
-  jobDescription
+  job_description
 
   # column name
-  jobId
+  job_id
 
   # column name
-  jobLocation
+  job_location
 
   # column name
-  jobLogo
+  job_logo
 
   # column name
-  jobName
+  job_name
 
   # column name
-  jobQualitifcation
+  job_qualifications
 
   # column name
-  jobResponsibilities
+  job_responsibilities
 
   # column name
-  salaryRange
+  job_salary
 }
 
-# input type for updating data in table "Jobs"
-input Jobs_set_input {
-  isContract: Boolean
-  isFulltime: Boolean
-  isPartTime: Boolean
-  jobDescription: String
-  jobId: uuid
-  jobLocation: String
-  jobLogo: String
-  jobName: String
-  jobQualitifcation: String
-  jobResponsibilities: String
-  salaryRange: float8
+# input type for updating data in table "jobs"
+input jobs_set_input {
+  is_contract: Boolean
+  is_fulltime: Boolean
+  is_parttime: Boolean
+  job_description: String
+  job_id: Int
+  job_location: String
+  job_logo: String
+  job_name: String
+  job_qualifications: String
+  job_responsibilities: String
+  job_salary: String
 }
 
 # aggregate stddev on columns
-type Jobs_stddev_fields {
-  salaryRange: Float
-}
-
-# order by stddev() on columns of table "Jobs"
-input Jobs_stddev_order_by {
-  salaryRange: order_by
+type jobs_stddev_fields {
+  job_id: Float
 }
 
 # aggregate stddev_pop on columns
-type Jobs_stddev_pop_fields {
-  salaryRange: Float
-}
-
-# order by stddev_pop() on columns of table "Jobs"
-input Jobs_stddev_pop_order_by {
-  salaryRange: order_by
+type jobs_stddev_pop_fields {
+  job_id: Float
 }
 
 # aggregate stddev_samp on columns
-type Jobs_stddev_samp_fields {
-  salaryRange: Float
-}
-
-# order by stddev_samp() on columns of table "Jobs"
-input Jobs_stddev_samp_order_by {
-  salaryRange: order_by
+type jobs_stddev_samp_fields {
+  job_id: Float
 }
 
 # aggregate sum on columns
-type Jobs_sum_fields {
-  salaryRange: float8
+type jobs_sum_fields {
+  job_id: Int
 }
 
-# order by sum() on columns of table "Jobs"
-input Jobs_sum_order_by {
-  salaryRange: order_by
-}
-
-# update columns of table "Jobs"
-enum Jobs_update_column {
+# update columns of table "jobs"
+enum jobs_update_column {
   # column name
-  isContract
+  is_contract
 
   # column name
-  isFulltime
+  is_fulltime
 
   # column name
-  isPartTime
+  is_parttime
 
   # column name
-  jobDescription
+  job_description
 
   # column name
-  jobId
+  job_id
 
   # column name
-  jobLocation
+  job_location
 
   # column name
-  jobLogo
+  job_logo
 
   # column name
-  jobName
+  job_name
 
   # column name
-  jobQualitifcation
+  job_qualifications
 
   # column name
-  jobResponsibilities
+  job_responsibilities
 
   # column name
-  salaryRange
+  job_salary
 }
 
 # aggregate var_pop on columns
-type Jobs_var_pop_fields {
-  salaryRange: Float
-}
-
-# order by var_pop() on columns of table "Jobs"
-input Jobs_var_pop_order_by {
-  salaryRange: order_by
+type jobs_var_pop_fields {
+  job_id: Float
 }
 
 # aggregate var_samp on columns
-type Jobs_var_samp_fields {
-  salaryRange: Float
-}
-
-# order by var_samp() on columns of table "Jobs"
-input Jobs_var_samp_order_by {
-  salaryRange: order_by
+type jobs_var_samp_fields {
+  job_id: Float
 }
 
 # aggregate variance on columns
-type Jobs_variance_fields {
-  salaryRange: Float
-}
-
-# order by variance() on columns of table "Jobs"
-input Jobs_variance_order_by {
-  salaryRange: order_by
+type jobs_variance_fields {
+  job_id: Float
 }
 
 # mutation root
 type mutation_root {
-  # delete data from the table: "AppliedJobs"
-  delete_AppliedJobs(
+  # delete data from the table: "activities"
+  delete_activities(
     # filter the rows which have to be deleted
-    where: AppliedJobs_bool_exp!
-  ): AppliedJobs_mutation_response
+    where: activities_bool_exp!
+  ): activities_mutation_response
 
-  # delete single row from the table: "AppliedJobs"
-  delete_AppliedJobs_by_pk(id: Int!): AppliedJobs
+  # delete single row from the table: "activities"
+  delete_activities_by_pk(activity_id: Int!): activities
 
-  # delete data from the table: "Jobs"
-  delete_Jobs(
+  # delete data from the table: "closed_shifts"
+  delete_closed_shifts(
     # filter the rows which have to be deleted
-    where: Jobs_bool_exp!
-  ): Jobs_mutation_response
+    where: closed_shifts_bool_exp!
+  ): closed_shifts_mutation_response
 
-  # delete single row from the table: "Jobs"
-  delete_Jobs_by_pk(jobId: uuid!): Jobs
+  # delete single row from the table: "closed_shifts"
+  delete_closed_shifts_by_pk(closed_shifts_id: Int!): closed_shifts
 
-  # delete data from the table: "User"
-  delete_User(
+  # delete data from the table: "documents"
+  delete_documents(
     # filter the rows which have to be deleted
-    where: User_bool_exp!
-  ): User_mutation_response
+    where: documents_bool_exp!
+  ): documents_mutation_response
 
-  # delete single row from the table: "User"
-  delete_User_by_pk(firebaseUuid: String!): User
+  # delete single row from the table: "documents"
+  delete_documents_by_pk(document_id: Int!): documents
 
-  # insert data into the table: "AppliedJobs"
-  insert_AppliedJobs(
+  # delete data from the table: "jobs"
+  delete_jobs(
+    # filter the rows which have to be deleted
+    where: jobs_bool_exp!
+  ): jobs_mutation_response
+
+  # delete single row from the table: "jobs"
+  delete_jobs_by_pk(job_id: Int!): jobs
+
+  # delete data from the table: "open_shifts"
+  delete_open_shifts(
+    # filter the rows which have to be deleted
+    where: open_shifts_bool_exp!
+  ): open_shifts_mutation_response
+
+  # delete single row from the table: "open_shifts"
+  delete_open_shifts_by_pk(open_shifts_id: Int!): open_shifts
+
+  # delete data from the table: "shifts"
+  delete_shifts(
+    # filter the rows which have to be deleted
+    where: shifts_bool_exp!
+  ): shifts_mutation_response
+
+  # delete single row from the table: "shifts"
+  delete_shifts_by_pk(shift_id: Int!): shifts
+
+  # delete data from the table: "users"
+  delete_users(
+    # filter the rows which have to be deleted
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  # delete single row from the table: "users"
+  delete_users_by_pk(user_id: String!): users
+
+  # insert data into the table: "activities"
+  insert_activities(
     # the rows to be inserted
-    objects: [AppliedJobs_insert_input!]!
+    objects: [activities_insert_input!]!
 
     # on conflict condition
-    on_conflict: AppliedJobs_on_conflict
-  ): AppliedJobs_mutation_response
+    on_conflict: activities_on_conflict
+  ): activities_mutation_response
 
-  # insert a single row into the table: "AppliedJobs"
-  insert_AppliedJobs_one(
+  # insert a single row into the table: "activities"
+  insert_activities_one(
     # the row to be inserted
-    object: AppliedJobs_insert_input!
+    object: activities_insert_input!
 
     # on conflict condition
-    on_conflict: AppliedJobs_on_conflict
-  ): AppliedJobs
+    on_conflict: activities_on_conflict
+  ): activities
 
-  # insert data into the table: "Jobs"
-  insert_Jobs(
+  # insert data into the table: "closed_shifts"
+  insert_closed_shifts(
     # the rows to be inserted
-    objects: [Jobs_insert_input!]!
+    objects: [closed_shifts_insert_input!]!
 
     # on conflict condition
-    on_conflict: Jobs_on_conflict
-  ): Jobs_mutation_response
+    on_conflict: closed_shifts_on_conflict
+  ): closed_shifts_mutation_response
 
-  # insert a single row into the table: "Jobs"
-  insert_Jobs_one(
+  # insert a single row into the table: "closed_shifts"
+  insert_closed_shifts_one(
     # the row to be inserted
-    object: Jobs_insert_input!
+    object: closed_shifts_insert_input!
 
     # on conflict condition
-    on_conflict: Jobs_on_conflict
-  ): Jobs
+    on_conflict: closed_shifts_on_conflict
+  ): closed_shifts
 
-  # insert data into the table: "User"
-  insert_User(
+  # insert data into the table: "documents"
+  insert_documents(
     # the rows to be inserted
-    objects: [User_insert_input!]!
+    objects: [documents_insert_input!]!
 
     # on conflict condition
-    on_conflict: User_on_conflict
-  ): User_mutation_response
+    on_conflict: documents_on_conflict
+  ): documents_mutation_response
 
-  # insert a single row into the table: "User"
-  insert_User_one(
+  # insert a single row into the table: "documents"
+  insert_documents_one(
     # the row to be inserted
-    object: User_insert_input!
+    object: documents_insert_input!
 
     # on conflict condition
-    on_conflict: User_on_conflict
-  ): User
+    on_conflict: documents_on_conflict
+  ): documents
 
-  # update data of the table: "AppliedJobs"
-  update_AppliedJobs(
-    # increments the integer columns with given value of the filtered values
-    _inc: AppliedJobs_inc_input
+  # insert data into the table: "jobs"
+  insert_jobs(
+    # the rows to be inserted
+    objects: [jobs_insert_input!]!
+
+    # on conflict condition
+    on_conflict: jobs_on_conflict
+  ): jobs_mutation_response
+
+  # insert a single row into the table: "jobs"
+  insert_jobs_one(
+    # the row to be inserted
+    object: jobs_insert_input!
+
+    # on conflict condition
+    on_conflict: jobs_on_conflict
+  ): jobs
+
+  # insert data into the table: "open_shifts"
+  insert_open_shifts(
+    # the rows to be inserted
+    objects: [open_shifts_insert_input!]!
+
+    # on conflict condition
+    on_conflict: open_shifts_on_conflict
+  ): open_shifts_mutation_response
+
+  # insert a single row into the table: "open_shifts"
+  insert_open_shifts_one(
+    # the row to be inserted
+    object: open_shifts_insert_input!
+
+    # on conflict condition
+    on_conflict: open_shifts_on_conflict
+  ): open_shifts
+
+  # insert data into the table: "shifts"
+  insert_shifts(
+    # the rows to be inserted
+    objects: [shifts_insert_input!]!
+
+    # on conflict condition
+    on_conflict: shifts_on_conflict
+  ): shifts_mutation_response
+
+  # insert a single row into the table: "shifts"
+  insert_shifts_one(
+    # the row to be inserted
+    object: shifts_insert_input!
+
+    # on conflict condition
+    on_conflict: shifts_on_conflict
+  ): shifts
+
+  # insert data into the table: "users"
+  insert_users(
+    # the rows to be inserted
+    objects: [users_insert_input!]!
+
+    # on conflict condition
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  # insert a single row into the table: "users"
+  insert_users_one(
+    # the row to be inserted
+    object: users_insert_input!
+
+    # on conflict condition
+    on_conflict: users_on_conflict
+  ): users
+
+  # update data of the table: "activities"
+  update_activities(
+    # increments the numeric columns with given value of the filtered values
+    _inc: activities_inc_input
 
     # sets the columns of the filtered rows to the given values
-    _set: AppliedJobs_set_input
+    _set: activities_set_input
 
     # filter the rows which have to be updated
-    where: AppliedJobs_bool_exp!
-  ): AppliedJobs_mutation_response
+    where: activities_bool_exp!
+  ): activities_mutation_response
 
-  # update single row of the table: "AppliedJobs"
-  update_AppliedJobs_by_pk(
-    # increments the integer columns with given value of the filtered values
-    _inc: AppliedJobs_inc_input
-
-    # sets the columns of the filtered rows to the given values
-    _set: AppliedJobs_set_input
-    pk_columns: AppliedJobs_pk_columns_input!
-  ): AppliedJobs
-
-  # update data of the table: "Jobs"
-  update_Jobs(
-    # increments the integer columns with given value of the filtered values
-    _inc: Jobs_inc_input
+  # update single row of the table: "activities"
+  update_activities_by_pk(
+    # increments the numeric columns with given value of the filtered values
+    _inc: activities_inc_input
 
     # sets the columns of the filtered rows to the given values
-    _set: Jobs_set_input
+    _set: activities_set_input
+    pk_columns: activities_pk_columns_input!
+  ): activities
+
+  # update data of the table: "closed_shifts"
+  update_closed_shifts(
+    # increments the numeric columns with given value of the filtered values
+    _inc: closed_shifts_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: closed_shifts_set_input
 
     # filter the rows which have to be updated
-    where: Jobs_bool_exp!
-  ): Jobs_mutation_response
+    where: closed_shifts_bool_exp!
+  ): closed_shifts_mutation_response
 
-  # update single row of the table: "Jobs"
-  update_Jobs_by_pk(
-    # increments the integer columns with given value of the filtered values
-    _inc: Jobs_inc_input
-
-    # sets the columns of the filtered rows to the given values
-    _set: Jobs_set_input
-    pk_columns: Jobs_pk_columns_input!
-  ): Jobs
-
-  # update data of the table: "User"
-  update_User(
-    # increments the integer columns with given value of the filtered values
-    _inc: User_inc_input
+  # update single row of the table: "closed_shifts"
+  update_closed_shifts_by_pk(
+    # increments the numeric columns with given value of the filtered values
+    _inc: closed_shifts_inc_input
 
     # sets the columns of the filtered rows to the given values
-    _set: User_set_input
+    _set: closed_shifts_set_input
+    pk_columns: closed_shifts_pk_columns_input!
+  ): closed_shifts
+
+  # update data of the table: "documents"
+  update_documents(
+    # increments the numeric columns with given value of the filtered values
+    _inc: documents_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: documents_set_input
 
     # filter the rows which have to be updated
-    where: User_bool_exp!
-  ): User_mutation_response
+    where: documents_bool_exp!
+  ): documents_mutation_response
 
-  # update single row of the table: "User"
-  update_User_by_pk(
-    # increments the integer columns with given value of the filtered values
-    _inc: User_inc_input
+  # update single row of the table: "documents"
+  update_documents_by_pk(
+    # increments the numeric columns with given value of the filtered values
+    _inc: documents_inc_input
 
     # sets the columns of the filtered rows to the given values
-    _set: User_set_input
-    pk_columns: User_pk_columns_input!
-  ): User
+    _set: documents_set_input
+    pk_columns: documents_pk_columns_input!
+  ): documents
+
+  # update data of the table: "jobs"
+  update_jobs(
+    # increments the numeric columns with given value of the filtered values
+    _inc: jobs_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: jobs_set_input
+
+    # filter the rows which have to be updated
+    where: jobs_bool_exp!
+  ): jobs_mutation_response
+
+  # update single row of the table: "jobs"
+  update_jobs_by_pk(
+    # increments the numeric columns with given value of the filtered values
+    _inc: jobs_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: jobs_set_input
+    pk_columns: jobs_pk_columns_input!
+  ): jobs
+
+  # update data of the table: "open_shifts"
+  update_open_shifts(
+    # increments the numeric columns with given value of the filtered values
+    _inc: open_shifts_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: open_shifts_set_input
+
+    # filter the rows which have to be updated
+    where: open_shifts_bool_exp!
+  ): open_shifts_mutation_response
+
+  # update single row of the table: "open_shifts"
+  update_open_shifts_by_pk(
+    # increments the numeric columns with given value of the filtered values
+    _inc: open_shifts_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: open_shifts_set_input
+    pk_columns: open_shifts_pk_columns_input!
+  ): open_shifts
+
+  # update data of the table: "shifts"
+  update_shifts(
+    # increments the numeric columns with given value of the filtered values
+    _inc: shifts_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: shifts_set_input
+
+    # filter the rows which have to be updated
+    where: shifts_bool_exp!
+  ): shifts_mutation_response
+
+  # update single row of the table: "shifts"
+  update_shifts_by_pk(
+    # increments the numeric columns with given value of the filtered values
+    _inc: shifts_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: shifts_set_input
+    pk_columns: shifts_pk_columns_input!
+  ): shifts
+
+  # update data of the table: "users"
+  update_users(
+    # sets the columns of the filtered rows to the given values
+    _set: users_set_input
+
+    # filter the rows which have to be updated
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  # update single row of the table: "users"
+  update_users_by_pk(
+    # sets the columns of the filtered rows to the given values
+    _set: users_set_input
+    pk_columns: users_pk_columns_input!
+  ): users
 }
 
-scalar numeric
+# columns and relationships of "open_shifts"
+type open_shifts {
+  is_urgent: Boolean
+  open_shifts_id: Int!
 
-# expression to compare columns of type numeric. All fields are combined with logical 'AND'.
-input numeric_comparison_exp {
-  _eq: numeric
-  _gt: numeric
-  _gte: numeric
-  _in: [numeric!]
-  _is_null: Boolean
-  _lt: numeric
-  _lte: numeric
-  _neq: numeric
-  _nin: [numeric!]
+  # An object relationship
+  shift: shifts!
+  shift_id: Int!
+}
+
+# aggregated selection of "open_shifts"
+type open_shifts_aggregate {
+  aggregate: open_shifts_aggregate_fields
+  nodes: [open_shifts!]!
+}
+
+# aggregate fields of "open_shifts"
+type open_shifts_aggregate_fields {
+  avg: open_shifts_avg_fields
+  count(columns: [open_shifts_select_column!], distinct: Boolean): Int!
+  max: open_shifts_max_fields
+  min: open_shifts_min_fields
+  stddev: open_shifts_stddev_fields
+  stddev_pop: open_shifts_stddev_pop_fields
+  stddev_samp: open_shifts_stddev_samp_fields
+  sum: open_shifts_sum_fields
+  var_pop: open_shifts_var_pop_fields
+  var_samp: open_shifts_var_samp_fields
+  variance: open_shifts_variance_fields
+}
+
+# order by aggregate values of table "open_shifts"
+input open_shifts_aggregate_order_by {
+  avg: open_shifts_avg_order_by
+  count: order_by
+  max: open_shifts_max_order_by
+  min: open_shifts_min_order_by
+  stddev: open_shifts_stddev_order_by
+  stddev_pop: open_shifts_stddev_pop_order_by
+  stddev_samp: open_shifts_stddev_samp_order_by
+  sum: open_shifts_sum_order_by
+  var_pop: open_shifts_var_pop_order_by
+  var_samp: open_shifts_var_samp_order_by
+  variance: open_shifts_variance_order_by
+}
+
+# input type for inserting array relation for remote table "open_shifts"
+input open_shifts_arr_rel_insert_input {
+  data: [open_shifts_insert_input!]!
+
+  # on conflict condition
+  on_conflict: open_shifts_on_conflict
+}
+
+# aggregate avg on columns
+type open_shifts_avg_fields {
+  open_shifts_id: Float
+  shift_id: Float
+}
+
+# order by avg() on columns of table "open_shifts"
+input open_shifts_avg_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# Boolean expression to filter rows from the table "open_shifts". All fields are combined with a logical 'AND'.
+input open_shifts_bool_exp {
+  _and: [open_shifts_bool_exp!]
+  _not: open_shifts_bool_exp
+  _or: [open_shifts_bool_exp!]
+  is_urgent: Boolean_comparison_exp
+  open_shifts_id: Int_comparison_exp
+  shift: shifts_bool_exp
+  shift_id: Int_comparison_exp
+}
+
+# unique or primary key constraints on table "open_shifts"
+enum open_shifts_constraint {
+  # unique or primary key constraint
+  open_shifts_open_shifts_id_key
+
+  # unique or primary key constraint
+  open_shifts_pkey
+}
+
+# input type for incrementing numeric columns in table "open_shifts"
+input open_shifts_inc_input {
+  open_shifts_id: Int
+  shift_id: Int
+}
+
+# input type for inserting data into table "open_shifts"
+input open_shifts_insert_input {
+  is_urgent: Boolean
+  open_shifts_id: Int
+  shift: shifts_obj_rel_insert_input
+  shift_id: Int
+}
+
+# aggregate max on columns
+type open_shifts_max_fields {
+  open_shifts_id: Int
+  shift_id: Int
+}
+
+# order by max() on columns of table "open_shifts"
+input open_shifts_max_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate min on columns
+type open_shifts_min_fields {
+  open_shifts_id: Int
+  shift_id: Int
+}
+
+# order by min() on columns of table "open_shifts"
+input open_shifts_min_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# response of any mutation on the table "open_shifts"
+type open_shifts_mutation_response {
+  # number of rows affected by the mutation
+  affected_rows: Int!
+
+  # data from the rows affected by the mutation
+  returning: [open_shifts!]!
+}
+
+# on conflict condition type for table "open_shifts"
+input open_shifts_on_conflict {
+  constraint: open_shifts_constraint!
+  update_columns: [open_shifts_update_column!]!
+  where: open_shifts_bool_exp
+}
+
+# Ordering options when selecting data from "open_shifts".
+input open_shifts_order_by {
+  is_urgent: order_by
+  open_shifts_id: order_by
+  shift: shifts_order_by
+  shift_id: order_by
+}
+
+# primary key columns input for table: open_shifts
+input open_shifts_pk_columns_input {
+  open_shifts_id: Int!
+}
+
+# select columns of table "open_shifts"
+enum open_shifts_select_column {
+  # column name
+  is_urgent
+
+  # column name
+  open_shifts_id
+
+  # column name
+  shift_id
+}
+
+# input type for updating data in table "open_shifts"
+input open_shifts_set_input {
+  is_urgent: Boolean
+  open_shifts_id: Int
+  shift_id: Int
+}
+
+# aggregate stddev on columns
+type open_shifts_stddev_fields {
+  open_shifts_id: Float
+  shift_id: Float
+}
+
+# order by stddev() on columns of table "open_shifts"
+input open_shifts_stddev_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate stddev_pop on columns
+type open_shifts_stddev_pop_fields {
+  open_shifts_id: Float
+  shift_id: Float
+}
+
+# order by stddev_pop() on columns of table "open_shifts"
+input open_shifts_stddev_pop_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate stddev_samp on columns
+type open_shifts_stddev_samp_fields {
+  open_shifts_id: Float
+  shift_id: Float
+}
+
+# order by stddev_samp() on columns of table "open_shifts"
+input open_shifts_stddev_samp_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate sum on columns
+type open_shifts_sum_fields {
+  open_shifts_id: Int
+  shift_id: Int
+}
+
+# order by sum() on columns of table "open_shifts"
+input open_shifts_sum_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# update columns of table "open_shifts"
+enum open_shifts_update_column {
+  # column name
+  is_urgent
+
+  # column name
+  open_shifts_id
+
+  # column name
+  shift_id
+}
+
+# aggregate var_pop on columns
+type open_shifts_var_pop_fields {
+  open_shifts_id: Float
+  shift_id: Float
+}
+
+# order by var_pop() on columns of table "open_shifts"
+input open_shifts_var_pop_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate var_samp on columns
+type open_shifts_var_samp_fields {
+  open_shifts_id: Float
+  shift_id: Float
+}
+
+# order by var_samp() on columns of table "open_shifts"
+input open_shifts_var_samp_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
+}
+
+# aggregate variance on columns
+type open_shifts_variance_fields {
+  open_shifts_id: Float
+  shift_id: Float
+}
+
+# order by variance() on columns of table "open_shifts"
+input open_shifts_variance_order_by {
+  open_shifts_id: order_by
+  shift_id: order_by
 }
 
 # column ordering options
 enum order_by {
-  # in the ascending order, nulls last
+  # in ascending order, nulls last
   asc
 
-  # in the ascending order, nulls first
+  # in ascending order, nulls first
   asc_nulls_first
 
-  # in the ascending order, nulls last
+  # in ascending order, nulls last
   asc_nulls_last
 
-  # in the descending order, nulls first
+  # in descending order, nulls first
   desc
 
-  # in the descending order, nulls first
+  # in descending order, nulls first
   desc_nulls_first
 
-  # in the descending order, nulls last
+  # in descending order, nulls last
   desc_nulls_last
 }
 
-# query root
 type query_root {
-  # fetch data from the table: "AppliedJobs"
-  AppliedJobs(
+  # An array relationship
+  activities(
     # distinct select on columns
-    distinct_on: [AppliedJobs_select_column!]
+    distinct_on: [activities_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -903,16 +1879,16 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [AppliedJobs_order_by!]
+    order_by: [activities_order_by!]
 
     # filter the rows returned
-    where: AppliedJobs_bool_exp
-  ): [AppliedJobs!]!
+    where: activities_bool_exp
+  ): [activities!]!
 
-  # fetch aggregated fields from the table: "AppliedJobs"
-  AppliedJobs_aggregate(
+  # An aggregate relationship
+  activities_aggregate(
     # distinct select on columns
-    distinct_on: [AppliedJobs_select_column!]
+    distinct_on: [activities_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -921,19 +1897,19 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [AppliedJobs_order_by!]
+    order_by: [activities_order_by!]
 
     # filter the rows returned
-    where: AppliedJobs_bool_exp
-  ): AppliedJobs_aggregate!
+    where: activities_bool_exp
+  ): activities_aggregate!
 
-  # fetch data from the table: "AppliedJobs" using primary key columns
-  AppliedJobs_by_pk(id: Int!): AppliedJobs
+  # fetch data from the table: "activities" using primary key columns
+  activities_by_pk(activity_id: Int!): activities
 
-  # fetch data from the table: "Jobs"
-  Jobs(
+  # fetch data from the table: "closed_shifts"
+  closed_shifts(
     # distinct select on columns
-    distinct_on: [Jobs_select_column!]
+    distinct_on: [closed_shifts_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -942,16 +1918,16 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [Jobs_order_by!]
+    order_by: [closed_shifts_order_by!]
 
     # filter the rows returned
-    where: Jobs_bool_exp
-  ): [Jobs!]!
+    where: closed_shifts_bool_exp
+  ): [closed_shifts!]!
 
-  # fetch aggregated fields from the table: "Jobs"
-  Jobs_aggregate(
+  # An aggregate relationship
+  closed_shifts_aggregate(
     # distinct select on columns
-    distinct_on: [Jobs_select_column!]
+    distinct_on: [closed_shifts_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -960,19 +1936,19 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [Jobs_order_by!]
+    order_by: [closed_shifts_order_by!]
 
     # filter the rows returned
-    where: Jobs_bool_exp
-  ): Jobs_aggregate!
+    where: closed_shifts_bool_exp
+  ): closed_shifts_aggregate!
 
-  # fetch data from the table: "Jobs" using primary key columns
-  Jobs_by_pk(jobId: uuid!): Jobs
+  # fetch data from the table: "closed_shifts" using primary key columns
+  closed_shifts_by_pk(closed_shifts_id: Int!): closed_shifts
 
-  # fetch data from the table: "User"
-  User(
+  # An array relationship
+  documents(
     # distinct select on columns
-    distinct_on: [User_select_column!]
+    distinct_on: [documents_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -981,16 +1957,16 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [User_order_by!]
+    order_by: [documents_order_by!]
 
     # filter the rows returned
-    where: User_bool_exp
-  ): [User!]!
+    where: documents_bool_exp
+  ): [documents!]!
 
-  # fetch aggregated fields from the table: "User"
-  User_aggregate(
+  # An aggregate relationship
+  documents_aggregate(
     # distinct select on columns
-    distinct_on: [User_select_column!]
+    distinct_on: [documents_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -999,161 +1975,661 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [User_order_by!]
+    order_by: [documents_order_by!]
 
     # filter the rows returned
-    where: User_bool_exp
-  ): User_aggregate!
+    where: documents_bool_exp
+  ): documents_aggregate!
 
-  # fetch data from the table: "User" using primary key columns
-  User_by_pk(firebaseUuid: String!): User
+  # fetch data from the table: "documents" using primary key columns
+  documents_by_pk(document_id: Int!): documents
+
+  # fetch data from the table: "jobs"
+  jobs(
+    # distinct select on columns
+    distinct_on: [jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [jobs_order_by!]
+
+    # filter the rows returned
+    where: jobs_bool_exp
+  ): [jobs!]!
+
+  # fetch aggregated fields from the table: "jobs"
+  jobs_aggregate(
+    # distinct select on columns
+    distinct_on: [jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [jobs_order_by!]
+
+    # filter the rows returned
+    where: jobs_bool_exp
+  ): jobs_aggregate!
+
+  # fetch data from the table: "jobs" using primary key columns
+  jobs_by_pk(job_id: Int!): jobs
+
+  # An array relationship
+  open_shifts(
+    # distinct select on columns
+    distinct_on: [open_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [open_shifts_order_by!]
+
+    # filter the rows returned
+    where: open_shifts_bool_exp
+  ): [open_shifts!]!
+
+  # An aggregate relationship
+  open_shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [open_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [open_shifts_order_by!]
+
+    # filter the rows returned
+    where: open_shifts_bool_exp
+  ): open_shifts_aggregate!
+
+  # fetch data from the table: "open_shifts" using primary key columns
+  open_shifts_by_pk(open_shifts_id: Int!): open_shifts
+
+  # An array relationship
+  shifts(
+    # distinct select on columns
+    distinct_on: [shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [shifts_order_by!]
+
+    # filter the rows returned
+    where: shifts_bool_exp
+  ): [shifts!]!
+
+  # An aggregate relationship
+  shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [shifts_order_by!]
+
+    # filter the rows returned
+    where: shifts_bool_exp
+  ): shifts_aggregate!
+
+  # fetch data from the table: "shifts" using primary key columns
+  shifts_by_pk(shift_id: Int!): shifts
+
+  # fetch data from the table: "users"
+  users(
+    # distinct select on columns
+    distinct_on: [users_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): [users!]!
+
+  # fetch aggregated fields from the table: "users"
+  users_aggregate(
+    # distinct select on columns
+    distinct_on: [users_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): users_aggregate!
+
+  # fetch data from the table: "users" using primary key columns
+  users_by_pk(user_id: String!): users
 }
 
-# expression to compare columns of type String. All fields are combined with logical 'AND'.
+# columns and relationships of "shifts"
+type shifts {
+  # An array relationship
+  activities(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): [activities!]!
+
+  # An aggregate relationship
+  activities_aggregate(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): activities_aggregate!
+
+  # fetch data from the table: "closed_shifts"
+  closed_shifts(
+    # distinct select on columns
+    distinct_on: [closed_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [closed_shifts_order_by!]
+
+    # filter the rows returned
+    where: closed_shifts_bool_exp
+  ): [closed_shifts!]!
+
+  # An aggregate relationship
+  closed_shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [closed_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [closed_shifts_order_by!]
+
+    # filter the rows returned
+    where: closed_shifts_bool_exp
+  ): closed_shifts_aggregate!
+
+  # An object relationship
+  job: jobs!
+  job_id: Int!
+
+  # An array relationship
+  open_shifts(
+    # distinct select on columns
+    distinct_on: [open_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [open_shifts_order_by!]
+
+    # filter the rows returned
+    where: open_shifts_bool_exp
+  ): [open_shifts!]!
+
+  # An aggregate relationship
+  open_shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [open_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [open_shifts_order_by!]
+
+    # filter the rows returned
+    where: open_shifts_bool_exp
+  ): open_shifts_aggregate!
+  shift_date: date!
+  shift_id: Int!
+  shift_name: String!
+  shift_notes: String!
+  shift_time: String!
+}
+
+# aggregated selection of "shifts"
+type shifts_aggregate {
+  aggregate: shifts_aggregate_fields
+  nodes: [shifts!]!
+}
+
+# aggregate fields of "shifts"
+type shifts_aggregate_fields {
+  avg: shifts_avg_fields
+  count(columns: [shifts_select_column!], distinct: Boolean): Int!
+  max: shifts_max_fields
+  min: shifts_min_fields
+  stddev: shifts_stddev_fields
+  stddev_pop: shifts_stddev_pop_fields
+  stddev_samp: shifts_stddev_samp_fields
+  sum: shifts_sum_fields
+  var_pop: shifts_var_pop_fields
+  var_samp: shifts_var_samp_fields
+  variance: shifts_variance_fields
+}
+
+# order by aggregate values of table "shifts"
+input shifts_aggregate_order_by {
+  avg: shifts_avg_order_by
+  count: order_by
+  max: shifts_max_order_by
+  min: shifts_min_order_by
+  stddev: shifts_stddev_order_by
+  stddev_pop: shifts_stddev_pop_order_by
+  stddev_samp: shifts_stddev_samp_order_by
+  sum: shifts_sum_order_by
+  var_pop: shifts_var_pop_order_by
+  var_samp: shifts_var_samp_order_by
+  variance: shifts_variance_order_by
+}
+
+# input type for inserting array relation for remote table "shifts"
+input shifts_arr_rel_insert_input {
+  data: [shifts_insert_input!]!
+
+  # on conflict condition
+  on_conflict: shifts_on_conflict
+}
+
+# aggregate avg on columns
+type shifts_avg_fields {
+  job_id: Float
+  shift_id: Float
+}
+
+# order by avg() on columns of table "shifts"
+input shifts_avg_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# Boolean expression to filter rows from the table "shifts". All fields are combined with a logical 'AND'.
+input shifts_bool_exp {
+  _and: [shifts_bool_exp!]
+  _not: shifts_bool_exp
+  _or: [shifts_bool_exp!]
+  activities: activities_bool_exp
+  closed_shifts: closed_shifts_bool_exp
+  job: jobs_bool_exp
+  job_id: Int_comparison_exp
+  open_shifts: open_shifts_bool_exp
+  shift_date: date_comparison_exp
+  shift_id: Int_comparison_exp
+  shift_name: String_comparison_exp
+  shift_notes: String_comparison_exp
+  shift_time: String_comparison_exp
+}
+
+# unique or primary key constraints on table "shifts"
+enum shifts_constraint {
+  # unique or primary key constraint
+  shifts_pkey
+
+  # unique or primary key constraint
+  shifts_shift_id_key
+}
+
+# input type for incrementing numeric columns in table "shifts"
+input shifts_inc_input {
+  job_id: Int
+  shift_id: Int
+}
+
+# input type for inserting data into table "shifts"
+input shifts_insert_input {
+  activities: activities_arr_rel_insert_input
+  closed_shifts: closed_shifts_arr_rel_insert_input
+  job: jobs_obj_rel_insert_input
+  job_id: Int
+  open_shifts: open_shifts_arr_rel_insert_input
+  shift_date: date
+  shift_id: Int
+  shift_name: String
+  shift_notes: String
+  shift_time: String
+}
+
+# aggregate max on columns
+type shifts_max_fields {
+  job_id: Int
+  shift_date: date
+  shift_id: Int
+  shift_name: String
+  shift_notes: String
+  shift_time: String
+}
+
+# order by max() on columns of table "shifts"
+input shifts_max_order_by {
+  job_id: order_by
+  shift_date: order_by
+  shift_id: order_by
+  shift_name: order_by
+  shift_notes: order_by
+  shift_time: order_by
+}
+
+# aggregate min on columns
+type shifts_min_fields {
+  job_id: Int
+  shift_date: date
+  shift_id: Int
+  shift_name: String
+  shift_notes: String
+  shift_time: String
+}
+
+# order by min() on columns of table "shifts"
+input shifts_min_order_by {
+  job_id: order_by
+  shift_date: order_by
+  shift_id: order_by
+  shift_name: order_by
+  shift_notes: order_by
+  shift_time: order_by
+}
+
+# response of any mutation on the table "shifts"
+type shifts_mutation_response {
+  # number of rows affected by the mutation
+  affected_rows: Int!
+
+  # data from the rows affected by the mutation
+  returning: [shifts!]!
+}
+
+# input type for inserting object relation for remote table "shifts"
+input shifts_obj_rel_insert_input {
+  data: shifts_insert_input!
+
+  # on conflict condition
+  on_conflict: shifts_on_conflict
+}
+
+# on conflict condition type for table "shifts"
+input shifts_on_conflict {
+  constraint: shifts_constraint!
+  update_columns: [shifts_update_column!]!
+  where: shifts_bool_exp
+}
+
+# Ordering options when selecting data from "shifts".
+input shifts_order_by {
+  activities_aggregate: activities_aggregate_order_by
+  closed_shifts_aggregate: closed_shifts_aggregate_order_by
+  job: jobs_order_by
+  job_id: order_by
+  open_shifts_aggregate: open_shifts_aggregate_order_by
+  shift_date: order_by
+  shift_id: order_by
+  shift_name: order_by
+  shift_notes: order_by
+  shift_time: order_by
+}
+
+# primary key columns input for table: shifts
+input shifts_pk_columns_input {
+  shift_id: Int!
+}
+
+# select columns of table "shifts"
+enum shifts_select_column {
+  # column name
+  job_id
+
+  # column name
+  shift_date
+
+  # column name
+  shift_id
+
+  # column name
+  shift_name
+
+  # column name
+  shift_notes
+
+  # column name
+  shift_time
+}
+
+# input type for updating data in table "shifts"
+input shifts_set_input {
+  job_id: Int
+  shift_date: date
+  shift_id: Int
+  shift_name: String
+  shift_notes: String
+  shift_time: String
+}
+
+# aggregate stddev on columns
+type shifts_stddev_fields {
+  job_id: Float
+  shift_id: Float
+}
+
+# order by stddev() on columns of table "shifts"
+input shifts_stddev_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# aggregate stddev_pop on columns
+type shifts_stddev_pop_fields {
+  job_id: Float
+  shift_id: Float
+}
+
+# order by stddev_pop() on columns of table "shifts"
+input shifts_stddev_pop_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# aggregate stddev_samp on columns
+type shifts_stddev_samp_fields {
+  job_id: Float
+  shift_id: Float
+}
+
+# order by stddev_samp() on columns of table "shifts"
+input shifts_stddev_samp_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# aggregate sum on columns
+type shifts_sum_fields {
+  job_id: Int
+  shift_id: Int
+}
+
+# order by sum() on columns of table "shifts"
+input shifts_sum_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# update columns of table "shifts"
+enum shifts_update_column {
+  # column name
+  job_id
+
+  # column name
+  shift_date
+
+  # column name
+  shift_id
+
+  # column name
+  shift_name
+
+  # column name
+  shift_notes
+
+  # column name
+  shift_time
+}
+
+# aggregate var_pop on columns
+type shifts_var_pop_fields {
+  job_id: Float
+  shift_id: Float
+}
+
+# order by var_pop() on columns of table "shifts"
+input shifts_var_pop_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# aggregate var_samp on columns
+type shifts_var_samp_fields {
+  job_id: Float
+  shift_id: Float
+}
+
+# order by var_samp() on columns of table "shifts"
+input shifts_var_samp_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# aggregate variance on columns
+type shifts_variance_fields {
+  job_id: Float
+  shift_id: Float
+}
+
+# order by variance() on columns of table "shifts"
+input shifts_variance_order_by {
+  job_id: order_by
+  shift_id: order_by
+}
+
+# Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
 input String_comparison_exp {
   _eq: String
   _gt: String
   _gte: String
+
+  # does the column match the given case-insensitive pattern
   _ilike: String
   _in: [String!]
+
+  # does the column match the given POSIX regular expression, case insensitive
+  _iregex: String
   _is_null: Boolean
+
+  # does the column match the given pattern
   _like: String
   _lt: String
   _lte: String
   _neq: String
+
+  # does the column NOT match the given case-insensitive pattern
   _nilike: String
   _nin: [String!]
+
+  # does the column NOT match the given POSIX regular expression, case insensitive
+  _niregex: String
+
+  # does the column NOT match the given pattern
   _nlike: String
+
+  # does the column NOT match the given POSIX regular expression, case sensitive
+  _nregex: String
+
+  # does the column NOT match the given SQL regular expression
   _nsimilar: String
+
+  # does the column match the given POSIX regular expression, case sensitive
+  _regex: String
+
+  # does the column match the given SQL regular expression
   _similar: String
 }
 
-# subscription root
 type subscription_root {
-  # fetch data from the table: "AppliedJobs"
-  AppliedJobs(
-    # distinct select on columns
-    distinct_on: [AppliedJobs_select_column!]
-
-    # limit the number of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [AppliedJobs_order_by!]
-
-    # filter the rows returned
-    where: AppliedJobs_bool_exp
-  ): [AppliedJobs!]!
-
-  # fetch aggregated fields from the table: "AppliedJobs"
-  AppliedJobs_aggregate(
-    # distinct select on columns
-    distinct_on: [AppliedJobs_select_column!]
-
-    # limit the number of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [AppliedJobs_order_by!]
-
-    # filter the rows returned
-    where: AppliedJobs_bool_exp
-  ): AppliedJobs_aggregate!
-
-  # fetch data from the table: "AppliedJobs" using primary key columns
-  AppliedJobs_by_pk(id: Int!): AppliedJobs
-
-  # fetch data from the table: "Jobs"
-  Jobs(
-    # distinct select on columns
-    distinct_on: [Jobs_select_column!]
-
-    # limit the number of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [Jobs_order_by!]
-
-    # filter the rows returned
-    where: Jobs_bool_exp
-  ): [Jobs!]!
-
-  # fetch aggregated fields from the table: "Jobs"
-  Jobs_aggregate(
-    # distinct select on columns
-    distinct_on: [Jobs_select_column!]
-
-    # limit the number of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [Jobs_order_by!]
-
-    # filter the rows returned
-    where: Jobs_bool_exp
-  ): Jobs_aggregate!
-
-  # fetch data from the table: "Jobs" using primary key columns
-  Jobs_by_pk(jobId: uuid!): Jobs
-
-  # fetch data from the table: "User"
-  User(
-    # distinct select on columns
-    distinct_on: [User_select_column!]
-
-    # limit the number of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [User_order_by!]
-
-    # filter the rows returned
-    where: User_bool_exp
-  ): [User!]!
-
-  # fetch aggregated fields from the table: "User"
-  User_aggregate(
-    # distinct select on columns
-    distinct_on: [User_select_column!]
-
-    # limit the number of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [User_order_by!]
-
-    # filter the rows returned
-    where: User_bool_exp
-  ): User_aggregate!
-
-  # fetch data from the table: "User" using primary key columns
-  User_by_pk(firebaseUuid: String!): User
-}
-
-# columns and relationships of "User"
-type User {
   # An array relationship
-  AppliedJobs(
+  activities(
     # distinct select on columns
-    distinct_on: [AppliedJobs_select_column!]
+    distinct_on: [activities_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -1162,16 +2638,16 @@ type User {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [AppliedJobs_order_by!]
+    order_by: [activities_order_by!]
 
     # filter the rows returned
-    where: AppliedJobs_bool_exp
-  ): [AppliedJobs!]!
+    where: activities_bool_exp
+  ): [activities!]!
 
-  # An aggregated array relationship
-  AppliedJobs_aggregate(
+  # An aggregate relationship
+  activities_aggregate(
     # distinct select on columns
-    distinct_on: [AppliedJobs_select_column!]
+    distinct_on: [activities_select_column!]
 
     # limit the number of rows returned
     limit: Int
@@ -1180,405 +2656,542 @@ type User {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [AppliedJobs_order_by!]
+    order_by: [activities_order_by!]
 
     # filter the rows returned
-    where: AppliedJobs_bool_exp
-  ): AppliedJobs_aggregate!
-  emailId: String!
-  firebaseUuid: String!
-  firstName: String!
-  isEmailVerified: Boolean!
-  isPhoneVerified: Boolean!
-  isProfileCompleted: Boolean!
-  lastName: String!
-  phoneNumber: numeric!
-  profilePicture: String!
-  shortBio: String!
-  userId: Int!
+    where: activities_bool_exp
+  ): activities_aggregate!
+
+  # fetch data from the table: "activities" using primary key columns
+  activities_by_pk(activity_id: Int!): activities
+
+  # fetch data from the table: "closed_shifts"
+  closed_shifts(
+    # distinct select on columns
+    distinct_on: [closed_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [closed_shifts_order_by!]
+
+    # filter the rows returned
+    where: closed_shifts_bool_exp
+  ): [closed_shifts!]!
+
+  # An aggregate relationship
+  closed_shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [closed_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [closed_shifts_order_by!]
+
+    # filter the rows returned
+    where: closed_shifts_bool_exp
+  ): closed_shifts_aggregate!
+
+  # fetch data from the table: "closed_shifts" using primary key columns
+  closed_shifts_by_pk(closed_shifts_id: Int!): closed_shifts
+
+  # An array relationship
+  documents(
+    # distinct select on columns
+    distinct_on: [documents_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [documents_order_by!]
+
+    # filter the rows returned
+    where: documents_bool_exp
+  ): [documents!]!
+
+  # An aggregate relationship
+  documents_aggregate(
+    # distinct select on columns
+    distinct_on: [documents_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [documents_order_by!]
+
+    # filter the rows returned
+    where: documents_bool_exp
+  ): documents_aggregate!
+
+  # fetch data from the table: "documents" using primary key columns
+  documents_by_pk(document_id: Int!): documents
+
+  # fetch data from the table: "jobs"
+  jobs(
+    # distinct select on columns
+    distinct_on: [jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [jobs_order_by!]
+
+    # filter the rows returned
+    where: jobs_bool_exp
+  ): [jobs!]!
+
+  # fetch aggregated fields from the table: "jobs"
+  jobs_aggregate(
+    # distinct select on columns
+    distinct_on: [jobs_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [jobs_order_by!]
+
+    # filter the rows returned
+    where: jobs_bool_exp
+  ): jobs_aggregate!
+
+  # fetch data from the table: "jobs" using primary key columns
+  jobs_by_pk(job_id: Int!): jobs
+
+  # An array relationship
+  open_shifts(
+    # distinct select on columns
+    distinct_on: [open_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [open_shifts_order_by!]
+
+    # filter the rows returned
+    where: open_shifts_bool_exp
+  ): [open_shifts!]!
+
+  # An aggregate relationship
+  open_shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [open_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [open_shifts_order_by!]
+
+    # filter the rows returned
+    where: open_shifts_bool_exp
+  ): open_shifts_aggregate!
+
+  # fetch data from the table: "open_shifts" using primary key columns
+  open_shifts_by_pk(open_shifts_id: Int!): open_shifts
+
+  # An array relationship
+  shifts(
+    # distinct select on columns
+    distinct_on: [shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [shifts_order_by!]
+
+    # filter the rows returned
+    where: shifts_bool_exp
+  ): [shifts!]!
+
+  # An aggregate relationship
+  shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [shifts_order_by!]
+
+    # filter the rows returned
+    where: shifts_bool_exp
+  ): shifts_aggregate!
+
+  # fetch data from the table: "shifts" using primary key columns
+  shifts_by_pk(shift_id: Int!): shifts
+
+  # fetch data from the table: "users"
+  users(
+    # distinct select on columns
+    distinct_on: [users_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): [users!]!
+
+  # fetch aggregated fields from the table: "users"
+  users_aggregate(
+    # distinct select on columns
+    distinct_on: [users_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): users_aggregate!
+
+  # fetch data from the table: "users" using primary key columns
+  users_by_pk(user_id: String!): users
 }
 
-# aggregated selection of "User"
-type User_aggregate {
-  aggregate: User_aggregate_fields
-  nodes: [User!]!
+# columns and relationships of "users"
+type users {
+  # An array relationship
+  activities(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): [activities!]!
+
+  # An aggregate relationship
+  activities_aggregate(
+    # distinct select on columns
+    distinct_on: [activities_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [activities_order_by!]
+
+    # filter the rows returned
+    where: activities_bool_exp
+  ): activities_aggregate!
+
+  # fetch data from the table: "closed_shifts"
+  closed_shifts(
+    # distinct select on columns
+    distinct_on: [closed_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [closed_shifts_order_by!]
+
+    # filter the rows returned
+    where: closed_shifts_bool_exp
+  ): [closed_shifts!]!
+
+  # An aggregate relationship
+  closed_shifts_aggregate(
+    # distinct select on columns
+    distinct_on: [closed_shifts_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [closed_shifts_order_by!]
+
+    # filter the rows returned
+    where: closed_shifts_bool_exp
+  ): closed_shifts_aggregate!
+  contact_number: String!
+
+  # An array relationship
+  documents(
+    # distinct select on columns
+    distinct_on: [documents_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [documents_order_by!]
+
+    # filter the rows returned
+    where: documents_bool_exp
+  ): [documents!]!
+
+  # An aggregate relationship
+  documents_aggregate(
+    # distinct select on columns
+    distinct_on: [documents_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [documents_order_by!]
+
+    # filter the rows returned
+    where: documents_bool_exp
+  ): documents_aggregate!
+  email_address: String!
+  first_name: String!
+  home_address: String!
+  last_name: String!
+  profile_pic: String!
+  user_id: String!
 }
 
-# aggregate fields of "User"
-type User_aggregate_fields {
-  avg: User_avg_fields
-  count(columns: [User_select_column!], distinct: Boolean): Int
-  max: User_max_fields
-  min: User_min_fields
-  stddev: User_stddev_fields
-  stddev_pop: User_stddev_pop_fields
-  stddev_samp: User_stddev_samp_fields
-  sum: User_sum_fields
-  var_pop: User_var_pop_fields
-  var_samp: User_var_samp_fields
-  variance: User_variance_fields
+# aggregated selection of "users"
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
 }
 
-# order by aggregate values of table "User"
-input User_aggregate_order_by {
-  avg: User_avg_order_by
-  count: order_by
-  max: User_max_order_by
-  min: User_min_order_by
-  stddev: User_stddev_order_by
-  stddev_pop: User_stddev_pop_order_by
-  stddev_samp: User_stddev_samp_order_by
-  sum: User_sum_order_by
-  var_pop: User_var_pop_order_by
-  var_samp: User_var_samp_order_by
-  variance: User_variance_order_by
+# aggregate fields of "users"
+type users_aggregate_fields {
+  count(columns: [users_select_column!], distinct: Boolean): Int!
+  max: users_max_fields
+  min: users_min_fields
 }
 
-# input type for inserting array relation for remote table "User"
-input User_arr_rel_insert_input {
-  data: [User_insert_input!]!
-  on_conflict: User_on_conflict
+# Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+input users_bool_exp {
+  _and: [users_bool_exp!]
+  _not: users_bool_exp
+  _or: [users_bool_exp!]
+  activities: activities_bool_exp
+  closed_shifts: closed_shifts_bool_exp
+  contact_number: String_comparison_exp
+  documents: documents_bool_exp
+  email_address: String_comparison_exp
+  first_name: String_comparison_exp
+  home_address: String_comparison_exp
+  last_name: String_comparison_exp
+  profile_pic: String_comparison_exp
+  user_id: String_comparison_exp
 }
 
-# aggregate avg on columns
-type User_avg_fields {
-  phoneNumber: Float
-  userId: Float
-}
-
-# order by avg() on columns of table "User"
-input User_avg_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-# Boolean expression to filter rows from the table "User". All fields are combined with a logical 'AND'.
-input User_bool_exp {
-  AppliedJobs: AppliedJobs_bool_exp
-  _and: [User_bool_exp]
-  _not: User_bool_exp
-  _or: [User_bool_exp]
-  emailId: String_comparison_exp
-  firebaseUuid: String_comparison_exp
-  firstName: String_comparison_exp
-  isEmailVerified: Boolean_comparison_exp
-  isPhoneVerified: Boolean_comparison_exp
-  isProfileCompleted: Boolean_comparison_exp
-  lastName: String_comparison_exp
-  phoneNumber: numeric_comparison_exp
-  profilePicture: String_comparison_exp
-  shortBio: String_comparison_exp
-  userId: Int_comparison_exp
-}
-
-# unique or primary key constraints on table "User"
-enum User_constraint {
+# unique or primary key constraints on table "users"
+enum users_constraint {
   # unique or primary key constraint
-  User_pkey
+  users_pkey
 
   # unique or primary key constraint
-  Users_firebaseUuid_key
-
-  # unique or primary key constraint
-  Users_phoneNumber_key
+  users_user_id_key
 }
 
-# input type for incrementing integer column in table "User"
-input User_inc_input {
-  phoneNumber: numeric
-  userId: Int
-}
-
-# input type for inserting data into table "User"
-input User_insert_input {
-  AppliedJobs: AppliedJobs_arr_rel_insert_input
-  emailId: String
-  firebaseUuid: String
-  firstName: String
-  isEmailVerified: Boolean
-  isPhoneVerified: Boolean
-  isProfileCompleted: Boolean
-  lastName: String
-  phoneNumber: numeric
-  profilePicture: String
-  shortBio: String
-  userId: Int
+# input type for inserting data into table "users"
+input users_insert_input {
+  activities: activities_arr_rel_insert_input
+  closed_shifts: closed_shifts_arr_rel_insert_input
+  contact_number: String
+  documents: documents_arr_rel_insert_input
+  email_address: String
+  first_name: String
+  home_address: String
+  last_name: String
+  profile_pic: String
+  user_id: String
 }
 
 # aggregate max on columns
-type User_max_fields {
-  emailId: String
-  firebaseUuid: String
-  firstName: String
-  lastName: String
-  phoneNumber: numeric
-  profilePicture: String
-  shortBio: String
-  userId: Int
-}
-
-# order by max() on columns of table "User"
-input User_max_order_by {
-  emailId: order_by
-  firebaseUuid: order_by
-  firstName: order_by
-  lastName: order_by
-  phoneNumber: order_by
-  profilePicture: order_by
-  shortBio: order_by
-  userId: order_by
+type users_max_fields {
+  contact_number: String
+  email_address: String
+  first_name: String
+  home_address: String
+  last_name: String
+  profile_pic: String
+  user_id: String
 }
 
 # aggregate min on columns
-type User_min_fields {
-  emailId: String
-  firebaseUuid: String
-  firstName: String
-  lastName: String
-  phoneNumber: numeric
-  profilePicture: String
-  shortBio: String
-  userId: Int
+type users_min_fields {
+  contact_number: String
+  email_address: String
+  first_name: String
+  home_address: String
+  last_name: String
+  profile_pic: String
+  user_id: String
 }
 
-# order by min() on columns of table "User"
-input User_min_order_by {
-  emailId: order_by
-  firebaseUuid: order_by
-  firstName: order_by
-  lastName: order_by
-  phoneNumber: order_by
-  profilePicture: order_by
-  shortBio: order_by
-  userId: order_by
-}
-
-# response of any mutation on the table "User"
-type User_mutation_response {
-  # number of affected rows by the mutation
+# response of any mutation on the table "users"
+type users_mutation_response {
+  # number of rows affected by the mutation
   affected_rows: Int!
 
-  # data of the affected rows by the mutation
-  returning: [User!]!
+  # data from the rows affected by the mutation
+  returning: [users!]!
 }
 
-# input type for inserting object relation for remote table "User"
-input User_obj_rel_insert_input {
-  data: User_insert_input!
-  on_conflict: User_on_conflict
+# input type for inserting object relation for remote table "users"
+input users_obj_rel_insert_input {
+  data: users_insert_input!
+
+  # on conflict condition
+  on_conflict: users_on_conflict
 }
 
-# on conflict condition type for table "User"
-input User_on_conflict {
-  constraint: User_constraint!
-  update_columns: [User_update_column!]!
-  where: User_bool_exp
+# on conflict condition type for table "users"
+input users_on_conflict {
+  constraint: users_constraint!
+  update_columns: [users_update_column!]!
+  where: users_bool_exp
 }
 
-# ordering options when selecting data from "User"
-input User_order_by {
-  AppliedJobs_aggregate: AppliedJobs_aggregate_order_by
-  emailId: order_by
-  firebaseUuid: order_by
-  firstName: order_by
-  isEmailVerified: order_by
-  isPhoneVerified: order_by
-  isProfileCompleted: order_by
-  lastName: order_by
-  phoneNumber: order_by
-  profilePicture: order_by
-  shortBio: order_by
-  userId: order_by
+# Ordering options when selecting data from "users".
+input users_order_by {
+  activities_aggregate: activities_aggregate_order_by
+  closed_shifts_aggregate: closed_shifts_aggregate_order_by
+  contact_number: order_by
+  documents_aggregate: documents_aggregate_order_by
+  email_address: order_by
+  first_name: order_by
+  home_address: order_by
+  last_name: order_by
+  profile_pic: order_by
+  user_id: order_by
 }
 
-# primary key columns input for table: "User"
-input User_pk_columns_input {
-  firebaseUuid: String!
+# primary key columns input for table: users
+input users_pk_columns_input {
+  user_id: String!
 }
 
-# select columns of table "User"
-enum User_select_column {
+# select columns of table "users"
+enum users_select_column {
   # column name
-  emailId
+  contact_number
 
   # column name
-  firebaseUuid
+  email_address
 
   # column name
-  firstName
+  first_name
 
   # column name
-  isEmailVerified
+  home_address
 
   # column name
-  isPhoneVerified
+  last_name
 
   # column name
-  isProfileCompleted
+  profile_pic
 
   # column name
-  lastName
-
-  # column name
-  phoneNumber
-
-  # column name
-  profilePicture
-
-  # column name
-  shortBio
-
-  # column name
-  userId
+  user_id
 }
 
-# input type for updating data in table "User"
-input User_set_input {
-  emailId: String
-  firebaseUuid: String
-  firstName: String
-  isEmailVerified: Boolean
-  isPhoneVerified: Boolean
-  isProfileCompleted: Boolean
-  lastName: String
-  phoneNumber: numeric
-  profilePicture: String
-  shortBio: String
-  userId: Int
+# input type for updating data in table "users"
+input users_set_input {
+  contact_number: String
+  email_address: String
+  first_name: String
+  home_address: String
+  last_name: String
+  profile_pic: String
+  user_id: String
 }
 
-# aggregate stddev on columns
-type User_stddev_fields {
-  phoneNumber: Float
-  userId: Float
-}
-
-# order by stddev() on columns of table "User"
-input User_stddev_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-# aggregate stddev_pop on columns
-type User_stddev_pop_fields {
-  phoneNumber: Float
-  userId: Float
-}
-
-# order by stddev_pop() on columns of table "User"
-input User_stddev_pop_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-# aggregate stddev_samp on columns
-type User_stddev_samp_fields {
-  phoneNumber: Float
-  userId: Float
-}
-
-# order by stddev_samp() on columns of table "User"
-input User_stddev_samp_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-# aggregate sum on columns
-type User_sum_fields {
-  phoneNumber: numeric
-  userId: Int
-}
-
-# order by sum() on columns of table "User"
-input User_sum_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-# update columns of table "User"
-enum User_update_column {
+# update columns of table "users"
+enum users_update_column {
   # column name
-  emailId
+  contact_number
 
   # column name
-  firebaseUuid
+  email_address
 
   # column name
-  firstName
+  first_name
 
   # column name
-  isEmailVerified
+  home_address
 
   # column name
-  isPhoneVerified
+  last_name
 
   # column name
-  isProfileCompleted
+  profile_pic
 
   # column name
-  lastName
-
-  # column name
-  phoneNumber
-
-  # column name
-  profilePicture
-
-  # column name
-  shortBio
-
-  # column name
-  userId
-}
-
-# aggregate var_pop on columns
-type User_var_pop_fields {
-  phoneNumber: Float
-  userId: Float
-}
-
-# order by var_pop() on columns of table "User"
-input User_var_pop_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-# aggregate var_samp on columns
-type User_var_samp_fields {
-  phoneNumber: Float
-  userId: Float
-}
-
-# order by var_samp() on columns of table "User"
-input User_var_samp_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-# aggregate variance on columns
-type User_variance_fields {
-  phoneNumber: Float
-  userId: Float
-}
-
-# order by variance() on columns of table "User"
-input User_variance_order_by {
-  phoneNumber: order_by
-  userId: order_by
-}
-
-scalar uuid
-
-# expression to compare columns of type uuid. All fields are combined with logical 'AND'.
-input uuid_comparison_exp {
-  _eq: uuid
-  _gt: uuid
-  _gte: uuid
-  _in: [uuid!]
-  _is_null: Boolean
-  _lt: uuid
-  _lte: uuid
-  _neq: uuid
-  _nin: [uuid!]
+  user_id
 }
 

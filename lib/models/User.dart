@@ -16,7 +16,6 @@ class UserModel {
       this.phoneNumber,
       this.address,
       this.email,
-
       this.id});
 
 //// getters
@@ -24,12 +23,12 @@ class UserModel {
 //  String get email=>_email;
 //  String get id =>_id;
 
-  UserModel.fromSnapshot(DocumentSnapshot snapshot) {
-    firstName = snapshot.data()["firstName"];
-    lastName = snapshot.data()["lastName"];
-    email = snapshot.data()["email"];
-    id = snapshot.data()["userId"];
-    phoneNumber = snapshot.data()["phoneNumber"];
-    address = snapshot.data()["address"];
+  UserModel.fromJson(Map<String, dynamic> json) {
+    firstName = json["firstName"];
+    lastName = json["lastName"];
+    email = json["email"];
+    id = json["userId"];
+    phoneNumber = json["phoneNumber"];
+    address = json["address"];
   }
 }

@@ -1,5 +1,6 @@
 import 'package:Quete/models/User.dart';
-import 'package:Quete/services/Firebase_helper/firebase.user.services.dart';
+import 'package:Quete/services/firebase/firebase.user.services.dart';
+import 'package:Quete/services/graphql/discovery.service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -32,13 +33,14 @@ class AuthProvider with ChangeNotifier {
   Future<void> onStateChanged(User firebaseUser) async {
     if (firebaseUser == null) {
       _status = Status.Uninitialized;
+      notifyListeners();
     } else {
       _user = firebaseUser;
       _status = Status.Authenticated;
+      notifyListeners();
       firebaseUuid=_user.uid;
       await _user.getIdToken(true).then((value) {
         _idToken = value;
-        print(_idToken);
       });
     }
     notifyListeners();
@@ -54,7 +56,7 @@ class AuthProvider with ChangeNotifier {
   // ignore: missing_return
   Future<String> signIn(UserModel user) async {
     try {
-      notifyListeners();
+
       await _auth
           .signInWithEmailAndPassword(
               email: user.email, password: user.password)
@@ -62,6 +64,7 @@ class AuthProvider with ChangeNotifier {
         _user = result.user;
         _status = Status.Authenticating;
         firebaseUuid = _user.uid;
+        print(DiscoveryService()..getPosts(firebaseUuid));
         onStateChanged(_user);
         notifyListeners();
       });
@@ -97,12 +100,11 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> updateUser(UserModel user) async {
     Map<String, dynamic> values = {
-      "First_Name": user.firstName,
-      "Last_Name": user.lastName,
-      "Phone_Number": user.phoneNumber,
-      "Address": user.address
+      "firstName": user.firstName,
+      "lastName": user.lastName,
+      "phoneNumber": user.phoneNumber,
+      "address": user.address
     };
-    print(" UserId$firebaseUuid");
     _userServices.updateUser(values, firebaseUuid);
   }
 }

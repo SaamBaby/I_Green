@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
 class Constants{
 
-  static String appName = "iGreen";
+  static String appName = "IGreen";
   static const String locationAPI= "AIzaSyDpnI7xU_y1u9KYe6ISyv1kkJpIgYJk6Po";
-
-  //Colors for theme
-//  Color(0xfffcfcff);
-  static Color lightPrimary = Color(0xfffcfcff);
-  static Color darkPrimary = Colors.black;
-  static Color lightAccent = Colors.red;
-  static Color darkAccent = Colors.red[400];
-  static Color lightBG = Color(0xfffcfcff);
-  static Color darkBG = Colors.black;
-  static Color ratingBG = Colors.yellow[600];
-
-
-
-
+  static const graphqlEndpoint ='https://igreen-staffing.hasura.app/v1/graphql';
+  static const adminSecret= 'OpSeKZXHZ18ugBS9ulfBib8lQ3ngeKogHX3QmuPVBwPL0xzq'
+      'OS6fF37yHZumNsK6';
 }

@@ -1,0 +1,10 @@
+query GetShitsById($id: Int!) {
+    shifts(where: {shift_id: {_eq: $id}}) {
+        job_id
+        shift_date
+        shift_id
+        shift_name
+        shift_notes
+        shift_time
+    }
+}

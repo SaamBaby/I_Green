@@ -15,14 +15,14 @@ dependencies:
   splashscreen: ^1.2.0
   avatar_glow: ^1.1.0
   provider: ^4.3.3
-  auto_size_text: ^2.1.0
+  google_fonts: any
+  flutter_screenutil: any
   font_awesome_flutter: ^8.10.0
   bottom_navy_bar: ^5.6.0
   table_calendar: ^2.3.3
-  graphql: ^3.0.0
+  graphql: "4.0.1"
   http: "0.12.2"
   form_field_validator: ^1.0.1
-  graphql_flutter: ^3.0.0
   uuid: ^2.2.2
   stream_transform: ^1.2.0
   #firebase
@@ -39,51 +39,38 @@ dependencies:
   geolocator:
   geocoding: ^1.0.5
   flutter_polyline_points: ^0.2.4
-
-
-
-
   cupertino_icons: ^1.0.0
+  # artemis build runner
+  artemis: '>=6.0.0 <7.0.0' # only if you're using ArtemisClient!
+  json_annotation: ^3.1.0
+  equatable: ^1.2.5
+  meta: '>=1.0.0 <2.0.0' # only if you have non nullable fields
+  gql: '>=0.12.3 <1.0.0'
+
+
 
 
 dev_dependencies:
 
-  build_runner: ^1.5.0
+  artemis: '>=6.0.0 <7.0.0'
+  build_runner: ^1.10.4
+  json_serializable: ^3.5.0
   flutter_test:
     sdk: flutter
 
 flutter_launcher_name:
   name: "Igreen"
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/introduction/
     - assets/images/Schedule/
     - assets/icons/
     - assets/utils/
 
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
      - family: Futura Book
        fonts:
@@ -96,5 +83,3 @@ flutter:
              - asset: fonts/Futura Heavy font.ttf
 
 
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

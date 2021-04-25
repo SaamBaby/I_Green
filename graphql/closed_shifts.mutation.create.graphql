@@ -1,0 +1,7 @@
+mutation CreateClosedShift ($input: closed_shifts_insert_input!) {
+    insert_closed_shifts(objects:[$input]) {
+        returning {
+            closed_shifts_id
+        }
+    }
+}

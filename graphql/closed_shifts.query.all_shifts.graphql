@@ -1,0 +1,31 @@
+#query GetAllClosedShifts($userid: String!) {
+#    closed_shifts(where: {user_id: {_eq: $userid}}) {
+#        closed_shifts_id
+#        shift_id
+#    }
+#}
+
+query GetAllClosedShifts {
+    closed_shifts {
+        closed_shifts_id
+        shift {
+            shift_date
+            shift_name
+            shift_notes
+            shift_time
+            job {
+                is_contract
+                is_fulltime
+                is_parttime
+                job_description
+                job_id
+                job_logo
+                job_location
+                job_name
+                job_qualifications
+                job_responsibilities
+                job_salary
+            }
+        }
+    }
+}

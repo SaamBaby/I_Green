@@ -8,6 +8,9 @@ double getProportionateScreenSize(double inputWidth, var mediaQuery) {
     defaultSize =  750.0;
   }else {
     defaultSize =  375.0;
+
+
+
   }
   return ((screenWidth*inputWidth)/defaultSize);
   // 375 is the layout width that designer use
@@ -25,7 +28,6 @@ double getProportionateScreenHeight(double inputHeight,var  mediaQuery) {
 double getProportionateScreenWidth(double inputWidth, var mediaQuery) {
   double screenWidth = mediaQuery.size.width;
   // 375 is the layout width that designer use
-  print("  pro ${(inputWidth / 375.0) * screenWidth}" );
   return (inputWidth / 375.0) * screenWidth;
 
 }

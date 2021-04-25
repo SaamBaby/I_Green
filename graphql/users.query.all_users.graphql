@@ -1,0 +1,24 @@
+query GetAllUsers {
+    users {
+        user_id
+        documents {
+            document_id
+            document_name
+            document_url
+        }
+        activities {
+            activity_id
+            is_accepted
+            is_completed
+            shift_endtime
+            shift_id
+            shift_starttime
+        }
+        first_name
+        last_name
+        contact_number
+        email_address
+        home_address
+        profile_pic
+    }
+}

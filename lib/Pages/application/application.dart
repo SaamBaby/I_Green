@@ -1,4 +1,4 @@
-import 'package:Quete/Pages/schedule/Schedule.dart';
+import 'package:Quete/Pages/schedule/schedule.screen.dart';
 import 'package:Quete/providers/appliedJobs_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

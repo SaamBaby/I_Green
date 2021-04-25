@@ -1,0 +1,7 @@
+mutation CreateShifts($input: shifts_insert_input!){
+    insert_shifts(objects: [$input]) {
+        returning {
+            shift_id
+        }
+    }
+}

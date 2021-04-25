@@ -1,0 +1,7 @@
+mutation CreateJobs($input: jobs_insert_input!) {
+    insert_jobs(objects: [$input]) {
+        returning {
+            job_id
+        }
+    }
+}

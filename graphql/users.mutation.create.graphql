@@ -1,0 +1,8 @@
+mutation CreateUser($input: users_insert_input!) {
+    insert_users(objects: [$input]) {
+        returning {
+            contact_number
+        }
+    }
+}
+## gq https://igreen-staffing.hasura.app/v1/graphql -H "X-Hasura-Admin-Secret: OpSeKZXHZ18ugBS9ulfBib8lQ3ngeKogHX3QmuPVBwPL0xzqOS6fF37yHZumNsK6" --introspect > schema.graphql
