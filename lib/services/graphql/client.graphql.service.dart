@@ -1,34 +1,31 @@
 import 'package:Quete/Utils/const.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:graphql/client.dart';
 import 'package:flutter/material.dart';
-// import 'package:hive/hive.dart';
+import 'package:Quete/services/cache/user.cache.service.dart';
+import 'package:hive/hive.dart';
 
-class IgreenGraphQLClient extends ChangeNotifier{
+
+
+class IgreenGraphQLClient extends ChangeNotifier {
 
   static GraphQLClient _client;
  Map<String, String> defaultHeaders;
+
   static Future<GraphQLClient> getClient() async {
+    print("igreen client user id ${UserCacheService.user.id}");
+
     final HttpLink _httpLink = HttpLink(Constants.graphqlEndpoint,
-        defaultHeaders:const {
-      'x-hasura-admin-secret': Constants.adminSecret
+        defaultHeaders:{
+          'x-hasura-admin-secret': Constants.adminSecret,
+          'X-Hasura-Role'        : 'user',
+          'X-Hasura-User-Id'     : UserCacheService.user.id,
     });
-    // final box = await Hive.openBox('graphql');
 
-    String token;
-
-    try {token = await FirebaseAuth.instance.currentUser.getIdToken(true);
-    } catch (e) {
-      print(e);
-    }
-
-    final AuthLink _authLink = AuthLink(getToken: () => token);
-    print(_authLink);
-    // final Link _link = _authLink.concat(_httpLink);
+    final box = await Hive.openBox('graphql');
 
 
     _client = GraphQLClient(
-      cache: GraphQLCache(),
+      cache: GraphQLCache(store: HiveStore(box)),
 
       link: _httpLink,
     );

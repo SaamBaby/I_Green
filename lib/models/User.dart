@@ -18,17 +18,6 @@ class UserModel {
       this.email,
       this.id});
 
-//// getters
-//  String get name =>_name;
-//  String get email=>_email;
-//  String get id =>_id;
 
-  UserModel.fromJson(Map<String, dynamic> json) {
-    firstName = json["firstName"];
-    lastName = json["lastName"];
-    email = json["email"];
-    id = json["userId"];
-    phoneNumber = json["phoneNumber"];
-    address = json["address"];
-  }
+
 }

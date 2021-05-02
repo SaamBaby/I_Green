@@ -1,4 +1,6 @@
 import 'package:Quete/Pages/home/home.screen.dart';
+import 'package:Quete/Pages/profile/personal.information.dart';
+import 'package:Quete/Pages/schedule/schedule.addHours.screen.dart';
 import 'package:Quete/services/helper/circle.transicion.route.dart';
 import 'package:flutter/material.dart';
 
@@ -55,8 +57,6 @@ class Routes{
   static const personalInformation = '/user/profile/personalInformation';
   static const userProfile = '/user/profile';
 
-
-
   // discovery
   static const discovery = '/disovery';
 
@@ -80,14 +80,12 @@ class Routes{
   static PageRouteBuilder generateRoute(RouteSettings routeSettings, {Widget
   root, bool isCustomTransicion}) {
     if (isCustomTransicion) {
-      print("${routeSettings.name}");
       return CircleTransicionRoute(
         settings: routeSettings,
         page: _buildPage(routeSettings.name, routeSettings.arguments, root),
       );
     }
     else {
-      print("testing false");
       return NoTransicionRoute(
         settings: routeSettings,
         page: _buildPage(routeSettings.name, routeSettings.arguments, root),
@@ -119,15 +117,22 @@ class Routes{
       case homeMain:
         return ShiftFeeds();
       case jobDetails:
-        return JobDetails();
+        return JobDetails(arguments: arguments);
+      case addHours:
+        return AddHours(arguments: arguments);
+        // user profile
       case userProfile:
          return Profile();
-        // return UserProfilePage(arguments: arguments);
+
+      case personalInformation:
+        return PersonalInformation();
+
       case  splash:
         return Splash();
       // Notification
       case notifications:
         return Notifications();
+        //
 
 
       default:

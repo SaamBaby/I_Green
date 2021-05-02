@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +8,7 @@ ThemeData theme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primaryColor:    Color(0xFF54E597),
+    errorColor:      Color(0xFFff4c4c),
     textTheme: TextTheme(
       headline1: GoogleFonts.montserrat(
         color: Color.fromRGBO(52, 43, 37, 1),
@@ -27,25 +30,33 @@ ThemeData theme() {
         fontSize: ScreenUtil().setSp(14),
         fontWeight: FontWeight.w900,
       ),
+      headline5:  GoogleFonts.montserrat(
+        color: Color.fromRGBO(52, 43, 37, 1),
+        fontSize: ScreenUtil().setSp(18),
+        letterSpacing: 1.3,
+        fontWeight: FontWeight.w900,
+      ),
+      bodyText1:GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(14),
+        color: Colors.black.withOpacity(.7),
+        height: 1.3,
+        fontWeight: FontWeight.w700,
+      ),
       bodyText2:GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(12),
         color: Color.fromRGBO(52, 43, 37, 1),
         fontWeight: FontWeight.w600,
       ),
-      bodyText1:GoogleFonts.varelaRound(
-        fontSize: ScreenUtil().setSp(14),
-        color: Color.fromRGBO(52, 43, 37, 1),
-        fontWeight: FontWeight.w700,
-      ),
+
       subtitle1: GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(11),
         color: Colors.white,
         fontWeight: FontWeight.w700,
   ),
       subtitle2: GoogleFonts.varelaRound(
-        fontSize: ScreenUtil().setSp(11),
-        color: Colors.grey,
-        fontWeight: FontWeight.w700,
+        fontSize: ScreenUtil().setSp(12),
+        color: Colors.black26.withOpacity(.5),
+        fontWeight: FontWeight.w800,
       ),
       button: GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(14),
@@ -65,7 +76,6 @@ ThemeData theme() {
 
       // subtitle1: TextStyle(fontSize: 17),
       // subtitle2: TextStyle(fontSize: 15),
-      // caption: TextStyle(fontSize: 12),
     ),
     appBarTheme: appBarTheme(),
     visualDensity: VisualDensity.comfortable,
@@ -85,7 +95,7 @@ InputDecorationTheme inputDecorationTheme() {
 
   return InputDecorationTheme(
       labelStyle:
-          TextStyle(color: Color(0xFFa6e76c), fontSize: 20.0, height: 0.8),
+          TextStyle(color: Color(0xFF54E597), fontSize: 20.0, height: 0.8),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
       enabledBorder: outlineInputBorder,

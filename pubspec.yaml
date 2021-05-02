@@ -25,6 +25,8 @@ dependencies:
   form_field_validator: ^1.0.1
   uuid: ^2.2.2
   stream_transform: ^1.2.0
+  #read more
+  readmore: any
   #firebase
   firebase_core: "^0.7.0"
   firebase_auth: "^0.20.0+1"
@@ -47,6 +49,11 @@ dependencies:
   meta: '>=1.0.0 <2.0.0' # only if you have non nullable fields
   gql: '>=0.12.3 <1.0.0'
 
+  #hive
+  hive: any
+  hive_flutter: any
+  path_provider: ^1.6.5
+
 
 
 
@@ -55,8 +62,11 @@ dev_dependencies:
   artemis: '>=6.0.0 <7.0.0'
   build_runner: ^1.10.4
   json_serializable: ^3.5.0
+  hive_generator: ^0.8.1
   flutter_test:
     sdk: flutter
+
+
 
 flutter_launcher_name:
   name: "Igreen"

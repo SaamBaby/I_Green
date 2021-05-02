@@ -1,0 +1,7 @@
+mutation CreateActivityClone($input: activities_insert_input!) {
+    insert_activities(objects: [$input]) {
+        returning {
+            activity_id
+        }
+    }
+}

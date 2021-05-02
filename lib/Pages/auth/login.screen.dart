@@ -8,10 +8,9 @@ import 'package:flutter_screenutil/screen_util.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
 import '../../Routes.dart';
-import '../root.page.dart';
+
 import 'forgot.password.screen.dart';
 import 'signup.screen.dart';
 
@@ -50,7 +49,7 @@ class body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
+
 
     return SingleChildScrollView(
       child: Padding(
@@ -126,24 +125,11 @@ class SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController controllerPassword = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
-  TextEditingController controllerAddress = TextEditingController();
 
 
-  var user = UserModel(
-      firstName: '',
-      lastName: '',
-      address: '',
-      email: '',
-      phoneNumber: 0,
-      password: '',
-      id: '');
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controllerEmail.text = FirebaseAuth.instance.currentUser.email;
-    });
-
     super.initState();
   }
 
@@ -185,7 +171,8 @@ class SignInFormState extends State<SignInForm> {
          });
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        await userProvider.signIn(user).then((value) {
+        await userProvider.signIn(controllerEmail.text,controllerPassword.text)
+            .then((value) {
           if (value != null) {
             var errorMessage = value;
             if (value.contains('firebase_auth/email-already-in-use')) {
@@ -232,7 +219,7 @@ class SignInFormState extends State<SignInForm> {
                 children: [
                   Checkbox(
                       value: isCheck,
-                      checkColor: Colors.yellowAccent, // color of tick Mark
+                      checkColor: Theme.of(context).primaryColor, // color of tick Mark
                       activeColor: Colors.grey,
                       onChanged: (bool value) {
                         setState(() {
@@ -289,10 +276,8 @@ class SignInFormState extends State<SignInForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
+      controller:controllerPassword ,
       validator: passwordValidator,
-      onSaved: (value) {
-        user = UserModel(password: value, email: user.email);
-      },
       style:  Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         labelText: "Password",
@@ -323,9 +308,7 @@ class SignInFormState extends State<SignInForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       validator: emailValidator,
-      onSaved: (value) {
-        user = UserModel(email: value, password: user.password);
-      },
+      controller: controllerEmail,
       style:  Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         labelText: "Email",
@@ -357,7 +340,7 @@ class SignInFormState extends State<SignInForm> {
     if(currentState==cState.Uninitialized){
       return Text(
           "Sign in ",
-          style: Theme.of(context).textTheme.headline2
+          style: Theme.of(context).textTheme.headline3
       );
     }else if(currentState==cState.Authenticating){
       print(currentState);

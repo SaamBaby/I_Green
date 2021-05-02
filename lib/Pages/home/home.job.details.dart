@@ -1,572 +1,439 @@
 import 'package:Quete/Pages/auth/signup.screen.dart';
-import 'package:Quete/models/Job.dart';
-import 'package:Quete/providers/appliedJobs_provider.dart';
-import 'package:Quete/providers/jobs_provider.dart';
+import 'package:Quete/graphql/schema.graphql.dart';
+import 'package:Quete/services/cache/user.cache.service.dart';
+import 'package:Quete/services/graphql/discovery.service.dart';
+import 'package:Quete/services/graphql/activity.service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 
 class JobDetails extends StatefulWidget {
-  static const routName = '/job-details';
+  final dynamic arguments;
+
+  const JobDetails({Key key, this.arguments}) : super(key: key);
+
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
 }
 
-class _JobDetailsState extends State<JobDetails> {
-  bool _isLoading = false;
 
+class _JobDetailsState extends State<JobDetails> {
+
+  final  _activityService = ActivityService();
   @override
   Widget build(BuildContext context) {
-    final jobId = ModalRoute.of(context).settings.arguments as String;
-    final loadedJobData = Provider.of<Jobs>(context, listen: true)
-        .itemsList
-        .firstWhere((element) => element.jobId == jobId);
 
-    return DefaultTabController(
-      length: 2,
+    // for string manipulation
+    String _textSelect(String str) {
+      str = str.replaceAll('.', '');
+      str = str.replaceAll(',', '.');
+      str = str.replaceAll('(', '');
+      str = str.replaceAll(')', '');
+      return str;
+    }
+    final jobId = widget.arguments as int;
+    final loadedJobData = Provider.of<DiscoveryService>(context, listen:
+    true).feed.firstWhere((element) => element.shift.job.jobId == jobId);
+
+    List<String> tempLocation=loadedJobData.shift.job.jobLocation.split(',');
+
+    return SafeArea(
       child: Container(
         color: Colors.white,
-        child: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                  valueColor:
-                      new AlwaysStoppedAnimation<Color>(Colors.lightGreen),
+        child: Scaffold(
+            appBar: AppBar(
+              leading: Transform.translate(
+                offset: Offset(10, 0),
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  ),
                 ),
-              )
-            : Scaffold(
-                appBar: AppBar(
-                  leading: Transform.translate(
-                    offset: Offset(10, 0),
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.black,
-                      ),
+              ),
+              backgroundColor: Colors.white,
+              elevation: 0,
+              toolbarHeight: 350,
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(50.0),
+
+                child: Container(
+                  width: double.infinity,
+                  // margin: EdgeInsets.only(top: 50.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 15.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
                     ),
                   ),
-
-                  backgroundColor: Colors.white,
-                  elevation: 0,
-                  toolbarHeight: 400,
-                  actions: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.only(right: 25.0),
-                        child:  Consumer<JobModel>(
-                          builder: (context, jobData, _) => GestureDetector(
-                            onTap: () {
-                              print(jobData.isFavourite);
-                              jobData.toggleFavoriteStatus(jobId);
-                            },
-                            child: Container(
-                              width: 50.0,
-                              height: 50.0,
-                              child: Icon(
-                                  loadedJobData.isFavourite
-                                      ? Icons.bookmark
-                                      : Icons.bookmark_border,
-                                  color: loadedJobData.isFavourite
-                                      ? Colors.lightGreenAccent
-                                      : Colors.black),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 40,
+                              child: Image.network(loadedJobData.shift
+                                  .job.jobLogo),
                             ),
-                          ),
-                        ),),
-                  ],
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(30),
-                    child: Container(
-                      width: double.infinity,
-                      // margin: EdgeInsets.only(top: 50.0),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 15.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40.0),
-                          topRight: Radius.circular(40.0),
-                        ),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: Colors.lightGreen,
-                                  radius: 40,
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
+                            SizedBox(
+                              height: 20,
+                            ),
                                 Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Column(
+                                    Text(
+                                        loadedJobData.shift.job.jobName,
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme.headline1
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                        _textSelect(tempLocation .getRange(1,4).toString()),
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme.bodyText1,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(children: <TextSpan>[
+                                        TextSpan(
+                                            text: "\$CA ",
+                                            style: Theme.of(context)
+                                                .textTheme.bodyText2),
+                                        TextSpan(
+                                            text: loadedJobData.shift.job.jobSalary
+                                                .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme.bodyText2),
+                                      ]),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
-
-                                        Text(
-                                          loadedJobData.jobName,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontFamily: 'Futura Heavy',
-                                              color: Color(0xff000000).withOpacity(.8),
-                                              fontSize: 26,
-                                              letterSpacing: 1.1,
-                                              fontWeight: FontWeight.w900),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                              text:  loadedJobData.jobLocation.replaceAll(',', ' .').split(".").first,
+                                        Visibility(
+                                          visible: loadedJobData.shift
+                                              .job.isFulltime,
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(vertical: 10,
+                                                horizontal: 10),
+                                            margin:
+                                            EdgeInsets.only(right: 5),
+                                            width: 80,
+                                            height: 35,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    10),
+                                                color: Color(0xffeef1f4)),
+                                            child: Text(
+                                              "Full-Time",
                                               style: TextStyle(
                                                   fontFamily: 'Futura Book',
-                                                  color: Colors.black.withOpacity(.8),
+                                                  color: Colors.black54
+                                                      .withOpacity(.8),
                                                   fontSize: 14,
-                                                  fontWeight: FontWeight.w700),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: ' . ',
-                                                  style:
-                                                  TextStyle(
-                                                      fontFamily: 'Futura Book',
-                                                      color: Colors.black.withOpacity(.8),
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w700),
-                                                ),
-                                                TextSpan(
-                                                  text:  loadedJobData.jobLocation.replaceAll(',', ' .').split(".").last,
-                                                  style: TextStyle(
-                                                      fontFamily: 'Futura Book',
-                                                      color: Colors.black.withOpacity(.8),
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w700),
-
-                                                )
-
-                                              ]),
-                                        ),
-
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(children: <TextSpan>[
-                                            TextSpan(
-                                                text: "\$CA ",
-                                                style: TextStyle(
-                                                    fontFamily: 'Futura Book',
-                                                    color: Colors.black,
-                                                    fontSize: 13,
-                                                    height: 1.5,
-                                                    fontWeight:
-                                                        FontWeight.w700)),
-                                            TextSpan(
-                                                text: loadedJobData.jobSalary
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontFamily: 'Futura Book',
-                                                    color: Colors.black,
-                                                    fontSize: 13,
-                                                    height: 1.5,
-                                                    fontWeight:
-                                                        FontWeight.w700)),
-                                            TextSpan(
-                                                text: ' /Hour',
-                                                style: TextStyle(
-                                                    fontFamily: 'Futura Book',
-                                                    color: Colors.black,
-                                                    fontSize: 12,
-                                                    height: 1.5,
-                                                    fontWeight:
-                                                        FontWeight.w700))
-                                          ]),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Visibility(
-                                              visible: loadedJobData.isFullTime,
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10,
-                                                    horizontal: 10),
-                                                margin:
-                                                    EdgeInsets.only(right: 5),
-                                                width: 70,
-                                                height: 35,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Color(0xffeef1f4)),
-                                                child: Text(
-                                                  "Full-Time",
-                                                  style: TextStyle(
-                                                      fontFamily: 'Futura Book',
-                                                      color: Colors.black54
-                                                          .withOpacity(.8),
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w900),
-                                                ),
-                                              ),
+                                                  fontWeight:
+                                                  FontWeight.w900),
                                             ),
-                                            Visibility(
-                                              visible: loadedJobData.isPartTime,
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10,
-                                                    horizontal: 10),
-                                                margin:
-                                                    EdgeInsets.only(right: 5),
-                                                width: 70,
-                                                height: 35,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Color(0xffeef1f4)),
-                                                child: Text(
-                                                  "Part-Time",
-                                                  style: TextStyle(
-                                                      fontFamily: 'Futura Book',
-                                                      color: Colors.black54
-                                                          .withOpacity(.8),
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w900),
-                                                ),
-                                              ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: loadedJobData.shift
+                                              .job.isParttime,
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10,
+                                                horizontal: 10),
+                                            margin:
+                                            EdgeInsets.only(right: 5),
+                                            width: 80,
+                                            height: 35,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    10),
+                                                color: Color(0xffeef1f4)),
+                                            child: Text(
+                                              "Part-Time",
+                                              style: TextStyle(
+                                                  fontFamily: 'Futura Book',
+                                                  color: Colors.black54
+                                                      .withOpacity(.8),
+                                                  fontSize: 14,
+                                                  fontWeight:
+                                                  FontWeight.w900),
                                             ),
-                                            Visibility(
-                                              visible: loadedJobData.isContract,
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10,
-                                                    horizontal: 10),
-                                                margin:
-                                                    EdgeInsets.only(right: 5),
-                                                width: 70,
-                                                height: 35,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Color(0xffeef1f4)),
-                                                child: Text(
-                                                  "Contract",
-                                                  style: TextStyle(
-                                                      fontFamily: 'Futura Book',
-                                                      color: Colors.black54
-                                                          .withOpacity(.8),
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w900),
-                                                ),
-                                              ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: loadedJobData.shift.job.isContract,
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10,
+                                                horizontal: 10),
+                                            margin:
+                                            EdgeInsets.only(right: 5),
+                                            width: 80,
+                                            height: 35,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    10),
+                                                color: Color(0xffeef1f4)),
+                                            child: Text(
+                                              "Contract",
+                                              style: TextStyle(
+                                                  fontFamily: 'Futura Book',
+                                                  color: Colors.black54
+                                                      .withOpacity(.8),
+                                                  fontSize: 14,
+                                                  fontWeight:
+                                                  FontWeight.w900),
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Material(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                              side: BorderSide(
-                                  color: Colors.black.withOpacity(.1),
-                                  width: .5),
-                            ),
-                            child: TabBar(
-                                unselectedLabelColor: Colors.black,
-                                indicator: BoxDecoration(
-                                  color: Color(0xFFa6e76c),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                tabs: [
-                                  Tab(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Applied (35)",
-                                          style: TextStyle(
-                                              fontFamily: 'Futura Book',
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Tab(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Company",
-                                          style: TextStyle(
-                                              fontFamily: 'Futura Book',
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                body: TabBarView(
-                  children: [
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * .9,
-                              child: Text(
-                                loadedJobData.jobDescription,
-                                style: TextStyle(
-                                    fontFamily: 'Futura Book',
-                                    color: Colors.black.withOpacity(.7),
-                                    fontSize: 16,
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Text(
-                              "Responsibilities",
-                              style: TextStyle(
-                                  fontFamily: 'Futura Heavy',
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  height: 2,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    loadedJobData.jobResponsibilities,
-                                    style: TextStyle(
-                                        fontFamily: 'Futura Book',
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Text(
-                              "Qualification",
-                              style: TextStyle(
-                                  fontFamily: 'Futura Heavy',
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  height: 2,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    loadedJobData.jobQualifications,
-                                    style: TextStyle(
-                                        fontFamily: 'Futura Book',
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                  text: loadedJobData.jobLocation,
-                                  style: TextStyle(
-                                      fontFamily: 'Futura Book',
-                                      color: Colors.black.withOpacity(.5),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SignUp()));
-                                    },
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: ' 1 day ago',
-                                      style: TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontSize: 13),
-                                    )
-                                  ]),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
+
                           ],
                         ),
                       ),
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            body:  Container(
+              padding:
+              EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  ReadMoreText(
+                    loadedJobData.shift.job.jobDescription,
+                  colorClickableText: Theme.of(context).primaryColor,
+                  trimMode: TrimMode.Line,
+                  trimCollapsedText: 'Show more',
+                  trimExpandedText: 'Show less',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  moreStyle:Theme.of(context).textTheme.bodyText2),
+
+                    SizedBox(
+                      height: 30,
                     ),
-                    Container(
+                    Text(
+                      "Responsibilities",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Full-Time",
-                                    style: TextStyle(
-                                        fontFamily: 'Futura Book',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
+                          Text(
+                            loadedJobData.shift.job.jobResponsibilities,
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Qualification",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            loadedJobData.shift.job.jobQualifications,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                          text: loadedJobData.shift.job.jobLocation,
+                          style: Theme.of(context).textTheme.caption,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUp()));
+                            },
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: ' 1 day ago',
+                              style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontSize: 13),
+                            )
+                          ]),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
                   ],
                 ),
-                bottomNavigationBar: PreferredSize(
-                  preferredSize: Size.fromHeight(60.0),
-                  child: Container(
-                    padding:
-                        EdgeInsets.only(left: 18.0, bottom: 25.0, right: 18.0),
-                    // margin: EdgeInsets.only(bottom: 25.0),
-                    color: Colors.white,
-                    child: Row(
-                      children: <Widget>[
+              ),
+            ),
+            bottomNavigationBar: PreferredSize(
+              preferredSize: Size.fromHeight(60.0),
+              child: Container(
+                padding:
+                EdgeInsets.only(left: 18.0, bottom: 25.0, right: 18.0),
+                // margin: EdgeInsets.only(bottom: 25.0),
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
 
-                        Expanded(
-                          child: SizedBox(
-                            height: 65.0,
-                            child: InkWell(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () {
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  try {
-                                    Provider.of<AppliedJobs>(context,
-                                        listen: false)
-                                        .applyJob(jobId);
-                                  } catch (error) {
-                                    showDialog(
-                                        context: (context),
-                                        builder: (ctx) => AlertDialog(
-                                          title: Text(
-                                              'An error occured while applying the job!'),
-                                          content: Text(error.toString()),
-                                          actions: <Widget>[
-                                            FlatButton(
-                                              child: Text("Okay!"),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            )
-                                          ],
-                                        ));
-                                  }finally{
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
+                    Expanded(
+                      flex: 4,
+                      child:  InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            try {
 
-                                    Navigator.of(context).pop();
-                                  }
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    height: 60,
-                                    alignment: Alignment.center,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFa6e76c),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Text(
-                                      "Apply ",
-                                      style: TextStyle(
-                                          fontFamily: 'Futura Book',
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w900),
-                                    )
-                                )),
-                          ),
-                        ),
-                      ],
+                            } catch (error) {
+                              showDialog(
+                                  context: (context),
+                                  builder: (ctx) => AlertDialog(
+                                    title: Text(
+                                      'An error occurred while '
+                                          'applying the shift!',style:
+                                    Theme.of(context).textTheme.bodyText1,),
+
+                                    content: Text(error.toString()),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Okay!",style: Theme.of(context).textTheme.headline5,),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  ));
+                            }finally{
+
+
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: Container(
+                              margin: EdgeInsets.only(bottom: 10,right: 20),
+                              height: 60,
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                "Accept",
+                                style: Theme.of(context).textTheme.button,
+                              )
+                          )),
                     ),
-                  ),
-                )),
+                    Expanded(
+                      flex: 1,
+                      child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            try {
+
+                                  // var input= ActivitiesInsertInput(
+                                  //   activityId: 11,
+                                  //   shiftId: loadedJobData.shiftId,
+                                  //   userId: UserCacheService.user.id,
+                                  //   isAccepted:true,
+                                  //   );
+                              // _activityService.createActivity(input);
+                              _activityService.createActivity(11,
+                                loadedJobData.shiftId,UserCacheService.user
+                                    .id,true);
+
+                            } catch (error) {
+                              showDialog(
+                                  context: (context),
+                                  builder: (ctx) => AlertDialog(
+                                    title: Text(
+                                      'An error occurred while '
+                                          'applying the shift!',style:
+                                    Theme.of(context).textTheme.bodyText1,),
+
+                                    content: Text(error.toString()),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Okay!",style: Theme.of(context).textTheme.headline5,),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  ));
+                            }finally{
+
+                            }
+                          },
+                          child: Container(
+                              margin: EdgeInsets.only(bottom: 10),
+                              height: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).errorColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                "Decline",
+                                style: Theme.of(context).textTheme.button,
+                              )
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            )),
       ),
     );
   }

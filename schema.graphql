@@ -2973,7 +2973,7 @@ type users {
     # filter the rows returned
     where: closed_shifts_bool_exp
   ): closed_shifts_aggregate!
-  contact_number: String!
+  contact_number: String
 
   # An array relationship
   documents(
@@ -3011,10 +3011,10 @@ type users {
     where: documents_bool_exp
   ): documents_aggregate!
   email_address: String!
-  first_name: String!
-  home_address: String!
-  last_name: String!
-  profile_pic: String!
+  first_name: String
+  home_address: String
+  last_name: String
+  profile_pic: String
   user_id: String!
 }
 
@@ -3050,6 +3050,9 @@ input users_bool_exp {
 
 # unique or primary key constraints on table "users"
 enum users_constraint {
+  # unique or primary key constraint
+  users_email_address_key
+
   # unique or primary key constraint
   users_pkey
 

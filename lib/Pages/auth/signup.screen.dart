@@ -99,19 +99,11 @@ class SignUpFormState extends State<SignUpForm> {
  TextEditingController controllerPassword = TextEditingController();
   TextEditingController controllerConfirmPassword = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
-  var user = UserModel(
-      firstName: '',
-      lastName: '',
-      address: '',
-      email: '',
-      phoneNumber: 0,
-      password: '',
-      id: '');
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controllerEmail.text = FirebaseAuth.instance.currentUser.email;
+
     });
 
     super.initState();
@@ -136,11 +128,13 @@ class SignUpFormState extends State<SignUpForm> {
     void _showErrorDialog(String message){
       showDialog(context:context, builder:(context)=>AlertDialog(
         title: Text("An error occurred during the process "),
-        content: Text(message),
+        content: Text(message,style:
+            Theme.of(context).textTheme.headline1,),
         actions: <Widget>[
           FlatButton(
             onPressed: (){Navigator.of(context).pop();},
-            child: Text("Okay"),
+            child: Text("Okay",style:
+                Theme.of(context).textTheme.bodyText2,),
           )
         ],
 
@@ -149,7 +143,8 @@ class SignUpFormState extends State<SignUpForm> {
      _onPressed() {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        userProvider.signUp(user).then((value) {
+        userProvider.signUp( controllerEmail.text,controllerPassword.text, )
+            .then((value) {
           if(value!=null){
             var errorMessage="Please try again later";
             if(value.contains('firebase_auth/email-already-in-use')){
@@ -165,7 +160,7 @@ class SignUpFormState extends State<SignUpForm> {
             } else if (value.contains('auth/null-user')) {
               errorMessage = "User Credentials Not Found";
             }
-            _showErrorDialog(errorMessage);
+            _showErrorDialog(value);
           }else{
             Navigator.push(
                 context,
@@ -174,7 +169,7 @@ class SignUpFormState extends State<SignUpForm> {
           }
 
         }).catchError((onError){
-          print(onError.toString());
+          print("User sign up error${onError.toString()}");
 
         });
 
@@ -191,19 +186,11 @@ class SignUpFormState extends State<SignUpForm> {
                 keyboardType: TextInputType.emailAddress,
                 controller: controllerEmail,
                 validator: emailValidator,
-                onSaved: (value) {
-                  user = UserModel(
-                      email: value,
-                      id: user.id,
-                      firstName: user.firstName,
-                      lastName: user.lastName,
-                      phoneNumber: user.phoneNumber,
-                      password: user.password,
-                      address: user.address);
-                },
+                style:  Theme.of(context).textTheme.bodyText2,
                 decoration: InputDecoration(
                   labelText: "Email",
                   hintText: "Enter your Email",
+
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   suffixIcon: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
@@ -219,17 +206,8 @@ class SignUpFormState extends State<SignUpForm> {
                 validator: passwordValidator,
                 obscureText: false,
                 controller: controllerPassword,
-                onSaved: (value) {
-                  user = UserModel(
-                      email: user.email,
-                      id: user.id,
-                      firstName: user.firstName,
-                      lastName: user.lastName,
-                      phoneNumber: user.phoneNumber,
-                      password: value,
-                      address: user.address);
-                },
                 onChanged: (val) => password = val,
+                style:  Theme.of(context).textTheme.bodyText2,
                 decoration: InputDecoration(
                   labelText: "Password",
                   hintText: "Enter your Password",
@@ -248,6 +226,7 @@ class SignUpFormState extends State<SignUpForm> {
                 validator: (val) =>
                     MatchValidator(errorText: 'passwords do not match')
                         .validateMatch(val, password),
+                style:  Theme.of(context).textTheme.bodyText2,
                 decoration: InputDecoration(
                   labelText: "Confirm Password",
                   hintText: "Re-enter  your Password",
@@ -275,8 +254,8 @@ class SignUpFormState extends State<SignUpForm> {
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: Color(0xFFa6e76c),
-                      borderRadius: BorderRadius.circular(30),
+                      color:  Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
                       "Continue",

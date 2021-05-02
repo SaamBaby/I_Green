@@ -17,13 +17,13 @@ class ShiftProvider with ChangeNotifier {
 
   List<ShiftModel> get itemsList {
     fetchAllShifts();
-
+     print(_items.length);
     return {..._items}.values.toList();
   }
 
   Future<void> fetchAllShifts() async {
     final url = 'https://igreen-458f7-default-rtdb.firebaseio'
-        '.com/users/$uuid/activities/shift_History.json?auth=$authToken';
+        '.com/users/SQgvH3dwR0eozKb57c0WLsrPrDo2/activities/shift_History.json?auth=$authToken';
     try {
       final response = await http.get(url);
 

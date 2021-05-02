@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../Routes.dart';
+
 class ScheduleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class ScheduleCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(AddHours.routName, arguments: shiftData.shiftId);
+            .pushNamed(Routes.addHours, arguments: shiftData.shiftId);
       },
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),

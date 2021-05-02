@@ -8,13 +8,12 @@ import 'package:gql/ast.dart';
 part 'schema.graphql.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class CreateActivity$MutationRoot$InsertActivities$Returning
-    with EquatableMixin {
-  CreateActivity$MutationRoot$InsertActivities$Returning();
+class CreateActivity$MutationRoot$InsertActivitiesOne with EquatableMixin {
+  CreateActivity$MutationRoot$InsertActivitiesOne();
 
-  factory CreateActivity$MutationRoot$InsertActivities$Returning.fromJson(
+  factory CreateActivity$MutationRoot$InsertActivitiesOne.fromJson(
           Map<String, dynamic> json) =>
-      _$CreateActivity$MutationRoot$InsertActivities$ReturningFromJson(json);
+      _$CreateActivity$MutationRoot$InsertActivitiesOneFromJson(json);
 
   @JsonKey(name: 'activity_id')
   int activityId;
@@ -22,23 +21,7 @@ class CreateActivity$MutationRoot$InsertActivities$Returning
   @override
   List<Object> get props => [activityId];
   Map<String, dynamic> toJson() =>
-      _$CreateActivity$MutationRoot$InsertActivities$ReturningToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class CreateActivity$MutationRoot$InsertActivities with EquatableMixin {
-  CreateActivity$MutationRoot$InsertActivities();
-
-  factory CreateActivity$MutationRoot$InsertActivities.fromJson(
-          Map<String, dynamic> json) =>
-      _$CreateActivity$MutationRoot$InsertActivitiesFromJson(json);
-
-  List<CreateActivity$MutationRoot$InsertActivities$Returning> returning;
-
-  @override
-  List<Object> get props => [returning];
-  Map<String, dynamic> toJson() =>
-      _$CreateActivity$MutationRoot$InsertActivitiesToJson(this);
+      _$CreateActivity$MutationRoot$InsertActivitiesOneToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -48,12 +31,114 @@ class CreateActivity$MutationRoot with EquatableMixin {
   factory CreateActivity$MutationRoot.fromJson(Map<String, dynamic> json) =>
       _$CreateActivity$MutationRootFromJson(json);
 
-  @JsonKey(name: 'insert_activities')
-  CreateActivity$MutationRoot$InsertActivities insertActivities;
+  @JsonKey(name: 'insert_activities_one')
+  CreateActivity$MutationRoot$InsertActivitiesOne insertActivitiesOne;
 
   @override
-  List<Object> get props => [insertActivities];
+  List<Object> get props => [insertActivitiesOne];
   Map<String, dynamic> toJson() => _$CreateActivity$MutationRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateActivity$MutationRoot$UpdateActivities$Returning
+    with EquatableMixin {
+  UpdateActivity$MutationRoot$UpdateActivities$Returning();
+
+  factory UpdateActivity$MutationRoot$UpdateActivities$Returning.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningFromJson(json);
+
+  @JsonKey(name: 'shift_endtime')
+  String shiftEndtime;
+
+  @JsonKey(name: 'shift_starttime')
+  String shiftStarttime;
+
+  @override
+  List<Object> get props => [shiftEndtime, shiftStarttime];
+  Map<String, dynamic> toJson() =>
+      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateActivity$MutationRoot$UpdateActivities with EquatableMixin {
+  UpdateActivity$MutationRoot$UpdateActivities();
+
+  factory UpdateActivity$MutationRoot$UpdateActivities.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateActivity$MutationRoot$UpdateActivitiesFromJson(json);
+
+  List<UpdateActivity$MutationRoot$UpdateActivities$Returning> returning;
+
+  @override
+  List<Object> get props => [returning];
+  Map<String, dynamic> toJson() =>
+      _$UpdateActivity$MutationRoot$UpdateActivitiesToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateActivity$MutationRoot with EquatableMixin {
+  UpdateActivity$MutationRoot();
+
+  factory UpdateActivity$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$UpdateActivity$MutationRootFromJson(json);
+
+  @JsonKey(name: 'update_activities')
+  UpdateActivity$MutationRoot$UpdateActivities updateActivities;
+
+  @override
+  List<Object> get props => [updateActivities];
+  Map<String, dynamic> toJson() => _$UpdateActivity$MutationRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
+    with EquatableMixin {
+  CreateClosedShift$MutationRoot$InsertClosedShifts$Returning();
+
+  factory CreateClosedShift$MutationRoot$InsertClosedShifts$Returning.fromJson(
+          Map<String, dynamic> json) =>
+      _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningFromJson(
+          json);
+
+  @JsonKey(name: 'closed_shifts_id')
+  int closedShiftsId;
+
+  @override
+  List<Object> get props => [closedShiftsId];
+  Map<String, dynamic> toJson() =>
+      _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateClosedShift$MutationRoot$InsertClosedShifts with EquatableMixin {
+  CreateClosedShift$MutationRoot$InsertClosedShifts();
+
+  factory CreateClosedShift$MutationRoot$InsertClosedShifts.fromJson(
+          Map<String, dynamic> json) =>
+      _$CreateClosedShift$MutationRoot$InsertClosedShiftsFromJson(json);
+
+  List<CreateClosedShift$MutationRoot$InsertClosedShifts$Returning> returning;
+
+  @override
+  List<Object> get props => [returning];
+  Map<String, dynamic> toJson() =>
+      _$CreateClosedShift$MutationRoot$InsertClosedShiftsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateClosedShift$MutationRoot with EquatableMixin {
+  CreateClosedShift$MutationRoot();
+
+  factory CreateClosedShift$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$CreateClosedShift$MutationRootFromJson(json);
+
+  @JsonKey(name: 'insert_closed_shifts')
+  CreateClosedShift$MutationRoot$InsertClosedShifts insertClosedShifts;
+
+  @override
+  List<Object> get props => [insertClosedShifts];
+  Map<String, dynamic> toJson() => _$CreateClosedShift$MutationRootToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -1377,108 +1462,6 @@ class UsersOnConflict with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class UpdateActivity$MutationRoot$UpdateActivities$Returning
-    with EquatableMixin {
-  UpdateActivity$MutationRoot$UpdateActivities$Returning();
-
-  factory UpdateActivity$MutationRoot$UpdateActivities$Returning.fromJson(
-          Map<String, dynamic> json) =>
-      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningFromJson(json);
-
-  @JsonKey(name: 'shift_endtime')
-  String shiftEndtime;
-
-  @JsonKey(name: 'shift_starttime')
-  String shiftStarttime;
-
-  @override
-  List<Object> get props => [shiftEndtime, shiftStarttime];
-  Map<String, dynamic> toJson() =>
-      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class UpdateActivity$MutationRoot$UpdateActivities with EquatableMixin {
-  UpdateActivity$MutationRoot$UpdateActivities();
-
-  factory UpdateActivity$MutationRoot$UpdateActivities.fromJson(
-          Map<String, dynamic> json) =>
-      _$UpdateActivity$MutationRoot$UpdateActivitiesFromJson(json);
-
-  List<UpdateActivity$MutationRoot$UpdateActivities$Returning> returning;
-
-  @override
-  List<Object> get props => [returning];
-  Map<String, dynamic> toJson() =>
-      _$UpdateActivity$MutationRoot$UpdateActivitiesToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class UpdateActivity$MutationRoot with EquatableMixin {
-  UpdateActivity$MutationRoot();
-
-  factory UpdateActivity$MutationRoot.fromJson(Map<String, dynamic> json) =>
-      _$UpdateActivity$MutationRootFromJson(json);
-
-  @JsonKey(name: 'update_activities')
-  UpdateActivity$MutationRoot$UpdateActivities updateActivities;
-
-  @override
-  List<Object> get props => [updateActivities];
-  Map<String, dynamic> toJson() => _$UpdateActivity$MutationRootToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
-    with EquatableMixin {
-  CreateClosedShift$MutationRoot$InsertClosedShifts$Returning();
-
-  factory CreateClosedShift$MutationRoot$InsertClosedShifts$Returning.fromJson(
-          Map<String, dynamic> json) =>
-      _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningFromJson(
-          json);
-
-  @JsonKey(name: 'closed_shifts_id')
-  int closedShiftsId;
-
-  @override
-  List<Object> get props => [closedShiftsId];
-  Map<String, dynamic> toJson() =>
-      _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class CreateClosedShift$MutationRoot$InsertClosedShifts with EquatableMixin {
-  CreateClosedShift$MutationRoot$InsertClosedShifts();
-
-  factory CreateClosedShift$MutationRoot$InsertClosedShifts.fromJson(
-          Map<String, dynamic> json) =>
-      _$CreateClosedShift$MutationRoot$InsertClosedShiftsFromJson(json);
-
-  List<CreateClosedShift$MutationRoot$InsertClosedShifts$Returning> returning;
-
-  @override
-  List<Object> get props => [returning];
-  Map<String, dynamic> toJson() =>
-      _$CreateClosedShift$MutationRoot$InsertClosedShiftsToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class CreateClosedShift$MutationRoot with EquatableMixin {
-  CreateClosedShift$MutationRoot();
-
-  factory CreateClosedShift$MutationRoot.fromJson(Map<String, dynamic> json) =>
-      _$CreateClosedShift$MutationRootFromJson(json);
-
-  @JsonKey(name: 'insert_closed_shifts')
-  CreateClosedShift$MutationRoot$InsertClosedShifts insertClosedShifts;
-
-  @override
-  List<Object> get props => [insertClosedShifts];
-  Map<String, dynamic> toJson() => _$CreateClosedShift$MutationRootToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
 class GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job with EquatableMixin {
   GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job();
 
@@ -1576,10 +1559,13 @@ class GetAllClosedShifts$QueryRoot$ClosedShifts with EquatableMixin {
   @JsonKey(name: 'closed_shifts_id')
   int closedShiftsId;
 
+  @JsonKey(name: 'shift_id')
+  int shiftId;
+
   GetAllClosedShifts$QueryRoot$ClosedShifts$Shift shift;
 
   @override
-  List<Object> get props => [closedShiftsId, shift];
+  List<Object> get props => [closedShiftsId, shiftId, shift];
   Map<String, dynamic> toJson() =>
       _$GetAllClosedShifts$QueryRoot$ClosedShiftsToJson(this);
 }
@@ -1883,6 +1869,251 @@ class GetShitsById$QueryRoot with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
+class UpdateUser$MutationRoot$UpdateUsers$Returning with EquatableMixin {
+  UpdateUser$MutationRoot$UpdateUsers$Returning();
+
+  factory UpdateUser$MutationRoot$UpdateUsers$Returning.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateUser$MutationRoot$UpdateUsers$ReturningFromJson(json);
+
+  @JsonKey(name: 'first_name')
+  String firstName;
+
+  @JsonKey(name: 'contact_number')
+  String contactNumber;
+
+  @JsonKey(name: 'home_address')
+  String homeAddress;
+
+  @JsonKey(name: 'email_address')
+  String emailAddress;
+
+  @JsonKey(name: 'last_name')
+  String lastName;
+
+  @JsonKey(name: 'profile_pic')
+  String profilePic;
+
+  @JsonKey(name: 'user_id')
+  String userId;
+
+  @override
+  List<Object> get props => [
+        firstName,
+        contactNumber,
+        homeAddress,
+        emailAddress,
+        lastName,
+        profilePic,
+        userId
+      ];
+  Map<String, dynamic> toJson() =>
+      _$UpdateUser$MutationRoot$UpdateUsers$ReturningToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateUser$MutationRoot$UpdateUsers with EquatableMixin {
+  UpdateUser$MutationRoot$UpdateUsers();
+
+  factory UpdateUser$MutationRoot$UpdateUsers.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateUser$MutationRoot$UpdateUsersFromJson(json);
+
+  List<UpdateUser$MutationRoot$UpdateUsers$Returning> returning;
+
+  @override
+  List<Object> get props => [returning];
+  Map<String, dynamic> toJson() =>
+      _$UpdateUser$MutationRoot$UpdateUsersToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateUser$MutationRoot with EquatableMixin {
+  UpdateUser$MutationRoot();
+
+  factory UpdateUser$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$UpdateUser$MutationRootFromJson(json);
+
+  @JsonKey(name: 'update_users')
+  UpdateUser$MutationRoot$UpdateUsers updateUsers;
+
+  @override
+  List<Object> get props => [updateUsers];
+  Map<String, dynamic> toJson() => _$UpdateUser$MutationRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UsersSetInput with EquatableMixin {
+  UsersSetInput(
+      {this.contactNumber,
+      this.emailAddress,
+      this.firstName,
+      this.homeAddress,
+      this.lastName,
+      this.profilePic,
+      this.userId});
+
+  factory UsersSetInput.fromJson(Map<String, dynamic> json) =>
+      _$UsersSetInputFromJson(json);
+
+  @JsonKey(name: 'contact_number')
+  String contactNumber;
+
+  @JsonKey(name: 'email_address')
+  String emailAddress;
+
+  @JsonKey(name: 'first_name')
+  String firstName;
+
+  @JsonKey(name: 'home_address')
+  String homeAddress;
+
+  @JsonKey(name: 'last_name')
+  String lastName;
+
+  @JsonKey(name: 'profile_pic')
+  String profilePic;
+
+  @JsonKey(name: 'user_id')
+  String userId;
+
+  @override
+  List<Object> get props => [
+        contactNumber,
+        emailAddress,
+        firstName,
+        homeAddress,
+        lastName,
+        profilePic,
+        userId
+      ];
+  Map<String, dynamic> toJson() => _$UsersSetInputToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CurrentUser$QueryRoot$Users$Documents with EquatableMixin {
+  CurrentUser$QueryRoot$Users$Documents();
+
+  factory CurrentUser$QueryRoot$Users$Documents.fromJson(
+          Map<String, dynamic> json) =>
+      _$CurrentUser$QueryRoot$Users$DocumentsFromJson(json);
+
+  @JsonKey(name: 'document_id')
+  int documentId;
+
+  @JsonKey(name: 'document_name')
+  String documentName;
+
+  @JsonKey(name: 'document_url')
+  String documentUrl;
+
+  @override
+  List<Object> get props => [documentId, documentName, documentUrl];
+  Map<String, dynamic> toJson() =>
+      _$CurrentUser$QueryRoot$Users$DocumentsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CurrentUser$QueryRoot$Users$Activities with EquatableMixin {
+  CurrentUser$QueryRoot$Users$Activities();
+
+  factory CurrentUser$QueryRoot$Users$Activities.fromJson(
+          Map<String, dynamic> json) =>
+      _$CurrentUser$QueryRoot$Users$ActivitiesFromJson(json);
+
+  @JsonKey(name: 'activity_id')
+  int activityId;
+
+  @JsonKey(name: 'is_accepted')
+  bool isAccepted;
+
+  @JsonKey(name: 'is_completed')
+  bool isCompleted;
+
+  @JsonKey(name: 'shift_endtime')
+  String shiftEndtime;
+
+  @JsonKey(name: 'shift_id')
+  int shiftId;
+
+  @JsonKey(name: 'shift_starttime')
+  String shiftStarttime;
+
+  @override
+  List<Object> get props => [
+        activityId,
+        isAccepted,
+        isCompleted,
+        shiftEndtime,
+        shiftId,
+        shiftStarttime
+      ];
+  Map<String, dynamic> toJson() =>
+      _$CurrentUser$QueryRoot$Users$ActivitiesToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CurrentUser$QueryRoot$Users with EquatableMixin {
+  CurrentUser$QueryRoot$Users();
+
+  factory CurrentUser$QueryRoot$Users.fromJson(Map<String, dynamic> json) =>
+      _$CurrentUser$QueryRoot$UsersFromJson(json);
+
+  @JsonKey(name: 'user_id')
+  String userId;
+
+  List<CurrentUser$QueryRoot$Users$Documents> documents;
+
+  List<CurrentUser$QueryRoot$Users$Activities> activities;
+
+  @JsonKey(name: 'first_name')
+  String firstName;
+
+  @JsonKey(name: 'last_name')
+  String lastName;
+
+  @JsonKey(name: 'contact_number')
+  String contactNumber;
+
+  @JsonKey(name: 'email_address')
+  String emailAddress;
+
+  @JsonKey(name: 'home_address')
+  String homeAddress;
+
+  @JsonKey(name: 'profile_pic')
+  String profilePic;
+
+  @override
+  List<Object> get props => [
+        userId,
+        documents,
+        activities,
+        firstName,
+        lastName,
+        contactNumber,
+        emailAddress,
+        homeAddress,
+        profilePic
+      ];
+  Map<String, dynamic> toJson() => _$CurrentUser$QueryRoot$UsersToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CurrentUser$QueryRoot with EquatableMixin {
+  CurrentUser$QueryRoot();
+
+  factory CurrentUser$QueryRoot.fromJson(Map<String, dynamic> json) =>
+      _$CurrentUser$QueryRootFromJson(json);
+
+  List<CurrentUser$QueryRoot$Users> users;
+
+  @override
+  List<Object> get props => [users];
+  Map<String, dynamic> toJson() => _$CurrentUser$QueryRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class CreateUser$MutationRoot$InsertUsers$Returning with EquatableMixin {
   CreateUser$MutationRoot$InsertUsers$Returning();
 
@@ -1931,245 +2162,55 @@ class CreateUser$MutationRoot with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAllUsers$QueryRoot$Users$Documents with EquatableMixin {
-  GetAllUsers$QueryRoot$Users$Documents();
+class CreateActivityClone$MutationRoot$InsertActivities$Returning
+    with EquatableMixin {
+  CreateActivityClone$MutationRoot$InsertActivities$Returning();
 
-  factory GetAllUsers$QueryRoot$Users$Documents.fromJson(
+  factory CreateActivityClone$MutationRoot$InsertActivities$Returning.fromJson(
           Map<String, dynamic> json) =>
-      _$GetAllUsers$QueryRoot$Users$DocumentsFromJson(json);
-
-  @JsonKey(name: 'document_id')
-  int documentId;
-
-  @JsonKey(name: 'document_name')
-  String documentName;
-
-  @JsonKey(name: 'document_url')
-  String documentUrl;
-
-  @override
-  List<Object> get props => [documentId, documentName, documentUrl];
-  Map<String, dynamic> toJson() =>
-      _$GetAllUsers$QueryRoot$Users$DocumentsToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetAllUsers$QueryRoot$Users$Activities with EquatableMixin {
-  GetAllUsers$QueryRoot$Users$Activities();
-
-  factory GetAllUsers$QueryRoot$Users$Activities.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAllUsers$QueryRoot$Users$ActivitiesFromJson(json);
+      _$CreateActivityClone$MutationRoot$InsertActivities$ReturningFromJson(
+          json);
 
   @JsonKey(name: 'activity_id')
   int activityId;
 
-  @JsonKey(name: 'is_accepted')
-  bool isAccepted;
-
-  @JsonKey(name: 'is_completed')
-  bool isCompleted;
-
-  @JsonKey(name: 'shift_endtime')
-  String shiftEndtime;
-
-  @JsonKey(name: 'shift_id')
-  int shiftId;
-
-  @JsonKey(name: 'shift_starttime')
-  String shiftStarttime;
-
   @override
-  List<Object> get props => [
-        activityId,
-        isAccepted,
-        isCompleted,
-        shiftEndtime,
-        shiftId,
-        shiftStarttime
-      ];
+  List<Object> get props => [activityId];
   Map<String, dynamic> toJson() =>
-      _$GetAllUsers$QueryRoot$Users$ActivitiesToJson(this);
+      _$CreateActivityClone$MutationRoot$InsertActivities$ReturningToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAllUsers$QueryRoot$Users with EquatableMixin {
-  GetAllUsers$QueryRoot$Users();
+class CreateActivityClone$MutationRoot$InsertActivities with EquatableMixin {
+  CreateActivityClone$MutationRoot$InsertActivities();
 
-  factory GetAllUsers$QueryRoot$Users.fromJson(Map<String, dynamic> json) =>
-      _$GetAllUsers$QueryRoot$UsersFromJson(json);
-
-  @JsonKey(name: 'user_id')
-  String userId;
-
-  List<GetAllUsers$QueryRoot$Users$Documents> documents;
-
-  List<GetAllUsers$QueryRoot$Users$Activities> activities;
-
-  @JsonKey(name: 'first_name')
-  String firstName;
-
-  @JsonKey(name: 'last_name')
-  String lastName;
-
-  @JsonKey(name: 'contact_number')
-  String contactNumber;
-
-  @JsonKey(name: 'email_address')
-  String emailAddress;
-
-  @JsonKey(name: 'home_address')
-  String homeAddress;
-
-  @JsonKey(name: 'profile_pic')
-  String profilePic;
-
-  @override
-  List<Object> get props => [
-        userId,
-        documents,
-        activities,
-        firstName,
-        lastName,
-        contactNumber,
-        emailAddress,
-        homeAddress,
-        profilePic
-      ];
-  Map<String, dynamic> toJson() => _$GetAllUsers$QueryRoot$UsersToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetAllUsers$QueryRoot with EquatableMixin {
-  GetAllUsers$QueryRoot();
-
-  factory GetAllUsers$QueryRoot.fromJson(Map<String, dynamic> json) =>
-      _$GetAllUsers$QueryRootFromJson(json);
-
-  List<GetAllUsers$QueryRoot$Users> users;
-
-  @override
-  List<Object> get props => [users];
-  Map<String, dynamic> toJson() => _$GetAllUsers$QueryRootToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetUserById$QueryRoot$Users$Documents with EquatableMixin {
-  GetUserById$QueryRoot$Users$Documents();
-
-  factory GetUserById$QueryRoot$Users$Documents.fromJson(
+  factory CreateActivityClone$MutationRoot$InsertActivities.fromJson(
           Map<String, dynamic> json) =>
-      _$GetUserById$QueryRoot$Users$DocumentsFromJson(json);
+      _$CreateActivityClone$MutationRoot$InsertActivitiesFromJson(json);
 
-  @JsonKey(name: 'document_id')
-  int documentId;
-
-  @JsonKey(name: 'document_name')
-  String documentName;
-
-  @JsonKey(name: 'document_url')
-  String documentUrl;
+  List<CreateActivityClone$MutationRoot$InsertActivities$Returning> returning;
 
   @override
-  List<Object> get props => [documentId, documentName, documentUrl];
+  List<Object> get props => [returning];
   Map<String, dynamic> toJson() =>
-      _$GetUserById$QueryRoot$Users$DocumentsToJson(this);
+      _$CreateActivityClone$MutationRoot$InsertActivitiesToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetUserById$QueryRoot$Users$Activities with EquatableMixin {
-  GetUserById$QueryRoot$Users$Activities();
+class CreateActivityClone$MutationRoot with EquatableMixin {
+  CreateActivityClone$MutationRoot();
 
-  factory GetUserById$QueryRoot$Users$Activities.fromJson(
+  factory CreateActivityClone$MutationRoot.fromJson(
           Map<String, dynamic> json) =>
-      _$GetUserById$QueryRoot$Users$ActivitiesFromJson(json);
+      _$CreateActivityClone$MutationRootFromJson(json);
 
-  @JsonKey(name: 'activity_id')
-  int activityId;
-
-  @JsonKey(name: 'is_accepted')
-  bool isAccepted;
-
-  @JsonKey(name: 'is_completed')
-  bool isCompleted;
-
-  @JsonKey(name: 'shift_endtime')
-  String shiftEndtime;
-
-  @JsonKey(name: 'shift_id')
-  int shiftId;
-
-  @JsonKey(name: 'shift_starttime')
-  String shiftStarttime;
+  @JsonKey(name: 'insert_activities')
+  CreateActivityClone$MutationRoot$InsertActivities insertActivities;
 
   @override
-  List<Object> get props => [
-        activityId,
-        isAccepted,
-        isCompleted,
-        shiftEndtime,
-        shiftId,
-        shiftStarttime
-      ];
+  List<Object> get props => [insertActivities];
   Map<String, dynamic> toJson() =>
-      _$GetUserById$QueryRoot$Users$ActivitiesToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetUserById$QueryRoot$Users with EquatableMixin {
-  GetUserById$QueryRoot$Users();
-
-  factory GetUserById$QueryRoot$Users.fromJson(Map<String, dynamic> json) =>
-      _$GetUserById$QueryRoot$UsersFromJson(json);
-
-  List<GetUserById$QueryRoot$Users$Documents> documents;
-
-  List<GetUserById$QueryRoot$Users$Activities> activities;
-
-  @JsonKey(name: 'first_name')
-  String firstName;
-
-  @JsonKey(name: 'last_name')
-  String lastName;
-
-  @JsonKey(name: 'contact_number')
-  String contactNumber;
-
-  @JsonKey(name: 'email_address')
-  String emailAddress;
-
-  @JsonKey(name: 'home_address')
-  String homeAddress;
-
-  @JsonKey(name: 'profile_pic')
-  String profilePic;
-
-  @override
-  List<Object> get props => [
-        documents,
-        activities,
-        firstName,
-        lastName,
-        contactNumber,
-        emailAddress,
-        homeAddress,
-        profilePic
-      ];
-  Map<String, dynamic> toJson() => _$GetUserById$QueryRoot$UsersToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetUserById$QueryRoot with EquatableMixin {
-  GetUserById$QueryRoot();
-
-  factory GetUserById$QueryRoot.fromJson(Map<String, dynamic> json) =>
-      _$GetUserById$QueryRootFromJson(json);
-
-  List<GetUserById$QueryRoot$Users> users;
-
-  @override
-  List<Object> get props => [users];
-  Map<String, dynamic> toJson() => _$GetUserById$QueryRootToJson(this);
+      _$CreateActivityClone$MutationRootToJson(this);
 }
 
 enum ActivitiesConstraint {
@@ -2311,6 +2352,8 @@ enum ShiftsUpdateColumn {
   artemisUnknown,
 }
 enum UsersConstraint {
+  @JsonValue('users_email_address_key')
+  usersEmailAddressKey,
   @JsonValue('users_pkey')
   usersPkey,
   @JsonValue('users_user_id_key')
@@ -2339,16 +2382,26 @@ enum UsersUpdateColumn {
 
 @JsonSerializable(explicitToJson: true)
 class CreateActivityArguments extends JsonSerializable with EquatableMixin {
-  CreateActivityArguments({@required this.input});
+  CreateActivityArguments(
+      {@required this.activityId,
+      @required this.shiftId,
+      @required this.userId,
+      this.isAccepted});
 
   @override
   factory CreateActivityArguments.fromJson(Map<String, dynamic> json) =>
       _$CreateActivityArgumentsFromJson(json);
 
-  final ActivitiesInsertInput input;
+  final int activityId;
+
+  final int shiftId;
+
+  final String userId;
+
+  final bool isAccepted;
 
   @override
-  List<Object> get props => [input];
+  List<Object> get props => [activityId, shiftId, userId, isAccepted];
   @override
   Map<String, dynamic> toJson() => _$CreateActivityArgumentsToJson(this);
 }
@@ -2364,39 +2417,64 @@ class CreateActivityMutation
         name: NameNode(value: 'CreateActivity'),
         variableDefinitions: [
           VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'input')),
+              variable: VariableNode(name: NameNode(value: 'activityId')),
+              type:
+                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'shiftId')),
+              type:
+                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'userId')),
               type: NamedTypeNode(
-                  name: NameNode(value: 'activities_insert_input'),
-                  isNonNull: true),
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'isAccepted')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'Boolean'), isNonNull: false),
               defaultValue: DefaultValueNode(value: null),
               directives: [])
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
-              name: NameNode(value: 'insert_activities'),
+              name: NameNode(value: 'insert_activities_one'),
               alias: null,
               arguments: [
                 ArgumentNode(
-                    name: NameNode(value: 'objects'),
-                    value: ListValueNode(
-                        values: [VariableNode(name: NameNode(value: 'input'))]))
+                    name: NameNode(value: 'object'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'activity_id'),
+                          value: VariableNode(
+                              name: NameNode(value: 'activityId'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'is_accepted'),
+                          value: VariableNode(
+                              name: NameNode(value: 'isAccepted'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'shift_id'),
+                          value:
+                              VariableNode(name: NameNode(value: 'shiftId'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'user_id'),
+                          value: VariableNode(name: NameNode(value: 'userId')))
+                    ]))
               ],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'returning'),
+                    name: NameNode(value: 'activity_id'),
                     alias: null,
                     arguments: [],
                     directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'activity_id'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null)
-                    ]))
+                    selectionSet: null)
               ]))
         ]))
   ]);
@@ -2611,62 +2689,32 @@ class CreateClosedShiftMutation extends GraphQLQuery<
       CreateClosedShift$MutationRoot.fromJson(json);
 }
 
-@JsonSerializable(explicitToJson: true)
-class GetAllClosedShiftsArguments extends JsonSerializable with EquatableMixin {
-  GetAllClosedShiftsArguments({@required this.userid});
-
-  @override
-  factory GetAllClosedShiftsArguments.fromJson(Map<String, dynamic> json) =>
-      _$GetAllClosedShiftsArgumentsFromJson(json);
-
-  final String userid;
-
-  @override
-  List<Object> get props => [userid];
-  @override
-  Map<String, dynamic> toJson() => _$GetAllClosedShiftsArgumentsToJson(this);
-}
-
-class GetAllClosedShiftsQuery extends GraphQLQuery<GetAllClosedShifts$QueryRoot,
-    GetAllClosedShiftsArguments> {
-  GetAllClosedShiftsQuery({this.variables});
+class GetAllClosedShiftsQuery
+    extends GraphQLQuery<GetAllClosedShifts$QueryRoot, JsonSerializable> {
+  GetAllClosedShiftsQuery();
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
         type: OperationType.query,
         name: NameNode(value: 'GetAllClosedShifts'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'userid')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
+        variableDefinitions: [],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
               name: NameNode(value: 'closed_shifts'),
               alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'where'),
-                    value: ObjectValueNode(fields: [
-                      ObjectFieldNode(
-                          name: NameNode(value: 'user_id'),
-                          value: ObjectValueNode(fields: [
-                            ObjectFieldNode(
-                                name: NameNode(value: '_eq'),
-                                value: VariableNode(
-                                    name: NameNode(value: 'userid')))
-                          ]))
-                    ]))
-              ],
+              arguments: [],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
                     name: NameNode(value: 'closed_shifts_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift_id'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -2783,10 +2831,7 @@ class GetAllClosedShiftsQuery extends GraphQLQuery<GetAllClosedShifts$QueryRoot,
   final String operationName = 'GetAllClosedShifts';
 
   @override
-  final GetAllClosedShiftsArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
+  List<Object> get props => [document, operationName];
   @override
   GetAllClosedShifts$QueryRoot parse(Map<String, dynamic> json) =>
       GetAllClosedShifts$QueryRoot.fromJson(json);
@@ -3288,48 +3333,67 @@ class GetShitsByIdQuery
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateUserArguments extends JsonSerializable with EquatableMixin {
-  CreateUserArguments({@required this.input});
+class UpdateUserArguments extends JsonSerializable with EquatableMixin {
+  UpdateUserArguments({@required this.input, @required this.id});
 
   @override
-  factory CreateUserArguments.fromJson(Map<String, dynamic> json) =>
-      _$CreateUserArgumentsFromJson(json);
+  factory UpdateUserArguments.fromJson(Map<String, dynamic> json) =>
+      _$UpdateUserArgumentsFromJson(json);
 
-  final UsersInsertInput input;
+  final UsersSetInput input;
+
+  final String id;
 
   @override
-  List<Object> get props => [input];
+  List<Object> get props => [input, id];
   @override
-  Map<String, dynamic> toJson() => _$CreateUserArgumentsToJson(this);
+  Map<String, dynamic> toJson() => _$UpdateUserArgumentsToJson(this);
 }
 
-class CreateUserMutation
-    extends GraphQLQuery<CreateUser$MutationRoot, CreateUserArguments> {
-  CreateUserMutation({this.variables});
+class UpdateUserMutation
+    extends GraphQLQuery<UpdateUser$MutationRoot, UpdateUserArguments> {
+  UpdateUserMutation({this.variables});
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
         type: OperationType.mutation,
-        name: NameNode(value: 'CreateUser'),
+        name: NameNode(value: 'UpdateUser'),
         variableDefinitions: [
           VariableDefinitionNode(
               variable: VariableNode(name: NameNode(value: 'input')),
               type: NamedTypeNode(
-                  name: NameNode(value: 'users_insert_input'), isNonNull: true),
+                  name: NameNode(value: 'users_set_input'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
               defaultValue: DefaultValueNode(value: null),
               directives: [])
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
-              name: NameNode(value: 'insert_users'),
+              name: NameNode(value: 'update_users'),
               alias: null,
               arguments: [
                 ArgumentNode(
-                    name: NameNode(value: 'objects'),
-                    value: ListValueNode(
-                        values: [VariableNode(name: NameNode(value: 'input'))]))
+                    name: NameNode(value: 'where'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'user_id'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: '_eq'),
+                                value:
+                                    VariableNode(name: NameNode(value: 'id')))
+                          ]))
+                    ])),
+                ArgumentNode(
+                    name: NameNode(value: '_set'),
+                    value: VariableNode(name: NameNode(value: 'input')))
               ],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
@@ -3340,7 +3404,43 @@ class CreateUserMutation
                     directives: [],
                     selectionSet: SelectionSetNode(selections: [
                       FieldNode(
+                          name: NameNode(value: 'first_name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
                           name: NameNode(value: 'contact_number'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'home_address'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'email_address'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'last_name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'profile_pic'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'user_id'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -3351,27 +3451,27 @@ class CreateUserMutation
   ]);
 
   @override
-  final String operationName = 'CreateUser';
+  final String operationName = 'UpdateUser';
 
   @override
-  final CreateUserArguments variables;
+  final UpdateUserArguments variables;
 
   @override
   List<Object> get props => [document, operationName, variables];
   @override
-  CreateUser$MutationRoot parse(Map<String, dynamic> json) =>
-      CreateUser$MutationRoot.fromJson(json);
+  UpdateUser$MutationRoot parse(Map<String, dynamic> json) =>
+      UpdateUser$MutationRoot.fromJson(json);
 }
 
-class GetAllUsersQuery
-    extends GraphQLQuery<GetAllUsers$QueryRoot, JsonSerializable> {
-  GetAllUsersQuery();
+class CurrentUserQuery
+    extends GraphQLQuery<CurrentUser$QueryRoot, JsonSerializable> {
+  CurrentUserQuery();
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
         type: OperationType.query,
-        name: NameNode(value: 'GetAllUsers'),
+        name: NameNode(value: 'CurrentUser'),
         variableDefinitions: [],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
@@ -3496,96 +3596,141 @@ class GetAllUsersQuery
   ]);
 
   @override
-  final String operationName = 'GetAllUsers';
+  final String operationName = 'CurrentUser';
 
   @override
   List<Object> get props => [document, operationName];
   @override
-  GetAllUsers$QueryRoot parse(Map<String, dynamic> json) =>
-      GetAllUsers$QueryRoot.fromJson(json);
+  CurrentUser$QueryRoot parse(Map<String, dynamic> json) =>
+      CurrentUser$QueryRoot.fromJson(json);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetUserByIdArguments extends JsonSerializable with EquatableMixin {
-  GetUserByIdArguments({@required this.id});
+class CreateUserArguments extends JsonSerializable with EquatableMixin {
+  CreateUserArguments({@required this.input});
 
   @override
-  factory GetUserByIdArguments.fromJson(Map<String, dynamic> json) =>
-      _$GetUserByIdArgumentsFromJson(json);
+  factory CreateUserArguments.fromJson(Map<String, dynamic> json) =>
+      _$CreateUserArgumentsFromJson(json);
 
-  final String id;
+  final UsersInsertInput input;
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [input];
   @override
-  Map<String, dynamic> toJson() => _$GetUserByIdArgumentsToJson(this);
+  Map<String, dynamic> toJson() => _$CreateUserArgumentsToJson(this);
 }
 
-class GetUserByIdQuery
-    extends GraphQLQuery<GetUserById$QueryRoot, GetUserByIdArguments> {
-  GetUserByIdQuery({this.variables});
+class CreateUserMutation
+    extends GraphQLQuery<CreateUser$MutationRoot, CreateUserArguments> {
+  CreateUserMutation({this.variables});
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'GetUserById'),
+        type: OperationType.mutation,
+        name: NameNode(value: 'CreateUser'),
         variableDefinitions: [
           VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'id')),
+              variable: VariableNode(name: NameNode(value: 'input')),
               type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: true),
+                  name: NameNode(value: 'users_insert_input'), isNonNull: true),
               defaultValue: DefaultValueNode(value: null),
               directives: [])
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
-              name: NameNode(value: 'users'),
+              name: NameNode(value: 'insert_users'),
               alias: null,
               arguments: [
                 ArgumentNode(
-                    name: NameNode(value: 'where'),
-                    value: ObjectValueNode(fields: [
-                      ObjectFieldNode(
-                          name: NameNode(value: 'user_id'),
-                          value: ObjectValueNode(fields: [
-                            ObjectFieldNode(
-                                name: NameNode(value: '_eq'),
-                                value:
-                                    VariableNode(name: NameNode(value: 'id')))
-                          ]))
-                    ]))
+                    name: NameNode(value: 'objects'),
+                    value: ListValueNode(
+                        values: [VariableNode(name: NameNode(value: 'input'))]))
               ],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'documents'),
+                    name: NameNode(value: 'returning'),
                     alias: null,
                     arguments: [],
                     directives: [],
                     selectionSet: SelectionSetNode(selections: [
                       FieldNode(
-                          name: NameNode(value: 'document_id'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'document_name'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'document_url'),
+                          name: NameNode(value: 'contact_number'),
                           alias: null,
                           arguments: [],
                           directives: [],
                           selectionSet: null)
-                    ])),
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'CreateUser';
+
+  @override
+  final CreateUserArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  CreateUser$MutationRoot parse(Map<String, dynamic> json) =>
+      CreateUser$MutationRoot.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateActivityCloneArguments extends JsonSerializable
+    with EquatableMixin {
+  CreateActivityCloneArguments({@required this.input});
+
+  @override
+  factory CreateActivityCloneArguments.fromJson(Map<String, dynamic> json) =>
+      _$CreateActivityCloneArgumentsFromJson(json);
+
+  final ActivitiesInsertInput input;
+
+  @override
+  List<Object> get props => [input];
+  @override
+  Map<String, dynamic> toJson() => _$CreateActivityCloneArgumentsToJson(this);
+}
+
+class CreateActivityCloneMutation extends GraphQLQuery<
+    CreateActivityClone$MutationRoot, CreateActivityCloneArguments> {
+  CreateActivityCloneMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'CreateActivityClone'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'input')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'activities_insert_input'),
+                  isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'insert_activities'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'objects'),
+                    value: ListValueNode(
+                        values: [VariableNode(name: NameNode(value: 'input'))]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
                 FieldNode(
-                    name: NameNode(value: 'activities'),
+                    name: NameNode(value: 'returning'),
                     alias: null,
                     arguments: [],
                     directives: [],
@@ -3595,87 +3740,21 @@ class GetUserByIdQuery
                           alias: null,
                           arguments: [],
                           directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'is_accepted'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'is_completed'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'shift_endtime'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'shift_id'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'shift_starttime'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
                           selectionSet: null)
-                    ])),
-                FieldNode(
-                    name: NameNode(value: 'first_name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'last_name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'contact_number'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'email_address'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'home_address'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'profile_pic'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null)
+                    ]))
               ]))
         ]))
   ]);
 
   @override
-  final String operationName = 'GetUserById';
+  final String operationName = 'CreateActivityClone';
 
   @override
-  final GetUserByIdArguments variables;
+  final CreateActivityCloneArguments variables;
 
   @override
   List<Object> get props => [document, operationName, variables];
   @override
-  GetUserById$QueryRoot parse(Map<String, dynamic> json) =>
-      GetUserById$QueryRoot.fromJson(json);
+  CreateActivityClone$MutationRoot parse(Map<String, dynamic> json) =>
+      CreateActivityClone$MutationRoot.fromJson(json);
 }

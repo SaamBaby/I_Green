@@ -69,14 +69,29 @@ class _RootState extends State<Root> {
                 ),
                 title: Text(
                   'Home',
-                  style: TextStyle(
-                      fontFamily: 'Futura Book',
-                      color: Colors.black.withOpacity(.8),
-                      fontSize: 15,
-                      height: 2,
-                      fontWeight: FontWeight.w700),
+                  style: Theme.of(context)
+                      .textTheme.bodyText2
                 ),
                 activeColor: Color(0xFF24D665),
+                inactiveColor: Color(0xffdfe6eb)),
+
+            BottomNavyBarItem(
+                icon: Icon(Icons.timer),
+                title: Text(
+                    'Schedule',
+                  style:Theme.of(context)
+                      .textTheme.bodyText2,
+                ),
+                activeColor:Color(0xFF54E597),
+                inactiveColor: Color(0xffdfe6eb)),
+            BottomNavyBarItem(
+                icon: Icon(FontAwesomeIcons.facebookMessenger),
+                title: Text(
+                  'ChatRoom',
+                  style: Theme.of(context)
+                      .textTheme.bodyText2,
+                ),
+                activeColor: Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
             BottomNavyBarItem(
                 icon: Icon(
@@ -84,41 +99,11 @@ class _RootState extends State<Root> {
                   size: 20,
                 ),
                 title: Text(
-                  'Schedule',
-                  style: TextStyle(
-                      fontFamily: 'Futura Book',
-                      color: Colors.black.withOpacity(.8),
-                      fontSize: 15,
-                      height: 2,
-                      fontWeight: FontWeight.w700),
+                  'Availabilities',
+                  style: Theme.of(context)
+                      .textTheme.bodyText2,
                 ),
                 activeColor:Color(0xFF54E597),
-                inactiveColor: Color(0xffdfe6eb)),
-            BottomNavyBarItem(
-                icon: Icon(Icons.timer),
-                title: Text(
-                  'Time Clock',
-                  style: TextStyle(
-                      fontFamily: 'Futura Book',
-                      color: Colors.black.withOpacity(.8),
-                      fontSize: 15,
-                      height: 2,
-                      fontWeight: FontWeight.w700),
-                ),
-                activeColor:Color(0xFF54E597),
-                inactiveColor: Color(0xffdfe6eb)),
-            BottomNavyBarItem(
-                icon: Icon(FontAwesomeIcons.facebookMessenger),
-                title: Text(
-                  'Settings',
-                  style: TextStyle(
-                      fontFamily: 'Futura Book',
-                      color: Colors.black.withOpacity(.8),
-                      fontSize: 15,
-                      height: 2,
-                      fontWeight: FontWeight.w700),
-                ),
-                activeColor: Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
           ],
         ),
@@ -131,8 +116,9 @@ class _RootState extends State<Root> {
           },
           children: <Widget>[
             ShiftFeeds(),
+            Schedule(),
             Applications(),
-            Schedule()
+
 
           ],
         ),

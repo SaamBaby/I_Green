@@ -2,10 +2,12 @@ import 'dart:async';
 import 'package:Quete/Utils/const.dart';
 import 'package:Quete/Utils/session.service.dart';
 import 'package:Quete/Utils/sizeConfiguration.dart';
-import 'package:Quete/models/User.dart';
+import 'package:Quete/graphql/schema.dart';
+import 'package:Quete/services/cache/user.cache.service.dart';
 import 'package:Quete/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/screen_util.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
@@ -78,7 +80,7 @@ class body extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Complete the profile form to start your Greenline account   ",
+                "Complete the profile form to start your GreenLine account   ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: 'Futura Book',
@@ -119,21 +121,26 @@ class SignUpFormState extends State<SignUpForm> {
     PatternValidator(r'^[0-9]{10}$',
         errorText: 'passwords must have at least one special character')
   ]);
-  final _controllerAddress = TextEditingController();
+
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: _kGoogleApiKey);
   // ignore: close_sinks
   StreamController<String> streamController = StreamController<String>();
   final places = List<Prediction>();
   String _tempAddress;
   FocusNode _focusUnit;
-  var user = UserModel(
-      firstName: '',
-      lastName: '',
-      address: '',
-      email: '',
-      phoneNumber: 0,
-      password: '',
-      id: '');
+// textfield controllers
+  static TextEditingController _controllerAddress = TextEditingController();
+  static TextEditingController _controllerFirstName = TextEditingController();
+  static TextEditingController _controllerLastName = TextEditingController();
+  static TextEditingController _controllerNumber = TextEditingController();
+  UsersSetInput user = UsersSetInput(
+    userId: UserCacheService.user.id,
+    emailAddress: UserCacheService.user.email.toString(),
+    firstName: _controllerFirstName.text,
+    lastName: _controllerLastName.text,
+    homeAddress: _controllerAddress.text,
+    contactNumber: _controllerAddress.text,
+  );
 
 
 
@@ -174,6 +181,17 @@ class SignUpFormState extends State<SignUpForm> {
     _onPressed() async {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
+        UsersSetInput user = UsersSetInput(
+          userId: UserCacheService.user.id,
+          emailAddress: UserCacheService.user.email.toString(),
+          firstName: _controllerFirstName.text,
+          lastName: _controllerLastName.text,
+          homeAddress: _controllerAddress.text,
+          contactNumber: _controllerNumber.text,
+        );
+        print("hive cache${UserCacheService.user.email}");
+        print("user email${user.emailAddress}");
+
         await userProvider.updateUser(user);
 
 
@@ -200,7 +218,7 @@ class SignUpFormState extends State<SignUpForm> {
 
               SizedBox(height: 20),
 
-              _adressFormField(),
+              _addressFormField(),
               if (places.length != 0)
                 Container(
                   margin: EdgeInsets.only(top: 16),
@@ -299,12 +317,12 @@ class SignUpFormState extends State<SignUpForm> {
                 child: AnimatedContainer(
                     margin: EdgeInsets.only(bottom: 10),
                     duration: Duration(milliseconds: 300),
-                    height: 60,
+                    height: ScreenUtil().setHeight(40),
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: Color(0xFFa6e76c),
-                      borderRadius: BorderRadius.circular(30),
+                      color:  Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
                       "Continue",
@@ -321,7 +339,8 @@ class SignUpFormState extends State<SignUpForm> {
               ),
 
               Text(
-                "By continuing you are confirming that you agree with Greenline's terms and conditions",
+                "By continuing you are confirming that you agree with "
+                    "GreenLine's terms and conditions",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: 'Futura Book',
@@ -334,17 +353,10 @@ class SignUpFormState extends State<SignUpForm> {
 
   TextFormField _firstNameField() {
     return TextFormField(
+       controller: _controllerFirstName,
       validator: fieldValidator,
-      onSaved: (value) {
-        user = UserModel(
-            email: user.email,
-            id: user.id,
-            firstName: value,
-            lastName: user.lastName,
-            phoneNumber: user.phoneNumber,
-            password: user.password,
-            address: user.address);
-      },
+      textCapitalization: TextCapitalization.words,
+      style:  Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         labelText: "First name",
         hintText: "Enter your First name",
@@ -359,17 +371,10 @@ class SignUpFormState extends State<SignUpForm> {
 
   TextFormField _lastNameFormField() {
     return TextFormField(
+      controller: _controllerLastName,
       validator: fieldValidator,
-      onSaved: (value) {
-        user = UserModel(
-            email: user.email,
-            id: user.id,
-            firstName: user.firstName,
-            lastName: value,
-            phoneNumber: user.phoneNumber,
-            password: user.password,
-            address: user.address);
-      },
+        textCapitalization: TextCapitalization.words,
+      style:  Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         labelText: "Last name",
         hintText: "Enter your Last name",
@@ -384,18 +389,11 @@ class SignUpFormState extends State<SignUpForm> {
 
   TextFormField _phoneNumberFormField() {
     return TextFormField(
+      controller: _controllerNumber,
       keyboardType: TextInputType.phone,
       validator: phoneValidator,
-      onSaved: (value) {
-        user = UserModel(
-            email: user.email,
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber:int.parse(value),
-            password: user.password,
-            address: user.address);
-      },
+
+      style:  Theme.of(context).textTheme.bodyText2,
       decoration: InputDecoration(
         labelText: "Phone Number",
         hintText: "+1 111-222-3333",
@@ -408,7 +406,7 @@ class SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  TextFormField _adressFormField() {
+  TextFormField _addressFormField() {
     return TextFormField(
       keyboardType: TextInputType.streetAddress,
       autofocus: true,
@@ -419,22 +417,14 @@ class SignUpFormState extends State<SignUpForm> {
         _tempAddress = text;
         streamController.add(text);
       },
-      onSaved: (value) {
-        user = UserModel(
-            email: user.email,
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            phoneNumber:user.phoneNumber,
-            password: user.password,
-            address: value);
-      },
       validator: (value) {
         if (value.isEmpty) {
           setState(() {});
         }
         return null;
       },
+      style:  Theme.of(context).textTheme.bodyText2,
+      textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
         labelText: "Street address",
         hintText: "Enter your street address",

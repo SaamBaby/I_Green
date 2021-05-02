@@ -71,6 +71,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final loadedAvailableShifts = Provider.of<ShiftProvider>(context);
     _groupEvents(loadedAvailableShifts.itemsList);
+    print(loadedAvailableShifts.itemsList);
     DateTime _selectedDate= _calendarController.selectedDay;
     final _selectedEvents= _groupedEvents[_selectedDate]??[];
     return Scaffold(

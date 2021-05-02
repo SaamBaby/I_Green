@@ -6,51 +6,129 @@ part of 'schema.graphql.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CreateActivity$MutationRoot$InsertActivities$Returning
-    _$CreateActivity$MutationRoot$InsertActivities$ReturningFromJson(
+CreateActivity$MutationRoot$InsertActivitiesOne
+    _$CreateActivity$MutationRoot$InsertActivitiesOneFromJson(
         Map<String, dynamic> json) {
-  return CreateActivity$MutationRoot$InsertActivities$Returning()
+  return CreateActivity$MutationRoot$InsertActivitiesOne()
     ..activityId = json['activity_id'] as int;
 }
 
-Map<String, dynamic>
-    _$CreateActivity$MutationRoot$InsertActivities$ReturningToJson(
-            CreateActivity$MutationRoot$InsertActivities$Returning instance) =>
-        <String, dynamic>{
-          'activity_id': instance.activityId,
-        };
-
-CreateActivity$MutationRoot$InsertActivities
-    _$CreateActivity$MutationRoot$InsertActivitiesFromJson(
-        Map<String, dynamic> json) {
-  return CreateActivity$MutationRoot$InsertActivities()
-    ..returning = (json['returning'] as List)
-        ?.map((e) => e == null
-            ? null
-            : CreateActivity$MutationRoot$InsertActivities$Returning.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$CreateActivity$MutationRoot$InsertActivitiesToJson(
-        CreateActivity$MutationRoot$InsertActivities instance) =>
+Map<String, dynamic> _$CreateActivity$MutationRoot$InsertActivitiesOneToJson(
+        CreateActivity$MutationRoot$InsertActivitiesOne instance) =>
     <String, dynamic>{
-      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
+      'activity_id': instance.activityId,
     };
 
 CreateActivity$MutationRoot _$CreateActivity$MutationRootFromJson(
     Map<String, dynamic> json) {
   return CreateActivity$MutationRoot()
-    ..insertActivities = json['insert_activities'] == null
+    ..insertActivitiesOne = json['insert_activities_one'] == null
         ? null
-        : CreateActivity$MutationRoot$InsertActivities.fromJson(
-            json['insert_activities'] as Map<String, dynamic>);
+        : CreateActivity$MutationRoot$InsertActivitiesOne.fromJson(
+            json['insert_activities_one'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$CreateActivity$MutationRootToJson(
         CreateActivity$MutationRoot instance) =>
     <String, dynamic>{
-      'insert_activities': instance.insertActivities?.toJson(),
+      'insert_activities_one': instance.insertActivitiesOne?.toJson(),
+    };
+
+UpdateActivity$MutationRoot$UpdateActivities$Returning
+    _$UpdateActivity$MutationRoot$UpdateActivities$ReturningFromJson(
+        Map<String, dynamic> json) {
+  return UpdateActivity$MutationRoot$UpdateActivities$Returning()
+    ..shiftEndtime = json['shift_endtime'] as String
+    ..shiftStarttime = json['shift_starttime'] as String;
+}
+
+Map<String, dynamic>
+    _$UpdateActivity$MutationRoot$UpdateActivities$ReturningToJson(
+            UpdateActivity$MutationRoot$UpdateActivities$Returning instance) =>
+        <String, dynamic>{
+          'shift_endtime': instance.shiftEndtime,
+          'shift_starttime': instance.shiftStarttime,
+        };
+
+UpdateActivity$MutationRoot$UpdateActivities
+    _$UpdateActivity$MutationRoot$UpdateActivitiesFromJson(
+        Map<String, dynamic> json) {
+  return UpdateActivity$MutationRoot$UpdateActivities()
+    ..returning = (json['returning'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UpdateActivity$MutationRoot$UpdateActivities$Returning.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$UpdateActivity$MutationRoot$UpdateActivitiesToJson(
+        UpdateActivity$MutationRoot$UpdateActivities instance) =>
+    <String, dynamic>{
+      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
+    };
+
+UpdateActivity$MutationRoot _$UpdateActivity$MutationRootFromJson(
+    Map<String, dynamic> json) {
+  return UpdateActivity$MutationRoot()
+    ..updateActivities = json['update_activities'] == null
+        ? null
+        : UpdateActivity$MutationRoot$UpdateActivities.fromJson(
+            json['update_activities'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UpdateActivity$MutationRootToJson(
+        UpdateActivity$MutationRoot instance) =>
+    <String, dynamic>{
+      'update_activities': instance.updateActivities?.toJson(),
+    };
+
+CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
+    _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningFromJson(
+        Map<String, dynamic> json) {
+  return CreateClosedShift$MutationRoot$InsertClosedShifts$Returning()
+    ..closedShiftsId = json['closed_shifts_id'] as int;
+}
+
+Map<String, dynamic>
+    _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningToJson(
+            CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
+                instance) =>
+        <String, dynamic>{
+          'closed_shifts_id': instance.closedShiftsId,
+        };
+
+CreateClosedShift$MutationRoot$InsertClosedShifts
+    _$CreateClosedShift$MutationRoot$InsertClosedShiftsFromJson(
+        Map<String, dynamic> json) {
+  return CreateClosedShift$MutationRoot$InsertClosedShifts()
+    ..returning = (json['returning'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
+                .fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$CreateClosedShift$MutationRoot$InsertClosedShiftsToJson(
+        CreateClosedShift$MutationRoot$InsertClosedShifts instance) =>
+    <String, dynamic>{
+      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
+    };
+
+CreateClosedShift$MutationRoot _$CreateClosedShift$MutationRootFromJson(
+    Map<String, dynamic> json) {
+  return CreateClosedShift$MutationRoot()
+    ..insertClosedShifts = json['insert_closed_shifts'] == null
+        ? null
+        : CreateClosedShift$MutationRoot$InsertClosedShifts.fromJson(
+            json['insert_closed_shifts'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$CreateClosedShift$MutationRootToJson(
+        CreateClosedShift$MutationRoot instance) =>
+    <String, dynamic>{
+      'insert_closed_shifts': instance.insertClosedShifts?.toJson(),
     };
 
 ActivitiesArrRelInsertInput _$ActivitiesArrRelInsertInputFromJson(
@@ -1304,6 +1382,7 @@ Map<String, dynamic> _$UsersOnConflictToJson(UsersOnConflict instance) =>
     };
 
 const _$UsersConstraintEnumMap = {
+  UsersConstraint.usersEmailAddressKey: 'users_email_address_key',
   UsersConstraint.usersPkey: 'users_pkey',
   UsersConstraint.usersUserIdKey: 'users_user_id_key',
   UsersConstraint.artemisUnknown: 'ARTEMIS_UNKNOWN',
@@ -1319,103 +1398,6 @@ const _$UsersUpdateColumnEnumMap = {
   UsersUpdateColumn.userId: 'user_id',
   UsersUpdateColumn.artemisUnknown: 'ARTEMIS_UNKNOWN',
 };
-
-UpdateActivity$MutationRoot$UpdateActivities$Returning
-    _$UpdateActivity$MutationRoot$UpdateActivities$ReturningFromJson(
-        Map<String, dynamic> json) {
-  return UpdateActivity$MutationRoot$UpdateActivities$Returning()
-    ..shiftEndtime = json['shift_endtime'] as String
-    ..shiftStarttime = json['shift_starttime'] as String;
-}
-
-Map<String, dynamic>
-    _$UpdateActivity$MutationRoot$UpdateActivities$ReturningToJson(
-            UpdateActivity$MutationRoot$UpdateActivities$Returning instance) =>
-        <String, dynamic>{
-          'shift_endtime': instance.shiftEndtime,
-          'shift_starttime': instance.shiftStarttime,
-        };
-
-UpdateActivity$MutationRoot$UpdateActivities
-    _$UpdateActivity$MutationRoot$UpdateActivitiesFromJson(
-        Map<String, dynamic> json) {
-  return UpdateActivity$MutationRoot$UpdateActivities()
-    ..returning = (json['returning'] as List)
-        ?.map((e) => e == null
-            ? null
-            : UpdateActivity$MutationRoot$UpdateActivities$Returning.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$UpdateActivity$MutationRoot$UpdateActivitiesToJson(
-        UpdateActivity$MutationRoot$UpdateActivities instance) =>
-    <String, dynamic>{
-      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
-    };
-
-UpdateActivity$MutationRoot _$UpdateActivity$MutationRootFromJson(
-    Map<String, dynamic> json) {
-  return UpdateActivity$MutationRoot()
-    ..updateActivities = json['update_activities'] == null
-        ? null
-        : UpdateActivity$MutationRoot$UpdateActivities.fromJson(
-            json['update_activities'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$UpdateActivity$MutationRootToJson(
-        UpdateActivity$MutationRoot instance) =>
-    <String, dynamic>{
-      'update_activities': instance.updateActivities?.toJson(),
-    };
-
-CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
-    _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningFromJson(
-        Map<String, dynamic> json) {
-  return CreateClosedShift$MutationRoot$InsertClosedShifts$Returning()
-    ..closedShiftsId = json['closed_shifts_id'] as int;
-}
-
-Map<String, dynamic>
-    _$CreateClosedShift$MutationRoot$InsertClosedShifts$ReturningToJson(
-            CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
-                instance) =>
-        <String, dynamic>{
-          'closed_shifts_id': instance.closedShiftsId,
-        };
-
-CreateClosedShift$MutationRoot$InsertClosedShifts
-    _$CreateClosedShift$MutationRoot$InsertClosedShiftsFromJson(
-        Map<String, dynamic> json) {
-  return CreateClosedShift$MutationRoot$InsertClosedShifts()
-    ..returning = (json['returning'] as List)
-        ?.map((e) => e == null
-            ? null
-            : CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
-                .fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$CreateClosedShift$MutationRoot$InsertClosedShiftsToJson(
-        CreateClosedShift$MutationRoot$InsertClosedShifts instance) =>
-    <String, dynamic>{
-      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
-    };
-
-CreateClosedShift$MutationRoot _$CreateClosedShift$MutationRootFromJson(
-    Map<String, dynamic> json) {
-  return CreateClosedShift$MutationRoot()
-    ..insertClosedShifts = json['insert_closed_shifts'] == null
-        ? null
-        : CreateClosedShift$MutationRoot$InsertClosedShifts.fromJson(
-            json['insert_closed_shifts'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$CreateClosedShift$MutationRootToJson(
-        CreateClosedShift$MutationRoot instance) =>
-    <String, dynamic>{
-      'insert_closed_shifts': instance.insertClosedShifts?.toJson(),
-    };
 
 GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job
     _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobFromJson(
@@ -1482,6 +1464,7 @@ GetAllClosedShifts$QueryRoot$ClosedShifts
         Map<String, dynamic> json) {
   return GetAllClosedShifts$QueryRoot$ClosedShifts()
     ..closedShiftsId = json['closed_shifts_id'] as int
+    ..shiftId = json['shift_id'] as int
     ..shift = json['shift'] == null
         ? null
         : GetAllClosedShifts$QueryRoot$ClosedShifts$Shift.fromJson(
@@ -1492,6 +1475,7 @@ Map<String, dynamic> _$GetAllClosedShifts$QueryRoot$ClosedShiftsToJson(
         GetAllClosedShifts$QueryRoot$ClosedShifts instance) =>
     <String, dynamic>{
       'closed_shifts_id': instance.closedShiftsId,
+      'shift_id': instance.shiftId,
       'shift': instance.shift?.toJson(),
     };
 
@@ -1737,6 +1721,179 @@ Map<String, dynamic> _$GetShitsById$QueryRootToJson(
       'shifts': instance.shifts?.map((e) => e?.toJson())?.toList(),
     };
 
+UpdateUser$MutationRoot$UpdateUsers$Returning
+    _$UpdateUser$MutationRoot$UpdateUsers$ReturningFromJson(
+        Map<String, dynamic> json) {
+  return UpdateUser$MutationRoot$UpdateUsers$Returning()
+    ..firstName = json['first_name'] as String
+    ..contactNumber = json['contact_number'] as String
+    ..homeAddress = json['home_address'] as String
+    ..emailAddress = json['email_address'] as String
+    ..lastName = json['last_name'] as String
+    ..profilePic = json['profile_pic'] as String
+    ..userId = json['user_id'] as String;
+}
+
+Map<String, dynamic> _$UpdateUser$MutationRoot$UpdateUsers$ReturningToJson(
+        UpdateUser$MutationRoot$UpdateUsers$Returning instance) =>
+    <String, dynamic>{
+      'first_name': instance.firstName,
+      'contact_number': instance.contactNumber,
+      'home_address': instance.homeAddress,
+      'email_address': instance.emailAddress,
+      'last_name': instance.lastName,
+      'profile_pic': instance.profilePic,
+      'user_id': instance.userId,
+    };
+
+UpdateUser$MutationRoot$UpdateUsers
+    _$UpdateUser$MutationRoot$UpdateUsersFromJson(Map<String, dynamic> json) {
+  return UpdateUser$MutationRoot$UpdateUsers()
+    ..returning = (json['returning'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UpdateUser$MutationRoot$UpdateUsers$Returning.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$UpdateUser$MutationRoot$UpdateUsersToJson(
+        UpdateUser$MutationRoot$UpdateUsers instance) =>
+    <String, dynamic>{
+      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
+    };
+
+UpdateUser$MutationRoot _$UpdateUser$MutationRootFromJson(
+    Map<String, dynamic> json) {
+  return UpdateUser$MutationRoot()
+    ..updateUsers = json['update_users'] == null
+        ? null
+        : UpdateUser$MutationRoot$UpdateUsers.fromJson(
+            json['update_users'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UpdateUser$MutationRootToJson(
+        UpdateUser$MutationRoot instance) =>
+    <String, dynamic>{
+      'update_users': instance.updateUsers?.toJson(),
+    };
+
+UsersSetInput _$UsersSetInputFromJson(Map<String, dynamic> json) {
+  return UsersSetInput(
+    contactNumber: json['contact_number'] as String,
+    emailAddress: json['email_address'] as String,
+    firstName: json['first_name'] as String,
+    homeAddress: json['home_address'] as String,
+    lastName: json['last_name'] as String,
+    profilePic: json['profile_pic'] as String,
+    userId: json['user_id'] as String,
+  );
+}
+
+Map<String, dynamic> _$UsersSetInputToJson(UsersSetInput instance) =>
+    <String, dynamic>{
+      'contact_number': instance.contactNumber,
+      'email_address': instance.emailAddress,
+      'first_name': instance.firstName,
+      'home_address': instance.homeAddress,
+      'last_name': instance.lastName,
+      'profile_pic': instance.profilePic,
+      'user_id': instance.userId,
+    };
+
+CurrentUser$QueryRoot$Users$Documents
+    _$CurrentUser$QueryRoot$Users$DocumentsFromJson(Map<String, dynamic> json) {
+  return CurrentUser$QueryRoot$Users$Documents()
+    ..documentId = json['document_id'] as int
+    ..documentName = json['document_name'] as String
+    ..documentUrl = json['document_url'] as String;
+}
+
+Map<String, dynamic> _$CurrentUser$QueryRoot$Users$DocumentsToJson(
+        CurrentUser$QueryRoot$Users$Documents instance) =>
+    <String, dynamic>{
+      'document_id': instance.documentId,
+      'document_name': instance.documentName,
+      'document_url': instance.documentUrl,
+    };
+
+CurrentUser$QueryRoot$Users$Activities
+    _$CurrentUser$QueryRoot$Users$ActivitiesFromJson(
+        Map<String, dynamic> json) {
+  return CurrentUser$QueryRoot$Users$Activities()
+    ..activityId = json['activity_id'] as int
+    ..isAccepted = json['is_accepted'] as bool
+    ..isCompleted = json['is_completed'] as bool
+    ..shiftEndtime = json['shift_endtime'] as String
+    ..shiftId = json['shift_id'] as int
+    ..shiftStarttime = json['shift_starttime'] as String;
+}
+
+Map<String, dynamic> _$CurrentUser$QueryRoot$Users$ActivitiesToJson(
+        CurrentUser$QueryRoot$Users$Activities instance) =>
+    <String, dynamic>{
+      'activity_id': instance.activityId,
+      'is_accepted': instance.isAccepted,
+      'is_completed': instance.isCompleted,
+      'shift_endtime': instance.shiftEndtime,
+      'shift_id': instance.shiftId,
+      'shift_starttime': instance.shiftStarttime,
+    };
+
+CurrentUser$QueryRoot$Users _$CurrentUser$QueryRoot$UsersFromJson(
+    Map<String, dynamic> json) {
+  return CurrentUser$QueryRoot$Users()
+    ..userId = json['user_id'] as String
+    ..documents = (json['documents'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CurrentUser$QueryRoot$Users$Documents.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..activities = (json['activities'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CurrentUser$QueryRoot$Users$Activities.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList()
+    ..firstName = json['first_name'] as String
+    ..lastName = json['last_name'] as String
+    ..contactNumber = json['contact_number'] as String
+    ..emailAddress = json['email_address'] as String
+    ..homeAddress = json['home_address'] as String
+    ..profilePic = json['profile_pic'] as String;
+}
+
+Map<String, dynamic> _$CurrentUser$QueryRoot$UsersToJson(
+        CurrentUser$QueryRoot$Users instance) =>
+    <String, dynamic>{
+      'user_id': instance.userId,
+      'documents': instance.documents?.map((e) => e?.toJson())?.toList(),
+      'activities': instance.activities?.map((e) => e?.toJson())?.toList(),
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
+      'contact_number': instance.contactNumber,
+      'email_address': instance.emailAddress,
+      'home_address': instance.homeAddress,
+      'profile_pic': instance.profilePic,
+    };
+
+CurrentUser$QueryRoot _$CurrentUser$QueryRootFromJson(
+    Map<String, dynamic> json) {
+  return CurrentUser$QueryRoot()
+    ..users = (json['users'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CurrentUser$QueryRoot$Users.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$CurrentUser$QueryRootToJson(
+        CurrentUser$QueryRoot instance) =>
+    <String, dynamic>{
+      'users': instance.users?.map((e) => e?.toJson())?.toList(),
+    };
+
 CreateUser$MutationRoot$InsertUsers$Returning
     _$CreateUser$MutationRoot$InsertUsers$ReturningFromJson(
         Map<String, dynamic> json) {
@@ -1782,203 +1939,71 @@ Map<String, dynamic> _$CreateUser$MutationRootToJson(
       'insert_users': instance.insertUsers?.toJson(),
     };
 
-GetAllUsers$QueryRoot$Users$Documents
-    _$GetAllUsers$QueryRoot$Users$DocumentsFromJson(Map<String, dynamic> json) {
-  return GetAllUsers$QueryRoot$Users$Documents()
-    ..documentId = json['document_id'] as int
-    ..documentName = json['document_name'] as String
-    ..documentUrl = json['document_url'] as String;
-}
-
-Map<String, dynamic> _$GetAllUsers$QueryRoot$Users$DocumentsToJson(
-        GetAllUsers$QueryRoot$Users$Documents instance) =>
-    <String, dynamic>{
-      'document_id': instance.documentId,
-      'document_name': instance.documentName,
-      'document_url': instance.documentUrl,
-    };
-
-GetAllUsers$QueryRoot$Users$Activities
-    _$GetAllUsers$QueryRoot$Users$ActivitiesFromJson(
+CreateActivityClone$MutationRoot$InsertActivities$Returning
+    _$CreateActivityClone$MutationRoot$InsertActivities$ReturningFromJson(
         Map<String, dynamic> json) {
-  return GetAllUsers$QueryRoot$Users$Activities()
-    ..activityId = json['activity_id'] as int
-    ..isAccepted = json['is_accepted'] as bool
-    ..isCompleted = json['is_completed'] as bool
-    ..shiftEndtime = json['shift_endtime'] as String
-    ..shiftId = json['shift_id'] as int
-    ..shiftStarttime = json['shift_starttime'] as String;
+  return CreateActivityClone$MutationRoot$InsertActivities$Returning()
+    ..activityId = json['activity_id'] as int;
 }
 
-Map<String, dynamic> _$GetAllUsers$QueryRoot$Users$ActivitiesToJson(
-        GetAllUsers$QueryRoot$Users$Activities instance) =>
-    <String, dynamic>{
-      'activity_id': instance.activityId,
-      'is_accepted': instance.isAccepted,
-      'is_completed': instance.isCompleted,
-      'shift_endtime': instance.shiftEndtime,
-      'shift_id': instance.shiftId,
-      'shift_starttime': instance.shiftStarttime,
-    };
+Map<String, dynamic>
+    _$CreateActivityClone$MutationRoot$InsertActivities$ReturningToJson(
+            CreateActivityClone$MutationRoot$InsertActivities$Returning
+                instance) =>
+        <String, dynamic>{
+          'activity_id': instance.activityId,
+        };
 
-GetAllUsers$QueryRoot$Users _$GetAllUsers$QueryRoot$UsersFromJson(
-    Map<String, dynamic> json) {
-  return GetAllUsers$QueryRoot$Users()
-    ..userId = json['user_id'] as String
-    ..documents = (json['documents'] as List)
+CreateActivityClone$MutationRoot$InsertActivities
+    _$CreateActivityClone$MutationRoot$InsertActivitiesFromJson(
+        Map<String, dynamic> json) {
+  return CreateActivityClone$MutationRoot$InsertActivities()
+    ..returning = (json['returning'] as List)
         ?.map((e) => e == null
             ? null
-            : GetAllUsers$QueryRoot$Users$Documents.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList()
-    ..activities = (json['activities'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetAllUsers$QueryRoot$Users$Activities.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList()
-    ..firstName = json['first_name'] as String
-    ..lastName = json['last_name'] as String
-    ..contactNumber = json['contact_number'] as String
-    ..emailAddress = json['email_address'] as String
-    ..homeAddress = json['home_address'] as String
-    ..profilePic = json['profile_pic'] as String;
-}
-
-Map<String, dynamic> _$GetAllUsers$QueryRoot$UsersToJson(
-        GetAllUsers$QueryRoot$Users instance) =>
-    <String, dynamic>{
-      'user_id': instance.userId,
-      'documents': instance.documents?.map((e) => e?.toJson())?.toList(),
-      'activities': instance.activities?.map((e) => e?.toJson())?.toList(),
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
-      'contact_number': instance.contactNumber,
-      'email_address': instance.emailAddress,
-      'home_address': instance.homeAddress,
-      'profile_pic': instance.profilePic,
-    };
-
-GetAllUsers$QueryRoot _$GetAllUsers$QueryRootFromJson(
-    Map<String, dynamic> json) {
-  return GetAllUsers$QueryRoot()
-    ..users = (json['users'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetAllUsers$QueryRoot$Users.fromJson(e as Map<String, dynamic>))
+            : CreateActivityClone$MutationRoot$InsertActivities$Returning
+                .fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
-Map<String, dynamic> _$GetAllUsers$QueryRootToJson(
-        GetAllUsers$QueryRoot instance) =>
+Map<String, dynamic> _$CreateActivityClone$MutationRoot$InsertActivitiesToJson(
+        CreateActivityClone$MutationRoot$InsertActivities instance) =>
     <String, dynamic>{
-      'users': instance.users?.map((e) => e?.toJson())?.toList(),
+      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
     };
 
-GetUserById$QueryRoot$Users$Documents
-    _$GetUserById$QueryRoot$Users$DocumentsFromJson(Map<String, dynamic> json) {
-  return GetUserById$QueryRoot$Users$Documents()
-    ..documentId = json['document_id'] as int
-    ..documentName = json['document_name'] as String
-    ..documentUrl = json['document_url'] as String;
-}
-
-Map<String, dynamic> _$GetUserById$QueryRoot$Users$DocumentsToJson(
-        GetUserById$QueryRoot$Users$Documents instance) =>
-    <String, dynamic>{
-      'document_id': instance.documentId,
-      'document_name': instance.documentName,
-      'document_url': instance.documentUrl,
-    };
-
-GetUserById$QueryRoot$Users$Activities
-    _$GetUserById$QueryRoot$Users$ActivitiesFromJson(
-        Map<String, dynamic> json) {
-  return GetUserById$QueryRoot$Users$Activities()
-    ..activityId = json['activity_id'] as int
-    ..isAccepted = json['is_accepted'] as bool
-    ..isCompleted = json['is_completed'] as bool
-    ..shiftEndtime = json['shift_endtime'] as String
-    ..shiftId = json['shift_id'] as int
-    ..shiftStarttime = json['shift_starttime'] as String;
-}
-
-Map<String, dynamic> _$GetUserById$QueryRoot$Users$ActivitiesToJson(
-        GetUserById$QueryRoot$Users$Activities instance) =>
-    <String, dynamic>{
-      'activity_id': instance.activityId,
-      'is_accepted': instance.isAccepted,
-      'is_completed': instance.isCompleted,
-      'shift_endtime': instance.shiftEndtime,
-      'shift_id': instance.shiftId,
-      'shift_starttime': instance.shiftStarttime,
-    };
-
-GetUserById$QueryRoot$Users _$GetUserById$QueryRoot$UsersFromJson(
+CreateActivityClone$MutationRoot _$CreateActivityClone$MutationRootFromJson(
     Map<String, dynamic> json) {
-  return GetUserById$QueryRoot$Users()
-    ..documents = (json['documents'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetUserById$QueryRoot$Users$Documents.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList()
-    ..activities = (json['activities'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetUserById$QueryRoot$Users$Activities.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList()
-    ..firstName = json['first_name'] as String
-    ..lastName = json['last_name'] as String
-    ..contactNumber = json['contact_number'] as String
-    ..emailAddress = json['email_address'] as String
-    ..homeAddress = json['home_address'] as String
-    ..profilePic = json['profile_pic'] as String;
+  return CreateActivityClone$MutationRoot()
+    ..insertActivities = json['insert_activities'] == null
+        ? null
+        : CreateActivityClone$MutationRoot$InsertActivities.fromJson(
+            json['insert_activities'] as Map<String, dynamic>);
 }
 
-Map<String, dynamic> _$GetUserById$QueryRoot$UsersToJson(
-        GetUserById$QueryRoot$Users instance) =>
+Map<String, dynamic> _$CreateActivityClone$MutationRootToJson(
+        CreateActivityClone$MutationRoot instance) =>
     <String, dynamic>{
-      'documents': instance.documents?.map((e) => e?.toJson())?.toList(),
-      'activities': instance.activities?.map((e) => e?.toJson())?.toList(),
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
-      'contact_number': instance.contactNumber,
-      'email_address': instance.emailAddress,
-      'home_address': instance.homeAddress,
-      'profile_pic': instance.profilePic,
-    };
-
-GetUserById$QueryRoot _$GetUserById$QueryRootFromJson(
-    Map<String, dynamic> json) {
-  return GetUserById$QueryRoot()
-    ..users = (json['users'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetUserById$QueryRoot$Users.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$GetUserById$QueryRootToJson(
-        GetUserById$QueryRoot instance) =>
-    <String, dynamic>{
-      'users': instance.users?.map((e) => e?.toJson())?.toList(),
+      'insert_activities': instance.insertActivities?.toJson(),
     };
 
 CreateActivityArguments _$CreateActivityArgumentsFromJson(
     Map<String, dynamic> json) {
   return CreateActivityArguments(
-    input: json['input'] == null
-        ? null
-        : ActivitiesInsertInput.fromJson(json['input'] as Map<String, dynamic>),
+    activityId: json['activityId'] as int,
+    shiftId: json['shiftId'] as int,
+    userId: json['userId'] as String,
+    isAccepted: json['isAccepted'] as bool,
   );
 }
 
 Map<String, dynamic> _$CreateActivityArgumentsToJson(
         CreateActivityArguments instance) =>
     <String, dynamic>{
-      'input': instance.input?.toJson(),
+      'activityId': instance.activityId,
+      'shiftId': instance.shiftId,
+      'userId': instance.userId,
+      'isAccepted': instance.isAccepted,
     };
 
 UpdateActivityArguments _$UpdateActivityArgumentsFromJson(
@@ -2012,19 +2037,6 @@ Map<String, dynamic> _$CreateClosedShiftArgumentsToJson(
         CreateClosedShiftArguments instance) =>
     <String, dynamic>{
       'input': instance.input?.toJson(),
-    };
-
-GetAllClosedShiftsArguments _$GetAllClosedShiftsArgumentsFromJson(
-    Map<String, dynamic> json) {
-  return GetAllClosedShiftsArguments(
-    userid: json['userid'] as String,
-  );
-}
-
-Map<String, dynamic> _$GetAllClosedShiftsArgumentsToJson(
-        GetAllClosedShiftsArguments instance) =>
-    <String, dynamic>{
-      'userid': instance.userid,
     };
 
 CreateJobsArguments _$CreateJobsArgumentsFromJson(Map<String, dynamic> json) {
@@ -2081,6 +2093,22 @@ Map<String, dynamic> _$GetShitsByIdArgumentsToJson(
       'id': instance.id,
     };
 
+UpdateUserArguments _$UpdateUserArgumentsFromJson(Map<String, dynamic> json) {
+  return UpdateUserArguments(
+    input: json['input'] == null
+        ? null
+        : UsersSetInput.fromJson(json['input'] as Map<String, dynamic>),
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$UpdateUserArgumentsToJson(
+        UpdateUserArguments instance) =>
+    <String, dynamic>{
+      'input': instance.input?.toJson(),
+      'id': instance.id,
+    };
+
 CreateUserArguments _$CreateUserArgumentsFromJson(Map<String, dynamic> json) {
   return CreateUserArguments(
     input: json['input'] == null
@@ -2095,14 +2123,17 @@ Map<String, dynamic> _$CreateUserArgumentsToJson(
       'input': instance.input?.toJson(),
     };
 
-GetUserByIdArguments _$GetUserByIdArgumentsFromJson(Map<String, dynamic> json) {
-  return GetUserByIdArguments(
-    id: json['id'] as String,
+CreateActivityCloneArguments _$CreateActivityCloneArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return CreateActivityCloneArguments(
+    input: json['input'] == null
+        ? null
+        : ActivitiesInsertInput.fromJson(json['input'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$GetUserByIdArgumentsToJson(
-        GetUserByIdArguments instance) =>
+Map<String, dynamic> _$CreateActivityCloneArgumentsToJson(
+        CreateActivityCloneArguments instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'input': instance.input?.toJson(),
     };

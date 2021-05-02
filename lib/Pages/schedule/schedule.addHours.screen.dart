@@ -19,7 +19,10 @@ import 'package:provider/provider.dart';
 
 class AddHours extends StatefulWidget {
   String title;
-  static const routName = '/addHours-screen';
+  final String arguments;
+
+  AddHours({Key key, this.arguments}) : super(key: key);
+
 
   @override
   _AddHoursState createState() => _AddHoursState();
@@ -300,9 +303,12 @@ class _AddHoursState extends State<AddHours> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
         statusBarBrightness: Brightness.dark,
         statusBarColor: Colors.transparent));
-    final String shiftId = ModalRoute.of(context).settings.arguments as String;
-    final loadedShiftData = Provider.of<ShiftProvider>(context, listen: true).fetchAvailableShifts().firstWhere((element) => element.shiftId == shiftId);
 
+    final String shiftId = ModalRoute.of(context).settings.arguments as String;
+    final loadedShiftData = Provider.of<ShiftProvider>(context, listen: true)
+        .fetchAvailableShifts().firstWhere((element) => element.shiftId ==
+        widget.arguments);
+     print(loadedShiftData.shiftName);
     final loadedJobData = Provider.of<Jobs>(context).getJobById(loadedShiftData.jobId);
     return Scaffold(
       body: Stack(
@@ -333,10 +339,10 @@ class _AddHoursState extends State<AddHours> {
             right: 0,
             left: 0,
             top: isActive?MediaQuery.of(context).size.height*
-                .6:MediaQuery.of(context).size.height*.685,
+                .5:MediaQuery.of(context).size.height*.6,
             child: Container(
               padding: EdgeInsets.only(right: 20,left: 20,bottom: 30),
-              height: 250,
+              height: 300,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -383,24 +389,25 @@ class _AddHoursState extends State<AddHours> {
                       ),
                       SizedBox(width: 5,),
                       SizedBox(
-                        width:200,
+                        width:180,
                         child: Text(
                           '${loadedJobData .jobLocation}',
                           style: TextStyle(
                               fontFamily: 'Futura Book',
                               color: Colors.black54.withOpacity(.7),
-                              fontSize: 16,
+                              fontSize: 15,
                               letterSpacing: 1.2,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Spacer(),
+
                       Text(
                         '( ${details.distanceText} away )',
+                        overflow: TextOverflow.clip,
                         style: TextStyle(
                             fontFamily: 'Futura Book',
                             color: Colors.black54.withOpacity(.7),
-                            fontSize: 14,
+                            fontSize: 13,
 
                             fontWeight: FontWeight.bold),
                       ),
@@ -584,7 +591,7 @@ class _AddHoursState extends State<AddHours> {
                 ),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 17),
-                    width: 310,
+                    width: 280,
                     decoration: BoxDecoration(
                       color: Colors.white,
 
@@ -602,7 +609,7 @@ class _AddHoursState extends State<AddHours> {
                       style: TextStyle(
                           fontFamily: 'Futura Book',
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 13,
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.w900),
                     )),

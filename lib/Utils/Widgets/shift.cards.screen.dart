@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/screen_util.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../Pages/home/home.job.details.dart';
+import '../../Routes.dart';
 
 class OpenShiftCard extends StatelessWidget {
   final String jobLogo;
@@ -33,7 +34,7 @@ class OpenShiftCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(JobDetails.routName,arguments: jobId);
+        Navigator.of(context).pushNamed(Routes.jobDetails,arguments: jobId);
       },
       child: Container(
 
@@ -140,14 +141,23 @@ class OpenShiftCard extends StatelessWidget {
 
 
 class ClosedShiftCard extends StatelessWidget {
+  final int closedShiftId;
+  final int jobId;
+  final String shiftName;
+  final String shiftTime;
+  final String shiftLocation;
+ final DateTime shiftDate;
 
+
+
+  const ClosedShiftCard({Key key, this.shiftName, this.shiftLocation, this.shiftDate, this.jobId, this.shiftTime, this.closedShiftId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final jobData = Provider.of<JobModel>(context);
+    // final jobData = Provider.of<JobModel>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(JobDetails.routName,arguments: jobData.jobId);
+        Navigator.of(context).pushNamed(Routes.jobDetails,arguments: jobId);
       },
       child: Container(
         margin:EdgeInsets.only(top: 20),
@@ -178,7 +188,7 @@ class ClosedShiftCard extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          '${(DateFormat('EEE').format(DateTime.now()))}'[
+                          '${(DateFormat('EEE').format(shiftDate))}'[
                           0],
                           style: TextStyle(
                               fontFamily: 'Futura Heavy',
@@ -187,7 +197,7 @@ class ClosedShiftCard extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "${DateTime.now().day} th",
+                          "${shiftDate.day} th",
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
@@ -203,14 +213,15 @@ class ClosedShiftCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '${(DateFormat(' MMMM . yyyy').format(DateTime.now()))}',
+                              '${(DateFormat(' MMMM . yyyy').format(shiftDate))}',
                               style: Theme.of(context).textTheme.subtitle2,
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Text(
-                              '${(DateFormat('h:mm a').format(DateTime.now()))}',
+                              '. $shiftTime',
+
                               style: Theme.of(context).textTheme.subtitle2,
                             ),
 
@@ -220,7 +231,7 @@ class ClosedShiftCard extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          jobData.jobName,
+                          shiftName,
                           style: Theme.of(context).textTheme.headline4,
                         ),
                         SizedBox(
@@ -228,7 +239,8 @@ class ClosedShiftCard extends StatelessWidget {
                         ),
                         RichText(
                           text: TextSpan(
-                              text: jobData.jobLocation.replaceAll(',', ' .').split(".").first,
+                              text: shiftLocation.replaceAll(',', ' .').split(""
+                                  ".").first,
                               style: Theme.of(context).textTheme.subtitle2,
                               children: <TextSpan>[
                                 TextSpan(
@@ -242,7 +254,7 @@ class ClosedShiftCard extends StatelessWidget {
                                       fontWeight: FontWeight.w700),
                                 ),
                                 TextSpan(
-                                    text: jobData.jobLocation.replaceAll(',', ' .').split(".").last,
+                                    text: shiftLocation.replaceAll(',', ' .').split(".").last,
                                     style: Theme.of(context).textTheme.subtitle2
 
                                 )
@@ -253,29 +265,7 @@ class ClosedShiftCard extends StatelessWidget {
                     ),
                   ),
 
-                  // Consumer<JobModel>(
-                  //   builder: (context, jobData, _) => GestureDetector(
-                  //     onTap: () {
-                  //       print(jobData.isFavourite);
-                  //       jobData.toggleFavoriteStatus(jobData.jobId);
-                  //     },
-                  //     child: Expanded (
-                  //       flex: 1,
-                  //       child: Container(
-                  //         width: 55.0,
-                  //         height: 55.0,
-                  //         child: Icon(
-                  //             jobData.isFavourite
-                  //                 ? Icons.bookmark
-                  //                 : Icons.bookmark_border,
-                  //             size: 28,
-                  //             color: jobData.isFavourite
-                  //                 ? Colors.lightGreenAccent
-                  //                 : Colors.black),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // )
+
                 ],
               ),
             ),
