@@ -1,5 +1,14 @@
-mutation CreateActivity($activityId: Int!,$shiftId: Int!,$userId: String!,$isAccepted:Boolean) {
+mutation CreateActivity($activityId: String!,$shiftId: Int!,$userId: String!,$isAccepted:Boolean) {
     insert_activities_one(object: {activity_id: $activityId, is_accepted: $isAccepted, shift_id: $shiftId, user_id: $userId}) {
         activity_id
     }
 }
+
+# For figuring  out in the future
+#mutation CreateActivityClone($input: activities_insert_input!) {
+#    insert_activities(objects: [$input]) {
+#        returning {
+#            activity_id
+#        }
+#    }
+#}

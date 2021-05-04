@@ -42,8 +42,7 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                     height: 5,
                   ),
                   Text(
-                      "${UserCacheService.user.displayName}...\n"??"User..."
-                          "\n",
+                      "${UserCacheService.user.displayName?? "user"}...\n",
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.headline1),
 
@@ -175,7 +174,21 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemCount: shifts.feed.length,
-                itemBuilder: (BuildContext context, int index) =>(shifts.feed.length==0)?Container():
+                itemBuilder: (BuildContext context, int index) =>(shifts.feed.length==0)? Center(
+                  child: Container(
+                      padding:EdgeInsets.symmetric(horizontal: 20,vertical: 0),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/images/Schedule/noData.png',
+                            height: 240.0,
+                            width: 240.0,
+
+                          ),
+                          Text("No Shifts allotted for you")
+                        ],
+                      )),
+                ):
                 ClosedShiftCard(
                   jobId: shifts.feed[index].shift.job.jobId,
                   closedShiftId:shifts.feed[index].closedShiftsId,

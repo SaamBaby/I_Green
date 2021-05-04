@@ -6,7 +6,7 @@ schema {
 
 # columns and relationships of "activities"
 type activities {
-  activity_id: Int!
+  activity_id: String!
   is_accepted: Boolean!
   is_completed: Boolean
 
@@ -67,13 +67,11 @@ input activities_arr_rel_insert_input {
 
 # aggregate avg on columns
 type activities_avg_fields {
-  activity_id: Float
   shift_id: Float
 }
 
 # order by avg() on columns of table "activities"
 input activities_avg_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
@@ -82,7 +80,7 @@ input activities_bool_exp {
   _and: [activities_bool_exp!]
   _not: activities_bool_exp
   _or: [activities_bool_exp!]
-  activity_id: Int_comparison_exp
+  activity_id: String_comparison_exp
   is_accepted: Boolean_comparison_exp
   is_completed: Boolean_comparison_exp
   shift: shifts_bool_exp
@@ -104,13 +102,12 @@ enum activities_constraint {
 
 # input type for incrementing numeric columns in table "activities"
 input activities_inc_input {
-  activity_id: Int
   shift_id: Int
 }
 
 # input type for inserting data into table "activities"
 input activities_insert_input {
-  activity_id: Int
+  activity_id: String
   is_accepted: Boolean
   is_completed: Boolean
   shift: shifts_obj_rel_insert_input
@@ -123,7 +120,7 @@ input activities_insert_input {
 
 # aggregate max on columns
 type activities_max_fields {
-  activity_id: Int
+  activity_id: String
   shift_endtime: String
   shift_id: Int
   shift_starttime: String
@@ -141,7 +138,7 @@ input activities_max_order_by {
 
 # aggregate min on columns
 type activities_min_fields {
-  activity_id: Int
+  activity_id: String
   shift_endtime: String
   shift_id: Int
   shift_starttime: String
@@ -188,7 +185,7 @@ input activities_order_by {
 
 # primary key columns input for table: activities
 input activities_pk_columns_input {
-  activity_id: Int!
+  activity_id: String!
 }
 
 # select columns of table "activities"
@@ -217,7 +214,7 @@ enum activities_select_column {
 
 # input type for updating data in table "activities"
 input activities_set_input {
-  activity_id: Int
+  activity_id: String
   is_accepted: Boolean
   is_completed: Boolean
   shift_endtime: String
@@ -228,49 +225,41 @@ input activities_set_input {
 
 # aggregate stddev on columns
 type activities_stddev_fields {
-  activity_id: Float
   shift_id: Float
 }
 
 # order by stddev() on columns of table "activities"
 input activities_stddev_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
 # aggregate stddev_pop on columns
 type activities_stddev_pop_fields {
-  activity_id: Float
   shift_id: Float
 }
 
 # order by stddev_pop() on columns of table "activities"
 input activities_stddev_pop_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
 # aggregate stddev_samp on columns
 type activities_stddev_samp_fields {
-  activity_id: Float
   shift_id: Float
 }
 
 # order by stddev_samp() on columns of table "activities"
 input activities_stddev_samp_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
 # aggregate sum on columns
 type activities_sum_fields {
-  activity_id: Int
   shift_id: Int
 }
 
 # order by sum() on columns of table "activities"
 input activities_sum_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
@@ -300,37 +289,31 @@ enum activities_update_column {
 
 # aggregate var_pop on columns
 type activities_var_pop_fields {
-  activity_id: Float
   shift_id: Float
 }
 
 # order by var_pop() on columns of table "activities"
 input activities_var_pop_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
 # aggregate var_samp on columns
 type activities_var_samp_fields {
-  activity_id: Float
   shift_id: Float
 }
 
 # order by var_samp() on columns of table "activities"
 input activities_var_samp_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
 # aggregate variance on columns
 type activities_variance_fields {
-  activity_id: Float
   shift_id: Float
 }
 
 # order by variance() on columns of table "activities"
 input activities_variance_order_by {
-  activity_id: order_by
   shift_id: order_by
 }
 
@@ -1246,7 +1229,7 @@ type mutation_root {
   ): activities_mutation_response
 
   # delete single row from the table: "activities"
-  delete_activities_by_pk(activity_id: Int!): activities
+  delete_activities_by_pk(activity_id: String!): activities
 
   # delete data from the table: "closed_shifts"
   delete_closed_shifts(
@@ -1282,7 +1265,7 @@ type mutation_root {
   ): open_shifts_mutation_response
 
   # delete single row from the table: "open_shifts"
-  delete_open_shifts_by_pk(open_shifts_id: Int!): open_shifts
+  delete_open_shifts_by_pk(open_shifts_id: String!): open_shifts
 
   # delete data from the table: "shifts"
   delete_shifts(
@@ -1579,8 +1562,7 @@ type mutation_root {
 
 # columns and relationships of "open_shifts"
 type open_shifts {
-  is_urgent: Boolean
-  open_shifts_id: Int!
+  open_shifts_id: String!
 
   # An object relationship
   shift: shifts!
@@ -1633,13 +1615,11 @@ input open_shifts_arr_rel_insert_input {
 
 # aggregate avg on columns
 type open_shifts_avg_fields {
-  open_shifts_id: Float
   shift_id: Float
 }
 
 # order by avg() on columns of table "open_shifts"
 input open_shifts_avg_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
@@ -1648,8 +1628,7 @@ input open_shifts_bool_exp {
   _and: [open_shifts_bool_exp!]
   _not: open_shifts_bool_exp
   _or: [open_shifts_bool_exp!]
-  is_urgent: Boolean_comparison_exp
-  open_shifts_id: Int_comparison_exp
+  open_shifts_id: String_comparison_exp
   shift: shifts_bool_exp
   shift_id: Int_comparison_exp
 }
@@ -1665,21 +1644,19 @@ enum open_shifts_constraint {
 
 # input type for incrementing numeric columns in table "open_shifts"
 input open_shifts_inc_input {
-  open_shifts_id: Int
   shift_id: Int
 }
 
 # input type for inserting data into table "open_shifts"
 input open_shifts_insert_input {
-  is_urgent: Boolean
-  open_shifts_id: Int
+  open_shifts_id: String
   shift: shifts_obj_rel_insert_input
   shift_id: Int
 }
 
 # aggregate max on columns
 type open_shifts_max_fields {
-  open_shifts_id: Int
+  open_shifts_id: String
   shift_id: Int
 }
 
@@ -1691,7 +1668,7 @@ input open_shifts_max_order_by {
 
 # aggregate min on columns
 type open_shifts_min_fields {
-  open_shifts_id: Int
+  open_shifts_id: String
   shift_id: Int
 }
 
@@ -1719,7 +1696,6 @@ input open_shifts_on_conflict {
 
 # Ordering options when selecting data from "open_shifts".
 input open_shifts_order_by {
-  is_urgent: order_by
   open_shifts_id: order_by
   shift: shifts_order_by
   shift_id: order_by
@@ -1727,14 +1703,11 @@ input open_shifts_order_by {
 
 # primary key columns input for table: open_shifts
 input open_shifts_pk_columns_input {
-  open_shifts_id: Int!
+  open_shifts_id: String!
 }
 
 # select columns of table "open_shifts"
 enum open_shifts_select_column {
-  # column name
-  is_urgent
-
   # column name
   open_shifts_id
 
@@ -1744,64 +1717,52 @@ enum open_shifts_select_column {
 
 # input type for updating data in table "open_shifts"
 input open_shifts_set_input {
-  is_urgent: Boolean
-  open_shifts_id: Int
+  open_shifts_id: String
   shift_id: Int
 }
 
 # aggregate stddev on columns
 type open_shifts_stddev_fields {
-  open_shifts_id: Float
   shift_id: Float
 }
 
 # order by stddev() on columns of table "open_shifts"
 input open_shifts_stddev_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
 # aggregate stddev_pop on columns
 type open_shifts_stddev_pop_fields {
-  open_shifts_id: Float
   shift_id: Float
 }
 
 # order by stddev_pop() on columns of table "open_shifts"
 input open_shifts_stddev_pop_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
 # aggregate stddev_samp on columns
 type open_shifts_stddev_samp_fields {
-  open_shifts_id: Float
   shift_id: Float
 }
 
 # order by stddev_samp() on columns of table "open_shifts"
 input open_shifts_stddev_samp_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
 # aggregate sum on columns
 type open_shifts_sum_fields {
-  open_shifts_id: Int
   shift_id: Int
 }
 
 # order by sum() on columns of table "open_shifts"
 input open_shifts_sum_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
 # update columns of table "open_shifts"
 enum open_shifts_update_column {
-  # column name
-  is_urgent
-
   # column name
   open_shifts_id
 
@@ -1811,37 +1772,31 @@ enum open_shifts_update_column {
 
 # aggregate var_pop on columns
 type open_shifts_var_pop_fields {
-  open_shifts_id: Float
   shift_id: Float
 }
 
 # order by var_pop() on columns of table "open_shifts"
 input open_shifts_var_pop_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
 # aggregate var_samp on columns
 type open_shifts_var_samp_fields {
-  open_shifts_id: Float
   shift_id: Float
 }
 
 # order by var_samp() on columns of table "open_shifts"
 input open_shifts_var_samp_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
 # aggregate variance on columns
 type open_shifts_variance_fields {
-  open_shifts_id: Float
   shift_id: Float
 }
 
 # order by variance() on columns of table "open_shifts"
 input open_shifts_variance_order_by {
-  open_shifts_id: order_by
   shift_id: order_by
 }
 
@@ -1904,7 +1859,7 @@ type query_root {
   ): activities_aggregate!
 
   # fetch data from the table: "activities" using primary key columns
-  activities_by_pk(activity_id: Int!): activities
+  activities_by_pk(activity_id: String!): activities
 
   # fetch data from the table: "closed_shifts"
   closed_shifts(
@@ -2060,7 +2015,7 @@ type query_root {
   ): open_shifts_aggregate!
 
   # fetch data from the table: "open_shifts" using primary key columns
-  open_shifts_by_pk(open_shifts_id: Int!): open_shifts
+  open_shifts_by_pk(open_shifts_id: String!): open_shifts
 
   # An array relationship
   shifts(
@@ -2663,7 +2618,7 @@ type subscription_root {
   ): activities_aggregate!
 
   # fetch data from the table: "activities" using primary key columns
-  activities_by_pk(activity_id: Int!): activities
+  activities_by_pk(activity_id: String!): activities
 
   # fetch data from the table: "closed_shifts"
   closed_shifts(
@@ -2819,7 +2774,7 @@ type subscription_root {
   ): open_shifts_aggregate!
 
   # fetch data from the table: "open_shifts" using primary key columns
-  open_shifts_by_pk(open_shifts_id: Int!): open_shifts
+  open_shifts_by_pk(open_shifts_id: String!): open_shifts
 
   # An array relationship
   shifts(

@@ -1,0 +1,8 @@
+mutation CreateOpenShift ($openShiftId:String!, $shiftId:Int) {
+    insert_open_shifts(objects: {open_shifts_id:$openShiftId, shift_id:$shiftId}) {
+        affected_rows
+        returning {
+            open_shifts_id
+        }
+    }
+}

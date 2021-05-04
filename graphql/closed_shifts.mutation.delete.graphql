@@ -1,0 +1,5 @@
+mutation DeleteClosedShift($id:Int) {
+    delete_closed_shifts(where: {closed_shifts_id: {_eq: $id}}) {
+        affected_rows
+    }
+}

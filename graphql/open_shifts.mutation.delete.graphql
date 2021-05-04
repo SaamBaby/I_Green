@@ -1,0 +1,5 @@
+mutation DeleteOpenShift($id:String) {
+    delete_open_shifts(where: {open_shifts_id: {_eq: $id}}) {
+        affected_rows
+    }
+}

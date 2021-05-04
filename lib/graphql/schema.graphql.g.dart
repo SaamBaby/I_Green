@@ -10,7 +10,7 @@ CreateActivity$MutationRoot$InsertActivitiesOne
     _$CreateActivity$MutationRoot$InsertActivitiesOneFromJson(
         Map<String, dynamic> json) {
   return CreateActivity$MutationRoot$InsertActivitiesOne()
-    ..activityId = json['activity_id'] as int;
+    ..activityId = json['activity_id'] as String;
 }
 
 Map<String, dynamic> _$CreateActivity$MutationRoot$InsertActivitiesOneToJson(
@@ -170,7 +170,7 @@ ActivitiesBoolExp _$ActivitiesBoolExpFromJson(Map<String, dynamic> json) {
         ?.toList(),
     activityId: json['activity_id'] == null
         ? null
-        : IntComparisonExp.fromJson(
+        : StringComparisonExp.fromJson(
             json['activity_id'] as Map<String, dynamic>),
     isAccepted: json['is_accepted'] == null
         ? null
@@ -222,7 +222,7 @@ Map<String, dynamic> _$ActivitiesBoolExpToJson(ActivitiesBoolExp instance) =>
 ActivitiesInsertInput _$ActivitiesInsertInputFromJson(
     Map<String, dynamic> json) {
   return ActivitiesInsertInput(
-    activityId: json['activity_id'] as int,
+    activityId: json['activity_id'] as String,
     isAccepted: json['is_accepted'] as bool,
     isCompleted: json['is_completed'] as bool,
     shift: json['shift'] == null
@@ -896,13 +896,9 @@ OpenShiftsBoolExp _$OpenShiftsBoolExpFromJson(Map<String, dynamic> json) {
             ? null
             : OpenShiftsBoolExp.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    isUrgent: json['is_urgent'] == null
-        ? null
-        : BooleanComparisonExp.fromJson(
-            json['is_urgent'] as Map<String, dynamic>),
     openShiftsId: json['open_shifts_id'] == null
         ? null
-        : IntComparisonExp.fromJson(
+        : StringComparisonExp.fromJson(
             json['open_shifts_id'] as Map<String, dynamic>),
     shift: json['shift'] == null
         ? null
@@ -918,7 +914,6 @@ Map<String, dynamic> _$OpenShiftsBoolExpToJson(OpenShiftsBoolExp instance) =>
       '_and': instance.$and?.map((e) => e?.toJson())?.toList(),
       '_not': instance.$not?.toJson(),
       '_or': instance.$or?.map((e) => e?.toJson())?.toList(),
-      'is_urgent': instance.isUrgent?.toJson(),
       'open_shifts_id': instance.openShiftsId?.toJson(),
       'shift': instance.shift?.toJson(),
       'shift_id': instance.shiftId?.toJson(),
@@ -927,8 +922,7 @@ Map<String, dynamic> _$OpenShiftsBoolExpToJson(OpenShiftsBoolExp instance) =>
 OpenShiftsInsertInput _$OpenShiftsInsertInputFromJson(
     Map<String, dynamic> json) {
   return OpenShiftsInsertInput(
-    isUrgent: json['is_urgent'] as bool,
-    openShiftsId: json['open_shifts_id'] as int,
+    openShiftsId: json['open_shifts_id'] as String,
     shift: json['shift'] == null
         ? null
         : ShiftsObjRelInsertInput.fromJson(
@@ -940,7 +934,6 @@ OpenShiftsInsertInput _$OpenShiftsInsertInputFromJson(
 Map<String, dynamic> _$OpenShiftsInsertInputToJson(
         OpenShiftsInsertInput instance) =>
     <String, dynamic>{
-      'is_urgent': instance.isUrgent,
       'open_shifts_id': instance.openShiftsId,
       'shift': instance.shift?.toJson(),
       'shift_id': instance.shiftId,
@@ -979,7 +972,6 @@ const _$OpenShiftsConstraintEnumMap = {
 };
 
 const _$OpenShiftsUpdateColumnEnumMap = {
-  OpenShiftsUpdateColumn.isUrgent: 'is_urgent',
   OpenShiftsUpdateColumn.openShiftsId: 'open_shifts_id',
   OpenShiftsUpdateColumn.shiftId: 'shift_id',
   OpenShiftsUpdateColumn.artemisUnknown: 'ARTEMIS_UNKNOWN',
@@ -1399,103 +1391,6 @@ const _$UsersUpdateColumnEnumMap = {
   UsersUpdateColumn.artemisUnknown: 'ARTEMIS_UNKNOWN',
 };
 
-GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job
-    _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobFromJson(
-        Map<String, dynamic> json) {
-  return GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job()
-    ..isContract = json['is_contract'] as bool
-    ..isFulltime = json['is_fulltime'] as bool
-    ..isParttime = json['is_parttime'] as bool
-    ..jobDescription = json['job_description'] as String
-    ..jobId = json['job_id'] as int
-    ..jobLogo = json['job_logo'] as String
-    ..jobLocation = json['job_location'] as String
-    ..jobName = json['job_name'] as String
-    ..jobQualifications = json['job_qualifications'] as String
-    ..jobResponsibilities = json['job_responsibilities'] as String
-    ..jobSalary = json['job_salary'] as String;
-}
-
-Map<String, dynamic>
-    _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobToJson(
-            GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job instance) =>
-        <String, dynamic>{
-          'is_contract': instance.isContract,
-          'is_fulltime': instance.isFulltime,
-          'is_parttime': instance.isParttime,
-          'job_description': instance.jobDescription,
-          'job_id': instance.jobId,
-          'job_logo': instance.jobLogo,
-          'job_location': instance.jobLocation,
-          'job_name': instance.jobName,
-          'job_qualifications': instance.jobQualifications,
-          'job_responsibilities': instance.jobResponsibilities,
-          'job_salary': instance.jobSalary,
-        };
-
-GetAllClosedShifts$QueryRoot$ClosedShifts$Shift
-    _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftFromJson(
-        Map<String, dynamic> json) {
-  return GetAllClosedShifts$QueryRoot$ClosedShifts$Shift()
-    ..shiftDate = json['shift_date'] == null
-        ? null
-        : DateTime.parse(json['shift_date'] as String)
-    ..shiftName = json['shift_name'] as String
-    ..shiftNotes = json['shift_notes'] as String
-    ..shiftTime = json['shift_time'] as String
-    ..job = json['job'] == null
-        ? null
-        : GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job.fromJson(
-            json['job'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftToJson(
-        GetAllClosedShifts$QueryRoot$ClosedShifts$Shift instance) =>
-    <String, dynamic>{
-      'shift_date': instance.shiftDate?.toIso8601String(),
-      'shift_name': instance.shiftName,
-      'shift_notes': instance.shiftNotes,
-      'shift_time': instance.shiftTime,
-      'job': instance.job?.toJson(),
-    };
-
-GetAllClosedShifts$QueryRoot$ClosedShifts
-    _$GetAllClosedShifts$QueryRoot$ClosedShiftsFromJson(
-        Map<String, dynamic> json) {
-  return GetAllClosedShifts$QueryRoot$ClosedShifts()
-    ..closedShiftsId = json['closed_shifts_id'] as int
-    ..shiftId = json['shift_id'] as int
-    ..shift = json['shift'] == null
-        ? null
-        : GetAllClosedShifts$QueryRoot$ClosedShifts$Shift.fromJson(
-            json['shift'] as Map<String, dynamic>);
-}
-
-Map<String, dynamic> _$GetAllClosedShifts$QueryRoot$ClosedShiftsToJson(
-        GetAllClosedShifts$QueryRoot$ClosedShifts instance) =>
-    <String, dynamic>{
-      'closed_shifts_id': instance.closedShiftsId,
-      'shift_id': instance.shiftId,
-      'shift': instance.shift?.toJson(),
-    };
-
-GetAllClosedShifts$QueryRoot _$GetAllClosedShifts$QueryRootFromJson(
-    Map<String, dynamic> json) {
-  return GetAllClosedShifts$QueryRoot()
-    ..closedShifts = (json['closed_shifts'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetAllClosedShifts$QueryRoot$ClosedShifts.fromJson(
-                e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$GetAllClosedShifts$QueryRootToJson(
-        GetAllClosedShifts$QueryRoot instance) =>
-    <String, dynamic>{
-      'closed_shifts': instance.closedShifts?.map((e) => e?.toJson())?.toList(),
-    };
-
 CreateJobs$MutationRoot$InsertJobs$Returning
     _$CreateJobs$MutationRoot$InsertJobs$ReturningFromJson(
         Map<String, dynamic> json) {
@@ -1539,100 +1434,6 @@ Map<String, dynamic> _$CreateJobs$MutationRootToJson(
         CreateJobs$MutationRoot instance) =>
     <String, dynamic>{
       'insert_jobs': instance.insertJobs?.toJson(),
-    };
-
-GetAllJobs$QueryRoot$Jobs _$GetAllJobs$QueryRoot$JobsFromJson(
-    Map<String, dynamic> json) {
-  return GetAllJobs$QueryRoot$Jobs()
-    ..isContract = json['is_contract'] as bool
-    ..isFulltime = json['is_fulltime'] as bool
-    ..isParttime = json['is_parttime'] as bool
-    ..jobDescription = json['job_description'] as String
-    ..jobId = json['job_id'] as int
-    ..jobLocation = json['job_location'] as String
-    ..jobLogo = json['job_logo'] as String
-    ..jobName = json['job_name'] as String
-    ..jobQualifications = json['job_qualifications'] as String
-    ..jobResponsibilities = json['job_responsibilities'] as String
-    ..jobSalary = json['job_salary'] as String;
-}
-
-Map<String, dynamic> _$GetAllJobs$QueryRoot$JobsToJson(
-        GetAllJobs$QueryRoot$Jobs instance) =>
-    <String, dynamic>{
-      'is_contract': instance.isContract,
-      'is_fulltime': instance.isFulltime,
-      'is_parttime': instance.isParttime,
-      'job_description': instance.jobDescription,
-      'job_id': instance.jobId,
-      'job_location': instance.jobLocation,
-      'job_logo': instance.jobLogo,
-      'job_name': instance.jobName,
-      'job_qualifications': instance.jobQualifications,
-      'job_responsibilities': instance.jobResponsibilities,
-      'job_salary': instance.jobSalary,
-    };
-
-GetAllJobs$QueryRoot _$GetAllJobs$QueryRootFromJson(Map<String, dynamic> json) {
-  return GetAllJobs$QueryRoot()
-    ..jobs = (json['jobs'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetAllJobs$QueryRoot$Jobs.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$GetAllJobs$QueryRootToJson(
-        GetAllJobs$QueryRoot instance) =>
-    <String, dynamic>{
-      'jobs': instance.jobs?.map((e) => e?.toJson())?.toList(),
-    };
-
-GetJobById$QueryRoot$Jobs _$GetJobById$QueryRoot$JobsFromJson(
-    Map<String, dynamic> json) {
-  return GetJobById$QueryRoot$Jobs()
-    ..isContract = json['is_contract'] as bool
-    ..isFulltime = json['is_fulltime'] as bool
-    ..isParttime = json['is_parttime'] as bool
-    ..jobDescription = json['job_description'] as String
-    ..jobId = json['job_id'] as int
-    ..jobLocation = json['job_location'] as String
-    ..jobLogo = json['job_logo'] as String
-    ..jobName = json['job_name'] as String
-    ..jobQualifications = json['job_qualifications'] as String
-    ..jobResponsibilities = json['job_responsibilities'] as String
-    ..jobSalary = json['job_salary'] as String;
-}
-
-Map<String, dynamic> _$GetJobById$QueryRoot$JobsToJson(
-        GetJobById$QueryRoot$Jobs instance) =>
-    <String, dynamic>{
-      'is_contract': instance.isContract,
-      'is_fulltime': instance.isFulltime,
-      'is_parttime': instance.isParttime,
-      'job_description': instance.jobDescription,
-      'job_id': instance.jobId,
-      'job_location': instance.jobLocation,
-      'job_logo': instance.jobLogo,
-      'job_name': instance.jobName,
-      'job_qualifications': instance.jobQualifications,
-      'job_responsibilities': instance.jobResponsibilities,
-      'job_salary': instance.jobSalary,
-    };
-
-GetJobById$QueryRoot _$GetJobById$QueryRootFromJson(Map<String, dynamic> json) {
-  return GetJobById$QueryRoot()
-    ..jobs = (json['jobs'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GetJobById$QueryRoot$Jobs.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$GetJobById$QueryRootToJson(
-        GetJobById$QueryRoot instance) =>
-    <String, dynamic>{
-      'jobs': instance.jobs?.map((e) => e?.toJson())?.toList(),
     };
 
 CreateShifts$MutationRoot$InsertShifts$Returning
@@ -1821,7 +1622,7 @@ CurrentUser$QueryRoot$Users$Activities
     _$CurrentUser$QueryRoot$Users$ActivitiesFromJson(
         Map<String, dynamic> json) {
   return CurrentUser$QueryRoot$Users$Activities()
-    ..activityId = json['activity_id'] as int
+    ..activityId = json['activity_id'] as String
     ..isAccepted = json['is_accepted'] as bool
     ..isCompleted = json['is_completed'] as bool
     ..shiftEndtime = json['shift_endtime'] as String
@@ -1939,58 +1740,360 @@ Map<String, dynamic> _$CreateUser$MutationRootToJson(
       'insert_users': instance.insertUsers?.toJson(),
     };
 
-CreateActivityClone$MutationRoot$InsertActivities$Returning
-    _$CreateActivityClone$MutationRoot$InsertActivities$ReturningFromJson(
+DeleteClosedShift$MutationRoot$DeleteClosedShifts
+    _$DeleteClosedShift$MutationRoot$DeleteClosedShiftsFromJson(
         Map<String, dynamic> json) {
-  return CreateActivityClone$MutationRoot$InsertActivities$Returning()
-    ..activityId = json['activity_id'] as int;
+  return DeleteClosedShift$MutationRoot$DeleteClosedShifts()
+    ..affectedRows = json['affected_rows'] as int;
+}
+
+Map<String, dynamic> _$DeleteClosedShift$MutationRoot$DeleteClosedShiftsToJson(
+        DeleteClosedShift$MutationRoot$DeleteClosedShifts instance) =>
+    <String, dynamic>{
+      'affected_rows': instance.affectedRows,
+    };
+
+DeleteClosedShift$MutationRoot _$DeleteClosedShift$MutationRootFromJson(
+    Map<String, dynamic> json) {
+  return DeleteClosedShift$MutationRoot()
+    ..deleteClosedShifts = json['delete_closed_shifts'] == null
+        ? null
+        : DeleteClosedShift$MutationRoot$DeleteClosedShifts.fromJson(
+            json['delete_closed_shifts'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$DeleteClosedShift$MutationRootToJson(
+        DeleteClosedShift$MutationRoot instance) =>
+    <String, dynamic>{
+      'delete_closed_shifts': instance.deleteClosedShifts?.toJson(),
+    };
+
+GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job
+    _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobFromJson(
+        Map<String, dynamic> json) {
+  return GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job()
+    ..isContract = json['is_contract'] as bool
+    ..isFulltime = json['is_fulltime'] as bool
+    ..isParttime = json['is_parttime'] as bool
+    ..jobDescription = json['job_description'] as String
+    ..jobId = json['job_id'] as int
+    ..jobLogo = json['job_logo'] as String
+    ..jobLocation = json['job_location'] as String
+    ..jobName = json['job_name'] as String
+    ..jobQualifications = json['job_qualifications'] as String
+    ..jobResponsibilities = json['job_responsibilities'] as String
+    ..jobSalary = json['job_salary'] as String;
 }
 
 Map<String, dynamic>
-    _$CreateActivityClone$MutationRoot$InsertActivities$ReturningToJson(
-            CreateActivityClone$MutationRoot$InsertActivities$Returning
-                instance) =>
+    _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobToJson(
+            GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job instance) =>
         <String, dynamic>{
-          'activity_id': instance.activityId,
+          'is_contract': instance.isContract,
+          'is_fulltime': instance.isFulltime,
+          'is_parttime': instance.isParttime,
+          'job_description': instance.jobDescription,
+          'job_id': instance.jobId,
+          'job_logo': instance.jobLogo,
+          'job_location': instance.jobLocation,
+          'job_name': instance.jobName,
+          'job_qualifications': instance.jobQualifications,
+          'job_responsibilities': instance.jobResponsibilities,
+          'job_salary': instance.jobSalary,
         };
 
-CreateActivityClone$MutationRoot$InsertActivities
-    _$CreateActivityClone$MutationRoot$InsertActivitiesFromJson(
+GetAllClosedShifts$QueryRoot$ClosedShifts$Shift
+    _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftFromJson(
         Map<String, dynamic> json) {
-  return CreateActivityClone$MutationRoot$InsertActivities()
-    ..returning = (json['returning'] as List)
+  return GetAllClosedShifts$QueryRoot$ClosedShifts$Shift()
+    ..shiftDate = json['shift_date'] == null
+        ? null
+        : DateTime.parse(json['shift_date'] as String)
+    ..shiftName = json['shift_name'] as String
+    ..shiftNotes = json['shift_notes'] as String
+    ..shiftTime = json['shift_time'] as String
+    ..job = json['job'] == null
+        ? null
+        : GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job.fromJson(
+            json['job'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftToJson(
+        GetAllClosedShifts$QueryRoot$ClosedShifts$Shift instance) =>
+    <String, dynamic>{
+      'shift_date': instance.shiftDate?.toIso8601String(),
+      'shift_name': instance.shiftName,
+      'shift_notes': instance.shiftNotes,
+      'shift_time': instance.shiftTime,
+      'job': instance.job?.toJson(),
+    };
+
+GetAllClosedShifts$QueryRoot$ClosedShifts
+    _$GetAllClosedShifts$QueryRoot$ClosedShiftsFromJson(
+        Map<String, dynamic> json) {
+  return GetAllClosedShifts$QueryRoot$ClosedShifts()
+    ..closedShiftsId = json['closed_shifts_id'] as int
+    ..shiftId = json['shift_id'] as int
+    ..shift = json['shift'] == null
+        ? null
+        : GetAllClosedShifts$QueryRoot$ClosedShifts$Shift.fromJson(
+            json['shift'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GetAllClosedShifts$QueryRoot$ClosedShiftsToJson(
+        GetAllClosedShifts$QueryRoot$ClosedShifts instance) =>
+    <String, dynamic>{
+      'closed_shifts_id': instance.closedShiftsId,
+      'shift_id': instance.shiftId,
+      'shift': instance.shift?.toJson(),
+    };
+
+GetAllClosedShifts$QueryRoot _$GetAllClosedShifts$QueryRootFromJson(
+    Map<String, dynamic> json) {
+  return GetAllClosedShifts$QueryRoot()
+    ..closedShifts = (json['closed_shifts'] as List)
         ?.map((e) => e == null
             ? null
-            : CreateActivityClone$MutationRoot$InsertActivities$Returning
-                .fromJson(e as Map<String, dynamic>))
+            : GetAllClosedShifts$QueryRoot$ClosedShifts.fromJson(
+                e as Map<String, dynamic>))
         ?.toList();
 }
 
-Map<String, dynamic> _$CreateActivityClone$MutationRoot$InsertActivitiesToJson(
-        CreateActivityClone$MutationRoot$InsertActivities instance) =>
+Map<String, dynamic> _$GetAllClosedShifts$QueryRootToJson(
+        GetAllClosedShifts$QueryRoot instance) =>
     <String, dynamic>{
+      'closed_shifts': instance.closedShifts?.map((e) => e?.toJson())?.toList(),
+    };
+
+GetAllJobs$QueryRoot$Jobs _$GetAllJobs$QueryRoot$JobsFromJson(
+    Map<String, dynamic> json) {
+  return GetAllJobs$QueryRoot$Jobs()
+    ..isContract = json['is_contract'] as bool
+    ..isFulltime = json['is_fulltime'] as bool
+    ..isParttime = json['is_parttime'] as bool
+    ..jobDescription = json['job_description'] as String
+    ..jobId = json['job_id'] as int
+    ..jobLocation = json['job_location'] as String
+    ..jobLogo = json['job_logo'] as String
+    ..jobName = json['job_name'] as String
+    ..jobQualifications = json['job_qualifications'] as String
+    ..jobResponsibilities = json['job_responsibilities'] as String
+    ..jobSalary = json['job_salary'] as String;
+}
+
+Map<String, dynamic> _$GetAllJobs$QueryRoot$JobsToJson(
+        GetAllJobs$QueryRoot$Jobs instance) =>
+    <String, dynamic>{
+      'is_contract': instance.isContract,
+      'is_fulltime': instance.isFulltime,
+      'is_parttime': instance.isParttime,
+      'job_description': instance.jobDescription,
+      'job_id': instance.jobId,
+      'job_location': instance.jobLocation,
+      'job_logo': instance.jobLogo,
+      'job_name': instance.jobName,
+      'job_qualifications': instance.jobQualifications,
+      'job_responsibilities': instance.jobResponsibilities,
+      'job_salary': instance.jobSalary,
+    };
+
+GetAllJobs$QueryRoot _$GetAllJobs$QueryRootFromJson(Map<String, dynamic> json) {
+  return GetAllJobs$QueryRoot()
+    ..jobs = (json['jobs'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GetAllJobs$QueryRoot$Jobs.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$GetAllJobs$QueryRootToJson(
+        GetAllJobs$QueryRoot instance) =>
+    <String, dynamic>{
+      'jobs': instance.jobs?.map((e) => e?.toJson())?.toList(),
+    };
+
+CreateOpenShift$MutationRoot$InsertOpenShifts$Returning
+    _$CreateOpenShift$MutationRoot$InsertOpenShifts$ReturningFromJson(
+        Map<String, dynamic> json) {
+  return CreateOpenShift$MutationRoot$InsertOpenShifts$Returning()
+    ..openShiftsId = json['open_shifts_id'] as String;
+}
+
+Map<String, dynamic>
+    _$CreateOpenShift$MutationRoot$InsertOpenShifts$ReturningToJson(
+            CreateOpenShift$MutationRoot$InsertOpenShifts$Returning instance) =>
+        <String, dynamic>{
+          'open_shifts_id': instance.openShiftsId,
+        };
+
+CreateOpenShift$MutationRoot$InsertOpenShifts
+    _$CreateOpenShift$MutationRoot$InsertOpenShiftsFromJson(
+        Map<String, dynamic> json) {
+  return CreateOpenShift$MutationRoot$InsertOpenShifts()
+    ..affectedRows = json['affected_rows'] as int
+    ..returning = (json['returning'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CreateOpenShift$MutationRoot$InsertOpenShifts$Returning.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$CreateOpenShift$MutationRoot$InsertOpenShiftsToJson(
+        CreateOpenShift$MutationRoot$InsertOpenShifts instance) =>
+    <String, dynamic>{
+      'affected_rows': instance.affectedRows,
       'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
     };
 
-CreateActivityClone$MutationRoot _$CreateActivityClone$MutationRootFromJson(
+CreateOpenShift$MutationRoot _$CreateOpenShift$MutationRootFromJson(
     Map<String, dynamic> json) {
-  return CreateActivityClone$MutationRoot()
-    ..insertActivities = json['insert_activities'] == null
+  return CreateOpenShift$MutationRoot()
+    ..insertOpenShifts = json['insert_open_shifts'] == null
         ? null
-        : CreateActivityClone$MutationRoot$InsertActivities.fromJson(
-            json['insert_activities'] as Map<String, dynamic>);
+        : CreateOpenShift$MutationRoot$InsertOpenShifts.fromJson(
+            json['insert_open_shifts'] as Map<String, dynamic>);
 }
 
-Map<String, dynamic> _$CreateActivityClone$MutationRootToJson(
-        CreateActivityClone$MutationRoot instance) =>
+Map<String, dynamic> _$CreateOpenShift$MutationRootToJson(
+        CreateOpenShift$MutationRoot instance) =>
     <String, dynamic>{
-      'insert_activities': instance.insertActivities?.toJson(),
+      'insert_open_shifts': instance.insertOpenShifts?.toJson(),
+    };
+
+GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job
+    _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobFromJson(
+        Map<String, dynamic> json) {
+  return GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job()
+    ..isContract = json['is_contract'] as bool
+    ..isFulltime = json['is_fulltime'] as bool
+    ..isParttime = json['is_parttime'] as bool
+    ..jobDescription = json['job_description'] as String
+    ..jobId = json['job_id'] as int
+    ..jobLocation = json['job_location'] as String
+    ..jobLogo = json['job_logo'] as String
+    ..jobName = json['job_name'] as String
+    ..jobQualifications = json['job_qualifications'] as String
+    ..jobResponsibilities = json['job_responsibilities'] as String
+    ..jobSalary = json['job_salary'] as String;
+}
+
+Map<String, dynamic>
+    _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobToJson(
+            GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job instance) =>
+        <String, dynamic>{
+          'is_contract': instance.isContract,
+          'is_fulltime': instance.isFulltime,
+          'is_parttime': instance.isParttime,
+          'job_description': instance.jobDescription,
+          'job_id': instance.jobId,
+          'job_location': instance.jobLocation,
+          'job_logo': instance.jobLogo,
+          'job_name': instance.jobName,
+          'job_qualifications': instance.jobQualifications,
+          'job_responsibilities': instance.jobResponsibilities,
+          'job_salary': instance.jobSalary,
+        };
+
+GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift
+    _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftFromJson(
+        Map<String, dynamic> json) {
+  return GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift()
+    ..shiftTime = json['shift_time'] as String
+    ..shiftNotes = json['shift_notes'] as String
+    ..shiftName = json['shift_name'] as String
+    ..shiftId = json['shift_id'] as int
+    ..shiftDate = json['shift_date'] == null
+        ? null
+        : DateTime.parse(json['shift_date'] as String)
+    ..jobId = json['job_id'] as int
+    ..job = json['job'] == null
+        ? null
+        : GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job.fromJson(
+            json['job'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftToJson(
+        GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift instance) =>
+    <String, dynamic>{
+      'shift_time': instance.shiftTime,
+      'shift_notes': instance.shiftNotes,
+      'shift_name': instance.shiftName,
+      'shift_id': instance.shiftId,
+      'shift_date': instance.shiftDate?.toIso8601String(),
+      'job_id': instance.jobId,
+      'job': instance.job?.toJson(),
+    };
+
+GetAllOpenShifts$SubscriptionRoot$OpenShifts
+    _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsFromJson(
+        Map<String, dynamic> json) {
+  return GetAllOpenShifts$SubscriptionRoot$OpenShifts()
+    ..shiftId = json['shift_id'] as int
+    ..openShiftsId = json['open_shifts_id'] as String
+    ..shift = json['shift'] == null
+        ? null
+        : GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift.fromJson(
+            json['shift'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsToJson(
+        GetAllOpenShifts$SubscriptionRoot$OpenShifts instance) =>
+    <String, dynamic>{
+      'shift_id': instance.shiftId,
+      'open_shifts_id': instance.openShiftsId,
+      'shift': instance.shift?.toJson(),
+    };
+
+GetAllOpenShifts$SubscriptionRoot _$GetAllOpenShifts$SubscriptionRootFromJson(
+    Map<String, dynamic> json) {
+  return GetAllOpenShifts$SubscriptionRoot()
+    ..openShifts = (json['open_shifts'] as List)
+        ?.map((e) => e == null
+            ? null
+            : GetAllOpenShifts$SubscriptionRoot$OpenShifts.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$GetAllOpenShifts$SubscriptionRootToJson(
+        GetAllOpenShifts$SubscriptionRoot instance) =>
+    <String, dynamic>{
+      'open_shifts': instance.openShifts?.map((e) => e?.toJson())?.toList(),
+    };
+
+DeleteOpenShift$MutationRoot$DeleteOpenShifts
+    _$DeleteOpenShift$MutationRoot$DeleteOpenShiftsFromJson(
+        Map<String, dynamic> json) {
+  return DeleteOpenShift$MutationRoot$DeleteOpenShifts()
+    ..affectedRows = json['affected_rows'] as int;
+}
+
+Map<String, dynamic> _$DeleteOpenShift$MutationRoot$DeleteOpenShiftsToJson(
+        DeleteOpenShift$MutationRoot$DeleteOpenShifts instance) =>
+    <String, dynamic>{
+      'affected_rows': instance.affectedRows,
+    };
+
+DeleteOpenShift$MutationRoot _$DeleteOpenShift$MutationRootFromJson(
+    Map<String, dynamic> json) {
+  return DeleteOpenShift$MutationRoot()
+    ..deleteOpenShifts = json['delete_open_shifts'] == null
+        ? null
+        : DeleteOpenShift$MutationRoot$DeleteOpenShifts.fromJson(
+            json['delete_open_shifts'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$DeleteOpenShift$MutationRootToJson(
+        DeleteOpenShift$MutationRoot instance) =>
+    <String, dynamic>{
+      'delete_open_shifts': instance.deleteOpenShifts?.toJson(),
     };
 
 CreateActivityArguments _$CreateActivityArgumentsFromJson(
     Map<String, dynamic> json) {
   return CreateActivityArguments(
-    activityId: json['activityId'] as int,
+    activityId: json['activityId'] as String,
     shiftId: json['shiftId'] as int,
     userId: json['userId'] as String,
     isAccepted: json['isAccepted'] as bool,
@@ -2053,18 +2156,6 @@ Map<String, dynamic> _$CreateJobsArgumentsToJson(
       'input': instance.input?.toJson(),
     };
 
-GetJobByIdArguments _$GetJobByIdArgumentsFromJson(Map<String, dynamic> json) {
-  return GetJobByIdArguments(
-    id: json['id'] as int,
-  );
-}
-
-Map<String, dynamic> _$GetJobByIdArgumentsToJson(
-        GetJobByIdArguments instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
-
 CreateShiftsArguments _$CreateShiftsArgumentsFromJson(
     Map<String, dynamic> json) {
   return CreateShiftsArguments(
@@ -2123,17 +2214,43 @@ Map<String, dynamic> _$CreateUserArgumentsToJson(
       'input': instance.input?.toJson(),
     };
 
-CreateActivityCloneArguments _$CreateActivityCloneArgumentsFromJson(
+DeleteClosedShiftArguments _$DeleteClosedShiftArgumentsFromJson(
     Map<String, dynamic> json) {
-  return CreateActivityCloneArguments(
-    input: json['input'] == null
-        ? null
-        : ActivitiesInsertInput.fromJson(json['input'] as Map<String, dynamic>),
+  return DeleteClosedShiftArguments(
+    id: json['id'] as int,
   );
 }
 
-Map<String, dynamic> _$CreateActivityCloneArgumentsToJson(
-        CreateActivityCloneArguments instance) =>
+Map<String, dynamic> _$DeleteClosedShiftArgumentsToJson(
+        DeleteClosedShiftArguments instance) =>
     <String, dynamic>{
-      'input': instance.input?.toJson(),
+      'id': instance.id,
+    };
+
+CreateOpenShiftArguments _$CreateOpenShiftArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return CreateOpenShiftArguments(
+    openShiftId: json['openShiftId'] as String,
+    shiftId: json['shiftId'] as int,
+  );
+}
+
+Map<String, dynamic> _$CreateOpenShiftArgumentsToJson(
+        CreateOpenShiftArguments instance) =>
+    <String, dynamic>{
+      'openShiftId': instance.openShiftId,
+      'shiftId': instance.shiftId,
+    };
+
+DeleteOpenShiftArguments _$DeleteOpenShiftArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return DeleteOpenShiftArguments(
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$DeleteOpenShiftArgumentsToJson(
+        DeleteOpenShiftArguments instance) =>
+    <String, dynamic>{
+      'id': instance.id,
     };

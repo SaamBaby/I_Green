@@ -117,7 +117,7 @@ class Routes{
       case homeMain:
         return ShiftFeeds();
       case jobDetails:
-        return JobDetails(arguments: arguments);
+        return JobDetails(closedShiftId: arguments,);
       case addHours:
         return AddHours(arguments: arguments);
         // user profile

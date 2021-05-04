@@ -33,8 +33,8 @@ class ActivityService{
   //
   // }
 
-  Future<CreateActivity$MutationRoot$InsertActivitiesOne> createActivity( int
-  activityId,int shiftId, String userId, bool isAccepted) async{
+  Future<CreateActivity$MutationRoot$InsertActivitiesOne> createActivity(
+      String activityId,int shiftId, String userId, bool isAccepted) async{
     try{
       GraphQLClient _client= await IgreenGraphQLClient.getClient();
       final options = QueryOptions(document: CreateActivityMutation().document, fetchPolicy: FetchPolicy.networkOnly, variables: {
@@ -47,7 +47,8 @@ class ActivityService{
         print(" create activity exceptions${ result.exception.toString()}");
         return null;
       }
-      final response = CreateActivity$MutationRoot.fromJson(result.data).insertActivitiesOne;
+      final response = CreateActivity$MutationRoot.fromJson(result.data)
+          .insertActivitiesOne;
       print(" create activity  response${ response.activityId}");
       return response;
     }
@@ -59,6 +60,8 @@ class ActivityService{
     }
 
   }
+
+
 
 
 

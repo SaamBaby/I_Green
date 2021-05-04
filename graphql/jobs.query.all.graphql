@@ -1,0 +1,31 @@
+#query GetJobById($id: Int!) {
+#    jobs (where: {job_id: {_eq: $id}}) {
+#        is_contract
+#        is_fulltime
+#        is_parttime
+#        job_description
+#        job_id
+#        job_location
+#        job_logo
+#        job_name
+#        job_qualifications
+#        job_responsibilities
+#        job_salary
+#    }
+#}
+
+query GetAllJobs {
+    jobs {
+        is_contract
+        is_fulltime
+        is_parttime
+        job_description
+        job_id
+        job_location
+        job_logo
+        job_name
+        job_qualifications
+        job_responsibilities
+        job_salary
+    }
+}

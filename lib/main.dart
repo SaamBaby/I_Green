@@ -51,6 +51,7 @@ void main() async {
           value:  _userService),
           ChangeNotifierProvider.value(
           value: _discoveryService),
+
       ChangeNotifierProxyProvider<AuthProvider,Jobs>(
         update: (context,auth,previousState) => Jobs(auth.idToken,previousState==null?{}:previousState.items),
       ),

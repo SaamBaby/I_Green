@@ -262,7 +262,7 @@ class SignInFormState extends State<SignInForm> {
                     decoration: BoxDecoration(
                       color:  Theme.of(context).primaryColor,
                       borderRadius: (currentState==cState.Uninitialized)
-                          ?BorderRadius.circular(10):BorderRadius.circular(25),
+                          ?BorderRadius.circular(10):BorderRadius.circular(30),
                     ),
                     child: progressButton()),
               ),

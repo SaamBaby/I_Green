@@ -16,7 +16,7 @@ class CreateActivity$MutationRoot$InsertActivitiesOne with EquatableMixin {
       _$CreateActivity$MutationRoot$InsertActivitiesOneFromJson(json);
 
   @JsonKey(name: 'activity_id')
-  int activityId;
+  String activityId;
 
   @override
   List<Object> get props => [activityId];
@@ -187,7 +187,7 @@ class ActivitiesBoolExp with EquatableMixin {
   List<ActivitiesBoolExp> $or;
 
   @JsonKey(name: 'activity_id')
-  IntComparisonExp activityId;
+  StringComparisonExp activityId;
 
   @JsonKey(name: 'is_accepted')
   BooleanComparisonExp isAccepted;
@@ -246,7 +246,7 @@ class ActivitiesInsertInput with EquatableMixin {
       _$ActivitiesInsertInputFromJson(json);
 
   @JsonKey(name: 'activity_id')
-  int activityId;
+  String activityId;
 
   @JsonKey(name: 'is_accepted')
   bool isAccepted;
@@ -901,7 +901,6 @@ class OpenShiftsBoolExp with EquatableMixin {
       {this.$and,
       this.$not,
       this.$or,
-      this.isUrgent,
       this.openShiftsId,
       this.shift,
       this.shiftId});
@@ -918,11 +917,8 @@ class OpenShiftsBoolExp with EquatableMixin {
   @JsonKey(name: '_or')
   List<OpenShiftsBoolExp> $or;
 
-  @JsonKey(name: 'is_urgent')
-  BooleanComparisonExp isUrgent;
-
   @JsonKey(name: 'open_shifts_id')
-  IntComparisonExp openShiftsId;
+  StringComparisonExp openShiftsId;
 
   ShiftsBoolExp shift;
 
@@ -930,24 +926,19 @@ class OpenShiftsBoolExp with EquatableMixin {
   IntComparisonExp shiftId;
 
   @override
-  List<Object> get props =>
-      [$and, $not, $or, isUrgent, openShiftsId, shift, shiftId];
+  List<Object> get props => [$and, $not, $or, openShiftsId, shift, shiftId];
   Map<String, dynamic> toJson() => _$OpenShiftsBoolExpToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
 class OpenShiftsInsertInput with EquatableMixin {
-  OpenShiftsInsertInput(
-      {this.isUrgent, this.openShiftsId, this.shift, this.shiftId});
+  OpenShiftsInsertInput({this.openShiftsId, this.shift, this.shiftId});
 
   factory OpenShiftsInsertInput.fromJson(Map<String, dynamic> json) =>
       _$OpenShiftsInsertInputFromJson(json);
 
-  @JsonKey(name: 'is_urgent')
-  bool isUrgent;
-
   @JsonKey(name: 'open_shifts_id')
-  int openShiftsId;
+  String openShiftsId;
 
   ShiftsObjRelInsertInput shift;
 
@@ -955,7 +946,7 @@ class OpenShiftsInsertInput with EquatableMixin {
   int shiftId;
 
   @override
-  List<Object> get props => [isUrgent, openShiftsId, shift, shiftId];
+  List<Object> get props => [openShiftsId, shift, shiftId];
   Map<String, dynamic> toJson() => _$OpenShiftsInsertInputToJson(this);
 }
 
@@ -1462,130 +1453,6 @@ class UsersOnConflict with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job with EquatableMixin {
-  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job();
-
-  factory GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobFromJson(json);
-
-  @JsonKey(name: 'is_contract')
-  bool isContract;
-
-  @JsonKey(name: 'is_fulltime')
-  bool isFulltime;
-
-  @JsonKey(name: 'is_parttime')
-  bool isParttime;
-
-  @JsonKey(name: 'job_description')
-  String jobDescription;
-
-  @JsonKey(name: 'job_id')
-  int jobId;
-
-  @JsonKey(name: 'job_logo')
-  String jobLogo;
-
-  @JsonKey(name: 'job_location')
-  String jobLocation;
-
-  @JsonKey(name: 'job_name')
-  String jobName;
-
-  @JsonKey(name: 'job_qualifications')
-  String jobQualifications;
-
-  @JsonKey(name: 'job_responsibilities')
-  String jobResponsibilities;
-
-  @JsonKey(name: 'job_salary')
-  String jobSalary;
-
-  @override
-  List<Object> get props => [
-        isContract,
-        isFulltime,
-        isParttime,
-        jobDescription,
-        jobId,
-        jobLogo,
-        jobLocation,
-        jobName,
-        jobQualifications,
-        jobResponsibilities,
-        jobSalary
-      ];
-  Map<String, dynamic> toJson() =>
-      _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetAllClosedShifts$QueryRoot$ClosedShifts$Shift with EquatableMixin {
-  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift();
-
-  factory GetAllClosedShifts$QueryRoot$ClosedShifts$Shift.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftFromJson(json);
-
-  @JsonKey(name: 'shift_date')
-  DateTime shiftDate;
-
-  @JsonKey(name: 'shift_name')
-  String shiftName;
-
-  @JsonKey(name: 'shift_notes')
-  String shiftNotes;
-
-  @JsonKey(name: 'shift_time')
-  String shiftTime;
-
-  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job job;
-
-  @override
-  List<Object> get props => [shiftDate, shiftName, shiftNotes, shiftTime, job];
-  Map<String, dynamic> toJson() =>
-      _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetAllClosedShifts$QueryRoot$ClosedShifts with EquatableMixin {
-  GetAllClosedShifts$QueryRoot$ClosedShifts();
-
-  factory GetAllClosedShifts$QueryRoot$ClosedShifts.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAllClosedShifts$QueryRoot$ClosedShiftsFromJson(json);
-
-  @JsonKey(name: 'closed_shifts_id')
-  int closedShiftsId;
-
-  @JsonKey(name: 'shift_id')
-  int shiftId;
-
-  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift shift;
-
-  @override
-  List<Object> get props => [closedShiftsId, shiftId, shift];
-  Map<String, dynamic> toJson() =>
-      _$GetAllClosedShifts$QueryRoot$ClosedShiftsToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetAllClosedShifts$QueryRoot with EquatableMixin {
-  GetAllClosedShifts$QueryRoot();
-
-  factory GetAllClosedShifts$QueryRoot.fromJson(Map<String, dynamic> json) =>
-      _$GetAllClosedShifts$QueryRootFromJson(json);
-
-  @JsonKey(name: 'closed_shifts')
-  List<GetAllClosedShifts$QueryRoot$ClosedShifts> closedShifts;
-
-  @override
-  List<Object> get props => [closedShifts];
-  Map<String, dynamic> toJson() => _$GetAllClosedShifts$QueryRootToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
 class CreateJobs$MutationRoot$InsertJobs$Returning with EquatableMixin {
   CreateJobs$MutationRoot$InsertJobs$Returning();
 
@@ -1631,148 +1498,6 @@ class CreateJobs$MutationRoot with EquatableMixin {
   @override
   List<Object> get props => [insertJobs];
   Map<String, dynamic> toJson() => _$CreateJobs$MutationRootToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetAllJobs$QueryRoot$Jobs with EquatableMixin {
-  GetAllJobs$QueryRoot$Jobs();
-
-  factory GetAllJobs$QueryRoot$Jobs.fromJson(Map<String, dynamic> json) =>
-      _$GetAllJobs$QueryRoot$JobsFromJson(json);
-
-  @JsonKey(name: 'is_contract')
-  bool isContract;
-
-  @JsonKey(name: 'is_fulltime')
-  bool isFulltime;
-
-  @JsonKey(name: 'is_parttime')
-  bool isParttime;
-
-  @JsonKey(name: 'job_description')
-  String jobDescription;
-
-  @JsonKey(name: 'job_id')
-  int jobId;
-
-  @JsonKey(name: 'job_location')
-  String jobLocation;
-
-  @JsonKey(name: 'job_logo')
-  String jobLogo;
-
-  @JsonKey(name: 'job_name')
-  String jobName;
-
-  @JsonKey(name: 'job_qualifications')
-  String jobQualifications;
-
-  @JsonKey(name: 'job_responsibilities')
-  String jobResponsibilities;
-
-  @JsonKey(name: 'job_salary')
-  String jobSalary;
-
-  @override
-  List<Object> get props => [
-        isContract,
-        isFulltime,
-        isParttime,
-        jobDescription,
-        jobId,
-        jobLocation,
-        jobLogo,
-        jobName,
-        jobQualifications,
-        jobResponsibilities,
-        jobSalary
-      ];
-  Map<String, dynamic> toJson() => _$GetAllJobs$QueryRoot$JobsToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetAllJobs$QueryRoot with EquatableMixin {
-  GetAllJobs$QueryRoot();
-
-  factory GetAllJobs$QueryRoot.fromJson(Map<String, dynamic> json) =>
-      _$GetAllJobs$QueryRootFromJson(json);
-
-  List<GetAllJobs$QueryRoot$Jobs> jobs;
-
-  @override
-  List<Object> get props => [jobs];
-  Map<String, dynamic> toJson() => _$GetAllJobs$QueryRootToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetJobById$QueryRoot$Jobs with EquatableMixin {
-  GetJobById$QueryRoot$Jobs();
-
-  factory GetJobById$QueryRoot$Jobs.fromJson(Map<String, dynamic> json) =>
-      _$GetJobById$QueryRoot$JobsFromJson(json);
-
-  @JsonKey(name: 'is_contract')
-  bool isContract;
-
-  @JsonKey(name: 'is_fulltime')
-  bool isFulltime;
-
-  @JsonKey(name: 'is_parttime')
-  bool isParttime;
-
-  @JsonKey(name: 'job_description')
-  String jobDescription;
-
-  @JsonKey(name: 'job_id')
-  int jobId;
-
-  @JsonKey(name: 'job_location')
-  String jobLocation;
-
-  @JsonKey(name: 'job_logo')
-  String jobLogo;
-
-  @JsonKey(name: 'job_name')
-  String jobName;
-
-  @JsonKey(name: 'job_qualifications')
-  String jobQualifications;
-
-  @JsonKey(name: 'job_responsibilities')
-  String jobResponsibilities;
-
-  @JsonKey(name: 'job_salary')
-  String jobSalary;
-
-  @override
-  List<Object> get props => [
-        isContract,
-        isFulltime,
-        isParttime,
-        jobDescription,
-        jobId,
-        jobLocation,
-        jobLogo,
-        jobName,
-        jobQualifications,
-        jobResponsibilities,
-        jobSalary
-      ];
-  Map<String, dynamic> toJson() => _$GetJobById$QueryRoot$JobsToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetJobById$QueryRoot with EquatableMixin {
-  GetJobById$QueryRoot();
-
-  factory GetJobById$QueryRoot.fromJson(Map<String, dynamic> json) =>
-      _$GetJobById$QueryRootFromJson(json);
-
-  List<GetJobById$QueryRoot$Jobs> jobs;
-
-  @override
-  List<Object> get props => [jobs];
-  Map<String, dynamic> toJson() => _$GetJobById$QueryRootToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -2022,7 +1747,7 @@ class CurrentUser$QueryRoot$Users$Activities with EquatableMixin {
       _$CurrentUser$QueryRoot$Users$ActivitiesFromJson(json);
 
   @JsonKey(name: 'activity_id')
-  int activityId;
+  String activityId;
 
   @JsonKey(name: 'is_accepted')
   bool isAccepted;
@@ -2162,55 +1887,448 @@ class CreateUser$MutationRoot with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateActivityClone$MutationRoot$InsertActivities$Returning
+class DeleteClosedShift$MutationRoot$DeleteClosedShifts with EquatableMixin {
+  DeleteClosedShift$MutationRoot$DeleteClosedShifts();
+
+  factory DeleteClosedShift$MutationRoot$DeleteClosedShifts.fromJson(
+          Map<String, dynamic> json) =>
+      _$DeleteClosedShift$MutationRoot$DeleteClosedShiftsFromJson(json);
+
+  @JsonKey(name: 'affected_rows')
+  int affectedRows;
+
+  @override
+  List<Object> get props => [affectedRows];
+  Map<String, dynamic> toJson() =>
+      _$DeleteClosedShift$MutationRoot$DeleteClosedShiftsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class DeleteClosedShift$MutationRoot with EquatableMixin {
+  DeleteClosedShift$MutationRoot();
+
+  factory DeleteClosedShift$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$DeleteClosedShift$MutationRootFromJson(json);
+
+  @JsonKey(name: 'delete_closed_shifts')
+  DeleteClosedShift$MutationRoot$DeleteClosedShifts deleteClosedShifts;
+
+  @override
+  List<Object> get props => [deleteClosedShifts];
+  Map<String, dynamic> toJson() => _$DeleteClosedShift$MutationRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job with EquatableMixin {
+  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job();
+
+  factory GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobFromJson(json);
+
+  @JsonKey(name: 'is_contract')
+  bool isContract;
+
+  @JsonKey(name: 'is_fulltime')
+  bool isFulltime;
+
+  @JsonKey(name: 'is_parttime')
+  bool isParttime;
+
+  @JsonKey(name: 'job_description')
+  String jobDescription;
+
+  @JsonKey(name: 'job_id')
+  int jobId;
+
+  @JsonKey(name: 'job_logo')
+  String jobLogo;
+
+  @JsonKey(name: 'job_location')
+  String jobLocation;
+
+  @JsonKey(name: 'job_name')
+  String jobName;
+
+  @JsonKey(name: 'job_qualifications')
+  String jobQualifications;
+
+  @JsonKey(name: 'job_responsibilities')
+  String jobResponsibilities;
+
+  @JsonKey(name: 'job_salary')
+  String jobSalary;
+
+  @override
+  List<Object> get props => [
+        isContract,
+        isFulltime,
+        isParttime,
+        jobDescription,
+        jobId,
+        jobLogo,
+        jobLocation,
+        jobName,
+        jobQualifications,
+        jobResponsibilities,
+        jobSalary
+      ];
+  Map<String, dynamic> toJson() =>
+      _$GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$JobToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllClosedShifts$QueryRoot$ClosedShifts$Shift with EquatableMixin {
+  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift();
+
+  factory GetAllClosedShifts$QueryRoot$ClosedShifts$Shift.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftFromJson(json);
+
+  @JsonKey(name: 'shift_date')
+  DateTime shiftDate;
+
+  @JsonKey(name: 'shift_name')
+  String shiftName;
+
+  @JsonKey(name: 'shift_notes')
+  String shiftNotes;
+
+  @JsonKey(name: 'shift_time')
+  String shiftTime;
+
+  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift$Job job;
+
+  @override
+  List<Object> get props => [shiftDate, shiftName, shiftNotes, shiftTime, job];
+  Map<String, dynamic> toJson() =>
+      _$GetAllClosedShifts$QueryRoot$ClosedShifts$ShiftToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllClosedShifts$QueryRoot$ClosedShifts with EquatableMixin {
+  GetAllClosedShifts$QueryRoot$ClosedShifts();
+
+  factory GetAllClosedShifts$QueryRoot$ClosedShifts.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllClosedShifts$QueryRoot$ClosedShiftsFromJson(json);
+
+  @JsonKey(name: 'closed_shifts_id')
+  int closedShiftsId;
+
+  @JsonKey(name: 'shift_id')
+  int shiftId;
+
+  GetAllClosedShifts$QueryRoot$ClosedShifts$Shift shift;
+
+  @override
+  List<Object> get props => [closedShiftsId, shiftId, shift];
+  Map<String, dynamic> toJson() =>
+      _$GetAllClosedShifts$QueryRoot$ClosedShiftsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllClosedShifts$QueryRoot with EquatableMixin {
+  GetAllClosedShifts$QueryRoot();
+
+  factory GetAllClosedShifts$QueryRoot.fromJson(Map<String, dynamic> json) =>
+      _$GetAllClosedShifts$QueryRootFromJson(json);
+
+  @JsonKey(name: 'closed_shifts')
+  List<GetAllClosedShifts$QueryRoot$ClosedShifts> closedShifts;
+
+  @override
+  List<Object> get props => [closedShifts];
+  Map<String, dynamic> toJson() => _$GetAllClosedShifts$QueryRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllJobs$QueryRoot$Jobs with EquatableMixin {
+  GetAllJobs$QueryRoot$Jobs();
+
+  factory GetAllJobs$QueryRoot$Jobs.fromJson(Map<String, dynamic> json) =>
+      _$GetAllJobs$QueryRoot$JobsFromJson(json);
+
+  @JsonKey(name: 'is_contract')
+  bool isContract;
+
+  @JsonKey(name: 'is_fulltime')
+  bool isFulltime;
+
+  @JsonKey(name: 'is_parttime')
+  bool isParttime;
+
+  @JsonKey(name: 'job_description')
+  String jobDescription;
+
+  @JsonKey(name: 'job_id')
+  int jobId;
+
+  @JsonKey(name: 'job_location')
+  String jobLocation;
+
+  @JsonKey(name: 'job_logo')
+  String jobLogo;
+
+  @JsonKey(name: 'job_name')
+  String jobName;
+
+  @JsonKey(name: 'job_qualifications')
+  String jobQualifications;
+
+  @JsonKey(name: 'job_responsibilities')
+  String jobResponsibilities;
+
+  @JsonKey(name: 'job_salary')
+  String jobSalary;
+
+  @override
+  List<Object> get props => [
+        isContract,
+        isFulltime,
+        isParttime,
+        jobDescription,
+        jobId,
+        jobLocation,
+        jobLogo,
+        jobName,
+        jobQualifications,
+        jobResponsibilities,
+        jobSalary
+      ];
+  Map<String, dynamic> toJson() => _$GetAllJobs$QueryRoot$JobsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllJobs$QueryRoot with EquatableMixin {
+  GetAllJobs$QueryRoot();
+
+  factory GetAllJobs$QueryRoot.fromJson(Map<String, dynamic> json) =>
+      _$GetAllJobs$QueryRootFromJson(json);
+
+  List<GetAllJobs$QueryRoot$Jobs> jobs;
+
+  @override
+  List<Object> get props => [jobs];
+  Map<String, dynamic> toJson() => _$GetAllJobs$QueryRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateOpenShift$MutationRoot$InsertOpenShifts$Returning
     with EquatableMixin {
-  CreateActivityClone$MutationRoot$InsertActivities$Returning();
+  CreateOpenShift$MutationRoot$InsertOpenShifts$Returning();
 
-  factory CreateActivityClone$MutationRoot$InsertActivities$Returning.fromJson(
+  factory CreateOpenShift$MutationRoot$InsertOpenShifts$Returning.fromJson(
           Map<String, dynamic> json) =>
-      _$CreateActivityClone$MutationRoot$InsertActivities$ReturningFromJson(
-          json);
+      _$CreateOpenShift$MutationRoot$InsertOpenShifts$ReturningFromJson(json);
 
-  @JsonKey(name: 'activity_id')
-  int activityId;
+  @JsonKey(name: 'open_shifts_id')
+  String openShiftsId;
 
   @override
-  List<Object> get props => [activityId];
+  List<Object> get props => [openShiftsId];
   Map<String, dynamic> toJson() =>
-      _$CreateActivityClone$MutationRoot$InsertActivities$ReturningToJson(this);
+      _$CreateOpenShift$MutationRoot$InsertOpenShifts$ReturningToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateActivityClone$MutationRoot$InsertActivities with EquatableMixin {
-  CreateActivityClone$MutationRoot$InsertActivities();
+class CreateOpenShift$MutationRoot$InsertOpenShifts with EquatableMixin {
+  CreateOpenShift$MutationRoot$InsertOpenShifts();
 
-  factory CreateActivityClone$MutationRoot$InsertActivities.fromJson(
+  factory CreateOpenShift$MutationRoot$InsertOpenShifts.fromJson(
           Map<String, dynamic> json) =>
-      _$CreateActivityClone$MutationRoot$InsertActivitiesFromJson(json);
+      _$CreateOpenShift$MutationRoot$InsertOpenShiftsFromJson(json);
 
-  List<CreateActivityClone$MutationRoot$InsertActivities$Returning> returning;
+  @JsonKey(name: 'affected_rows')
+  int affectedRows;
+
+  List<CreateOpenShift$MutationRoot$InsertOpenShifts$Returning> returning;
 
   @override
-  List<Object> get props => [returning];
+  List<Object> get props => [affectedRows, returning];
   Map<String, dynamic> toJson() =>
-      _$CreateActivityClone$MutationRoot$InsertActivitiesToJson(this);
+      _$CreateOpenShift$MutationRoot$InsertOpenShiftsToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateActivityClone$MutationRoot with EquatableMixin {
-  CreateActivityClone$MutationRoot();
+class CreateOpenShift$MutationRoot with EquatableMixin {
+  CreateOpenShift$MutationRoot();
 
-  factory CreateActivityClone$MutationRoot.fromJson(
-          Map<String, dynamic> json) =>
-      _$CreateActivityClone$MutationRootFromJson(json);
+  factory CreateOpenShift$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$CreateOpenShift$MutationRootFromJson(json);
 
-  @JsonKey(name: 'insert_activities')
-  CreateActivityClone$MutationRoot$InsertActivities insertActivities;
+  @JsonKey(name: 'insert_open_shifts')
+  CreateOpenShift$MutationRoot$InsertOpenShifts insertOpenShifts;
 
   @override
-  List<Object> get props => [insertActivities];
+  List<Object> get props => [insertOpenShifts];
+  Map<String, dynamic> toJson() => _$CreateOpenShift$MutationRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job
+    with EquatableMixin {
+  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job();
+
+  factory GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobFromJson(json);
+
+  @JsonKey(name: 'is_contract')
+  bool isContract;
+
+  @JsonKey(name: 'is_fulltime')
+  bool isFulltime;
+
+  @JsonKey(name: 'is_parttime')
+  bool isParttime;
+
+  @JsonKey(name: 'job_description')
+  String jobDescription;
+
+  @JsonKey(name: 'job_id')
+  int jobId;
+
+  @JsonKey(name: 'job_location')
+  String jobLocation;
+
+  @JsonKey(name: 'job_logo')
+  String jobLogo;
+
+  @JsonKey(name: 'job_name')
+  String jobName;
+
+  @JsonKey(name: 'job_qualifications')
+  String jobQualifications;
+
+  @JsonKey(name: 'job_responsibilities')
+  String jobResponsibilities;
+
+  @JsonKey(name: 'job_salary')
+  String jobSalary;
+
+  @override
+  List<Object> get props => [
+        isContract,
+        isFulltime,
+        isParttime,
+        jobDescription,
+        jobId,
+        jobLocation,
+        jobLogo,
+        jobName,
+        jobQualifications,
+        jobResponsibilities,
+        jobSalary
+      ];
   Map<String, dynamic> toJson() =>
-      _$CreateActivityClone$MutationRootToJson(this);
+      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift with EquatableMixin {
+  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift();
+
+  factory GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftFromJson(json);
+
+  @JsonKey(name: 'shift_time')
+  String shiftTime;
+
+  @JsonKey(name: 'shift_notes')
+  String shiftNotes;
+
+  @JsonKey(name: 'shift_name')
+  String shiftName;
+
+  @JsonKey(name: 'shift_id')
+  int shiftId;
+
+  @JsonKey(name: 'shift_date')
+  DateTime shiftDate;
+
+  @JsonKey(name: 'job_id')
+  int jobId;
+
+  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job job;
+
+  @override
+  List<Object> get props =>
+      [shiftTime, shiftNotes, shiftName, shiftId, shiftDate, jobId, job];
+  Map<String, dynamic> toJson() =>
+      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllOpenShifts$SubscriptionRoot$OpenShifts with EquatableMixin {
+  GetAllOpenShifts$SubscriptionRoot$OpenShifts();
+
+  factory GetAllOpenShifts$SubscriptionRoot$OpenShifts.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsFromJson(json);
+
+  @JsonKey(name: 'shift_id')
+  int shiftId;
+
+  @JsonKey(name: 'open_shifts_id')
+  String openShiftsId;
+
+  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift shift;
+
+  @override
+  List<Object> get props => [shiftId, openShiftsId, shift];
+  Map<String, dynamic> toJson() =>
+      _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllOpenShifts$SubscriptionRoot with EquatableMixin {
+  GetAllOpenShifts$SubscriptionRoot();
+
+  factory GetAllOpenShifts$SubscriptionRoot.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllOpenShifts$SubscriptionRootFromJson(json);
+
+  @JsonKey(name: 'open_shifts')
+  List<GetAllOpenShifts$SubscriptionRoot$OpenShifts> openShifts;
+
+  @override
+  List<Object> get props => [openShifts];
+  Map<String, dynamic> toJson() =>
+      _$GetAllOpenShifts$SubscriptionRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class DeleteOpenShift$MutationRoot$DeleteOpenShifts with EquatableMixin {
+  DeleteOpenShift$MutationRoot$DeleteOpenShifts();
+
+  factory DeleteOpenShift$MutationRoot$DeleteOpenShifts.fromJson(
+          Map<String, dynamic> json) =>
+      _$DeleteOpenShift$MutationRoot$DeleteOpenShiftsFromJson(json);
+
+  @JsonKey(name: 'affected_rows')
+  int affectedRows;
+
+  @override
+  List<Object> get props => [affectedRows];
+  Map<String, dynamic> toJson() =>
+      _$DeleteOpenShift$MutationRoot$DeleteOpenShiftsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class DeleteOpenShift$MutationRoot with EquatableMixin {
+  DeleteOpenShift$MutationRoot();
+
+  factory DeleteOpenShift$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$DeleteOpenShift$MutationRootFromJson(json);
+
+  @JsonKey(name: 'delete_open_shifts')
+  DeleteOpenShift$MutationRoot$DeleteOpenShifts deleteOpenShifts;
+
+  @override
+  List<Object> get props => [deleteOpenShifts];
+  Map<String, dynamic> toJson() => _$DeleteOpenShift$MutationRootToJson(this);
 }
 
 enum ActivitiesConstraint {
@@ -2318,8 +2436,6 @@ enum OpenShiftsConstraint {
   artemisUnknown,
 }
 enum OpenShiftsUpdateColumn {
-  @JsonValue('is_urgent')
-  isUrgent,
   @JsonValue('open_shifts_id')
   openShiftsId,
   @JsonValue('shift_id')
@@ -2392,7 +2508,7 @@ class CreateActivityArguments extends JsonSerializable with EquatableMixin {
   factory CreateActivityArguments.fromJson(Map<String, dynamic> json) =>
       _$CreateActivityArgumentsFromJson(json);
 
-  final int activityId;
+  final String activityId;
 
   final int shiftId;
 
@@ -2418,8 +2534,8 @@ class CreateActivityMutation
         variableDefinitions: [
           VariableDefinitionNode(
               variable: VariableNode(name: NameNode(value: 'activityId')),
-              type:
-                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: true),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
               defaultValue: DefaultValueNode(value: null),
               directives: []),
           VariableDefinitionNode(
@@ -2689,154 +2805,6 @@ class CreateClosedShiftMutation extends GraphQLQuery<
       CreateClosedShift$MutationRoot.fromJson(json);
 }
 
-class GetAllClosedShiftsQuery
-    extends GraphQLQuery<GetAllClosedShifts$QueryRoot, JsonSerializable> {
-  GetAllClosedShiftsQuery();
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'GetAllClosedShifts'),
-        variableDefinitions: [],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'closed_shifts'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'closed_shifts_id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'shift_id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'shift'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'shift_date'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'shift_name'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'shift_notes'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'shift_time'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'job'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: SelectionSetNode(selections: [
-                            FieldNode(
-                                name: NameNode(value: 'is_contract'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'is_fulltime'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'is_parttime'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_description'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_id'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_logo'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_location'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_name'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_qualifications'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_responsibilities'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null),
-                            FieldNode(
-                                name: NameNode(value: 'job_salary'),
-                                alias: null,
-                                arguments: [],
-                                directives: [],
-                                selectionSet: null)
-                          ]))
-                    ]))
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'GetAllClosedShifts';
-
-  @override
-  List<Object> get props => [document, operationName];
-  @override
-  GetAllClosedShifts$QueryRoot parse(Map<String, dynamic> json) =>
-      GetAllClosedShifts$QueryRoot.fromJson(json);
-}
-
 @JsonSerializable(explicitToJson: true)
 class CreateJobsArguments extends JsonSerializable with EquatableMixin {
   CreateJobsArguments({@required this.input});
@@ -2911,241 +2879,6 @@ class CreateJobsMutation
   @override
   CreateJobs$MutationRoot parse(Map<String, dynamic> json) =>
       CreateJobs$MutationRoot.fromJson(json);
-}
-
-class GetAllJobsQuery
-    extends GraphQLQuery<GetAllJobs$QueryRoot, JsonSerializable> {
-  GetAllJobsQuery();
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'GetAllJobs'),
-        variableDefinitions: [],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'jobs'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'is_contract'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'is_fulltime'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'is_parttime'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_description'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_location'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_logo'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_qualifications'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_responsibilities'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_salary'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null)
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'GetAllJobs';
-
-  @override
-  List<Object> get props => [document, operationName];
-  @override
-  GetAllJobs$QueryRoot parse(Map<String, dynamic> json) =>
-      GetAllJobs$QueryRoot.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class GetJobByIdArguments extends JsonSerializable with EquatableMixin {
-  GetJobByIdArguments({@required this.id});
-
-  @override
-  factory GetJobByIdArguments.fromJson(Map<String, dynamic> json) =>
-      _$GetJobByIdArgumentsFromJson(json);
-
-  final int id;
-
-  @override
-  List<Object> get props => [id];
-  @override
-  Map<String, dynamic> toJson() => _$GetJobByIdArgumentsToJson(this);
-}
-
-class GetJobByIdQuery
-    extends GraphQLQuery<GetJobById$QueryRoot, GetJobByIdArguments> {
-  GetJobByIdQuery({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.query,
-        name: NameNode(value: 'GetJobById'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'id')),
-              type:
-                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'jobs'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'where'),
-                    value: ObjectValueNode(fields: [
-                      ObjectFieldNode(
-                          name: NameNode(value: 'job_id'),
-                          value: ObjectValueNode(fields: [
-                            ObjectFieldNode(
-                                name: NameNode(value: '_eq'),
-                                value:
-                                    VariableNode(name: NameNode(value: 'id')))
-                          ]))
-                    ]))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'is_contract'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'is_fulltime'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'is_parttime'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_description'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_id'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_location'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_logo'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_name'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_qualifications'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_responsibilities'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null),
-                FieldNode(
-                    name: NameNode(value: 'job_salary'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: null)
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'GetJobById';
-
-  @override
-  final GetJobByIdArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  GetJobById$QueryRoot parse(Map<String, dynamic> json) =>
-      GetJobById$QueryRoot.fromJson(json);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -3682,53 +3415,395 @@ class CreateUserMutation
 }
 
 @JsonSerializable(explicitToJson: true)
-class CreateActivityCloneArguments extends JsonSerializable
-    with EquatableMixin {
-  CreateActivityCloneArguments({@required this.input});
+class DeleteClosedShiftArguments extends JsonSerializable with EquatableMixin {
+  DeleteClosedShiftArguments({this.id});
 
   @override
-  factory CreateActivityCloneArguments.fromJson(Map<String, dynamic> json) =>
-      _$CreateActivityCloneArgumentsFromJson(json);
+  factory DeleteClosedShiftArguments.fromJson(Map<String, dynamic> json) =>
+      _$DeleteClosedShiftArgumentsFromJson(json);
 
-  final ActivitiesInsertInput input;
+  final int id;
 
   @override
-  List<Object> get props => [input];
+  List<Object> get props => [id];
   @override
-  Map<String, dynamic> toJson() => _$CreateActivityCloneArgumentsToJson(this);
+  Map<String, dynamic> toJson() => _$DeleteClosedShiftArgumentsToJson(this);
 }
 
-class CreateActivityCloneMutation extends GraphQLQuery<
-    CreateActivityClone$MutationRoot, CreateActivityCloneArguments> {
-  CreateActivityCloneMutation({this.variables});
+class DeleteClosedShiftMutation extends GraphQLQuery<
+    DeleteClosedShift$MutationRoot, DeleteClosedShiftArguments> {
+  DeleteClosedShiftMutation({this.variables});
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
         type: OperationType.mutation,
-        name: NameNode(value: 'CreateActivityClone'),
+        name: NameNode(value: 'DeleteClosedShift'),
         variableDefinitions: [
           VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'input')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'activities_insert_input'),
-                  isNonNull: true),
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type:
+                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: false),
               defaultValue: DefaultValueNode(value: null),
               directives: [])
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
           FieldNode(
-              name: NameNode(value: 'insert_activities'),
+              name: NameNode(value: 'delete_closed_shifts'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'where'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'closed_shifts_id'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: '_eq'),
+                                value:
+                                    VariableNode(name: NameNode(value: 'id')))
+                          ]))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'affected_rows'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'DeleteClosedShift';
+
+  @override
+  final DeleteClosedShiftArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  DeleteClosedShift$MutationRoot parse(Map<String, dynamic> json) =>
+      DeleteClosedShift$MutationRoot.fromJson(json);
+}
+
+class GetAllClosedShiftsQuery
+    extends GraphQLQuery<GetAllClosedShifts$QueryRoot, JsonSerializable> {
+  GetAllClosedShiftsQuery();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'GetAllClosedShifts'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'closed_shifts'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'closed_shifts_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'shift_date'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_notes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_time'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'job'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'is_contract'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'is_fulltime'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'is_parttime'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_description'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_logo'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_location'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_qualifications'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_responsibilities'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_salary'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GetAllClosedShifts';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  GetAllClosedShifts$QueryRoot parse(Map<String, dynamic> json) =>
+      GetAllClosedShifts$QueryRoot.fromJson(json);
+}
+
+class GetAllJobsQuery
+    extends GraphQLQuery<GetAllJobs$QueryRoot, JsonSerializable> {
+  GetAllJobsQuery();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'GetAllJobs'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'jobs'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'is_contract'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'is_fulltime'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'is_parttime'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_description'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_location'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_logo'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_qualifications'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_responsibilities'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'job_salary'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GetAllJobs';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  GetAllJobs$QueryRoot parse(Map<String, dynamic> json) =>
+      GetAllJobs$QueryRoot.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateOpenShiftArguments extends JsonSerializable with EquatableMixin {
+  CreateOpenShiftArguments({@required this.openShiftId, this.shiftId});
+
+  @override
+  factory CreateOpenShiftArguments.fromJson(Map<String, dynamic> json) =>
+      _$CreateOpenShiftArgumentsFromJson(json);
+
+  final String openShiftId;
+
+  final int shiftId;
+
+  @override
+  List<Object> get props => [openShiftId, shiftId];
+  @override
+  Map<String, dynamic> toJson() => _$CreateOpenShiftArgumentsToJson(this);
+}
+
+class CreateOpenShiftMutation extends GraphQLQuery<CreateOpenShift$MutationRoot,
+    CreateOpenShiftArguments> {
+  CreateOpenShiftMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'CreateOpenShift'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'openShiftId')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'shiftId')),
+              type:
+                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'insert_open_shifts'),
               alias: null,
               arguments: [
                 ArgumentNode(
                     name: NameNode(value: 'objects'),
-                    value: ListValueNode(
-                        values: [VariableNode(name: NameNode(value: 'input'))]))
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'open_shifts_id'),
+                          value: VariableNode(
+                              name: NameNode(value: 'openShiftId'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'shift_id'),
+                          value: VariableNode(name: NameNode(value: 'shiftId')))
+                    ]))
               ],
               directives: [],
               selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'affected_rows'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'returning'),
                     alias: null,
@@ -3736,7 +3811,7 @@ class CreateActivityCloneMutation extends GraphQLQuery<
                     directives: [],
                     selectionSet: SelectionSetNode(selections: [
                       FieldNode(
-                          name: NameNode(value: 'activity_id'),
+                          name: NameNode(value: 'open_shifts_id'),
                           alias: null,
                           arguments: [],
                           directives: [],
@@ -3747,14 +3822,251 @@ class CreateActivityCloneMutation extends GraphQLQuery<
   ]);
 
   @override
-  final String operationName = 'CreateActivityClone';
+  final String operationName = 'CreateOpenShift';
 
   @override
-  final CreateActivityCloneArguments variables;
+  final CreateOpenShiftArguments variables;
 
   @override
   List<Object> get props => [document, operationName, variables];
   @override
-  CreateActivityClone$MutationRoot parse(Map<String, dynamic> json) =>
-      CreateActivityClone$MutationRoot.fromJson(json);
+  CreateOpenShift$MutationRoot parse(Map<String, dynamic> json) =>
+      CreateOpenShift$MutationRoot.fromJson(json);
+}
+
+class GetAllOpenShiftsSubscription
+    extends GraphQLQuery<GetAllOpenShifts$SubscriptionRoot, JsonSerializable> {
+  GetAllOpenShiftsSubscription();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.subscription,
+        name: NameNode(value: 'GetAllOpenShifts'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'open_shifts'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'shift_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'open_shifts_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'shift_time'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_notes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_id'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_date'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'job_id'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'job'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: SelectionSetNode(selections: [
+                            FieldNode(
+                                name: NameNode(value: 'is_contract'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'is_fulltime'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'is_parttime'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_description'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_id'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_location'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_logo'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_name'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_qualifications'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_responsibilities'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null),
+                            FieldNode(
+                                name: NameNode(value: 'job_salary'),
+                                alias: null,
+                                arguments: [],
+                                directives: [],
+                                selectionSet: null)
+                          ]))
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GetAllOpenShifts';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  GetAllOpenShifts$SubscriptionRoot parse(Map<String, dynamic> json) =>
+      GetAllOpenShifts$SubscriptionRoot.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class DeleteOpenShiftArguments extends JsonSerializable with EquatableMixin {
+  DeleteOpenShiftArguments({this.id});
+
+  @override
+  factory DeleteOpenShiftArguments.fromJson(Map<String, dynamic> json) =>
+      _$DeleteOpenShiftArgumentsFromJson(json);
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+  @override
+  Map<String, dynamic> toJson() => _$DeleteOpenShiftArgumentsToJson(this);
+}
+
+class DeleteOpenShiftMutation extends GraphQLQuery<DeleteOpenShift$MutationRoot,
+    DeleteOpenShiftArguments> {
+  DeleteOpenShiftMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'DeleteOpenShift'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'delete_open_shifts'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'where'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'open_shifts_id'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: '_eq'),
+                                value:
+                                    VariableNode(name: NameNode(value: 'id')))
+                          ]))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'affected_rows'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null)
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'DeleteOpenShift';
+
+  @override
+  final DeleteOpenShiftArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  DeleteOpenShift$MutationRoot parse(Map<String, dynamic> json) =>
+      DeleteOpenShift$MutationRoot.fromJson(json);
 }

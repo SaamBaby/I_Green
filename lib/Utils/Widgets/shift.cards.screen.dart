@@ -157,7 +157,7 @@ class ClosedShiftCard extends StatelessWidget {
     // final jobData = Provider.of<JobModel>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Routes.jobDetails,arguments: jobId);
+        Navigator.of(context).pushNamed(Routes.jobDetails,arguments: closedShiftId);
       },
       child: Container(
         margin:EdgeInsets.only(top: 20),

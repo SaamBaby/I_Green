@@ -1,0 +1,27 @@
+subscription GetAllOpenShifts {
+    open_shifts {
+        shift_id
+        open_shifts_id
+        shift {
+            shift_time
+            shift_notes
+            shift_name
+            shift_id
+            shift_date
+            job_id
+            job {
+                is_contract
+                is_fulltime
+                is_parttime
+                job_description
+                job_id
+                job_location
+                job_logo
+                job_name
+                job_qualifications
+                job_responsibilities
+                job_salary
+            }
+        }
+    }
+}
