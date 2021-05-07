@@ -1961,10 +1961,10 @@ Map<String, dynamic> _$CreateOpenShift$MutationRootToJson(
       'insert_open_shifts': instance.insertOpenShifts?.toJson(),
     };
 
-GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job
-    _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobFromJson(
+GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job
+    _$GetAllOpenShifts$QueryRoot$OpenShifts$Shift$JobFromJson(
         Map<String, dynamic> json) {
-  return GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job()
+  return GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job()
     ..isContract = json['is_contract'] as bool
     ..isFulltime = json['is_fulltime'] as bool
     ..isParttime = json['is_parttime'] as bool
@@ -1978,27 +1978,26 @@ GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job
     ..jobSalary = json['job_salary'] as String;
 }
 
-Map<String, dynamic>
-    _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobToJson(
-            GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job instance) =>
-        <String, dynamic>{
-          'is_contract': instance.isContract,
-          'is_fulltime': instance.isFulltime,
-          'is_parttime': instance.isParttime,
-          'job_description': instance.jobDescription,
-          'job_id': instance.jobId,
-          'job_location': instance.jobLocation,
-          'job_logo': instance.jobLogo,
-          'job_name': instance.jobName,
-          'job_qualifications': instance.jobQualifications,
-          'job_responsibilities': instance.jobResponsibilities,
-          'job_salary': instance.jobSalary,
-        };
+Map<String, dynamic> _$GetAllOpenShifts$QueryRoot$OpenShifts$Shift$JobToJson(
+        GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job instance) =>
+    <String, dynamic>{
+      'is_contract': instance.isContract,
+      'is_fulltime': instance.isFulltime,
+      'is_parttime': instance.isParttime,
+      'job_description': instance.jobDescription,
+      'job_id': instance.jobId,
+      'job_location': instance.jobLocation,
+      'job_logo': instance.jobLogo,
+      'job_name': instance.jobName,
+      'job_qualifications': instance.jobQualifications,
+      'job_responsibilities': instance.jobResponsibilities,
+      'job_salary': instance.jobSalary,
+    };
 
-GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift
-    _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftFromJson(
+GetAllOpenShifts$QueryRoot$OpenShifts$Shift
+    _$GetAllOpenShifts$QueryRoot$OpenShifts$ShiftFromJson(
         Map<String, dynamic> json) {
-  return GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift()
+  return GetAllOpenShifts$QueryRoot$OpenShifts$Shift()
     ..shiftTime = json['shift_time'] as String
     ..shiftNotes = json['shift_notes'] as String
     ..shiftName = json['shift_name'] as String
@@ -2009,12 +2008,12 @@ GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift
     ..jobId = json['job_id'] as int
     ..job = json['job'] == null
         ? null
-        : GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job.fromJson(
+        : GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job.fromJson(
             json['job'] as Map<String, dynamic>);
 }
 
-Map<String, dynamic> _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftToJson(
-        GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift instance) =>
+Map<String, dynamic> _$GetAllOpenShifts$QueryRoot$OpenShifts$ShiftToJson(
+        GetAllOpenShifts$QueryRoot$OpenShifts$Shift instance) =>
     <String, dynamic>{
       'shift_time': instance.shiftTime,
       'shift_notes': instance.shiftNotes,
@@ -2025,39 +2024,38 @@ Map<String, dynamic> _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftToJson(
       'job': instance.job?.toJson(),
     };
 
-GetAllOpenShifts$SubscriptionRoot$OpenShifts
-    _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsFromJson(
-        Map<String, dynamic> json) {
-  return GetAllOpenShifts$SubscriptionRoot$OpenShifts()
+GetAllOpenShifts$QueryRoot$OpenShifts
+    _$GetAllOpenShifts$QueryRoot$OpenShiftsFromJson(Map<String, dynamic> json) {
+  return GetAllOpenShifts$QueryRoot$OpenShifts()
     ..shiftId = json['shift_id'] as int
     ..openShiftsId = json['open_shifts_id'] as String
     ..shift = json['shift'] == null
         ? null
-        : GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift.fromJson(
+        : GetAllOpenShifts$QueryRoot$OpenShifts$Shift.fromJson(
             json['shift'] as Map<String, dynamic>);
 }
 
-Map<String, dynamic> _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsToJson(
-        GetAllOpenShifts$SubscriptionRoot$OpenShifts instance) =>
+Map<String, dynamic> _$GetAllOpenShifts$QueryRoot$OpenShiftsToJson(
+        GetAllOpenShifts$QueryRoot$OpenShifts instance) =>
     <String, dynamic>{
       'shift_id': instance.shiftId,
       'open_shifts_id': instance.openShiftsId,
       'shift': instance.shift?.toJson(),
     };
 
-GetAllOpenShifts$SubscriptionRoot _$GetAllOpenShifts$SubscriptionRootFromJson(
+GetAllOpenShifts$QueryRoot _$GetAllOpenShifts$QueryRootFromJson(
     Map<String, dynamic> json) {
-  return GetAllOpenShifts$SubscriptionRoot()
+  return GetAllOpenShifts$QueryRoot()
     ..openShifts = (json['open_shifts'] as List)
         ?.map((e) => e == null
             ? null
-            : GetAllOpenShifts$SubscriptionRoot$OpenShifts.fromJson(
+            : GetAllOpenShifts$QueryRoot$OpenShifts.fromJson(
                 e as Map<String, dynamic>))
         ?.toList();
 }
 
-Map<String, dynamic> _$GetAllOpenShifts$SubscriptionRootToJson(
-        GetAllOpenShifts$SubscriptionRoot instance) =>
+Map<String, dynamic> _$GetAllOpenShifts$QueryRootToJson(
+        GetAllOpenShifts$QueryRoot instance) =>
     <String, dynamic>{
       'open_shifts': instance.openShifts?.map((e) => e?.toJson())?.toList(),
     };

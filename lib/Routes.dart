@@ -9,7 +9,7 @@ import 'Pages/auth/login.screen.dart';
 import 'Pages/auth/opt.verification.screen.dart';
 import 'Pages/auth/signUp.profie.screen.dart';
 import 'Pages/auth/signup.screen.dart';
-import 'Pages/home/home.job.details.dart';
+import 'Pages/home/home.cloesed.job.details.dart';
 import 'Pages/introduction/notConnected.screen.dart';
 import 'Pages/introduction/onBoard.screen.dart';
 import 'Pages/introduction/splash.screen.dart';

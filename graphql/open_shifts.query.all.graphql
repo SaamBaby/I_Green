@@ -1,4 +1,4 @@
-subscription GetAllOpenShifts {
+query GetAllOpenShifts {
     open_shifts {
         shift_id
         open_shifts_id

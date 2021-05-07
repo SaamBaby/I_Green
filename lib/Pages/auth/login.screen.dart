@@ -1,7 +1,5 @@
 import 'package:Quete/Utils/sizeConfiguration.dart';
-import 'package:Quete/models/User.dart';
 import 'package:Quete/providers/auth_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';

@@ -27,7 +27,7 @@ import 'package:path_provider/path_provider.dart';
 
 
 final _userService= UserService();
-final _discoveryService= DiscoveryService()..getShifts();
+final _discoveryService = DiscoveryService()..getShifts();
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarBrightness: Brightness.dark, statusBarColor: Colors.white));
@@ -49,8 +49,8 @@ void main() async {
           create: (context) => AuthProvider.initialize()),
         ChangeNotifierProvider.value(
           value:  _userService),
-          ChangeNotifierProvider.value(
-          value: _discoveryService),
+          // ChangeNotifierProvider.value(
+          //     value: _discoveryService),
 
       ChangeNotifierProxyProvider<AuthProvider,Jobs>(
         update: (context,auth,previousState) => Jobs(auth.idToken,previousState==null?{}:previousState.items),

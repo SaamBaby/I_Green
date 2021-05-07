@@ -2166,13 +2166,12 @@ class CreateOpenShift$MutationRoot with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job
-    with EquatableMixin {
-  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job();
+class GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job with EquatableMixin {
+  GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job();
 
-  factory GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job.fromJson(
+  factory GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job.fromJson(
           Map<String, dynamic> json) =>
-      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobFromJson(json);
+      _$GetAllOpenShifts$QueryRoot$OpenShifts$Shift$JobFromJson(json);
 
   @JsonKey(name: 'is_contract')
   bool isContract;
@@ -2222,16 +2221,16 @@ class GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job
         jobSalary
       ];
   Map<String, dynamic> toJson() =>
-      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$JobToJson(this);
+      _$GetAllOpenShifts$QueryRoot$OpenShifts$Shift$JobToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift with EquatableMixin {
-  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift();
+class GetAllOpenShifts$QueryRoot$OpenShifts$Shift with EquatableMixin {
+  GetAllOpenShifts$QueryRoot$OpenShifts$Shift();
 
-  factory GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift.fromJson(
+  factory GetAllOpenShifts$QueryRoot$OpenShifts$Shift.fromJson(
           Map<String, dynamic> json) =>
-      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftFromJson(json);
+      _$GetAllOpenShifts$QueryRoot$OpenShifts$ShiftFromJson(json);
 
   @JsonKey(name: 'shift_time')
   String shiftTime;
@@ -2251,22 +2250,22 @@ class GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift with EquatableMixin {
   @JsonKey(name: 'job_id')
   int jobId;
 
-  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift$Job job;
+  GetAllOpenShifts$QueryRoot$OpenShifts$Shift$Job job;
 
   @override
   List<Object> get props =>
       [shiftTime, shiftNotes, shiftName, shiftId, shiftDate, jobId, job];
   Map<String, dynamic> toJson() =>
-      _$GetAllOpenShifts$SubscriptionRoot$OpenShifts$ShiftToJson(this);
+      _$GetAllOpenShifts$QueryRoot$OpenShifts$ShiftToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAllOpenShifts$SubscriptionRoot$OpenShifts with EquatableMixin {
-  GetAllOpenShifts$SubscriptionRoot$OpenShifts();
+class GetAllOpenShifts$QueryRoot$OpenShifts with EquatableMixin {
+  GetAllOpenShifts$QueryRoot$OpenShifts();
 
-  factory GetAllOpenShifts$SubscriptionRoot$OpenShifts.fromJson(
+  factory GetAllOpenShifts$QueryRoot$OpenShifts.fromJson(
           Map<String, dynamic> json) =>
-      _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsFromJson(json);
+      _$GetAllOpenShifts$QueryRoot$OpenShiftsFromJson(json);
 
   @JsonKey(name: 'shift_id')
   int shiftId;
@@ -2274,29 +2273,27 @@ class GetAllOpenShifts$SubscriptionRoot$OpenShifts with EquatableMixin {
   @JsonKey(name: 'open_shifts_id')
   String openShiftsId;
 
-  GetAllOpenShifts$SubscriptionRoot$OpenShifts$Shift shift;
+  GetAllOpenShifts$QueryRoot$OpenShifts$Shift shift;
 
   @override
   List<Object> get props => [shiftId, openShiftsId, shift];
   Map<String, dynamic> toJson() =>
-      _$GetAllOpenShifts$SubscriptionRoot$OpenShiftsToJson(this);
+      _$GetAllOpenShifts$QueryRoot$OpenShiftsToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAllOpenShifts$SubscriptionRoot with EquatableMixin {
-  GetAllOpenShifts$SubscriptionRoot();
+class GetAllOpenShifts$QueryRoot with EquatableMixin {
+  GetAllOpenShifts$QueryRoot();
 
-  factory GetAllOpenShifts$SubscriptionRoot.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAllOpenShifts$SubscriptionRootFromJson(json);
+  factory GetAllOpenShifts$QueryRoot.fromJson(Map<String, dynamic> json) =>
+      _$GetAllOpenShifts$QueryRootFromJson(json);
 
   @JsonKey(name: 'open_shifts')
-  List<GetAllOpenShifts$SubscriptionRoot$OpenShifts> openShifts;
+  List<GetAllOpenShifts$QueryRoot$OpenShifts> openShifts;
 
   @override
   List<Object> get props => [openShifts];
-  Map<String, dynamic> toJson() =>
-      _$GetAllOpenShifts$SubscriptionRootToJson(this);
+  Map<String, dynamic> toJson() => _$GetAllOpenShifts$QueryRootToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -3834,14 +3831,14 @@ class CreateOpenShiftMutation extends GraphQLQuery<CreateOpenShift$MutationRoot,
       CreateOpenShift$MutationRoot.fromJson(json);
 }
 
-class GetAllOpenShiftsSubscription
-    extends GraphQLQuery<GetAllOpenShifts$SubscriptionRoot, JsonSerializable> {
-  GetAllOpenShiftsSubscription();
+class GetAllOpenShiftsQuery
+    extends GraphQLQuery<GetAllOpenShifts$QueryRoot, JsonSerializable> {
+  GetAllOpenShiftsQuery();
 
   @override
   final DocumentNode document = DocumentNode(definitions: [
     OperationDefinitionNode(
-        type: OperationType.subscription,
+        type: OperationType.query,
         name: NameNode(value: 'GetAllOpenShifts'),
         variableDefinitions: [],
         directives: [],
@@ -3990,8 +3987,8 @@ class GetAllOpenShiftsSubscription
   @override
   List<Object> get props => [document, operationName];
   @override
-  GetAllOpenShifts$SubscriptionRoot parse(Map<String, dynamic> json) =>
-      GetAllOpenShifts$SubscriptionRoot.fromJson(json);
+  GetAllOpenShifts$QueryRoot parse(Map<String, dynamic> json) =>
+      GetAllOpenShifts$QueryRoot.fromJson(json);
 }
 
 @JsonSerializable(explicitToJson: true)

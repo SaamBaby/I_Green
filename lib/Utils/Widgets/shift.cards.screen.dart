@@ -1,4 +1,5 @@
 import 'package:Quete/models/Job.dart';
+import 'package:Quete/services/graphql/discovery.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,28 +7,30 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import '../../Pages/home/home.job.details.dart';
+import '../../Pages/home/home.cloesed.job.details.dart';
 import '../../Routes.dart';
 
 class OpenShiftCard extends StatelessWidget {
-  final String jobLogo;
-  final double salary;
-  final String jobId;
-  final String jobName;
-  final String jobLocation;
-  final bool isPartTime;
-  final bool isFullTime;
-  final bool isContract;
+  final String openShiftId;
+  final int jobId;
+  final String shiftName;
+  final String shiftTime;
+  final String shiftLocation;
+  final DateTime shiftDate;
+  final String salary;
 
-  const OpenShiftCard(
-      {Key key,
-      this.jobLogo,
-      this.salary,
-      this.jobName,
-      this.jobLocation,
-      this.isPartTime,
-      this.isFullTime,
-      this.isContract,  this.jobId});
+  const OpenShiftCard({Key key,
+    this.openShiftId,
+    this.jobId,
+    this.shiftName,
+    this.shiftTime,
+    this.shiftLocation,
+    this.shiftDate,
+    this.salary}) : super(key: key);
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +45,8 @@ class OpenShiftCard extends StatelessWidget {
             (20),horizontal: ScreenUtil().setWidth(20)),
           margin: EdgeInsets.only(right: 10),
           width: 300,
-
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(10),
               color: Color(0xff000000).withOpacity(.8)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -57,13 +59,13 @@ class OpenShiftCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        '${(DateFormat('E').format(DateTime.now()))}'[
+                        '${(DateFormat('E').format(shiftDate))}'[
                         0],
                         style:  Theme.of(context).textTheme.headline2
                       ),
                       SizedBox(width: 5,),
                       Text(
-                        "${DateTime.now().day} th",
+                        "${shiftDate.day} th",
                         style: Theme.of(context).textTheme.subtitle1
                       )
                     ],
@@ -72,15 +74,16 @@ class OpenShiftCard extends StatelessWidget {
                     text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                              text: salary.toString(),
+                              text: "\$CA ",
                               style:
                               Theme.of(context).textTheme.subtitle1
                           ),
                           TextSpan(
-                              text: ' CAD/ hr',
+                              text:salary,
                               style:
                               Theme.of(context).textTheme.subtitle1
-                          )
+                          ),
+
                         ]),
                   ),
 
@@ -90,14 +93,14 @@ class OpenShiftCard extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                jobName,
+                shiftName,
                 style: Theme.of(context).textTheme.headline3),
               SizedBox(
-                height: 3,
+                height: 2,
               ),
               RichText(
                 text: TextSpan(
-                    text: jobLocation.replaceAll(',', ' .').split(".").first,
+                    text: shiftLocation.replaceAll(',', ' .').split(".").first,
                     style: Theme.of(context).textTheme.subtitle1,
                     children: <TextSpan>[
                       TextSpan(
@@ -106,7 +109,7 @@ class OpenShiftCard extends StatelessWidget {
                           Theme.of(context).textTheme.subtitle1,
                          ),
                       TextSpan(
-                        text: jobLocation.replaceAll(',', ' .').split(".").last,
+                        text:  shiftLocation.replaceAll(',', ' .').split(".").last,
                         style: Theme.of(context).textTheme.subtitle1
 
                       )
@@ -114,20 +117,20 @@ class OpenShiftCard extends StatelessWidget {
                     ]),
               ),
               SizedBox(
-                height: 12,
+                height: 30,
               ),
               Row(
                 children: [
 
                   Text(
-                    '${(DateFormat(' MMMM . yyyy').format(DateTime.now()))}',
+                    '${(DateFormat(' MMMM . yyyy').format(shiftDate))}',
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
-                    '${(DateFormat('h:mm a').format(DateTime.now()))}',
+                    shiftTime,
                     style:Theme.of(context).textTheme.subtitle1,
                   ),
 
@@ -154,10 +157,16 @@ class ClosedShiftCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final jobData = Provider.of<JobModel>(context);
+    final _feed = Provider.of<DiscoveryService>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Routes.jobDetails,arguments: closedShiftId);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider.value(
+            value: _feed,
+            child: JobDetails(closedShiftId: closedShiftId,),
+          ),)
+        );
+        // Navigator.of(context).pushNamed(Routes.jobDetails,arguments: closedShiftId);
       },
       child: Container(
         margin:EdgeInsets.only(top: 20),
@@ -205,7 +214,7 @@ class ClosedShiftCard extends StatelessWidget {
                   ),
 
                   Expanded (
-                    flex: 4,
+                    flex: 3,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,

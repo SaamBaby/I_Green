@@ -20,15 +20,17 @@ class JobDetails extends StatefulWidget {
   _JobDetailsState createState() => _JobDetailsState();
 }
 
-enum cState {
+enum buttonState {
   ButtonUninitialized,
   ButtonPressing,
-  ButtonPressed
+  ButtonPressed,
 
 }
 
+
 class _JobDetailsState extends State<JobDetails> {
-  cState currentState = cState.ButtonUninitialized;
+  buttonState currentAcceptState = buttonState.ButtonUninitialized;
+  buttonState currentDeclineState = buttonState.ButtonUninitialized;
   final  _activityService = ActivityService();
   final _discoveryService = DiscoveryService();
   @override
@@ -68,21 +70,37 @@ class _JobDetailsState extends State<JobDetails> {
            ],
          ));
    }
-    progressButton() {
-      if(currentState==cState.ButtonUninitialized){
-        return Text(
-            "Accept ",
-            style: Theme.of(context).textTheme.headline3
-        );
-      }else if(currentState==cState.ButtonPressing){
-        print(currentState);
-        return CircularProgressIndicator(
-          value: null,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          strokeWidth: 4.0,
-        );
-      } else{
-        return Icon(Icons.check, color:Colors.white);
+    progressButton(bool isAccept) {
+      if(isAccept){
+        if(currentAcceptState==buttonState.ButtonUninitialized){
+          return Text(
+             "Accept",
+              style: Theme.of(context).textTheme.button
+          );
+        }else if(currentAcceptState==buttonState.ButtonPressing){
+          return CircularProgressIndicator(
+            value: null,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          );
+        } else{
+          return Icon(Icons.check, color:Colors.white);
+        }
+      }else{
+        if(currentDeclineState==buttonState.ButtonUninitialized){
+          return Text(
+              "Decline",
+              style: Theme.of(context).textTheme.subtitle1
+          );
+        }else if(currentDeclineState==buttonState.ButtonPressing){
+          return CircularProgressIndicator(
+            value: null,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          );
+        } else{
+          return Icon(Icons.check, color:Colors.white);
+        }
       }
     }
 
@@ -382,7 +400,8 @@ class _JobDetailsState extends State<JobDetails> {
                               //   );
                               // _activityService.createActivity(input);
                               setState(() {
-                                currentState = cState.ButtonPressing;
+                                currentAcceptState=buttonState
+                                    .ButtonPressing;
                               });
                               _activityService.createActivity(Uuid().v4(), loadedJobData.shiftId,UserCacheService.user.id,true).then((value) => {
                                 if(value.activityId.isNotEmpty)
@@ -390,15 +409,17 @@ class _JobDetailsState extends State<JobDetails> {
                                     // _discoveryService
                                     //     .deleteCloseShift(closedShiftId),
                                  setState(() {
-                                currentState = cState.ButtonPressed;
+                                   currentAcceptState=buttonState
+                                       .ButtonPressed;
                                    })
                                   } else{
                                   _showDialog("An error was occurred while "
                                       "accepting the shift, Check your "
-                                      " internet connection")
+                                      "internet connection & try again ")
                                 }
                               });
-                              if(currentState==cState.ButtonPressed){
+
+                              if(currentAcceptState==buttonState.ButtonPressed){
 
                               }
 
@@ -411,14 +432,14 @@ class _JobDetailsState extends State<JobDetails> {
                               margin: EdgeInsets.only(bottom: 10,right: 20),
                               height: ScreenUtil().setHeight(50),
                               alignment: Alignment.center,
-                              width: (currentState==cState.ButtonUninitialized)?MediaQuery.of
-                                (context).size.width:ScreenUtil().setWidth(50),
+                              width: (currentAcceptState==buttonState.ButtonUninitialized)?MediaQuery.of
+                                (context).size.width:ScreenUtil().setWidth(40),
                               decoration: BoxDecoration(
                                 color:  Theme.of(context).primaryColor,
-                                borderRadius: (currentState==cState.ButtonUninitialized)
+                                borderRadius: (currentAcceptState==buttonState.ButtonUninitialized)
                                     ?BorderRadius.circular(10):BorderRadius.circular(30),
                               ),
-                              child: progressButton()
+                              child: progressButton(true)
                           )),
                     ),
                     Expanded(
@@ -426,32 +447,59 @@ class _JobDetailsState extends State<JobDetails> {
                       child: InkWell(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onTap: () {
+                          onTap: () async {
+                            setState(() {
+                              currentDeclineState=buttonState
+                                  .ButtonPressing;
+                            });
                             try {
-                              // _activityService.createActivity(Uuid().v4(), loadedJobData.shiftId,UserCacheService.user.id,true).then((value) => {
-                              //   if(value.activityId.isNotEmpty)
-                              //     {
-                              //       _discoveryService
-                              //           .deleteCloseShift(closedShiftId)
-                              //     }
-                              // });
+                              _discoveryService.createOpenShift(Uuid().v4(), loadedJobData.shiftId).then((value) => {
+                                if(value.returning.first.openShiftsId.isNotEmpty)
+                                  {
+                                    _discoveryService.deleteCloseShift
+                                      (closedShiftId),
+                                  setState(() {
+                                    currentDeclineState=buttonState.ButtonPressed;
+                                    }),
+                                  }else{
+                                  _showDialog("An error was occurred while "
+                                      "declining the shift, Check your "
+                                      " internet connection & try again ")
+                                },
+                              if(currentDeclineState==buttonState.ButtonPressed){
+                                   print("test current "
+                                       "state${currentDeclineState
+                                       .toString()
+                                   }"),
+                                setState(() {
+                                }),
+                                  Navigator.of(context).pop()
+                               }
+                              });
 
-                            } catch (error) {
+
+
+                            }catch (error) {
                               _showDialog(error);
                             }
                           },
-                          child: Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              height: 50,
+                          child:  AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              margin: EdgeInsets.only(bottom: 10,),
+                              height: ScreenUtil().setHeight(50),
                               alignment: Alignment.center,
+                              width: (currentDeclineState==buttonState
+                                  .ButtonUninitialized)?MediaQuery.of
+                                (context).size.width*.55:ScreenUtil().setWidth
+                            (30),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).errorColor,
-                                borderRadius: BorderRadius.circular(10),
+                                color:  Theme.of(context).errorColor,
+                                borderRadius:
+                                (currentDeclineState==buttonState.ButtonUninitialized)
+                                    ?BorderRadius.circular(10):BorderRadius
+                                    .circular(30),
                               ),
-                              child: Text(
-                                "Decline",
-                                style: Theme.of(context).textTheme.subtitle1,
-                              )
+                              child: progressButton(false)
                           )),
                     ),
                   ],
