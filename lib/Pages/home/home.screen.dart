@@ -1,12 +1,10 @@
 import 'package:Quete/Pages/notification/notifications.screen.dart';
 import 'package:Quete/Pages/profile/profile.screen.dart';
-import 'package:Quete/Utils/Widgets/shift.cards.screen.dart';
 import 'package:Quete/Views/home/closed_shifts.feed.view.dart';
 import 'package:Quete/Views/home/open_shift.feed.view.dart';
 import 'package:Quete/services/graphql/discovery.service.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:provider/provider.dart';
-import 'package:Quete/providers/jobs_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,7 +32,7 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
            child: ListView(
              children: [
                Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                 mainAxisAlignment: MainAxisAlignment.start,
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    Column(
@@ -48,7 +46,8 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                          height: 5,
                        ),
                        Text(
-                           "${UserCacheService.user.displayName?? "user"}...\n",
+                           "${UserCacheService.user.displayName?? "user"}Baby"
+                               "\n",
                            textAlign: TextAlign.start,
                            style: Theme.of(context).textTheme.headline1),
 
@@ -81,9 +80,10 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                    Expanded(
                      child: Container(
                        padding: EdgeInsets.symmetric(horizontal: 15),
+                       height: 50,
                        decoration: BoxDecoration(
                            color: Color(0xfff2f2f2),
-                           borderRadius: BorderRadius.circular(15)),
+                           borderRadius: BorderRadius.circular(10)),
                        child: TextField(
                            cursorColor: Colors.blue,
                            decoration: InputDecoration(
@@ -92,14 +92,14 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                                icon: Icon(
                                  Icons.search,
                                  size: 22,
-                                 color: Colors.black54,
+                                 color: Colors.black,
                                ),
                                enabledBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(28),
+                                 borderRadius: BorderRadius.circular(10),
                                  borderSide: BorderSide(color: Colors.transparent),
                                ),
                                focusedBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(28),
+                                 borderRadius: BorderRadius.circular(10),
                                  borderSide: BorderSide(color: Colors.transparent),
                                ),
                                hintText: "Search",
@@ -116,13 +116,26 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                    Container(
                      width: 50,
                      height: 50,
+
                      decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(15),
-                         color: Color(0xFF54E597)),
+                         // boxShadow: [
+                         //   BoxShadow(
+                         //     color: Colors.black.withOpacity(.1),
+                         //     blurRadius: 1.0, // soften the shadow
+                         //     spreadRadius: 1.0, //extend the shadow
+                         //     offset: Offset(
+                         //       .01, // Move to right 10  horizontally
+                         //       1.0, // Move to bottom 5 Vertically
+                         //     ),
+                         //   )
+                         // ],
+                         border: Border.all(color: Color(0xffeaeaea)),
+                         borderRadius: BorderRadius.circular(10),
+                         color: Colors.white),
                      child: Icon(
                        Icons.filter_list,
                        size: 22,
-                       color: Colors.white,
+                       color: Colors.black,
                      ),
                    )
                  ],

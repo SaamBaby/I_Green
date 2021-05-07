@@ -43,7 +43,7 @@ class _ShiftFeedViewState extends State<ShiftFeedView> {
       ClosedShiftCard(
         jobId: _feed[index].shift.job.jobId,
         closedShiftId:_feed[index].closedShiftsId,
-        shiftName:_feed[index].shift.shiftName,
+        shiftName:_feed[index].shift.job.jobName,
         shiftDate: _feed[index].shift.shiftDate,
         shiftLocation:_feed[index].shift.job.jobLocation,
         shiftTime:_feed[index].shift.shiftTime,

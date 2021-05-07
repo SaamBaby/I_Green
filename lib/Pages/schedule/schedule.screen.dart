@@ -51,6 +51,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
     }});
     return groupedList;
   }
+
   Widget _buildEventsMarker(DateTime date, List events) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 600),
@@ -71,7 +72,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final loadedAvailableShifts = Provider.of<ShiftProvider>(context);
     _groupEvents(loadedAvailableShifts.itemsList);
-    print(loadedAvailableShifts.itemsList);
+
     DateTime _selectedDate= _calendarController.selectedDay;
     final _selectedEvents= _groupedEvents[_selectedDate]??[];
     return Scaffold(
@@ -180,9 +181,6 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                 ],
               ),
             ),
-            SizedBox(
-              height: 0,
-            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
               child: Row(
@@ -190,12 +188,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                 children: [
                   Text(
                     "Daily Shifts",
-                    style: TextStyle(
-                        fontFamily: 'Futura Heavy',
-                        color: Color(0xff000000).withOpacity(.8),
-                        fontSize: 20,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w900),
+                    style:Theme.of(context).textTheme.headline5
                   ),
                 ],
               ),
@@ -246,26 +239,13 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
+            Text(
+                "Monthly",
+                style:  Theme.of(context).textTheme.bodyText1
+            ),
           Text(
-            "Monthly",
-            style: TextStyle(
-                fontFamily: 'Futura Book',
-                color: Color(0xff344644),
-                fontSize: 25,
-                letterSpacing: 1.5,
-                height: 2,
-                fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "Shift Availabilities",
-
-            style: TextStyle(
-                fontFamily: 'Futura Heavy',
-                color: Color(0xff344644),
-                fontSize: 30,
-                letterSpacing: 1.5,
-                fontWeight: FontWeight.bold),
+            "Calendar",
+            style:  Theme.of(context).textTheme.headline1
           )
         ],),
       ),

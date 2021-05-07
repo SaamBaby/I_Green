@@ -54,7 +54,7 @@ class OpenShiftCard extends StatelessWidget {
           width: 300,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Color(0xff000000).withOpacity(.8)),
+              color: Colors.black.withOpacity(.9)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,31 +68,37 @@ class OpenShiftCard extends StatelessWidget {
                       Text(
                         '${(DateFormat('E').format(shiftDate))}'[
                         0],
-                        style:  Theme.of(context).textTheme.headline2
+                        style:  Theme.of(context).textTheme.headline3
                       ),
                       SizedBox(width: 5,),
                       Text(
                         "${shiftDate.day} th",
                         style: Theme.of(context).textTheme.subtitle1
-                      )
+                      ),
+
                     ],
                   ),
-                  RichText(
-                    text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "\$CA ",
-                              style:
-                              Theme.of(context).textTheme.subtitle1
-                          ),
-                          TextSpan(
-                              text:salary,
-                              style:
-                              Theme.of(context).textTheme.subtitle1
-                          ),
-
-                        ]),
-                  ),
+                  // RichText(
+                  //   text: TextSpan(
+                  //       children: <TextSpan>[
+                  //         TextSpan(
+                  //             text: "\$CA ",
+                  //             style:
+                  //             Theme.of(context).textTheme.subtitle1
+                  //         ),
+                  //         TextSpan(
+                  //             text:salary,
+                  //             style:
+                  //             Theme.of(context).textTheme.subtitle1
+                  //         ),
+                  //
+                  //       ]),
+                  // ),
+                  IconButton(
+                    onPressed: (){},
+                    color: Colors.white,
+                    icon: Icon(FontAwesomeIcons.bookmark),
+                  )
 
                 ],
               ),
@@ -101,14 +107,14 @@ class OpenShiftCard extends StatelessWidget {
               ),
               Text(
                 shiftName,
-                style: Theme.of(context).textTheme.headline3),
+                style: Theme.of(context).textTheme.headline2),
               SizedBox(
                 height: 2,
               ),
               RichText(
                 text: TextSpan(
                     text: shiftLocation.replaceAll(',', ' .').split(".").first,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.caption,
                     children: <TextSpan>[
                       TextSpan(
                           text: ' . ',
@@ -117,30 +123,47 @@ class OpenShiftCard extends StatelessWidget {
                          ),
                       TextSpan(
                         text:  shiftLocation.replaceAll(',', ' .').split(".").last,
-                        style: Theme.of(context).textTheme.subtitle1
+                        style: Theme.of(context).textTheme.caption
 
                       )
 
                     ]),
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Row(
+                mainAxisAlignment:
+                MainAxisAlignment.start,
                 children: [
-
-                  Text(
-                    '${(DateFormat(' MMMM . yyyy').format(shiftDate))}',
-                    style: Theme.of(context).textTheme.subtitle1,
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 5,
+                        horizontal: 10),
+                    margin: EdgeInsets.only(right: 10),
+                    width: 80,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.black26),
+                    child: Text(
+                      "Full-Time",
+                      style: Theme.of(context).textTheme.caption,
+                    ),
                   ),
-                  SizedBox(
-                    width: 10,
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 5,
+                        horizontal: 10),
+                    margin: EdgeInsets.only(right: 10),
+                    width: 80,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.black26),
+                    child: Text(
+                      "Part-Time",
+                      style: Theme.of(context).textTheme.caption,
+                    ),
                   ),
-                  Text(
-                    shiftTime,
-                    style:Theme.of(context).textTheme.subtitle1,
-                  ),
-
                 ],
               ),
             ],
@@ -181,20 +204,10 @@ class ClosedShiftCard extends StatelessWidget {
           EdgeInsets.symmetric(vertical: ScreenUtil().setWidth
             (20),horizontal: ScreenUtil().setWidth(20)),
           width: double.infinity,
-
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xffeaeaea)),
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xffeaeaea),
-                spreadRadius: 0,
-                blurRadius: 3,
-                offset:
-                Offset(1, 1), // changes position of shadow
-              ),
-            ],
           ),
           child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -226,33 +239,14 @@ class ClosedShiftCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              '${(DateFormat(' MMMM . yyyy').format(shiftDate))}',
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '. $shiftTime',
-
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
                         Text(
                           shiftName,
-                          style: Theme.of(context).textTheme.headline4,
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                         SizedBox(
                           height: 5,
                         ),
+
                         RichText(
                           text: TextSpan(
                               text: shiftLocation.replaceAll(',', ' .').split(""

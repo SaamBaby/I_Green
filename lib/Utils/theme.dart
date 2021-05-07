@@ -10,66 +10,61 @@ ThemeData theme() {
     primaryColor:    Color(0xFF54E597),
     errorColor:      Color(0xFFff4c4c),
     textTheme: TextTheme(
-      headline1: GoogleFonts.montserrat(
+      headline1: GoogleFonts.nunito(
         color: Color.fromRGBO(52, 43, 37, 1),
-        fontSize: ScreenUtil().setSp(25),
+        fontSize: ScreenUtil().setSp(30),
         fontWeight: FontWeight.w900,
       ),
-      headline2: GoogleFonts.montserrat(
+      headline2: GoogleFonts.nunito(
+        fontSize: ScreenUtil().setSp(18),
+        color: Colors.white,
+        fontWeight: FontWeight.w900,
+      ),
+      headline5: GoogleFonts.nunito(
+        color: Colors.black,
+        fontSize: ScreenUtil().setSp(18),
+        height: 1.1,
+        fontWeight: FontWeight.w900,
+      ),
+      headline3:GoogleFonts.nunito(
+        color: Colors.white,
         fontSize: ScreenUtil().setSp(40),
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
-      headline3: GoogleFonts.montserrat(
-        color: Colors.white,
-        fontSize: ScreenUtil().setSp(14),
         fontWeight: FontWeight.w900,
       ),
-      headline4: GoogleFonts.montserrat(
+      headline4: GoogleFonts.nunito(
         color: Color.fromRGBO(52, 43, 37, 1),
         fontSize: ScreenUtil().setSp(14),
         fontWeight: FontWeight.w900,
       ),
-      headline5: GoogleFonts.montserrat(
-        color: Color.fromRGBO(52, 43, 37, 1),
-        fontSize: ScreenUtil().setSp(16),
-        letterSpacing: 1.3,
-        fontWeight: FontWeight.w900,
-      ),
-      bodyText1:TextStyle(
-        fontFamily: "Futura Book",
-        fontSize: ScreenUtil().setSp(14),
-        color: Colors.black.withOpacity(.7),
+
+      bodyText1:GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(13),
+        color: Colors.black.withOpacity(.8),
         height: 1.3,
         fontWeight: FontWeight.w700,
       ),
-      bodyText2:TextStyle(
-        fontFamily: "Futura Book",
+      bodyText2:GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(12),
-        color: Color.fromRGBO(52, 43, 37, 1),
-        fontWeight: FontWeight.w600,
+        color: Colors.black,
+        fontWeight: FontWeight.w900,
       ),
 
-      subtitle1:TextStyle(
-        fontFamily: "Futura Book",
-        fontSize: ScreenUtil().setSp(12),
+      subtitle1:GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(10),
         color: Colors.white,
         fontWeight: FontWeight.w700,
   ),
-      subtitle2: TextStyle(
-        fontFamily: "Futura Book",
+      subtitle2: GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(12),
         color: Colors.black26.withOpacity(.5),
         fontWeight: FontWeight.w800,
       ),
-      button: TextStyle(
-        fontFamily: "Futura Book",
-        fontSize: ScreenUtil().setSp(15),
+      button: GoogleFonts.varelaRound(
+        fontSize: ScreenUtil().setSp(12),
         color: Colors.white,
         fontWeight: FontWeight.w900,
       ),
-      caption:  TextStyle(
-        fontFamily: "Futura Book",
+      caption: GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(11),
         color: Colors.grey,
         fontWeight: FontWeight.w600,
