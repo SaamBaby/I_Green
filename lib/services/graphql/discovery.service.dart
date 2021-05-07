@@ -28,6 +28,7 @@ class DiscoveryService extends ChangeNotifier {
   //   notifyListeners();
   //
   // }
+
   void getShifts() async {
     GraphQLClient client= await IgreenGraphQLClient.getClient();
     final options = QueryOptions(document: GetAllClosedShiftsQuery()
@@ -67,7 +68,7 @@ class DiscoveryService extends ChangeNotifier {
 
 
     openShiftFeed = query.openShifts;
-    print("openShift exceptions${openShiftFeed.first.openShiftsId}");
+    // print("openShift results${openShiftFeed.first.openShiftsId}");
     notifyListeners();
 
   }
@@ -91,6 +92,28 @@ class DiscoveryService extends ChangeNotifier {
 
   }
 
+
+  void deleteOpenShift(String openShiftId) async {
+    GraphQLClient client= await IgreenGraphQLClient.getClient();
+    final options = QueryOptions(document: DeleteOpenShiftMutation().document, variables:{'id':openShiftId}, fetchPolicy: FetchPolicy.networkOnly);
+
+    final result = await client.query(options);
+
+    if (result.hasException) {
+      print(" delete open shift response ${result.exception.graphqlErrors
+          .toString()}");
+      // debugPrint(result.exception.graphqlErrors.toString(), wrapWidth: 5000);
+      if (result.data == null) return null;
+    }
+    final response = DeleteOpenShift$MutationRoot.fromJson(result.data);
+    // print(" delete open shift response ${ response.deleteOpenShifts}");
+    getShifts();
+    notifyListeners();
+
+  }
+
+
+
   Future<CreateOpenShift$MutationRoot$InsertOpenShifts> createOpenShift
       (String openShiftId, int shiftId )async{
     GraphQLClient client= await IgreenGraphQLClient.getClient();
@@ -105,8 +128,8 @@ class DiscoveryService extends ChangeNotifier {
       if (result.data == null) return null;
     }
     final response = CreateOpenShift$MutationRoot.fromJson(result.data).insertOpenShifts;
-    print(" create open shift  response${ response.returning.first
-        .openShiftsId}");
+    // print(" create open shift  response${ response.returning.first
+    //     .openShiftsId}");
     notifyListeners();
     return response;
 

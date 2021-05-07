@@ -10,14 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
-class JobDetails extends StatefulWidget {
-  final dynamic closedShiftId;
+class OpenJobDetails extends StatefulWidget {
+  final dynamic openShiftId;
 
-  const JobDetails({Key key, this.closedShiftId}) : super(key: key);
+  const OpenJobDetails({Key key, this.openShiftId}) : super(key: key);
 
 
   @override
-  _JobDetailsState createState() => _JobDetailsState();
+  _OpenJobDetailsState createState() => _OpenJobDetailsState();
 }
 
 enum buttonState {
@@ -28,9 +28,8 @@ enum buttonState {
 }
 
 
-class _JobDetailsState extends State<JobDetails> {
+class _OpenJobDetailsState extends State<OpenJobDetails> {
   buttonState currentAcceptState = buttonState.ButtonUninitialized;
-  buttonState currentDeclineState = buttonState.ButtonUninitialized;
   final  _activityService = ActivityService();
   final _discoveryService = DiscoveryService();
   @override
@@ -50,64 +49,46 @@ class _JobDetailsState extends State<JobDetails> {
       str = str.replaceAll('·','.\n');
       return str;
     }
-   _showDialog(error){
-     showDialog(
-         context: (context),
-         builder: (ctx) => AlertDialog(
-           title: Text(
-             'An error occurred while '
-                 'applying the shift!',style:
-           Theme.of(context).textTheme.bodyText1,),
+    _showDialog(error){
+      showDialog(
+          context: (context),
+          builder: (ctx) => AlertDialog(
+            title: Text(
+              'An error occurred while '
+                  'applying the shift!',style:
+            Theme.of(context).textTheme.bodyText1,),
 
-           content: Text(error.toString()),
-           actions: <Widget>[
-             FlatButton(
-               child: Text("Okay!",style: Theme.of(context).textTheme.headline5,),
-               onPressed: () {
-                 Navigator.of(context).pop();
-               },
-             )
-           ],
-         ));
-   }
-    progressButton(bool isAccept) {
-      if(isAccept){
-        if(currentAcceptState==buttonState.ButtonUninitialized){
-          return Text(
-             "Accept",
-              style: Theme.of(context).textTheme.button
-          );
-        }else if(currentAcceptState==buttonState.ButtonPressing){
-          return CircularProgressIndicator(
-            value: null,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
-          );
-        } else{
-          return Icon(Icons.check, color:Colors.white);
-        }
-      }else{
-        if(currentDeclineState==buttonState.ButtonUninitialized){
-          return Text(
-              "Decline",
-              style: Theme.of(context).textTheme.subtitle1
-          );
-        }else if(currentDeclineState==buttonState.ButtonPressing){
-          return CircularProgressIndicator(
-            value: null,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
-          );
-        } else{
-          return Icon(Icons.check, color:Colors.white);
-        }
+            content: Text(error.toString()),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Okay!",style: Theme.of(context).textTheme.headline5,),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          ));
+    }
+    progressButton() {
+      if(currentAcceptState==buttonState.ButtonUninitialized){
+        return Text(
+            "Accept",
+            style: Theme.of(context).textTheme.button
+        );
+      }else if(currentAcceptState==buttonState.ButtonPressing){
+        return CircularProgressIndicator(
+          value: null,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          strokeWidth: 4.0,
+        );
+      } else{
+        return Icon(Icons.check, color:Colors.white);
       }
     }
 
-    final closedShiftId = widget.closedShiftId as int;
+    final openShiftId = widget.openShiftId as String;
 
-    final loadedJobData = Provider.of<DiscoveryService>(context, listen:
-    true).feed.firstWhere((element) => element.closedShiftsId==closedShiftId);
+    final loadedJobData = Provider.of<DiscoveryService>(context, listen: true).openShiftFeed.firstWhere((element) => element.openShiftsId==openShiftId);
 
     List<String> tempLocation=loadedJobData.shift.job.jobLocation.split(',');
 
@@ -285,18 +266,18 @@ class _JobDetailsState extends State<JobDetails> {
                     SizedBox(
                       height: 10,
                     ),
-                  Divider(),
+                    Divider(),
                     SizedBox(
                       height: 10,
                     ),
-                  ReadMoreText(
-                    loadedJobData.shift.job.jobDescription,
-                  colorClickableText: Theme.of(context).primaryColor,
-                  trimMode: TrimMode.Line,
-                  trimCollapsedText: 'Show more',
-                  trimExpandedText: 'Show less',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  moreStyle:Theme.of(context).textTheme.bodyText2),
+                    ReadMoreText(
+                        loadedJobData.shift.job.jobDescription,
+                        colorClickableText: Theme.of(context).primaryColor,
+                        trimMode: TrimMode.Line,
+                        trimCollapsedText: 'Show more',
+                        trimExpandedText: 'Show less',
+                        style: Theme.of(context).textTheme.bodyText1,
+                        moreStyle:Theme.of(context).textTheme.bodyText2),
 
                     SizedBox(
                       height: 20,
@@ -315,7 +296,7 @@ class _JobDetailsState extends State<JobDetails> {
                         children: [
 
                           Text(
-                      _textToList(loadedJobData.shift.job.jobResponsibilities),
+                            _textToList(loadedJobData.shift.job.jobResponsibilities),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           // Text(
@@ -341,7 +322,7 @@ class _JobDetailsState extends State<JobDetails> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                      _textToList(loadedJobData.shift.job.jobQualifications),
+                            _textToList(loadedJobData.shift.job.jobQualifications),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ],
@@ -380,130 +361,54 @@ class _JobDetailsState extends State<JobDetails> {
                 padding:
                 EdgeInsets.only(left: 18.0, bottom: 25.0, right: 18.0),
                 // margin: EdgeInsets.only(bottom: 25.0),
-                color: Colors.white,
-                child: Row(
-                  children: <Widget>[
+                color: Colors.transparent,
+                child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      try {
 
-                    Expanded(
-                      flex: 4,
-                      child:  InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () {
-                            try {
-
-                              // var input= ActivitiesInsertInput(
-                              //   activityId: 11,
-                              //   shiftId: loadedJobData.shiftId,
-                              //   userId: UserCacheService.user.id,
-                              //   isAccepted:true,
-                              //   );
-                              // _activityService.createActivity(input);
+                        setState(() {
+                          currentAcceptState=buttonState
+                              .ButtonPressing;
+                        });
+                        _activityService.createActivity(Uuid().v4(), loadedJobData.shiftId,UserCacheService.user.id,true).then((value) => {
+                          if(value.activityId.isNotEmpty)
+                            {
+                              _discoveryService.deleteOpenShift(openShiftId),
                               setState(() {
                                 currentAcceptState=buttonState
-                                    .ButtonPressing;
-                              });
-                              _activityService.createActivity(Uuid().v4(), loadedJobData.shiftId,UserCacheService.user.id,true).then((value) => {
-                                if(value.activityId.isNotEmpty)
-                                  {
-                                    _discoveryService
-                                        .deleteCloseShift(closedShiftId),
-                                 setState(() {
-                                   currentAcceptState=buttonState
-                                       .ButtonPressed;
-                                   })
-                                  } else{
-                                  _showDialog("An error was occurred while "
-                                      "accepting the shift, Check your "
-                                      "internet connection & try again ")
-                                }
-                              });
+                                    .ButtonPressed;
+                              })
+                            } else{
+                            _showDialog("An error was occurred while "
+                                "accepting the shift, Check your "
+                                "internet connection & try again ")
+                          }
+                        });
 
-                              if(currentAcceptState==buttonState.ButtonPressed){
+                        if(currentAcceptState==buttonState.ButtonPressed){
 
-                              }
+                        }
 
-                            } catch (error) {
-                              _showDialog(error);
-                            }
-                          },
-                          child: AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              margin: EdgeInsets.only(bottom: 10,right: 20),
-                              height: ScreenUtil().setHeight(50),
-                              alignment: Alignment.center,
-                              width: (currentAcceptState==buttonState.ButtonUninitialized)?MediaQuery.of
-                                (context).size.width:ScreenUtil().setWidth(40),
-                              decoration: BoxDecoration(
-                                color:  Theme.of(context).primaryColor,
-                                borderRadius: (currentAcceptState==buttonState.ButtonUninitialized)
-                                    ?BorderRadius.circular(10):BorderRadius.circular(30),
-                              ),
-                              child: progressButton(true)
-                          )),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            setState(() {
-                              currentDeclineState=buttonState
-                                  .ButtonPressing;
-                            });
-                            try {
-                              _discoveryService.createOpenShift(Uuid().v4(), loadedJobData.shiftId).then((value) => {
-                                if(value.returning.first.openShiftsId.isNotEmpty)
-                                  {
-                                    _discoveryService.deleteCloseShift
-                                      (closedShiftId),
-                                  setState(() {
-                                    currentDeclineState=buttonState.ButtonPressed;
-                                    }),
-                                  }else{
-                                  _showDialog("An error was occurred while "
-                                      "declining the shift, Check your "
-                                      " internet connection & try again ")
-                                },
-                              if(currentDeclineState==buttonState.ButtonPressed){
-                                   print("test current "
-                                       "state${currentDeclineState
-                                       .toString()
-                                   }"),
-                                setState(() {
-                                }),
-                                  Navigator.of(context).pop()
-                               }
-                              });
-
-
-
-                            }catch (error) {
-                              _showDialog(error);
-                            }
-                          },
-                          child:  AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              margin: EdgeInsets.only(bottom: 10,),
-                              height: ScreenUtil().setHeight(50),
-                              alignment: Alignment.center,
-                              width: (currentDeclineState==buttonState
-                                  .ButtonUninitialized)?MediaQuery.of
-                                (context).size.width*.55:ScreenUtil().setWidth
-                            (30),
-                              decoration: BoxDecoration(
-                                color:  Theme.of(context).errorColor,
-                                borderRadius:
-                                (currentDeclineState==buttonState.ButtonUninitialized)
-                                    ?BorderRadius.circular(10):BorderRadius
-                                    .circular(30),
-                              ),
-                              child: progressButton(false)
-                          )),
-                    ),
-                  ],
-                ),
+                      } catch (error) {
+                        _showDialog(error);
+                      }
+                    },
+                    child: AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        margin: EdgeInsets.only(bottom: 10,right: 20),
+                        height: ScreenUtil().setHeight(50),
+                        alignment: Alignment.center,
+                        width: (currentAcceptState==buttonState.ButtonUninitialized)?MediaQuery.of
+                          (context).size.width:ScreenUtil().setWidth(40),
+                        decoration: BoxDecoration(
+                          color:  Theme.of(context).primaryColor,
+                          borderRadius: (currentAcceptState==buttonState.ButtonUninitialized)
+                              ?BorderRadius.circular(10):BorderRadius.circular(30),
+                        ),
+                        child: progressButton()
+                    )),
               ),
             )),
       ),

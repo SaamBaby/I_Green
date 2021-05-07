@@ -1,3 +1,4 @@
+import 'package:Quete/Pages/home/home.open.shift.job.details.dart';
 import 'package:Quete/models/Job.dart';
 import 'package:Quete/services/graphql/discovery.service.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,10 +35,16 @@ class OpenShiftCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _feed = Provider.of<DiscoveryService>(context);
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Routes.jobDetails,arguments: jobId);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider.value(
+            value: _feed,
+            child:  OpenJobDetails(openShiftId: openShiftId,),
+          ),)
+        );
       },
       child: Container(
 
