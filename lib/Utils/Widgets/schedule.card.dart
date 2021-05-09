@@ -7,13 +7,20 @@ import 'package:provider/provider.dart';
 import '../../Routes.dart';
 
 class ScheduleCard extends StatelessWidget {
+  final int shiftId;
+  final String shiftName;
+  final String shiftTime;
+  final DateTime shiftDate;
+
+  const ScheduleCard({Key key, this.shiftId, this.shiftName, this.shiftTime, this.shiftDate}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
-    final shiftData = Provider.of<ShiftModel>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .pushNamed(Routes.addHours, arguments: shiftData.shiftId);
+        // Navigator.of(context)
+        //     .pushNamed(Routes.addHours, arguments: shiftData.shiftId);
       },
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
@@ -35,7 +42,7 @@ class ScheduleCard extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        '${(DateFormat('E').format(shiftData.shiftDateTime))}'[
+                        '${(DateFormat('E').format(shiftDate))}'[
                             0],
                         style: TextStyle(
                             fontFamily: 'Futura Heavy',
@@ -44,7 +51,7 @@ class ScheduleCard extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "${shiftData.shiftDateTime.day} th",
+                        "${shiftDate.day} th",
                         style: TextStyle(
                             fontFamily: 'Futura Book',
                             color: Color(0xff344644),
@@ -61,7 +68,8 @@ class ScheduleCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${(DateFormat('h:mm a').format(shiftData.shiftDateTime))}',
+                        // '${(DateFormat('h:mm a').format(shiftData.shiftDateTime))}',
+                        shiftTime,
                         style: TextStyle(
                             fontFamily: 'Futura Book',
                             color: Color(0xff344644),
@@ -71,7 +79,7 @@ class ScheduleCard extends StatelessWidget {
                             fontWeight: FontWeight.w900),
                       ),
                       Text(
-                        shiftData.shiftName,
+                       shiftName,
                         style: TextStyle(
                             fontFamily: 'Futura Heavy',
                             color: Color(0xff000000).withOpacity(.8),
@@ -81,7 +89,7 @@ class ScheduleCard extends StatelessWidget {
                             fontWeight: FontWeight.w900),
                       ),
                       Text(
-                        '${(DateFormat(' MMMM . yyyy').format(shiftData.shiftDateTime))}',
+                        '${(DateFormat(' MMMM . yyyy').format(shiftDate))}',
                         style: TextStyle(
                             fontFamily: 'Futura Book',
                             color: Colors.grey.withOpacity(.7),

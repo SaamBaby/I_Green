@@ -4,6 +4,7 @@ import 'package:Quete/Pages/auth/login.screen.dart';
 import 'package:Quete/providers/appliedJobs_provider.dart';
 import 'package:Quete/providers/jobs_provider.dart';
 import 'package:Quete/providers/auth_provider.dart';
+import 'package:Quete/services/graphql/activity.service.dart';
 import 'package:Quete/services/graphql/client.graphql.service.dart';
 import 'package:Quete/services/graphql/discovery.service.dart';
 import 'package:Quete/services/graphql/user.service.dart';
@@ -27,7 +28,8 @@ import 'package:path_provider/path_provider.dart';
 
 
 final _userService= UserService();
-final _discoveryService = DiscoveryService()..getShifts();
+final _activityService= ActivityService()..getActivities();
+
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarBrightness: Brightness.dark, statusBarColor: Colors.white));
@@ -49,8 +51,9 @@ void main() async {
           create: (context) => AuthProvider.initialize()),
         ChangeNotifierProvider.value(
           value:  _userService),
-          // ChangeNotifierProvider.value(
-          //     value: _discoveryService),
+
+          ChangeNotifierProvider.value(
+              value:  _activityService),
 
       ChangeNotifierProxyProvider<AuthProvider,Jobs>(
         update: (context,auth,previousState) => Jobs(auth.idToken,previousState==null?{}:previousState.items),

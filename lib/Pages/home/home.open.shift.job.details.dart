@@ -46,7 +46,7 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
     }
     // for  string manipulation
     String _textToList(String str) {
-      str = str.replaceAll('·','.\n');
+      str = str.replaceAll('·','\n\n• ');
       return str;
     }
     _showDialog(error){
@@ -403,7 +403,7 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                         width: (currentAcceptState==buttonState.ButtonUninitialized)?MediaQuery.of
                           (context).size.width:ScreenUtil().setWidth(40),
                         decoration: BoxDecoration(
-                          color:  Theme.of(context).primaryColor,
+                          color:  Colors.black,
                           borderRadius: (currentAcceptState==buttonState.ButtonUninitialized)
                               ?BorderRadius.circular(10):BorderRadius.circular(30),
                         ),

@@ -45,9 +45,9 @@ class _JobDetailsState extends State<JobDetails> {
       str = str.replaceAll(')', '');
       return str;
     }
-    // for  string manipulation
+    // for  string manipulating the job description string to order list
     String _textToList(String str) {
-      str = str.replaceAll('·','.\n');
+      str = str.replaceAll('·','\n\n• ');
       return str;
     }
    _showDialog(error){
@@ -142,11 +142,18 @@ class _JobDetailsState extends State<JobDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CircleAvatar(
-                            radius: 40,
-                            child: Image.network(loadedJobData.shift
-                                .job.jobLogo),
-                          ),
+
+                          Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: new BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: new NetworkImage(loadedJobData.shift
+                                          .job.jobLogo)
+                                  )
+                              )),
                           SizedBox(
                             height: 20,
                           ),
@@ -164,7 +171,8 @@ class _JobDetailsState extends State<JobDetails> {
                                 height: 10,
                               ),
                               Text(
-                                _textSelect(tempLocation .getRange(1,4).toString()),
+                                _textSelect(tempLocation .getRange(1,3)
+                                    .toString()),
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme.bodyText1,
@@ -209,13 +217,7 @@ class _JobDetailsState extends State<JobDetails> {
                                           color: Color(0xffeef1f4)),
                                       child: Text(
                                         "Full-Time",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black54
-                                                .withOpacity(.8),
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.w900),
+                                        style: Theme.of(context).textTheme.bodyText2,
                                       ),
                                     ),
                                   ),
@@ -237,13 +239,8 @@ class _JobDetailsState extends State<JobDetails> {
                                           color: Color(0xffeef1f4)),
                                       child: Text(
                                         "Part-Time",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black54
-                                                .withOpacity(.8),
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.w900),
+                                        style:  Theme.of(context).textTheme.bodyText2,
+
                                       ),
                                     ),
                                   ),
@@ -264,13 +261,8 @@ class _JobDetailsState extends State<JobDetails> {
                                           color: Color(0xffeef1f4)),
                                       child: Text(
                                         "Contract",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black54
-                                                .withOpacity(.8),
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.w900),
+                                        style: Theme.of(context).textTheme.bodyText2,
+
                                       ),
                                     ),
                                   ),
@@ -435,7 +427,7 @@ class _JobDetailsState extends State<JobDetails> {
                               width: (currentAcceptState==buttonState.ButtonUninitialized)?MediaQuery.of
                                 (context).size.width:ScreenUtil().setWidth(40),
                               decoration: BoxDecoration(
-                                color:  Theme.of(context).primaryColor,
+                                color:  Colors.black,
                                 borderRadius: (currentAcceptState==buttonState.ButtonUninitialized)
                                     ?BorderRadius.circular(10):BorderRadius.circular(30),
                               ),

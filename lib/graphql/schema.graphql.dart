@@ -40,58 +40,6 @@ class CreateActivity$MutationRoot with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
-class UpdateActivity$MutationRoot$UpdateActivities$Returning
-    with EquatableMixin {
-  UpdateActivity$MutationRoot$UpdateActivities$Returning();
-
-  factory UpdateActivity$MutationRoot$UpdateActivities$Returning.fromJson(
-          Map<String, dynamic> json) =>
-      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningFromJson(json);
-
-  @JsonKey(name: 'shift_endtime')
-  String shiftEndtime;
-
-  @JsonKey(name: 'shift_starttime')
-  String shiftStarttime;
-
-  @override
-  List<Object> get props => [shiftEndtime, shiftStarttime];
-  Map<String, dynamic> toJson() =>
-      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class UpdateActivity$MutationRoot$UpdateActivities with EquatableMixin {
-  UpdateActivity$MutationRoot$UpdateActivities();
-
-  factory UpdateActivity$MutationRoot$UpdateActivities.fromJson(
-          Map<String, dynamic> json) =>
-      _$UpdateActivity$MutationRoot$UpdateActivitiesFromJson(json);
-
-  List<UpdateActivity$MutationRoot$UpdateActivities$Returning> returning;
-
-  @override
-  List<Object> get props => [returning];
-  Map<String, dynamic> toJson() =>
-      _$UpdateActivity$MutationRoot$UpdateActivitiesToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
-class UpdateActivity$MutationRoot with EquatableMixin {
-  UpdateActivity$MutationRoot();
-
-  factory UpdateActivity$MutationRoot.fromJson(Map<String, dynamic> json) =>
-      _$UpdateActivity$MutationRootFromJson(json);
-
-  @JsonKey(name: 'update_activities')
-  UpdateActivity$MutationRoot$UpdateActivities updateActivities;
-
-  @override
-  List<Object> get props => [updateActivities];
-  Map<String, dynamic> toJson() => _$UpdateActivity$MutationRootToJson(this);
-}
-
-@JsonSerializable(explicitToJson: true)
 class CreateClosedShift$MutationRoot$InsertClosedShifts$Returning
     with EquatableMixin {
   CreateClosedShift$MutationRoot$InsertClosedShifts$Returning();
@@ -2328,6 +2276,140 @@ class DeleteOpenShift$MutationRoot with EquatableMixin {
   Map<String, dynamic> toJson() => _$DeleteOpenShift$MutationRootToJson(this);
 }
 
+@JsonSerializable(explicitToJson: true)
+class UpdateActivity$MutationRoot$UpdateActivities$Returning
+    with EquatableMixin {
+  UpdateActivity$MutationRoot$UpdateActivities$Returning();
+
+  factory UpdateActivity$MutationRoot$UpdateActivities$Returning.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningFromJson(json);
+
+  @JsonKey(name: 'shift_endtime')
+  String shiftEndtime;
+
+  @JsonKey(name: 'shift_starttime')
+  String shiftStarttime;
+
+  @override
+  List<Object> get props => [shiftEndtime, shiftStarttime];
+  Map<String, dynamic> toJson() =>
+      _$UpdateActivity$MutationRoot$UpdateActivities$ReturningToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateActivity$MutationRoot$UpdateActivities with EquatableMixin {
+  UpdateActivity$MutationRoot$UpdateActivities();
+
+  factory UpdateActivity$MutationRoot$UpdateActivities.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateActivity$MutationRoot$UpdateActivitiesFromJson(json);
+
+  List<UpdateActivity$MutationRoot$UpdateActivities$Returning> returning;
+
+  @override
+  List<Object> get props => [returning];
+  Map<String, dynamic> toJson() =>
+      _$UpdateActivity$MutationRoot$UpdateActivitiesToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateActivity$MutationRoot with EquatableMixin {
+  UpdateActivity$MutationRoot();
+
+  factory UpdateActivity$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$UpdateActivity$MutationRootFromJson(json);
+
+  @JsonKey(name: 'update_activities')
+  UpdateActivity$MutationRoot$UpdateActivities updateActivities;
+
+  @override
+  List<Object> get props => [updateActivities];
+  Map<String, dynamic> toJson() => _$UpdateActivity$MutationRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllActivities$QueryRoot$Activities$Shift with EquatableMixin {
+  GetAllActivities$QueryRoot$Activities$Shift();
+
+  factory GetAllActivities$QueryRoot$Activities$Shift.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllActivities$QueryRoot$Activities$ShiftFromJson(json);
+
+  @JsonKey(name: 'shift_date')
+  DateTime shiftDate;
+
+  @JsonKey(name: 'shift_name')
+  String shiftName;
+
+  @JsonKey(name: 'shift_notes')
+  String shiftNotes;
+
+  @JsonKey(name: 'shift_time')
+  String shiftTime;
+
+  @override
+  List<Object> get props => [shiftDate, shiftName, shiftNotes, shiftTime];
+  Map<String, dynamic> toJson() =>
+      _$GetAllActivities$QueryRoot$Activities$ShiftToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllActivities$QueryRoot$Activities with EquatableMixin {
+  GetAllActivities$QueryRoot$Activities();
+
+  factory GetAllActivities$QueryRoot$Activities.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAllActivities$QueryRoot$ActivitiesFromJson(json);
+
+  @JsonKey(name: 'activity_id')
+  String activityId;
+
+  @JsonKey(name: 'is_accepted')
+  bool isAccepted;
+
+  @JsonKey(name: 'is_completed')
+  bool isCompleted;
+
+  @JsonKey(name: 'shift_endtime')
+  String shiftEndtime;
+
+  @JsonKey(name: 'shift_id')
+  int shiftId;
+
+  @JsonKey(name: 'shift_starttime')
+  String shiftStarttime;
+
+  GetAllActivities$QueryRoot$Activities$Shift shift;
+
+  @override
+  List<Object> get props => [
+        activityId,
+        isAccepted,
+        isCompleted,
+        shiftEndtime,
+        shiftId,
+        shiftStarttime,
+        shift
+      ];
+  Map<String, dynamic> toJson() =>
+      _$GetAllActivities$QueryRoot$ActivitiesToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAllActivities$QueryRoot with EquatableMixin {
+  GetAllActivities$QueryRoot();
+
+  factory GetAllActivities$QueryRoot.fromJson(Map<String, dynamic> json) =>
+      _$GetAllActivities$QueryRootFromJson(json);
+
+  List<GetAllActivities$QueryRoot$Activities> activities;
+
+  @override
+  List<Object> get props => [activities];
+  Map<String, dynamic> toJson() => _$GetAllActivities$QueryRootToJson(this);
+}
+
 enum ActivitiesConstraint {
   @JsonValue('activities_activity_id_key')
   activitiesActivityIdKey,
@@ -2603,126 +2685,6 @@ class CreateActivityMutation
   @override
   CreateActivity$MutationRoot parse(Map<String, dynamic> json) =>
       CreateActivity$MutationRoot.fromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true)
-class UpdateActivityArguments extends JsonSerializable with EquatableMixin {
-  UpdateActivityArguments({@required this.id, this.starttime, this.endtime});
-
-  @override
-  factory UpdateActivityArguments.fromJson(Map<String, dynamic> json) =>
-      _$UpdateActivityArgumentsFromJson(json);
-
-  final int id;
-
-  final String starttime;
-
-  final String endtime;
-
-  @override
-  List<Object> get props => [id, starttime, endtime];
-  @override
-  Map<String, dynamic> toJson() => _$UpdateActivityArgumentsToJson(this);
-}
-
-class UpdateActivityMutation
-    extends GraphQLQuery<UpdateActivity$MutationRoot, UpdateActivityArguments> {
-  UpdateActivityMutation({this.variables});
-
-  @override
-  final DocumentNode document = DocumentNode(definitions: [
-    OperationDefinitionNode(
-        type: OperationType.mutation,
-        name: NameNode(value: 'UpdateActivity'),
-        variableDefinitions: [
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'id')),
-              type:
-                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: true),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'starttime')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: false),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'endtime')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'String'), isNonNull: false),
-              defaultValue: DefaultValueNode(value: null),
-              directives: [])
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FieldNode(
-              name: NameNode(value: 'update_activities'),
-              alias: null,
-              arguments: [
-                ArgumentNode(
-                    name: NameNode(value: 'where'),
-                    value: ObjectValueNode(fields: [
-                      ObjectFieldNode(
-                          name: NameNode(value: 'activity_id'),
-                          value: ObjectValueNode(fields: [
-                            ObjectFieldNode(
-                                name: NameNode(value: '_eq'),
-                                value:
-                                    VariableNode(name: NameNode(value: 'id')))
-                          ]))
-                    ])),
-                ArgumentNode(
-                    name: NameNode(value: '_set'),
-                    value: ObjectValueNode(fields: [
-                      ObjectFieldNode(
-                          name: NameNode(value: 'is_completed'),
-                          value: BooleanValueNode(value: true)),
-                      ObjectFieldNode(
-                          name: NameNode(value: 'shift_starttime'),
-                          value:
-                              VariableNode(name: NameNode(value: 'starttime'))),
-                      ObjectFieldNode(
-                          name: NameNode(value: 'shift_endtime'),
-                          value: VariableNode(name: NameNode(value: 'endtime')))
-                    ]))
-              ],
-              directives: [],
-              selectionSet: SelectionSetNode(selections: [
-                FieldNode(
-                    name: NameNode(value: 'returning'),
-                    alias: null,
-                    arguments: [],
-                    directives: [],
-                    selectionSet: SelectionSetNode(selections: [
-                      FieldNode(
-                          name: NameNode(value: 'shift_endtime'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null),
-                      FieldNode(
-                          name: NameNode(value: 'shift_starttime'),
-                          alias: null,
-                          arguments: [],
-                          directives: [],
-                          selectionSet: null)
-                    ]))
-              ]))
-        ]))
-  ]);
-
-  @override
-  final String operationName = 'UpdateActivity';
-
-  @override
-  final UpdateActivityArguments variables;
-
-  @override
-  List<Object> get props => [document, operationName, variables];
-  @override
-  UpdateActivity$MutationRoot parse(Map<String, dynamic> json) =>
-      UpdateActivity$MutationRoot.fromJson(json);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -4066,4 +4028,223 @@ class DeleteOpenShiftMutation extends GraphQLQuery<DeleteOpenShift$MutationRoot,
   @override
   DeleteOpenShift$MutationRoot parse(Map<String, dynamic> json) =>
       DeleteOpenShift$MutationRoot.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateActivityArguments extends JsonSerializable with EquatableMixin {
+  UpdateActivityArguments({@required this.id, this.starttime, this.endtime});
+
+  @override
+  factory UpdateActivityArguments.fromJson(Map<String, dynamic> json) =>
+      _$UpdateActivityArgumentsFromJson(json);
+
+  final String id;
+
+  final String starttime;
+
+  final String endtime;
+
+  @override
+  List<Object> get props => [id, starttime, endtime];
+  @override
+  Map<String, dynamic> toJson() => _$UpdateActivityArgumentsToJson(this);
+}
+
+class UpdateActivityMutation
+    extends GraphQLQuery<UpdateActivity$MutationRoot, UpdateActivityArguments> {
+  UpdateActivityMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'UpdateActivity'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: true),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'starttime')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'endtime')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'update_activities'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'where'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'activity_id'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: '_eq'),
+                                value:
+                                    VariableNode(name: NameNode(value: 'id')))
+                          ]))
+                    ])),
+                ArgumentNode(
+                    name: NameNode(value: '_set'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'is_completed'),
+                          value: BooleanValueNode(value: true)),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'shift_starttime'),
+                          value:
+                              VariableNode(name: NameNode(value: 'starttime'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'shift_endtime'),
+                          value: VariableNode(name: NameNode(value: 'endtime')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'returning'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'shift_endtime'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_starttime'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'UpdateActivity';
+
+  @override
+  final UpdateActivityArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  UpdateActivity$MutationRoot parse(Map<String, dynamic> json) =>
+      UpdateActivity$MutationRoot.fromJson(json);
+}
+
+class GetAllActivitiesQuery
+    extends GraphQLQuery<GetAllActivities$QueryRoot, JsonSerializable> {
+  GetAllActivitiesQuery();
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.query,
+        name: NameNode(value: 'GetAllActivities'),
+        variableDefinitions: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'activities'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'activity_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'is_accepted'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'is_completed'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift_endtime'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift_starttime'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'shift'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'shift_date'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_name'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_notes'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null),
+                      FieldNode(
+                          name: NameNode(value: 'shift_time'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'GetAllActivities';
+
+  @override
+  List<Object> get props => [document, operationName];
+  @override
+  GetAllActivities$QueryRoot parse(Map<String, dynamic> json) =>
+      GetAllActivities$QueryRoot.fromJson(json);
 }

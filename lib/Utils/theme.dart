@@ -11,7 +11,8 @@ ThemeData theme() {
     errorColor:      Color(0xFFff4c4c),
     textTheme: TextTheme(
       headline1: GoogleFonts.nunito(
-        color: Color.fromRGBO(52, 43, 37, 1),
+        color: Colors.black,
+        height: 1.1,
         fontSize: ScreenUtil().setSp(30),
         fontWeight: FontWeight.w900,
       ),
@@ -39,12 +40,12 @@ ThemeData theme() {
 
       bodyText1:GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(13),
-        color: Colors.black.withOpacity(.8),
+        color: Colors.black.withOpacity(.5),
         height: 1.3,
         fontWeight: FontWeight.w700,
       ),
       bodyText2:GoogleFonts.varelaRound(
-        fontSize: ScreenUtil().setSp(12),
+        fontSize: ScreenUtil().setSp(11),
         color: Colors.black,
         fontWeight: FontWeight.w900,
       ),
@@ -59,6 +60,7 @@ ThemeData theme() {
         color: Colors.black26.withOpacity(.5),
         fontWeight: FontWeight.w800,
       ),
+
       button: GoogleFonts.varelaRound(
         fontSize: ScreenUtil().setSp(12),
         color: Colors.white,
@@ -69,11 +71,7 @@ ThemeData theme() {
         color: Colors.grey,
         fontWeight: FontWeight.w600,
       ),
-      // headline5: TextStyle(fontSize: 34, color: Colors.black),
-      // headline4: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
-      // headline3: TextStyle(fontSize: 28, color: Colors.black),
-      // headline2: TextStyle(fontSize: 22, color: Colors.black),
-      // headline1: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: Colors.black),
+
 
       // subtitle1: TextStyle(fontSize: 17),
       // subtitle2: TextStyle(fontSize: 15),

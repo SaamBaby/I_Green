@@ -1,11 +1,11 @@
 import 'package:Quete/Utils/Widgets/schedule.card.dart';
+import 'package:Quete/graphql/schema.graphql.dart';
 import 'package:Quete/providers/schedule.shifts.provider.dart';
+import 'package:intl/intl.dart';
+import 'package:Quete/services/graphql/activity.service.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import 'package:Quete/models/job_shifts.dart';
 class Schedule extends StatefulWidget {
   @override
   _ScheduleState createState() => _ScheduleState();
@@ -14,6 +14,10 @@ class Schedule extends StatefulWidget {
 class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
   CalendarController _calendarController;
   AnimationController _animationController;
+  Map<DateTime,List<GetAllActivities$QueryRoot$Activities>> _groupedEvents;
+  DateTime _selectedDate;
+  var _selectedEvents=[];
+
 
   @override
   void initState() {
@@ -23,43 +27,50 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-
     _animationController.forward();
-    Future.delayed(Duration.zero).then((value) =>
-        Provider.of<ShiftProvider>(context, listen: false)
-            .fetchAvailableShifts());
+    // Future.delayed(Duration.zero).then((value) =>
+    //     Provider.of<ShiftProvider>(context, listen: false).fetchAvailableShifts());
   }
 
   @override
+  // ignore: must_call_super
   void dispose() {
     _calendarController.dispose();
   }
-  Map<DateTime, List<ShiftModel>> _groupedEvents;
 
-  _groupEvents(List<ShiftModel> events){
+ DateTime dateNorm(DateTime date){
+    String normDate= DateFormat.yMd().format(date);
+    return DateFormat.yMd().parse(normDate);
+ }
+
+
+  // grouping events for the each date
+ void  _groupEvents(List<GetAllActivities$QueryRoot$Activities> events){
     _groupedEvents={};
     events.forEach((element) {
-      DateTime date= DateTime.utc(element.shiftDateTime.year,element.shiftDateTime.month,element.shiftDateTime.day,12);
-      _groupedEvents.putIfAbsent(date, () =>_eventstoList(events,element.shiftDateTime));
+      _groupedEvents.putIfAbsent(dateNorm(element.shift.shiftDate), () => _eventsToList(events, element.shift.shiftDate));
     });
 
   }
-  List<ShiftModel> _eventstoList(List<ShiftModel> events,DateTime dateTime){
-    List<ShiftModel> groupedList=[];
-    events.forEach((element) {if(element.shiftDateTime==dateTime){
+
+  // To sort out all the events on a particular date
+  List<GetAllActivities$QueryRoot$Activities> _eventsToList(List<GetAllActivities$QueryRoot$Activities> events,DateTime dateTime){
+    List<GetAllActivities$QueryRoot$Activities> groupedList=[];
+    events.forEach((element) {
+      if(element.shift.shiftDate==dateTime){
       groupedList.add(element);
     }});
     return groupedList;
   }
 
+
+  // for setting the event marker on the date
   Widget _buildEventsMarker(DateTime date, List events) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 600),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: _calendarController.isSelected(date) ? Colors.white: _calendarController.isToday(date)
-            ? Color(0xFFffffff).withOpacity(.8)
-            : Color(0xFF0000000).withOpacity(.8),
+        color: _calendarController.isSelected(date) ? Colors.white: _calendarController.isToday(date) ? Color(0xFFffffff).withOpacity(.8) : Color(0xFF0000000).withOpacity(.8),
       ),
       width: 7,
       height: 7.0,
@@ -70,11 +81,22 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
   }
   @override
   Widget build(BuildContext context) {
-    final loadedAvailableShifts = Provider.of<ShiftProvider>(context);
-    _groupEvents(loadedAvailableShifts.itemsList);
+    final _availableShifts = Provider.of<ActivityService>(context);
 
-    DateTime _selectedDate= _calendarController.selectedDay;
-    final _selectedEvents= _groupedEvents[_selectedDate]??[];
+    _groupEvents(_availableShifts.feed);
+
+    _selectedDate=(_calendarController.selectedDay!=null)?dateNorm(_calendarController.selectedDay):dateNorm(DateTime.now());
+
+
+
+    void _onDaySelected(DateTime selectedDay) {
+      setState(() {
+        _selectedDate = (_selectedDate!=null)?dateNorm(selectedDay) :dateNorm(DateTime.now());
+      });
+
+       _selectedEvents= _groupedEvents[_selectedDate]??[];
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(context),
@@ -87,16 +109,22 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
               child: Column(
                 children: [
                   TableCalendar(
-                  events:  _groupedEvents,
+                   events:  _groupedEvents,
+                    onDaySelected:(date, event, _)=>_onDaySelected(date),
+                    startingDayOfWeek: StartingDayOfWeek.monday,
                     formatAnimation: FormatAnimation.slide,
                     builders: CalendarBuilders(
                      selectedDayBuilder:(context, date, _){
+
+
+
                        return Container(
-                         margin: const EdgeInsets.all(4.0),
-                         padding: EdgeInsets.all(13),
+                         margin: const EdgeInsets.all(2.5),
+                         padding: EdgeInsets.symmetric(vertical: 15,
+                             horizontal: 12),
                          decoration: BoxDecoration(
                            shape: BoxShape.circle,
-                           color: Color(0xFF00bf6f).withOpacity(.8),
+                           color: Theme.of(context).primaryColor,
                          ),
 
                          width: 50,
@@ -127,6 +155,9 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                         );
                       },
                       todayDayBuilder: (context, date, _) {
+                        setState(() {
+                          _selectedDate =date;
+                        });
                         return Container(
                           margin: const EdgeInsets.all(4.0),
                           padding: EdgeInsets.all(13),
@@ -161,7 +192,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                       },
                     ),
                     calendarStyle: CalendarStyle(
-                        todayColor: Color(0xFF00bf6f).withOpacity(.8),
+                        todayColor: Theme.of(context).primaryColor,
                         weekendStyle: TextStyle(color: Color(0xFFffce89))),
                     daysOfWeekStyle: DaysOfWeekStyle(
                       weekendStyle: TextStyle(
@@ -203,9 +234,11 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                   physics: NeverScrollableScrollPhysics(),
                   itemCount:  _selectedEvents.length,
                   itemBuilder: (BuildContext context, int index) =>
-                      ChangeNotifierProvider.value(
-                        value:  _selectedEvents[index],
-                        child: ScheduleCard(),
+                      ScheduleCard(
+                        shiftId: _selectedEvents[index].shiftId,
+                        shiftTime:_selectedEvents[index].shift.shiftTime ,
+                        shiftDate: _selectedEvents[index].shift.shiftDate,
+                        shiftName: _selectedEvents[index].shift.shiftName,
                       )),
             ):
             Center(

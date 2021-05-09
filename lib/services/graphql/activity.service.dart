@@ -1,11 +1,11 @@
 import 'package:Quete/graphql/schema.dart';
+import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 
 import 'client.graphql.service.dart';
 
-class ActivityService{
-
-
+class ActivityService extends ChangeNotifier{
+List<GetAllActivities$QueryRoot$Activities> feed =[];
   // Todo please figure out this way of inserting if possible
   // Future<CreateActivity$MutationRoot$InsertActivitiesOne> createActivity(ActivitiesInsertInput input) async{
   //   try{
@@ -33,6 +33,21 @@ class ActivityService{
   //
   // }
 
+  void getActivities() async {
+    final _client = await IgreenGraphQLClient.getClient();
+    final options=QueryOptions(document: GetAllActivitiesQuery().document,
+        fetchPolicy: FetchPolicy.networkOnly );
+    final result= await _client.query(options);
+    if(result.hasException){
+      print("get all activities error${ result.exception.toString()}");
+      if(result.data==null)return null;
+    }
+
+    final query=GetAllActivities$QueryRoot.fromJson(result.data);
+    feed=query.activities;
+    print("get all activities result${feed.first.shift}");
+
+  }
   Future<CreateActivity$MutationRoot$InsertActivitiesOne> createActivity(
       String activityId,int shiftId, String userId, bool isAccepted) async{
     try{
