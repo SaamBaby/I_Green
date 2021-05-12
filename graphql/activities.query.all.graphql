@@ -11,6 +11,10 @@ query GetAllActivities {
             shift_name
             shift_notes
             shift_time
+            job {
+                job_location
+                job_name
+            }
         }
     }
 }

@@ -235,7 +235,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                   itemCount:  _selectedEvents.length,
                   itemBuilder: (BuildContext context, int index) =>
                       ScheduleCard(
-                        shiftId: _selectedEvents[index].shiftId,
+                        activityId:  _selectedEvents[index].activityId,
                         shiftTime:_selectedEvents[index].shift.shiftTime ,
                         shiftDate: _selectedEvents[index].shift.shiftDate,
                         shiftName: _selectedEvents[index].shift.shiftName,

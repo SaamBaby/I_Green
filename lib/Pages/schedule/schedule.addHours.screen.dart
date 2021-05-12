@@ -1,24 +1,21 @@
 import 'dart:async';
 import 'package:Quete/Utils/Widgets/schedule.stopwatch.dart';
 import 'package:Quete/models/job_shifts.dart';
-import 'package:Quete/providers/jobs_provider.dart';
 import 'package:Quete/models/direction.dart';
 import 'package:Quete/providers/schedule.shifts.provider.dart';
+import 'package:Quete/services/graphql/activity.service.dart';
 import 'package:Quete/services/location/location.helper.services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
     show SystemChrome, SystemUiOverlayStyle, rootBundle;
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:flutter_screenutil/screen_util.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-//import 'package:google_maps_webservice/directions.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class AddHours extends StatefulWidget {
-  String title;
   final String arguments;
 
   AddHours({Key key, this.arguments}) : super(key: key);
@@ -30,9 +27,25 @@ class AddHours extends StatefulWidget {
 // sam
 class _AddHoursState extends State<AddHours> {
   String mapStyle;
+  Position _currentLocation;
+  Position lastPosition ;
+  CameraPosition currentLocation;
+  Completer<GoogleMapController> _controllerGoogleMap = Completer();
+  GoogleMapController _googleMapController;
+  List<LatLng> polyLineCoordinates =[];
+  double bottomPaddingOfMap;
+  Set<Polyline> polyLineSet={};
+  CameraPosition cameraPosition;
+  Set<Marker> markers={};
+  Set<Circle> circles={};
+  // Stop Watch variables
+  bool isActive=false;
+  bool isShitStarted = false;
+
+  Stopwatch _stopwatch;
+  Timer _timer;
   @override
   void initState() {
-    locateCurrentPosition();
     rootBundle.loadString('assets/utils/map_style.txt').then((string) {
       mapStyle = string;
     });
@@ -48,27 +61,15 @@ class _AddHoursState extends State<AddHours> {
     _timer.cancel();
     super.dispose();
   }
-  Position _currentLocation;
-  Completer<GoogleMapController> _controllerGoogleMap = Completer();
-  GoogleMapController _googleMapController;
-  List<LatLng> polyLineCoordinates =[];
-  double bottomPaddingOfMap;
-  Set<Polyline> polyLineSet={};
-  CameraPosition cameraPosition;
-  Set<Marker> markers={};
-  Set<Circle> circles={};
-  String _currentAddress;
+
   DirectionDetails details=DirectionDetails(distanceText: "0 km away");
+
   CameraPosition _kGooglePlex = CameraPosition(
+      // lastPosition??currentLocation??
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
-  // Stop Watch variables
-  bool isActive=false;
-  bool isShitStarted = false;
 
-  Stopwatch _stopwatch;
-  Timer _timer;
 
   // Shift Model for saving the model
    var shiftData =ShiftModel(
@@ -207,23 +208,27 @@ class _AddHoursState extends State<AddHours> {
 
 
   void locateCurrentPosition() async {
-    _googleMapController = await _controllerGoogleMap.future;
-    _currentLocation = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      await placemarkFromCoordinates(_currentLocation.latitude, _currentLocation.longitude).then((placemarks) {
-    });
+      lastPosition = await Geolocator.getLastKnownPosition();
+     _googleMapController = await _controllerGoogleMap.future;
+      _currentLocation = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
+      // await placemarkFromCoordinates(_currentLocation.latitude, _currentLocation.longitude);
     //  convert current location using api
-    _currentAddress = await LocationHelper.searchCoordinateAddress(_currentLocation);
+    // _currentAddress = await LocationHelper.searchCoordinateAddress(_currentLocation);
+
     LatLng latLngCurrentPosition = LatLng(_currentLocation.latitude, _currentLocation.longitude);
     cameraPosition = new CameraPosition(target:  latLngCurrentPosition, zoom: 15);
 
-    _googleMapController
-        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    _googleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
-  Future<void> shiftLocation(address) async {
+  Future<void> locateShiftLocation(address) async {
     Position destination= await LocationHelper.searchAddressCoordinate(address);
      details= await LocationHelper.getAddressDirection(_currentLocation, destination);
+    drawPolyLines(destination,address);
+  }
+
+  void drawPolyLines(Position destination,String address){
     PolylinePoints  polylinePoints =PolylinePoints();
     List<PointLatLng> decodePolyLinePointsResult= polylinePoints.decodePolyline(details.encodePoints);
     polyLineCoordinates.clear();
@@ -236,10 +241,11 @@ class _AddHoursState extends State<AddHours> {
     setState(() {
       Polyline polyline =Polyline(
         polylineId: PolylineId("PolylineId"),
-        color: Colors.black,
+        color: Theme.of(context)
+            .primaryColor,
         jointType: JointType.round,
         points: polyLineCoordinates,
-        width: 3,
+        width: 4,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
         geodesic: true,
@@ -250,9 +256,9 @@ class _AddHoursState extends State<AddHours> {
     LatLngBounds latLngBounds;
     if(_currentLocation.latitude>destination.latitude&& _currentLocation
         .longitude>destination.longitude)
-      {
-        latLngBounds= LatLngBounds(southwest: LatLng(destination.latitude,destination.longitude),northeast: LatLng(_currentLocation.latitude, _currentLocation.longitude));
-      }
+    {
+      latLngBounds= LatLngBounds(southwest: LatLng(destination.latitude,destination.longitude),northeast: LatLng(_currentLocation.latitude, _currentLocation.longitude));
+    }
 
     else if(_currentLocation.longitude>destination.longitude){
 
@@ -269,8 +275,7 @@ class _AddHoursState extends State<AddHours> {
       latLngBounds= LatLngBounds(southwest: LatLng(_currentLocation.latitude, _currentLocation.longitude),northeast: LatLng(destination.latitude,destination.longitude));
     }
 
-    _googleMapController
-        .animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, 70));
+    _googleMapController.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, 70));
     Marker destinationLocationMarker=Marker(
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         infoWindow: InfoWindow(title:address,snippet: "Your Destination" ),
@@ -287,15 +292,11 @@ class _AddHoursState extends State<AddHours> {
       });
     }else{
       final snackBar = SnackBar(
-        content: Text('You have to be at the workplace to start the timer',style: TextStyle(
-            fontFamily: 'Futura Book',
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold),),
+        content: Text('You have to be at the workplace to start the timer',
+          style: Theme.of(context).textTheme.button,)
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-
   }
 
   @override
@@ -304,12 +305,8 @@ class _AddHoursState extends State<AddHours> {
         statusBarBrightness: Brightness.dark,
         statusBarColor: Colors.transparent));
 
-    final String shiftId = ModalRoute.of(context).settings.arguments as String;
-    final loadedShiftData = Provider.of<ShiftProvider>(context, listen: true)
-        .fetchAvailableShifts().firstWhere((element) => element.shiftId ==
-        widget.arguments);
-     print(loadedShiftData.shiftName);
-    final loadedJobData = Provider.of<Jobs>(context).getJobById(loadedShiftData.jobId);
+    final activityId = widget.arguments;
+    final loadedShiftData = Provider.of<ActivityService>(context, listen: true).feed.firstWhere((element) => element.activityId==activityId);
     return Scaffold(
       body: Stack(
         children: [
@@ -321,12 +318,11 @@ class _AddHoursState extends State<AddHours> {
             polylines: polyLineSet,
             markers: markers,
             circles: circles,
-
             zoomGesturesEnabled: true,
             initialCameraPosition:_kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               locateCurrentPosition();
-              shiftLocation(loadedJobData.jobLocation);
+              locateShiftLocation(loadedShiftData.shift.job.jobLocation);
               controller.setMapStyle(mapStyle);
               _controllerGoogleMap.complete(controller);
 
@@ -339,218 +335,198 @@ class _AddHoursState extends State<AddHours> {
             right: 0,
             left: 0,
             top: isActive?MediaQuery.of(context).size.height*
-                .5:MediaQuery.of(context).size.height*.6,
+                .5:MediaQuery.of(context).size.height*.62,
             child: Container(
               padding: EdgeInsets.only(right: 20,left: 20,bottom: 30),
               height: 300,
               decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      tileMode: TileMode.clamp,
+                      begin: Alignment.topCenter,
+                      end: Alignment.center,
+                      colors: [
+                        Color(0x1AFFFFFF),Color(0x4DFFFFFF), Colors.white]),
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(.5),
-                        blurRadius: 4,
-                        spreadRadius: .5,
-                        offset: Offset(0.3, 0.3))
-                  ]),
+                 ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                      padding: EdgeInsets.only(top: 0,left: 100,right: 100,
-                          bottom: 15),
-                      child:  Divider(
-                        thickness: 3.8,
-                        color: Color(0xff344644).withOpacity(.2),
-                      )),
-                  isActive?StopWatch(stopWatch: _stopwatch,):SizedBox(height: 1,),
-                  SizedBox(height: 30,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-                        margin: EdgeInsets.only(right: 5),
-                        width: 55,
-                        height: 22,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color(0xFF00bf6f).withOpacity(.8),),
-                        child: Text(
-                          "Location",
-                          style: TextStyle(
-                              fontFamily: 'Futura Book',
-                              color: Colors.white,
-                              fontSize: 13.5,
-                              fontWeight: FontWeight.bold),
-                        ),
+                  Center(
+                    child: Container(
+                      width:90,
+                      height:90,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        border: Border.all(color:Theme.of(context)
+                            .primaryColor,width: 3 )
                       ),
-                      SizedBox(width: 5,),
-                      SizedBox(
-                        width:180,
-                        child: Text(
-                          '${loadedJobData .jobLocation}',
-                          style: TextStyle(
-                              fontFamily: 'Futura Book',
-                              color: Colors.black54.withOpacity(.7),
-                              fontSize: 15,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-
-                      Text(
-                        '( ${details.distanceText} away )',
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                            fontFamily: 'Futura Book',
-                            color: Colors.black54.withOpacity(.7),
-                            fontSize: 13,
-
-                            fontWeight: FontWeight.bold),
-                      ),
-
-                    ],
+                      child: IconButton(
+                        onPressed: (){},
+                        icon: Icon(Icons.alarm_add,color: Theme.of(context)
+                            .primaryColor,size: 30,),
+                      )
+                    ),
                   ),
-                  SizedBox(height: 20,),
-                  Text(
-                    loadedJobData.jobName,
 
-                    style: TextStyle(
-                        fontFamily: 'Futura Heavy',
-                        color: Color(0xff344644),
-                        fontSize: 25,
-                        letterSpacing: 1.5,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 5,),
-                  Text(
-                    "${loadedJobData.jobLocation.replaceAll(',', ' .').split(".").first} . 9AM - 5 PM ",
-
-                    style:TextStyle(
-                        fontFamily: 'Futura Book',
-                        color: Colors.black54.withOpacity(.7),
-                        fontSize: 16,
-                        letterSpacing: 1.4,
-
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 5,),
                   Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {
-                         if(isActive==false){
-                          shiftLocation(loadedJobData.jobLocation);}
-                         else if(isActive){
-                           print(loadedShiftData.shiftDateTime);
-                           setState(() {
-
-                             shiftData =ShiftModel(
-                                 shiftId: loadedShiftData.shiftId,
-                                 shiftName: loadedShiftData.shiftName,
-                                 jobId:loadedShiftData.jobId,
-                                 shiftStartTime:DateTime.now(),
-                                 shiftEndTime:shiftData.shiftEndTime,
-                                 shiftDateTime:loadedShiftData.shiftDateTime,
-                                 isComplete:shiftData.isComplete
-                             );
-                             isShitStarted=true;
-                           });
-                           handleStartStop();
-                         }
-                        },
-                        child: Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            height: 45,
-                            alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width*.45,
-                            decoration: BoxDecoration(
-                              color: isActive?Color(0xFF00bf6f).withOpacity(.8):Color(0xfff2f2f2),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: RichText(
-                              text: TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: Icon(Icons.access_time_rounded,
-                                          size: 20,color: Colors.white,),
-                                    ),
-                                TextSpan(
-                                  text: "  "
-                                ),
-                                TextSpan(
-                                  text:  isShitStarted? "Stop Shift ":"Start "
-                                      "Shift",
-                                  style: TextStyle(
-                                    color: isActive?Colors.white:Colors.black12,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: 'Futura Book',
-                                  ),
-                                )
-                                  ]
-                              ),
-                            ) ),
-                      ),
-                      Spacer(),
-                      InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () {
-                            setState(() {
-                              isActive=(!isActive);
-
-                            });
-                          },
-                          child: Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              height: 20,
-                              alignment: Alignment.center,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                              ),
-                              child: Icon(
-                                FontAwesomeIcons.recycle,
-                                color: Colors.blue,
-                                size: 17,
-                              ))),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () {},
-                          child: Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              height: 20,
-                              alignment: Alignment.center,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                              ),
-                              child: Icon(
-                                FontAwesomeIcons.calendar,
-                                color: Colors.blue,
-                                size: 17,
-                              ))),
-
-
-
-                    ],
+                  isActive?StopWatch(stopWatch: _stopwatch,):SizedBox(height: 1,),
+                  SizedBox(height: 10,),
+                  Text(
+                     "Distance",
+                      style:Theme.of(context).textTheme.bodyText1
                   ),
+                  RichText(
+                    text: TextSpan(
+                        text: details.distanceText.split('km').first,
+                        style: GoogleFonts.montserrat(
+                          fontSize: ScreenUtil().setSp(50),
+                          color:Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(text: ' KM',
+                              style: GoogleFonts.nunito(
+                                fontSize: ScreenUtil().setSp(20),
+                                color:Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w900,))
+                        ]
+                    ),
+                  ),
+                  Text(
+                    loadedShiftData.shift.shiftName,
 
+                    style:Theme.of(context).textTheme.headline4
+                  ),
+                  SizedBox(height: 5,),
+
+                  SizedBox(height: 5,),
                   SizedBox(
-                    height: 10,
+                    width:double.infinity,
+                    child: Text(
+                      '${loadedShiftData.shift.job.jobLocation}',
+                      style:Theme.of(context).textTheme.bodyText1
+                    ),
                   ),
+
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     InkWell(
+                  //       splashColor: Colors.transparent,
+                  //       highlightColor: Colors.transparent,
+                  //       onTap: () {
+                  //        if(isActive==false){
+                  //         locateShiftLocation(loadedShiftData.shift.job.jobLocation);}
+                  //        else if(isActive){
+                  //
+                  //          setState(() {
+                  //
+                  //            // shiftData =ShiftModel(
+                  //            //     shiftId: loadedShiftData.shiftId,
+                  //            //     shiftName: loadedShiftData.shiftName,
+                  //            //     jobId:loadedShiftData.jobId,
+                  //            //     shiftStartTime:DateTime.now(),
+                  //            //     shiftEndTime:shiftData.shiftEndTime,
+                  //            //     shiftDateTime:loadedShiftData.shiftDateTime,
+                  //            //     isComplete:shiftData.isComplete
+                  //            // );
+                  //            isShitStarted=true;
+                  //          });
+                  //          handleStartStop();
+                  //        }
+                  //       },
+                  //       child: Container(
+                  //           margin: EdgeInsets.only(bottom: 10),
+                  //           height: 45,
+                  //           alignment: Alignment.center,
+                  //           width: MediaQuery.of(context).size.width*.45,
+                  //           decoration: BoxDecoration(
+                  //             color: isActive?Color(0xFF00bf6f).withOpacity(.8):Color(0xfff2f2f2),
+                  //             borderRadius: BorderRadius.circular(20),
+                  //           ),
+                  //           child: RichText(
+                  //             text: TextSpan(
+                  //                 children: [
+                  //                   WidgetSpan(
+                  //                     child: Icon(Icons.access_time_rounded,
+                  //                         size: 20,color: Colors.white,),
+                  //                   ),
+                  //               TextSpan(
+                  //                 text: "  "
+                  //               ),
+                  //               TextSpan(
+                  //                 text:  isShitStarted? "Stop Shift ":"Start "
+                  //                     "Shift",
+                  //                 style: TextStyle(
+                  //                   color: isActive?Colors.white:Colors.black12,
+                  //                   fontSize: 15,
+                  //                   fontWeight: FontWeight.w900,
+                  //                   fontFamily: 'Futura Book',
+                  //                 ),
+                  //               )
+                  //                 ]
+                  //             ),
+                  //           ) ),
+                  //     ),
+                  //     Spacer(),
+                  //     InkWell(
+                  //         splashColor: Colors.transparent,
+                  //         highlightColor: Colors.transparent,
+                  //         onTap: () async {
+                  //           List<Location> locations = await locationFromAddress("Gronausestraat 710, Enschede");
+                  //           List<Placemark> placemarks = await
+                  //           placemarkFromCoordinates(52.2165157, 6.9437819);
+                  //           print(placemarks.first.toString());
+                  //           setState(() {
+                  //             isActive=(!isActive);
+                  //
+                  //
+                  //           });
+                  //         },
+                  //         child: Container(
+                  //             margin: EdgeInsets.only(bottom: 10),
+                  //             height: 20,
+                  //             alignment: Alignment.center,
+                  //             width: 20,
+                  //             decoration: BoxDecoration(
+                  //               color: Colors.transparent,
+                  //             ),
+                  //             child: Icon(
+                  //               FontAwesomeIcons.recycle,
+                  //               color: Colors.blue,
+                  //               size: 17,
+                  //             ))),
+                  //     SizedBox(
+                  //       width: 10,
+                  //     ),
+                  //     InkWell(
+                  //         splashColor: Colors.transparent,
+                  //         highlightColor: Colors.transparent,
+                  //         onTap: () {},
+                  //         child: Container(
+                  //             margin: EdgeInsets.only(bottom: 10),
+                  //             height: 20,
+                  //             alignment: Alignment.center,
+                  //             width: 20,
+                  //             decoration: BoxDecoration(
+                  //               color: Colors.transparent,
+                  //             ),
+                  //             child: Icon(
+                  //               FontAwesomeIcons.calendar,
+                  //               color: Colors.blue,
+                  //               size: 17,
+                  //             ))),
+                  //
+                  //
+                  //
+                  //   ],
+                  // ),
+
+
 
 
                 ],
@@ -576,7 +552,8 @@ class _AddHoursState extends State<AddHours> {
                       borderRadius: BorderRadius.circular(22),
                     ),
                     child: CircleAvatar(
-                      backgroundColor: Color(0xFF00bf6f).withOpacity(.8),
+                      backgroundColor:Theme.of(context)
+                          .primaryColor,
                       radius: 22,
                       child: Icon(
                         Icons.arrow_back,
@@ -586,33 +563,7 @@ class _AddHoursState extends State<AddHours> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 17),
-                    width: 280,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
 
-                      borderRadius: BorderRadius.circular(22),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(.5),
-                              blurRadius: 2,
-                              spreadRadius: .5,
-                              offset: Offset(0.3, 0.3))
-                        ]
-                    ),
-                    child: Text(
-                      'Work Hours until ${(DateFormat('d. MMM . yyyy').format(DateTime.now()))}       30:00',
-                      style: TextStyle(
-                          fontFamily: 'Futura Book',
-                          color: Colors.black,
-                          fontSize: 13,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w900),
-                    )),
               ],
             ),
           )

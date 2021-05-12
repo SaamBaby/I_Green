@@ -34,7 +34,7 @@ ThemeData theme() {
       ),
       headline4: GoogleFonts.nunito(
         color: Color.fromRGBO(52, 43, 37, 1),
-        fontSize: ScreenUtil().setSp(14),
+        fontSize: ScreenUtil().setSp(25),
         fontWeight: FontWeight.w900,
       ),
 
