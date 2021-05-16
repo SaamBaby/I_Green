@@ -34,12 +34,15 @@ dependencies:
   #    cloud_functions: "^0.9.0"
   #    firebase_storage: "^7.0.0"
   #    firebase_messaging: "^8.0.0-dev.14"
+  #timer
+  circular_countdown: any
   # location
   flutter_google_places: ^0.2.6
   google_maps_webservice:
   google_maps_flutter: ^1.2.0
   geolocator:
   geocoding: ^1.0.5
+  maps_launcher: any
   flutter_polyline_points: ^0.2.4
   cupertino_icons: ^1.0.0
   # artemis build runner

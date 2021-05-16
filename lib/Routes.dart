@@ -1,6 +1,6 @@
 import 'package:Quete/Pages/home/home.screen.dart';
 import 'package:Quete/Pages/profile/personal.information.dart';
-import 'package:Quete/Pages/schedule/schedule.addHours.screen.dart';
+import 'package:Quete/Pages/schedule/schedule.maps.screen.dart';
 import 'package:Quete/services/helper/circle.transicion.route.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +16,7 @@ import 'Pages/introduction/splash.screen.dart';
 import 'Pages/notification/notifications.screen.dart';
 import 'Pages/profile/profile.screen.dart';
 import 'Pages/root.page.dart';
+import 'Pages/schedule/schedule.stopwatch.screen.dart';
 
 class Routes{
 
@@ -74,7 +75,8 @@ class Routes{
 
   // Schedule
   static const schedule = '/schedule/calender';
-  static const addHours = '/schedule/addHours';
+  static const map = '/schedule/maps';
+  static const stopWatch = '/schedule/stopWatch';
 
 
   static PageRouteBuilder generateRoute(RouteSettings routeSettings, {Widget
@@ -118,8 +120,12 @@ class Routes{
         return ShiftFeeds();
       case jobDetails:
         return JobDetails(closedShiftId: arguments,);
-      case addHours:
-        return AddHours(arguments: arguments);
+
+        // schedule
+      case map:
+        return LocationMap(arguments: arguments);
+      case stopWatch:
+                return ScheduleStopWatch();
         // user profile
       case userProfile:
          return Profile();

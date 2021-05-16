@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StopWatch extends StatelessWidget{
+// ignore: must_be_immutable
+class StopWatchTimer extends StatelessWidget{
 
   String formatTime(int milliseconds) {
     var secs = milliseconds ~/ 1000;
@@ -12,7 +13,7 @@ class StopWatch extends StatelessWidget{
   }
 
    var stopWatch;
-  StopWatch({this.stopWatch});
+  StopWatchTimer({this.stopWatch});
 
   @override
   Widget build(BuildContext context) {

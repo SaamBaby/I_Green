@@ -21,7 +21,7 @@ class ScheduleCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(Routes.addHours, arguments: activityId);
+            .pushNamed(Routes.map, arguments: activityId);
       },
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
