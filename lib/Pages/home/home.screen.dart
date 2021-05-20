@@ -184,10 +184,7 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                    "Available Jobs for You",
                      style:  Theme.of(context).textTheme.headline5
                  ),
-                 Expanded(
-                     child: ShiftFeedView()
-                 ),
-
+                ShiftFeedView()
                ],
              ),
            ),
