@@ -15,6 +15,7 @@ type activities {
   shift_endtime: String
   shift_id: Int!
   shift_starttime: String
+  total_hours: Int
 
   # An object relationship
   user: users!
@@ -68,11 +69,13 @@ input activities_arr_rel_insert_input {
 # aggregate avg on columns
 type activities_avg_fields {
   shift_id: Float
+  total_hours: Float
 }
 
 # order by avg() on columns of table "activities"
 input activities_avg_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # Boolean expression to filter rows from the table "activities". All fields are combined with a logical 'AND'.
@@ -87,6 +90,7 @@ input activities_bool_exp {
   shift_endtime: String_comparison_exp
   shift_id: Int_comparison_exp
   shift_starttime: String_comparison_exp
+  total_hours: Int_comparison_exp
   user: users_bool_exp
   user_id: String_comparison_exp
 }
@@ -103,6 +107,7 @@ enum activities_constraint {
 # input type for incrementing numeric columns in table "activities"
 input activities_inc_input {
   shift_id: Int
+  total_hours: Int
 }
 
 # input type for inserting data into table "activities"
@@ -114,6 +119,7 @@ input activities_insert_input {
   shift_endtime: String
   shift_id: Int
   shift_starttime: String
+  total_hours: Int
   user: users_obj_rel_insert_input
   user_id: String
 }
@@ -124,6 +130,7 @@ type activities_max_fields {
   shift_endtime: String
   shift_id: Int
   shift_starttime: String
+  total_hours: Int
   user_id: String
 }
 
@@ -133,6 +140,7 @@ input activities_max_order_by {
   shift_endtime: order_by
   shift_id: order_by
   shift_starttime: order_by
+  total_hours: order_by
   user_id: order_by
 }
 
@@ -142,6 +150,7 @@ type activities_min_fields {
   shift_endtime: String
   shift_id: Int
   shift_starttime: String
+  total_hours: Int
   user_id: String
 }
 
@@ -151,6 +160,7 @@ input activities_min_order_by {
   shift_endtime: order_by
   shift_id: order_by
   shift_starttime: order_by
+  total_hours: order_by
   user_id: order_by
 }
 
@@ -166,7 +176,7 @@ type activities_mutation_response {
 # on conflict condition type for table "activities"
 input activities_on_conflict {
   constraint: activities_constraint!
-  update_columns: [activities_update_column!]!
+  update_columns: [activities_update_column!]! = []
   where: activities_bool_exp
 }
 
@@ -179,6 +189,7 @@ input activities_order_by {
   shift_endtime: order_by
   shift_id: order_by
   shift_starttime: order_by
+  total_hours: order_by
   user: users_order_by
   user_id: order_by
 }
@@ -209,6 +220,9 @@ enum activities_select_column {
   shift_starttime
 
   # column name
+  total_hours
+
+  # column name
   user_id
 }
 
@@ -220,47 +234,56 @@ input activities_set_input {
   shift_endtime: String
   shift_id: Int
   shift_starttime: String
+  total_hours: Int
   user_id: String
 }
 
 # aggregate stddev on columns
 type activities_stddev_fields {
   shift_id: Float
+  total_hours: Float
 }
 
 # order by stddev() on columns of table "activities"
 input activities_stddev_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # aggregate stddev_pop on columns
 type activities_stddev_pop_fields {
   shift_id: Float
+  total_hours: Float
 }
 
 # order by stddev_pop() on columns of table "activities"
 input activities_stddev_pop_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # aggregate stddev_samp on columns
 type activities_stddev_samp_fields {
   shift_id: Float
+  total_hours: Float
 }
 
 # order by stddev_samp() on columns of table "activities"
 input activities_stddev_samp_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # aggregate sum on columns
 type activities_sum_fields {
   shift_id: Int
+  total_hours: Int
 }
 
 # order by sum() on columns of table "activities"
 input activities_sum_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # update columns of table "activities"
@@ -284,37 +307,46 @@ enum activities_update_column {
   shift_starttime
 
   # column name
+  total_hours
+
+  # column name
   user_id
 }
 
 # aggregate var_pop on columns
 type activities_var_pop_fields {
   shift_id: Float
+  total_hours: Float
 }
 
 # order by var_pop() on columns of table "activities"
 input activities_var_pop_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # aggregate var_samp on columns
 type activities_var_samp_fields {
   shift_id: Float
+  total_hours: Float
 }
 
 # order by var_samp() on columns of table "activities"
 input activities_var_samp_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # aggregate variance on columns
 type activities_variance_fields {
   shift_id: Float
+  total_hours: Float
 }
 
 # order by variance() on columns of table "activities"
 input activities_variance_order_by {
   shift_id: order_by
+  total_hours: order_by
 }
 
 # Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
@@ -475,7 +507,7 @@ type closed_shifts_mutation_response {
 # on conflict condition type for table "closed_shifts"
 input closed_shifts_on_conflict {
   constraint: closed_shifts_constraint!
-  update_columns: [closed_shifts_update_column!]!
+  update_columns: [closed_shifts_update_column!]! = []
   where: closed_shifts_bool_exp
 }
 
@@ -767,7 +799,7 @@ type documents_mutation_response {
 # on conflict condition type for table "documents"
 input documents_on_conflict {
   constraint: documents_constraint!
-  update_columns: [documents_update_column!]!
+  update_columns: [documents_update_column!]! = []
   where: documents_bool_exp
 }
 
@@ -1073,7 +1105,7 @@ input jobs_obj_rel_insert_input {
 # on conflict condition type for table "jobs"
 input jobs_on_conflict {
   constraint: jobs_constraint!
-  update_columns: [jobs_update_column!]!
+  update_columns: [jobs_update_column!]! = []
   where: jobs_bool_exp
 }
 
@@ -1690,7 +1722,7 @@ type open_shifts_mutation_response {
 # on conflict condition type for table "open_shifts"
 input open_shifts_on_conflict {
   constraint: open_shifts_constraint!
-  update_columns: [open_shifts_update_column!]!
+  update_columns: [open_shifts_update_column!]! = []
   where: open_shifts_bool_exp
 }
 
@@ -2378,7 +2410,7 @@ input shifts_obj_rel_insert_input {
 # on conflict condition type for table "shifts"
 input shifts_on_conflict {
   constraint: shifts_constraint!
-  update_columns: [shifts_update_column!]!
+  update_columns: [shifts_update_column!]! = []
   where: shifts_bool_exp
 }
 
@@ -3071,7 +3103,7 @@ input users_obj_rel_insert_input {
 # on conflict condition type for table "users"
 input users_on_conflict {
   constraint: users_constraint!
-  update_columns: [users_update_column!]!
+  update_columns: [users_update_column!]! = []
   where: users_bool_exp
 }
 

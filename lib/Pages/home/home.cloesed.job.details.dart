@@ -1,5 +1,6 @@
 import 'package:Quete/Pages/auth/signup.screen.dart';
 import 'package:Quete/graphql/schema.graphql.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:uuid/uuid.dart';
 import 'package:Quete/services/cache/user.cache.service.dart';
@@ -35,6 +36,7 @@ class _JobDetailsState extends State<JobDetails> {
   final _discoveryService = DiscoveryService();
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.white));
 
 
     // for location string manipulation
@@ -108,7 +110,6 @@ class _JobDetailsState extends State<JobDetails> {
 
     final loadedJobData = Provider.of<DiscoveryService>(context, listen:
     true).feed.firstWhere((element) => element.closedShiftsId==closedShiftId);
-
     List<String> tempLocation=loadedJobData.shift.job.jobLocation.split(',');
 
     return SafeArea(
@@ -174,8 +175,7 @@ class _JobDetailsState extends State<JobDetails> {
                                 _textSelect(tempLocation .getRange(1,3)
                                     .toString()),
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
                               SizedBox(
                                 height: 5,
@@ -287,7 +287,7 @@ class _JobDetailsState extends State<JobDetails> {
                   trimMode: TrimMode.Line,
                   trimCollapsedText: 'Show more',
                   trimExpandedText: 'Show less',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style:Theme.of(context).textTheme.bodyText2,
                   moreStyle:Theme.of(context).textTheme.bodyText2),
 
                     SizedBox(
@@ -308,7 +308,7 @@ class _JobDetailsState extends State<JobDetails> {
 
                           Text(
                       _textToList(loadedJobData.shift.job.jobResponsibilities),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           // Text(
                           //   loadedJobData.shift.job.jobResponsibilities,
@@ -334,7 +334,7 @@ class _JobDetailsState extends State<JobDetails> {
                         children: [
                           Text(
                       _textToList(loadedJobData.shift.job.jobQualifications),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ],
                       ),
@@ -427,7 +427,7 @@ class _JobDetailsState extends State<JobDetails> {
                               width: (currentAcceptState==buttonState.ButtonUninitialized)?MediaQuery.of
                                 (context).size.width:ScreenUtil().setWidth(40),
                               decoration: BoxDecoration(
-                                color:  Colors.black,
+                                color:  Theme.of(context).primaryColor,
                                 borderRadius: (currentAcceptState==buttonState.ButtonUninitialized)
                                     ?BorderRadius.circular(10):BorderRadius.circular(30),
                               ),
@@ -485,7 +485,7 @@ class _JobDetailsState extends State<JobDetails> {
                                 (context).size.width*.55:ScreenUtil().setWidth
                             (30),
                               decoration: BoxDecoration(
-                                color:  Theme.of(context).errorColor,
+                                color:  Colors.black,
                                 borderRadius:
                                 (currentDeclineState==buttonState.ButtonUninitialized)
                                     ?BorderRadius.circular(10):BorderRadius

@@ -76,6 +76,34 @@ List<GetAllActivities$QueryRoot$Activities> feed =[];
 
   }
 
+Future<bool> updateActivity(String activityId, String startTime, String
+endTime, int totalHours, bool isCompleted) async{
+  try{
+    GraphQLClient _client= await IgreenGraphQLClient.getClient();
+    final options = QueryOptions(document: UpdateActivityMutation().document,
+        fetchPolicy: FetchPolicy.networkOnly, variables: {'id': activityId,'s'
+            'tarttime': startTime,'endtime': endTime,'totalHours':totalHours,
+          'isCompleted':isCompleted
+    });
+
+    final result = await _client.query(options);
+
+    if(result.hasException){
+      print("update activity exceptions${ result.exception.toString()}");
+      return true;
+    }
+    final response = UpdateActivity$MutationRoot.fromJson(result.data)
+        .updateActivities.returning;
+    print(" update activity response${ response.first.shiftEndtime}");
+    return false;
+  }
+  catch(e){
+    print(e.toString());
+    return true;
+  }
+
+}
+
 
 
 

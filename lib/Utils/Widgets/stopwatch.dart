@@ -61,7 +61,7 @@ class StopWatchTimer extends StatelessWidget{
                 style:
                 TextStyle(
                     decoration: TextDecoration.none,
-                    color: Colors.black,
+                    color: Color(0xFF54E597),
                     fontSize: 30, fontWeight: FontWeight.w900),
 
               ),
@@ -70,16 +70,16 @@ class StopWatchTimer extends StatelessWidget{
                 width: 70,
                 height: 80,
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Color(0xFF54E597),
                     border: Border.all(
-                        width: 1, color: Colors.black.withOpacity(.1)),
+                        width: 1, color: Color(0xFF54E597)),
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
                     formatMinute(stopWatch.elapsedMilliseconds),
                     style: TextStyle(
                         decoration: TextDecoration.none,
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 30, fontWeight: FontWeight.w900),
 
                   ),
@@ -90,7 +90,7 @@ class StopWatchTimer extends StatelessWidget{
                 style:
                 TextStyle(
                     decoration: TextDecoration.none,
-                    color: Colors.black,
+                    color: Color(0xFF54E597),
                     fontSize: 30, fontWeight: FontWeight.w900),
               ),
               Container(

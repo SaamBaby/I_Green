@@ -18,7 +18,7 @@ class _OpenShiftFeedViewState extends State<OpenShiftFeedView> {
     return ChangeNotifierProvider.value(
       value: _discoveryService,
       child: SizedBox(
-          height: 210.0,
+          height: 240.0,
           child:  Consumer<DiscoveryService>(
             builder: (context,openShift,_)=>
             (openShift.openShiftFeed.length==0)?

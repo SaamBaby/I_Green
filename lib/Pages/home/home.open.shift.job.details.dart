@@ -1,5 +1,6 @@
 import 'package:Quete/Pages/auth/signup.screen.dart';
 import 'package:Quete/graphql/schema.graphql.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:uuid/uuid.dart';
 import 'package:Quete/services/cache/user.cache.service.dart';
@@ -29,12 +30,13 @@ enum buttonState {
 
 
 class _OpenJobDetailsState extends State<OpenJobDetails> {
+
   buttonState currentAcceptState = buttonState.ButtonUninitialized;
   final  _activityService = ActivityService();
   final _discoveryService = DiscoveryService();
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.white));
 
     // for location string manipulation
     String _textSelect(String str) {
@@ -147,8 +149,7 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                               Text(
                                 _textSelect(tempLocation .getRange(1,4).toString()),
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
                               SizedBox(
                                 height: 5,
@@ -276,7 +277,7 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                         trimMode: TrimMode.Line,
                         trimCollapsedText: 'Show more',
                         trimExpandedText: 'Show less',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         moreStyle:Theme.of(context).textTheme.bodyText2),
 
                     SizedBox(
@@ -297,12 +298,9 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
 
                           Text(
                             _textToList(loadedJobData.shift.job.jobResponsibilities),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
-                          // Text(
-                          //   loadedJobData.shift.job.jobResponsibilities,
-                          //   style: Theme.of(context).textTheme.bodyText1,
-                          // ),
+
                         ],
                       ),
                     ),
@@ -323,7 +321,7 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                         children: [
                           Text(
                             _textToList(loadedJobData.shift.job.jobQualifications),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ],
                       ),

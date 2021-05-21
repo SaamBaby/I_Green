@@ -43,7 +43,6 @@ class _LocationMapState extends State<LocationMap> {
   Set<Circle> circles={};
   // Stop Watch variables
   bool isActive=false;
-  bool isShitStarted = false;
 
   Stopwatch _stopwatch;
   Timer _timer;
@@ -51,10 +50,6 @@ class _LocationMapState extends State<LocationMap> {
   void initState() {
     rootBundle.loadString('assets/utils/map_style.txt').then((string) {
       mapStyle = string;
-    });
-    _stopwatch = Stopwatch();
-    _timer = new Timer.periodic(new Duration(milliseconds: 30), (timer) {
-      setState(() {});
     });
     super.initState();
 
@@ -74,139 +69,10 @@ class _LocationMapState extends State<LocationMap> {
   );
 
 
-  // Shift Model for saving the model
-   var shiftData =ShiftModel(
-       shiftName: '',
-       jobId:'',
-       shiftStartTime:DateTime.now(),
-       shiftEndTime:DateTime.now(),
-       shiftDateTime:DateTime.now(),
-       isComplete:false
-   );
 
 
-  void handleStartStop() {
-    if (_stopwatch.isRunning) {
-      showDialog(
-        context: context,
-        builder: (context){
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: Text(
-              "Do you want to Clock Out?",
-              style: TextStyle(
-                  fontFamily: 'Futura Heavy',
-                  color: Colors.black,
-                  fontSize: 25,
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.w900),
-            ),
-            actions: [
-              Consumer<ShiftProvider>(
-                builder: (_,shift,child) {
-                  return InkWell(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-                      _stopwatch.stop();
-                      setState(() {
-                        shiftData =ShiftModel(
-                            shiftName:shiftData.shiftName,
-                            jobId:shiftData.jobId,
-                            shiftId: shiftData.shiftId,
-                            shiftStartTime:shiftData.shiftStartTime,
-                            shiftEndTime:DateTime.now(),
-                            shiftDateTime:shiftData.shiftDateTime,
-                            isComplete:true
-                        );
-                        isShitStarted=false;
 
-                      });
-                      shift.addShiftHistory(shiftData);
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        height: 35,
-                        alignment: Alignment.center,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF00bf6f).withOpacity(.8),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: RichText(
-                          text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(Icons.alarm_on_outlined,
-                                    size: 16,color: Colors.white,),
-                                ),
-                                TextSpan(
-                                    text: "  "
-                                ),
-                                TextSpan(
-                                  text: "End Shift",
-                                  style: TextStyle(
-                                    color: isActive?Colors.white:Colors.black12,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: 'Futura Book',
-                                  ),
-                                )
-                              ]
-                          ),
-                        ) ),
-                  );
-                },
-              ),
 
-              FlatButton(
-                onPressed: (){
-                      Navigator.of(context).pop();
-                },
-                child:  Text(
-                  "Cancel",
-                  style: TextStyle(
-                      fontFamily: 'Futura Book',
-                      color: Colors.black,
-                      fontSize: 14,
-                      letterSpacing: 1.5,
-                      fontWeight: FontWeight.w900),
-                ),
-              )
-            ],
-            content:  Text(
-              "This will be saved as your clock out location.Press to "
-                  "confirm",
-              style: TextStyle(
-                  fontFamily: 'Futura Book',
-                  color: Colors.black,
-                  fontSize: 16,
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.w900),
-            ),
-          );
-        }
-      );
-    } else {
-      _stopwatch.start();
-      setState(() {
-        shiftData =ShiftModel(
-            shiftName: shiftData.shiftName,
-            jobId:shiftData.jobId,
-            shiftStartTime:DateTime.now(),
-            shiftEndTime:shiftData.shiftEndTime,
-            shiftDateTime:shiftData.shiftDateTime,
-            isComplete:shiftData.isComplete
-        );
-        isShitStarted=true;
-      });
-    }
-
-    setState(() {});
-  }
 
 
   String _textSelect(String str) {
@@ -437,7 +303,8 @@ class _LocationMapState extends State<LocationMap> {
                                   .jobLocation).then((value) {
 
                                 if(isActive){
-                                  Navigator.of(context).pushNamed(Routes.stopWatch);
+                                  Navigator.of(context).pushNamed(Routes
+                                      .stopWatch,arguments:activityId );
                                 }
 
                               });
@@ -512,8 +379,7 @@ class _LocationMapState extends State<LocationMap> {
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () {
-                              print("test ${loadedShiftData.shift.job
-                                  .jobLocation.split(',')}");
+
                               print(loadedShiftData.shift.job.jobLocation);
                               MapsLauncher.launchQuery(loadedShiftData.shift.job.jobLocation);
                             },

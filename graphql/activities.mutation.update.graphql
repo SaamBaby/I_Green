@@ -1,6 +1,8 @@
-mutation UpdateActivity($id: String!, $starttime: String,$endtime: String ) {
+mutation UpdateActivity($id: String!, $starttime: String, $endtime: String,  $totalHours:Int,
+    $isCompleted:Boolean,) {
     update_activities(where: {activity_id: {_eq:$id}},
-        _set: {is_completed: true, shift_starttime:$starttime, shift_endtime:$endtime}) {
+        _set: {  activity_id:$id,is_completed: $isCompleted, shift_starttime:$starttime, shift_endtime:$endtime,
+            total_hours: $totalHours}) {
         returning {
             shift_endtime
             shift_starttime

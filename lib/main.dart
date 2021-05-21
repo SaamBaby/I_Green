@@ -31,8 +31,8 @@ final _userService= UserService();
 final _activityService= ActivityService()..getActivities();
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarBrightness: Brightness.dark, statusBarColor: Colors.white));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith
+    (statusBarBrightness: Brightness.light, statusBarColor: Colors.white));
   WidgetsFlutterBinding.ensureInitialized();
 
 

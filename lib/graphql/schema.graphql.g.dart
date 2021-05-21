@@ -279,6 +279,10 @@ ActivitiesBoolExp _$ActivitiesBoolExpFromJson(Map<String, dynamic> json) {
         ? null
         : StringComparisonExp.fromJson(
             json['shift_starttime'] as Map<String, dynamic>),
+    totalHours: json['total_hours'] == null
+        ? null
+        : IntComparisonExp.fromJson(
+            json['total_hours'] as Map<String, dynamic>),
     user: json['user'] == null
         ? null
         : UsersBoolExp.fromJson(json['user'] as Map<String, dynamic>),
@@ -300,6 +304,7 @@ Map<String, dynamic> _$ActivitiesBoolExpToJson(ActivitiesBoolExp instance) =>
       'shift_endtime': instance.shiftEndtime?.toJson(),
       'shift_id': instance.shiftId?.toJson(),
       'shift_starttime': instance.shiftStarttime?.toJson(),
+      'total_hours': instance.totalHours?.toJson(),
       'user': instance.user?.toJson(),
       'user_id': instance.userId?.toJson(),
     };
@@ -317,6 +322,7 @@ ActivitiesInsertInput _$ActivitiesInsertInputFromJson(
     shiftEndtime: json['shift_endtime'] as String,
     shiftId: json['shift_id'] as int,
     shiftStarttime: json['shift_starttime'] as String,
+    totalHours: json['total_hours'] as int,
     user: json['user'] == null
         ? null
         : UsersObjRelInsertInput.fromJson(json['user'] as Map<String, dynamic>),
@@ -334,6 +340,7 @@ Map<String, dynamic> _$ActivitiesInsertInputToJson(
       'shift_endtime': instance.shiftEndtime,
       'shift_id': instance.shiftId,
       'shift_starttime': instance.shiftStarttime,
+      'total_hours': instance.totalHours,
       'user': instance.user?.toJson(),
       'user_id': instance.userId,
     };
@@ -408,6 +415,7 @@ const _$ActivitiesUpdateColumnEnumMap = {
   ActivitiesUpdateColumn.shiftEndtime: 'shift_endtime',
   ActivitiesUpdateColumn.shiftId: 'shift_id',
   ActivitiesUpdateColumn.shiftStarttime: 'shift_starttime',
+  ActivitiesUpdateColumn.totalHours: 'total_hours',
   ActivitiesUpdateColumn.userId: 'user_id',
   ActivitiesUpdateColumn.artemisUnknown: 'ARTEMIS_UNKNOWN',
 };
@@ -2198,6 +2206,8 @@ UpdateActivityArguments _$UpdateActivityArgumentsFromJson(
     id: json['id'] as String,
     starttime: json['starttime'] as String,
     endtime: json['endtime'] as String,
+    isCompleted: json['isCompleted'] as bool,
+    totalHours: json['totalHours'] as int,
   );
 }
 
@@ -2207,6 +2217,8 @@ Map<String, dynamic> _$UpdateActivityArgumentsToJson(
       'id': instance.id,
       'starttime': instance.starttime,
       'endtime': instance.endtime,
+      'isCompleted': instance.isCompleted,
+      'totalHours': instance.totalHours,
     };
 
 CreateClosedShiftArguments _$CreateClosedShiftArgumentsFromJson(

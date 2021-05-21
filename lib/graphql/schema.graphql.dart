@@ -275,6 +275,7 @@ class ActivitiesBoolExp with EquatableMixin {
       this.shiftEndtime,
       this.shiftId,
       this.shiftStarttime,
+      this.totalHours,
       this.user,
       this.userId});
 
@@ -310,6 +311,9 @@ class ActivitiesBoolExp with EquatableMixin {
   @JsonKey(name: 'shift_starttime')
   StringComparisonExp shiftStarttime;
 
+  @JsonKey(name: 'total_hours')
+  IntComparisonExp totalHours;
+
   UsersBoolExp user;
 
   @JsonKey(name: 'user_id')
@@ -327,6 +331,7 @@ class ActivitiesBoolExp with EquatableMixin {
         shiftEndtime,
         shiftId,
         shiftStarttime,
+        totalHours,
         user,
         userId
       ];
@@ -343,6 +348,7 @@ class ActivitiesInsertInput with EquatableMixin {
       this.shiftEndtime,
       this.shiftId,
       this.shiftStarttime,
+      this.totalHours,
       this.user,
       this.userId});
 
@@ -369,6 +375,9 @@ class ActivitiesInsertInput with EquatableMixin {
   @JsonKey(name: 'shift_starttime')
   String shiftStarttime;
 
+  @JsonKey(name: 'total_hours')
+  int totalHours;
+
   UsersObjRelInsertInput user;
 
   @JsonKey(name: 'user_id')
@@ -383,6 +392,7 @@ class ActivitiesInsertInput with EquatableMixin {
         shiftEndtime,
         shiftId,
         shiftStarttime,
+        totalHours,
         user,
         userId
       ];
@@ -2453,6 +2463,8 @@ enum ActivitiesUpdateColumn {
   shiftId,
   @JsonValue('shift_starttime')
   shiftStarttime,
+  @JsonValue('total_hours')
+  totalHours,
   @JsonValue('user_id')
   userId,
   @JsonValue('ARTEMIS_UNKNOWN')
@@ -2711,7 +2723,12 @@ class CreateActivityMutation
 
 @JsonSerializable(explicitToJson: true)
 class UpdateActivityArguments extends JsonSerializable with EquatableMixin {
-  UpdateActivityArguments({@required this.id, this.starttime, this.endtime});
+  UpdateActivityArguments(
+      {@required this.id,
+      this.starttime,
+      this.endtime,
+      this.isCompleted,
+      this.totalHours});
 
   @override
   factory UpdateActivityArguments.fromJson(Map<String, dynamic> json) =>
@@ -2723,8 +2740,12 @@ class UpdateActivityArguments extends JsonSerializable with EquatableMixin {
 
   final String endtime;
 
+  final bool isCompleted;
+
+  final int totalHours;
+
   @override
-  List<Object> get props => [id, starttime, endtime];
+  List<Object> get props => [id, starttime, endtime, isCompleted, totalHours];
   @override
   Map<String, dynamic> toJson() => _$UpdateActivityArgumentsToJson(this);
 }
@@ -2756,6 +2777,18 @@ class UpdateActivityMutation
               type: NamedTypeNode(
                   name: NameNode(value: 'String'), isNonNull: false),
               defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'isCompleted')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'Boolean'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'totalHours')),
+              type:
+                  NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
               directives: [])
         ],
         directives: [],
@@ -2780,15 +2813,24 @@ class UpdateActivityMutation
                     name: NameNode(value: '_set'),
                     value: ObjectValueNode(fields: [
                       ObjectFieldNode(
+                          name: NameNode(value: 'activity_id'),
+                          value: VariableNode(name: NameNode(value: 'id'))),
+                      ObjectFieldNode(
                           name: NameNode(value: 'is_completed'),
-                          value: BooleanValueNode(value: true)),
+                          value: VariableNode(
+                              name: NameNode(value: 'isCompleted'))),
                       ObjectFieldNode(
                           name: NameNode(value: 'shift_starttime'),
                           value:
                               VariableNode(name: NameNode(value: 'starttime'))),
                       ObjectFieldNode(
                           name: NameNode(value: 'shift_endtime'),
-                          value: VariableNode(name: NameNode(value: 'endtime')))
+                          value:
+                              VariableNode(name: NameNode(value: 'endtime'))),
+                      ObjectFieldNode(
+                          name: NameNode(value: 'total_hours'),
+                          value:
+                              VariableNode(name: NameNode(value: 'totalHours')))
                     ]))
               ],
               directives: [],

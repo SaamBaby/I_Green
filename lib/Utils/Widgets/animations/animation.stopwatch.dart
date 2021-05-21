@@ -11,7 +11,7 @@ class  ProgressDial  extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint circle =Paint()
       ..strokeWidth=strokeCircle
-      ..color=Color(0xFF000000).withOpacity(.1)
+      ..color=Color(0xFF54E597).withOpacity(.1)
       ..style=PaintingStyle.stroke;
     Offset center=Offset(size.width/2, size.height/2);
     double radius=size.width/3;
@@ -19,7 +19,7 @@ class  ProgressDial  extends CustomPainter {
 
     Paint progressCircle= Paint()
       ..strokeWidth= strokeCircle
-      ..color=Colors.black
+      ..color=Color(0xFF54E597)
       ..style=PaintingStyle.stroke
       ..strokeCap=StrokeCap.round;
 
@@ -62,7 +62,7 @@ class  StopWatchDial extends CustomPainter {
           fontSize: 15,
           fontWeight: FontWeight.w900,
         ) {
-    tickPaint.color = Colors.blueGrey;
+    tickPaint.color = Color(0xFF54E597);
   }
 
   @override
@@ -126,7 +126,7 @@ class  StopWatchDial extends CustomPainter {
           ? hourTickMarkWidth
           : minuteTickMarkWidth;
       // tickPaint.color=Color(0xFF54E597);
-      tickPaint.color = Colors.black;
+      tickPaint.color = Color(0xFF54E597);
       canvas.drawLine(new Offset(0.0, -radius), new Offset(0.0, -radius + tickMarkLength), tickPaint);
 
       //draw the text

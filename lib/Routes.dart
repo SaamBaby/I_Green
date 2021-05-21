@@ -125,7 +125,7 @@ class Routes{
       case map:
         return LocationMap(arguments: arguments);
       case stopWatch:
-                return ScheduleStopWatch();
+                return ScheduleStopWatch(activityId: arguments);
         // user profile
       case userProfile:
          return Profile();
