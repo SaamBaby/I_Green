@@ -32,14 +32,11 @@ class Profile extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline1),
                   Spacer(),
                   Text("FAQS ?",
-                    style: TextStyle(
-                        fontFamily: 'Futura Book',
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),)
+
+                    style:  Theme.of(context).textTheme.bodyText2)
                 ],),
               SizedBox(height: 20,),
-              Divider(),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -50,19 +47,19 @@ class Profile extends StatelessWidget {
                       Navigator.pushNamed(context, Routes.personalInformation);
                     },
                     child: Text("Personal Information",
-                        style: Theme.of(context).textTheme.bodyText1),
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
 
                 ],),
               SizedBox(height: 10,),
-              Divider(),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Icon(Icons.calendar_today),
                   SizedBox(width: 20,),
                   Text("Availabilities",
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
 
                 ],),
 
@@ -74,7 +71,7 @@ class Profile extends StatelessWidget {
                   Icon(Icons.insert_drive_file),
                   SizedBox(width: 20,),
                   Text("Documents",
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
 
                 ],),
               SizedBox(height: 10,),
@@ -85,7 +82,7 @@ class Profile extends StatelessWidget {
                   Icon(Icons.analytics_rounded),
                   SizedBox(width: 20,),
                   Text("Activities",
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
 
                 ],),
               SizedBox(height: 10,),
@@ -96,7 +93,7 @@ class Profile extends StatelessWidget {
                   Icon(Icons.settings_rounded),
                   SizedBox(width: 20,),
                   Text("Settings",
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
 
                 ],),
               SizedBox(height: 10,),
@@ -115,7 +112,7 @@ class Profile extends StatelessWidget {
                             builder: (context) => AlertDialog(
                               actionsPadding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth
                                 (15),horizontal: ScreenUtil().setWidth(20)),
-                              title: Text( "Are your sure you want to sign out? " ,style: Theme.of(context).textTheme.bodyText1,),
+                              title: Text( "Are your sure you want to sign out? " ,style: Theme.of(context).textTheme.bodyText2,),
                               actions: <Widget>[
 
                                 FlatButton(
@@ -142,7 +139,7 @@ class Profile extends StatelessWidget {
 
                       },
                       child: Text("Logout",
-                          style: Theme.of(context).textTheme.bodyText1),
+                          style: Theme.of(context).textTheme.bodyText2),
                     ),
 
                   ],),
@@ -155,18 +152,17 @@ class Profile extends StatelessWidget {
                   Icon(Icons.info),
                   SizedBox(width: 20,),
                   Text("About Us",
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
 
                 ],),
               SizedBox(height: 10,),
-              Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Icon(Icons.shield),
                   SizedBox(width: 20,),
                   Text("Privacy Policy",
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
 
                 ],),
               SizedBox(height: 10,),

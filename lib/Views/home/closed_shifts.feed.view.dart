@@ -47,7 +47,9 @@ class _ShiftFeedViewState extends State<ShiftFeedView> {
         shiftDate: _feed[index].shift.shiftDate,
         shiftLocation:_feed[index].shift.job.jobLocation,
         shiftTime:_feed[index].shift.shiftTime,
-
+        isFullTime:_feed[index].shift.job.isFulltime ,
+        isPartTime: _feed[index].shift.job.isParttime,
+        description: _feed[index].shift.job.jobDescription,
       ),
     ),
     );

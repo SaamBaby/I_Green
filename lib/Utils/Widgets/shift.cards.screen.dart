@@ -1,5 +1,4 @@
 import 'package:Quete/Pages/home/home.open.shift.job.details.dart';
-import 'package:Quete/models/Job.dart';
 import 'package:Quete/services/graphql/discovery.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -14,21 +13,23 @@ import '../../Routes.dart';
 
 class OpenShiftCard extends StatelessWidget {
   final String openShiftId;
-  final int jobId;
   final String shiftName;
-  final String shiftTime;
   final String shiftLocation;
   final DateTime shiftDate;
   final String salary;
+  final bool isFullTime;
+  final bool isPartTime;
+  final String jobDescription;
 
   const OpenShiftCard({Key key,
     this.openShiftId,
-    this.jobId,
     this.shiftName,
-    this.shiftTime,
     this.shiftLocation,
     this.shiftDate,
-    this.salary}) : super(key: key);
+    this.salary,
+    this.isFullTime,
+    this.isPartTime,
+    this.jobDescription}) : super(key: key);
 
 
 
@@ -50,67 +51,51 @@ class OpenShiftCard extends StatelessWidget {
       child: Container(
 
           padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth
-            (25),horizontal: ScreenUtil().setWidth(20)),
+            (20),horizontal: ScreenUtil().setWidth(20)),
           margin: EdgeInsets.only(right: 10),
           width: 320,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               color: Colors.black.withOpacity(.8)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: Center(
-                            child: Text(
-                              '${(DateFormat('E').format(shiftDate))}'[
-                              0],
-                              style:  TextStyle(
-                                  fontFamily: 'Futura Heavy',
-                                  color: Colors.black,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold)
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 5,),
-                        Text(
-                          "${shiftDate.day} th",
-                          style: Theme.of(context).textTheme.subtitle1
-                        ),
 
+                        Visibility(
+                          visible: isFullTime,
+                          child: Text(
+                            "FULL TIME",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Heavy",
+                                letterSpacing: .8,
+                                color: Colors.white,
+                                fontSize: 10),
+                          ),
+                        ),
+                        Visibility(
+                          visible: isPartTime,
+                          child: Text(
+                            ", PART TIME",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Heavy",
+                                letterSpacing: .8,
+                                color:  Theme.of(context).primaryColor,
+                                fontSize: 10),
+                          ),
+                        ),
                       ],
                     ),
-                    // RichText(
-                    //   text: TextSpan(
-                    //       children: <TextSpan>[
-                    //         TextSpan(
-                    //             text: "\$CA ",
-                    //             style:
-                    //             Theme.of(context).textTheme.subtitle1
-                    //         ),
-                    //         TextSpan(
-                    //             text:salary,
-                    //             style:
-                    //             Theme.of(context).textTheme.subtitle1
-                    //         ),
-                    //
-                    //       ]),
-                    // ),
                     IconButton(
                       onPressed: (){},
                       color: Colors.white,
@@ -120,76 +105,98 @@ class OpenShiftCard extends StatelessWidget {
                   ],
                 ),
               ),
-           SizedBox(height: 10,),
+
               Expanded(
-                flex: 1,
-                child: Text(
-
-                  shiftName,
-                  overflow: TextOverflow.visible,
-                  style:  GoogleFonts.nunito(
-                    height: 1.2,
-                    fontSize: ScreenUtil().setSp(18),
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  )),
-              ),
-              SizedBox(height: 20,),
-             Expanded(
-               flex: 1,
-                child: RichText(
-                  text: TextSpan(
-                      text: shiftLocation.replaceAll(',', ' .').split(".").first,
-                      style: Theme.of(context).textTheme.caption,
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: ' . ',
-                            style:
-                            Theme.of(context).textTheme.subtitle1,
-                           ),
-                        TextSpan(
-                          text:  shiftLocation.replaceAll(',', ' .').split(".").last,
-                          style: Theme.of(context).textTheme.caption
-
-                        )
-
-                      ]),
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        shiftName,
+                        overflow: TextOverflow.visible,
+                        style:  GoogleFonts.nunito(
+                          height: 1.2,
+                          fontSize: ScreenUtil().setSp(18),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                        )),
+                    SizedBox(height: 10,),
+                    Text(
+                        jobDescription,
+                        maxLines: 2,
+                        overflow: TextOverflow.visible,
+                        style:TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Futura Book",
+                            letterSpacing: .8,
+                            height: 1.5,
+                            color: Colors.white.withOpacity(.8),
+                            fontSize: 12)  ),
+                  ],
                 ),
-              ),
 
+              ),
               Expanded(
                 flex: 1,
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 5,
-                          horizontal: 10),
-                      margin: EdgeInsets.only(right: 10),
-                      width: 80,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.black),
-                      child: Text(
-                        "Full-Time",
-                        style: Theme.of(context).textTheme.caption,
-                      ),
+                    Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                      size: 20,
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 5,
-                          horizontal: 10),
-                      margin: EdgeInsets.only(right: 10),
-                      width: 80,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.black),
-                      child: Text(
-                        "Part-Time",
-                        style: Theme.of(context).textTheme.caption,
-                      ),
+                    RichText(
+                      text: TextSpan(
+                          text: shiftLocation.replaceAll(',', ' .').split(""
+                              ".").first,
+                          style:TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontFamily: "Futura Book",
+                              letterSpacing: .8,
+                              height: 1,
+                              color: Colors.white.withOpacity(.8),
+                              fontSize: 12),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: ' . ',
+                              style:
+                              TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: "Futura Book",
+                                  letterSpacing: .8,
+                                  height: .8,
+                                  color: Colors.white.withOpacity(.8),
+                                  fontSize: 12),
+                            ),
+                            TextSpan(
+                              text: (shiftLocation.replaceAll(', ', ''
+                                  '.').split('.').last).toString().split
+                                (' ').first,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: "Futura Book",
+                                  letterSpacing: .8,
+                                  height: 1,
+                                  color: Colors.white.withOpacity(.8),
+                                  fontSize: 12),
+
+                            ),
+
+
+
+                          ]),
+                    ),
+                    Spacer(),
+                    Text(
+                     salary.toString(),
+                      textAlign: TextAlign.center,
+                      style:
+                      TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontFamily: "Futura Book",
+                          letterSpacing: 1,
+                          color: Colors.white.withOpacity(.8),
+                          fontSize: 12),
                     ),
                   ],
                 ),
@@ -207,11 +214,14 @@ class ClosedShiftCard extends StatelessWidget {
   final String shiftName;
   final String shiftTime;
   final String shiftLocation;
- final DateTime shiftDate;
+  final DateTime shiftDate;
+  final bool isFullTime;
+  final bool isPartTime;
+  final String description;
 
 
 
-  const ClosedShiftCard({Key key, this.shiftName, this.shiftLocation, this.shiftDate, this.jobId, this.shiftTime, this.closedShiftId}) : super(key: key);
+  const ClosedShiftCard({Key key, this.shiftName, this.shiftLocation, this.shiftDate, this.jobId, this.shiftTime, this.closedShiftId, this.isFullTime, this.isPartTime, this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -240,70 +250,112 @@ class ClosedShiftCard extends StatelessWidget {
           child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Expanded (
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          '${(DateFormat('EEE').format(shiftDate))}'[
-                          0],
-                          style: TextStyle(
-                              fontFamily: 'Futura Heavy',
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 51,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "${shiftDate.day} th",
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      ],
+                  Container(
+                    width: 60,
+                    height: 60,
+
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${(DateFormat('EEE').format(shiftDate))}'[
+                        0],
+                        style: TextStyle(
+                            fontFamily: 'Futura Heavy',
+                            color: Colors.white,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
+                  Spacer(),
 
-                  Expanded (
-                    flex: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          shiftName,
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
 
-                        RichText(
-                          text: TextSpan(
-                              text: shiftLocation.replaceAll(',', ' .').split(""
-                                  ".").first,
-                              style: Theme.of(context).textTheme.bodyText2,
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: ' . ',
-                                  style:
-                                  TextStyle(
-
-                                      fontFamily: 'Futura Book',
-                                      color: Colors.black.withOpacity(.5),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                TextSpan(
-                                    text: shiftLocation.replaceAll(',', ' .').split(".").last,
-                                    style: Theme.of(context).textTheme.bodyText2
-
-                                )
-
-                              ]),
-                        ),
-                      ],
-                    ),
-                  ),
+                          Visibility(
+                            visible: isFullTime,
+                            child: Text(
+                              "FULL TIME",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: "Futura Heavy",
+                                  letterSpacing: .8,
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: 10),
+                            ),
+                          ),
+                          Visibility(
+                            visible: isPartTime,
+                            child: Text(
+                              ", PART TIME",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: "Futura Heavy",
+                                  letterSpacing: .8,
+                                  color:  Theme.of(context).primaryColor,
+                                  fontSize: 10),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+                      Text(
+                        shiftName,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
 
 
+                      RichText(
+                        text: TextSpan(
+                            text: shiftLocation.replaceAll(',', ' .').split(""
+                                ".").first,
+                            style:TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Book",
+                                letterSpacing: .8,
+                                height: 1,
+                                color: Colors.black.withOpacity(.5),
+                                fontSize: 12),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: ' . ',
+                                style:
+                                TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontFamily: "Futura Book",
+                                    letterSpacing: .8,
+                                    height: .8,
+                                    color: Colors.black.withOpacity(.5),
+                                    fontSize: 12),
+                              ),
+                              TextSpan(
+                                text: (shiftLocation.replaceAll(', ', ''
+                                    '.').split('.').last).toString().split
+                                  (' ').first,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontFamily: "Futura Book",
+                                    letterSpacing: .8,
+                                    height: 1,
+                                    color: Colors.black.withOpacity(.5),
+                                    fontSize: 12),
+
+                              ),
+
+
+
+                            ]),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

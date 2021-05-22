@@ -63,7 +63,14 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
             content: Text(error.toString()),
             actions: <Widget>[
               FlatButton(
-                child: Text("Okay!",style: Theme.of(context).textTheme.headline5,),
+                child: Text("Okay!",style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontFamily: "Futura Book",
+                    letterSpacing: .8,
+                    height: 1.5,
+                    color: Colors.black.withOpacity(.8),
+                    fontSize: 16
+                )),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -75,7 +82,14 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
       if(currentAcceptState==buttonState.ButtonUninitialized){
         return Text(
             "Accept",
-            style: Theme.of(context).textTheme.button
+            style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontFamily: "Futura Book",
+                letterSpacing: .8,
+                height: 1.5,
+                color: Colors.white,
+                fontSize: 16
+            ),
         );
       }else if(currentAcceptState==buttonState.ButtonPressing){
         return CircularProgressIndicator(
@@ -105,8 +119,8 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(
-                    Icons.arrow_back_ios,
+                  child:  Icon(
+                    Icons.arrow_back,
                     color: Colors.black,
                   ),
                 ),
@@ -121,149 +135,139 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 40,
-                            child: Image.network(loadedJobData.shift
-                                .job.jobLogo),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                  loadedJobData.shift.job.jobName,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  " 2 weeks ago",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: "Futura Book",
+                                      letterSpacing: .8,
+                                      color: Colors.black.withOpacity(.5),
+                                      fontSize: 12),
+                                ),
+                                Visibility(
+                                  visible: loadedJobData.shift.job.isFulltime,
+                                  child: Text(
+                                    "| Full-Time",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontFamily: "Futura Book",
+                                        letterSpacing: .8,
+                                        color: Colors.black.withOpacity(.5),
+                                        fontSize: 12),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: loadedJobData.shift.job.isParttime,
+                                  child: Text(
+                                    "| Part-Time",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontFamily: "Futura Book",
+                                        letterSpacing: .8,
+                                        color: Colors.black.withOpacity(.5),
+                                        fontSize: 12),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: loadedJobData.shift.job.isContract,
+                                  child: Text(
+                                    "Contract",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontFamily: "Futura Book",
+                                        letterSpacing: .8,
+                                        color: Colors.black.withOpacity(.5),
+                                        fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width*.6,
+                              child: Text(loadedJobData.shift.job.jobName,
+                                  overflow: TextOverflow.clip,
+                                  textAlign: TextAlign.start,
+                                  style: Theme.of(context).textTheme.headline5),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                  color: Colors.black,
+                                  size: 20,
+                                ),
+                                Text(
+                                  _textSelect(
+                                      tempLocation.getRange(1, 3).toString()),
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme.headline1
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                _textSelect(tempLocation .getRange(1,4).toString()),
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.bodyText2,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              RichText(
-                                text: TextSpan(children: <TextSpan>[
-                                  TextSpan(
-                                      text: "\$CA ",
-                                      style: Theme.of(context)
-                                          .textTheme.bodyText2),
-                                  TextSpan(
-                                      text: loadedJobData.shift.job.jobSalary
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme.bodyText2),
-                                ]),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: [
-                                  Visibility(
-                                    visible: loadedJobData.shift
-                                        .job.isFulltime,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(vertical: 10,
-                                          horizontal: 10),
-                                      margin:
-                                      EdgeInsets.only(right: 5),
-                                      width: 80,
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              10),
-                                          color: Color(0xffeef1f4)),
-                                      child: Text(
-                                        "Full-Time",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black54
-                                                .withOpacity(.8),
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.w900),
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: loadedJobData.shift
-                                        .job.isParttime,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 10),
-                                      margin:
-                                      EdgeInsets.only(right: 5),
-                                      width: 80,
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              10),
-                                          color: Color(0xffeef1f4)),
-                                      child: Text(
-                                        "Part-Time",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black54
-                                                .withOpacity(.8),
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.w900),
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: loadedJobData.shift.job.isContract,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 10),
-                                      margin:
-                                      EdgeInsets.only(right: 5),
-                                      width: 80,
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              10),
-                                          color: Color(0xffeef1f4)),
-                                      child: Text(
-                                        "Contract",
-                                        style: TextStyle(
-                                            fontFamily: 'Futura Book',
-                                            color: Colors.black54
-                                                .withOpacity(.8),
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.w900),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: "Futura Book",
+                                      letterSpacing: .8,
+                                      color: Colors.black.withOpacity(.8),
+                                      fontSize: 12),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.attach_money_outlined,
+                                  color: Colors.black,
+                                  size: 20,
+                                ),
+                                Text(
+                                  loadedJobData.shift.job.jobSalary.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontFamily: "Futura Book",
+                                      letterSpacing: 1,
+                                      color: Colors.black.withOpacity(.8),
+                                      fontSize: 12),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
 
-                        ],
-                      ),
+                        Container(
+                            width: 100.0,
+                            height: 100.0,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: new NetworkImage(
+                                        loadedJobData.shift.job.jobLogo)))),
+                      ],
                     ),
+
                     SizedBox(
                       height: 10,
                     ),
@@ -277,7 +281,13 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                         trimMode: TrimMode.Line,
                         trimCollapsedText: 'Show more',
                         trimExpandedText: 'Show less',
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style:TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Futura Book",
+                            letterSpacing: .8,
+                            height: 2,
+                            color: Colors.black.withOpacity(.8),
+                            fontSize: 13),
                         moreStyle:Theme.of(context).textTheme.bodyText2),
 
                     SizedBox(
@@ -298,7 +308,13 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
 
                           Text(
                             _textToList(loadedJobData.shift.job.jobResponsibilities),
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Book",
+                                letterSpacing: .8,
+                                height: 1.5,
+                                color: Colors.black.withOpacity(.8),
+                                fontSize: 13),
                           ),
 
                         ],
@@ -321,28 +337,40 @@ class _OpenJobDetailsState extends State<OpenJobDetails> {
                         children: [
                           Text(
                             _textToList(loadedJobData.shift.job.jobQualifications),
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Book",
+                                letterSpacing: .8,
+                                height: 1.5,
+                                color: Colors.black.withOpacity(.8),
+                                fontSize: 13),
                           ),
                         ],
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
+                    Divider(),
                     RichText(
                       text: TextSpan(
-                          text: loadedJobData.shift.job.jobLocation,
-                          style: Theme.of(context).textTheme.caption,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-
-                            },
+                          text: "@ 2020 IGreen . By applying to this you are "
+                              "agreeing to all the terms and conditions of "
+                              "Greenline Employment Inc",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontFamily: "Futura Book",
+                              letterSpacing: .8,
+                              height: 1.5,
+                              color: Colors.black.withOpacity(.8),
+                              fontSize: 13),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
                           children: <TextSpan>[
                             TextSpan(
-                              text: ' 1 day ago',
+                              text:
+                              'http://greenlineemployment.com/contact-us/',
                               style: TextStyle(
-                                  color: Colors.blueAccent,
-                                  fontSize: 13),
+                                  color: Colors.blueAccent, fontSize: 13),
                             )
                           ]),
                     ),

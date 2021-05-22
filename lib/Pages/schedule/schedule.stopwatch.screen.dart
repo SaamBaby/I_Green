@@ -53,12 +53,15 @@ class _ScheduleStopWatchState extends State<ScheduleStopWatch>
 
                 title: Text(
                   "Do you want to end the Shift? ",
-                  style: GoogleFonts.varelaRound(
-                    fontSize: ScreenUtil().setSp(13),
-                    color: Colors.black.withOpacity(.8),
-                    height: 1.3,
-                    fontWeight: FontWeight.w700,
-                  ),
+
+                  style:  TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Futura Book",
+                      letterSpacing: .8,
+                      fontSize: ScreenUtil().setSp(13),
+                      color: Colors.black.withOpacity(.8),
+                      height: 1.3,
+                     ),
                 ),
                 actions: <Widget>[
                   FlatButton(
@@ -67,7 +70,14 @@ class _ScheduleStopWatchState extends State<ScheduleStopWatch>
                     },
                     child: Text(
                       "Cancel",
-                      style: Theme.of(context).textTheme.caption,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontFamily: "Futura Book",
+                        letterSpacing: .8,
+                        fontSize: ScreenUtil().setSp(12),
+                        color: Colors.black.withOpacity(.4),
+                        height: 1.3,
+                      ),
                     ),
                   ),
                   RaisedButton(
@@ -81,7 +91,14 @@ class _ScheduleStopWatchState extends State<ScheduleStopWatch>
                     },
                     color: Theme.of(context).primaryColor,
                     child:
-                    Text("OK", style: Theme.of(context).textTheme.button),
+                    Text("OK", style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Futura Book",
+                      letterSpacing: .8,
+                      fontSize: ScreenUtil().setSp(13),
+                      color: Colors.white,
+                      height: 1.3,
+                    )),
                   ),
                 ],
               ));
@@ -116,11 +133,14 @@ class _ScheduleStopWatchState extends State<ScheduleStopWatch>
                   ),
                   Spacer(),
                   Text("Stop Watch",
-                      style: GoogleFonts.varelaRound(
-                        fontSize: ScreenUtil().setSp(13),
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w900,
+                        fontFamily: "Futura Heavy",
+                        letterSpacing: .8,
+                        fontSize: ScreenUtil().setSp(16),
                         color: Colors.black.withOpacity(.8),
                         height: 1.3,
-                        fontWeight: FontWeight.w700,
                       )),
                   Spacer(),
                   Container(

@@ -41,13 +41,15 @@ class _OpenShiftFeedViewState extends State<OpenShiftFeedView> {
               scrollDirection: Axis.horizontal,
               itemCount: openShift.openShiftFeed.length,
               itemBuilder: (BuildContext context, int index) => OpenShiftCard(
-                    jobId: openShift.openShiftFeed[index].shift.jobId,
                     openShiftId:openShift.openShiftFeed[index].openShiftsId,
                     shiftName:openShift.openShiftFeed[index].shift.job.jobName,
-                    shiftTime:openShift.openShiftFeed[index].shift.shiftTime,
                     shiftLocation:openShift.openShiftFeed[index].shift.job.jobLocation,
                     shiftDate:openShift.openShiftFeed[index].shift.shiftDate,
-                    salary:openShift.openShiftFeed[index].shift.job.jobSalary
+                    salary:openShift.openShiftFeed[index].shift.job.jobSalary,
+                    jobDescription: openShift.openShiftFeed[index].shift.job.jobDescription,
+                     isPartTime: openShift.openShiftFeed[index].shift.job.isParttime,
+                     isFullTime: openShift.openShiftFeed[index].shift.job
+                     .isFulltime,
                   ),
             ),
           ),

@@ -50,9 +50,14 @@ class StopWatchTimer extends StatelessWidget{
                   child: Text(
                     formatHour(stopWatch.elapsedMilliseconds),
                     style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: Colors.black,
-                        fontSize: 30, fontWeight: FontWeight.w900),
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Futura Heavy",
+                      letterSpacing: .8,
+                      fontSize: ScreenUtil().setSp(26),
+                      color: Colors.black,
+                      height: 1.3,
+                    )
                   ),
                 ),
               ),
@@ -77,10 +82,16 @@ class StopWatchTimer extends StatelessWidget{
                 child: Center(
                   child: Text(
                     formatMinute(stopWatch.elapsedMilliseconds),
-                    style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: Colors.white,
-                        fontSize: 30, fontWeight: FontWeight.w900),
+                    style:
+                    TextStyle(
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Futura Heavy",
+                      letterSpacing: .8,
+                      fontSize: ScreenUtil().setSp(26),
+                      color: Colors.white,
+                      height: 1.3,
+                    )
 
                   ),
                 ),
@@ -105,10 +116,15 @@ class StopWatchTimer extends StatelessWidget{
                 child: Center(
                   child: Text(
                     formatSecond(stopWatch.elapsedMilliseconds),
-                    style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: Colors.black,
-                        fontSize: 30, fontWeight: FontWeight.w900),
+                    style:TextStyle(
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Futura Heavy",
+                      letterSpacing: .8,
+                      fontSize: ScreenUtil().setSp(26),
+                      color: Colors.black,
+                      height: 1.3,
+                    )
                   ),
                 ),
               )

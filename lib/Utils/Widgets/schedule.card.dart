@@ -71,8 +71,14 @@ class ScheduleCard extends StatelessWidget {
                       Text(
                         // '${(DateFormat('h:mm a').format(shiftData.shiftDateTime))}',
                         shiftTime,
-                        style: Theme.of(context).textTheme.bodyText2
+                        style:   TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Futura Book",
+                            letterSpacing: 1,
+                            color: Colors.black.withOpacity(.8),
+                            fontSize: 12),
                       ),
+
                       SizedBox(
                        height: 10,
                       ),
@@ -83,7 +89,12 @@ class ScheduleCard extends StatelessWidget {
 
                       Text(
                         '${(DateFormat(' MMMM . yyyy').format(shiftDate))}',
-                        style: Theme.of(context).textTheme.bodyText2
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Futura Book",
+                            letterSpacing: 1,
+                            color: Colors.black.withOpacity(.8),
+                            fontSize: 12),
                       ),
                     ],
                   )

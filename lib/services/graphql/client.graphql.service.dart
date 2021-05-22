@@ -41,7 +41,6 @@ class IgreenGraphQLClient extends ChangeNotifier {
 
     _client = GraphQLClient(
       cache: GraphQLCache(store: HiveStore(box)),
-
       link: _httpLink,
     );
 

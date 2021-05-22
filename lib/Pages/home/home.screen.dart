@@ -45,7 +45,13 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                          Text(
                              "Welcome to your Dashboard",
                              textAlign: TextAlign.start,
-                             style: Theme.of(context).textTheme.bodyText1),
+                             style:TextStyle(
+                                 fontWeight: FontWeight.w900,
+                                 fontFamily: "Futura Book",
+                                 letterSpacing: .8,
+                                 height: 1.5,
+                                 color: Colors.black.withOpacity(.8),
+                                 fontSize: 14),),
                          SizedBox(
                            height: 5,
                          ),
@@ -110,7 +116,13 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                                  border: InputBorder.none,
                                  hintStyle: Theme.of(context).textTheme.subtitle2
                              ),
-                             style: Theme.of(context).textTheme.bodyText1
+                             style: TextStyle(
+                                 fontWeight: FontWeight.w900,
+                                 fontFamily: "Futura Book",
+                                 letterSpacing: .8,
+                                 height: 2,
+                                 color: Colors.black.withOpacity(.6),
+                                 fontSize: 12),
                          ),
                        ),
                      ),
@@ -133,13 +145,13 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                            //     ),
                            //   )
                            // ],
-                           border: Border.all(color: Color(0xffeaeaea)),
+                           // border: Border.all(color: Color(0xffeaeaea)),
                            borderRadius: BorderRadius.circular(10),
-                           color: Colors.white),
+                           color: Theme.of(context).primaryColor),
                        child: Icon(
                          Icons.filter_list,
                          size: 22,
-                         color: Colors.black,
+                         color: Colors.white,
                        ),
                      )
                    ],

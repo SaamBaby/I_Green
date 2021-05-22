@@ -44,8 +44,6 @@ class _LocationMapState extends State<LocationMap> {
   // Stop Watch variables
   bool isActive=false;
 
-  Stopwatch _stopwatch;
-  Timer _timer;
   @override
   void initState() {
     rootBundle.loadString('assets/utils/map_style.txt').then((string) {
@@ -56,7 +54,6 @@ class _LocationMapState extends State<LocationMap> {
   }
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
@@ -67,13 +64,6 @@ class _LocationMapState extends State<LocationMap> {
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
-
-
-
-
-
-
-
 
   String _textSelect(String str) {
     str = str.replaceAll('.', '');
@@ -339,10 +329,16 @@ class _LocationMapState extends State<LocationMap> {
                       ),
                       Divider(),
                       // isActive?StopWatch(stopWatch: _stopwatch,):SizedBox(height: 1,),
-                      SizedBox(height: 10,),
+
                       Text(
                           "Distance",
-                          style:Theme.of(context).textTheme.bodyText1
+                          style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontFamily: "Futura Book",
+                              letterSpacing: .8,
+                              height: 2,
+                              color: Colors.black.withOpacity(.6),
+                              fontSize: 14),
                       ),
                       RichText(
                         text: TextSpan(
@@ -369,10 +365,16 @@ class _LocationMapState extends State<LocationMap> {
                         width:double.infinity,
                         child: Text(
                             _textSelect(tempLocation.getRange(1,3).toString()),
-                            style:Theme.of(context).textTheme.bodyText1
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Book",
+                                letterSpacing: .8,
+                                height: 1.5,
+                                color: Colors.black.withOpacity(.6),
+                                fontSize: 14),
                         ),
                       ),
-                         SizedBox(height: 10,),
+                      SizedBox(height: 10,),
                       Expanded(
                         flex: 4,
                         child:  InkWell(
@@ -380,7 +382,6 @@ class _LocationMapState extends State<LocationMap> {
                             highlightColor: Colors.transparent,
                             onTap: () {
 
-                              print(loadedShiftData.shift.job.jobLocation);
                               MapsLauncher.launchQuery(loadedShiftData.shift.job.jobLocation);
                             },
                             child: AnimatedContainer(
@@ -395,7 +396,13 @@ class _LocationMapState extends State<LocationMap> {
                                 child: Center(
                                   child: Text(
                                      "Open maps",
-                                      style:Theme.of(context).textTheme.button
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          fontFamily: "Futura Book",
+                                          letterSpacing: .8,
+                                          height: 1.5,
+                                          color: Colors.white,
+                                          fontSize: 13),
                                   ),
                                 ),
                             )),

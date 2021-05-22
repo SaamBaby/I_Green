@@ -115,13 +115,8 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                     formatAnimation: FormatAnimation.slide,
                     builders: CalendarBuilders(
                      selectedDayBuilder:(context, date, _){
-
-
-
                        return Container(
-                         margin: const EdgeInsets.all(2.5),
-                         padding: EdgeInsets.symmetric(vertical: 15,
-                             horizontal: 12),
+                         
                          decoration: BoxDecoration(
                            shape: BoxShape.circle,
                            color: Theme.of(context).primaryColor,
@@ -129,10 +124,12 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
 
                          width: 50,
                          height: 50,
-                         child: Text(
-                           '${date.day}',
-                           style: TextStyle().copyWith(fontSize: 16.0,color: Colors.white,fontWeight: FontWeight.w900),
+                         child: Center(
+                           child: Text(
+                             '${date.day}',
+                             style: TextStyle().copyWith(fontSize: 16.0,color: Colors.white,fontWeight: FontWeight.w900),
 
+                           ),
                          ),
                        );
                      },
@@ -142,7 +139,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                           padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color(0xFF00bf6f).withOpacity(.8),
+                            color: Theme.of(context).primaryColor,
                           ),
 
                           width: 50,
@@ -155,23 +152,22 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
                         );
                       },
                       todayDayBuilder: (context, date, _) {
-                        setState(() {
-                          _selectedDate =date;
-                        });
                         return Container(
-                          margin: const EdgeInsets.all(4.0),
-                          padding: EdgeInsets.all(13),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color(0xFF00bf6f),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black,width: 2)
                           ),
 
                           width: 50,
                           height: 50,
-                          child: Text(
-                            '${date.day}',
-                            style: TextStyle().copyWith(fontSize: 16.0,color: Colors.white,fontWeight: FontWeight.w900),
+                          child: Center(
+                            child: Text(
+                              '${date.day}',
+                              style: TextStyle().copyWith(fontSize: 14.0,color:
+                              Colors.black,fontWeight: FontWeight.w900),
 
+                            ),
                           ),
                         );
                       },
@@ -274,7 +270,13 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
           children: [
             Text(
                 "Monthly",
-                style:  Theme.of(context).textTheme.bodyText1
+                style:    TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontFamily: "Futura Book",
+                    letterSpacing: 1,
+                    color: Colors.black.withOpacity(.8),
+                    fontSize: 14),
+
             ),
           Text(
             "Calendar",
