@@ -1,5 +1,5 @@
-import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screen_util.dart';
 
 class OtpVerification extends StatefulWidget {
   @override
@@ -47,9 +47,9 @@ class body extends StatelessWidget {
 
       child: Padding(
         padding: EdgeInsets.only(
-            right: getProportionateScreenWidth(30, mediaQuery),
-            left: getProportionateScreenWidth(30, mediaQuery),
-            top: getProportionateScreenWidth(30, mediaQuery)),
+            right: ScreenUtil().setWidth(30),
+            left: ScreenUtil().setWidth(30),
+            top: ScreenUtil().setWidth(30)),
         child: Column(
           children: <Widget>[
             Text(

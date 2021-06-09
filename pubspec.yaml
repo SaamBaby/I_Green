@@ -30,10 +30,10 @@ dependencies:
   #firebase
   firebase_core: "^0.7.0"
   firebase_auth: "^0.20.0+1"
-  cloud_firestore: "^0.16.0"
-  #    cloud_functions: "^0.9.0"
-  #    firebase_storage: "^7.0.0"
-  #    firebase_messaging: "^8.0.0-dev.14"
+  cloud_firestore:
+  cloud_functions: "^0.9.0"
+  firebase_storage: "^7.0.0"
+  firebase_messaging: "^8.0.0-dev.14"
   #timer
   circular_countdown: any
   # location
@@ -80,7 +80,9 @@ flutter:
 
   assets:
     - assets/images/introduction/
+    - assets/images/miscellaneous/
     - assets/images/Schedule/
+    - assets/images/documents/
     - assets/icons/
     - assets/utils/
 

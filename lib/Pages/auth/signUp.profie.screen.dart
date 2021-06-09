@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:Quete/Utils/const.dart';
 import 'package:Quete/Utils/session.service.dart';
-import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/graphql/schema.dart';
 import 'package:Quete/services/cache/user.cache.service.dart';
 import 'package:Quete/providers/auth_provider.dart';
@@ -13,7 +12,7 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'opt.verification.screen.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class BasicInfo extends StatefulWidget {
   @override
   _BasicInfoState createState() => _BasicInfoState();
@@ -56,13 +55,12 @@ class body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(
-          right: getProportionateScreenWidth(30, mediaQuery),
-          left: getProportionateScreenWidth(30, mediaQuery),
-          top: getProportionateScreenWidth(30, mediaQuery),
+          right: ScreenUtil().setWidth(30),
+          left: ScreenUtil().setWidth(30),
+          top:ScreenUtil().setWidth(30),
         ),
         child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -106,9 +104,12 @@ class SignUpForm extends StatefulWidget {
 }
 
 class SignUpFormState extends State<SignUpForm> {
+
+
+  var fireStoreInstance = FirebaseFirestore.instance.collection('users').doc
+    (UserCacheService.user.id);
+  // form variables
   final _formKey = GlobalKey<FormState>();
-
-
   final fieldValidator = MultiValidator([
     RequiredValidator(errorText: 'This field is required'),
     MinLengthValidator(2,
@@ -128,7 +129,7 @@ class SignUpFormState extends State<SignUpForm> {
   final places = List<Prediction>();
   String _tempAddress;
   FocusNode _focusUnit;
-// textfield controllers
+// textField controllers
   static TextEditingController _controllerAddress = TextEditingController();
   static TextEditingController _controllerFirstName = TextEditingController();
   static TextEditingController _controllerLastName = TextEditingController();
@@ -147,6 +148,7 @@ class SignUpFormState extends State<SignUpForm> {
   @override
   void initState() {
     _focusUnit = FocusNode();
+    // for address prediction
     streamController.stream
         .debounce(Duration(milliseconds: 250))
         .listen((s) => _validateValues());
@@ -159,6 +161,7 @@ class SignUpFormState extends State<SignUpForm> {
     super.dispose();
   }
 
+  // address prediction
   _validateValues() async {
     var text = _controllerAddress.text;
 
@@ -189,10 +192,9 @@ class SignUpFormState extends State<SignUpForm> {
           homeAddress: _controllerAddress.text,
           contactNumber: _controllerNumber.text,
         );
-        print("hive cache${UserCacheService.user.email}");
-        print("user email${user.emailAddress}");
-
-        await userProvider.updateUser(user);
+        await userProvider.updateUser(user).then((value) {
+          fireStoreInstance.set(user.toJson());
+        });
 
 
         Navigator.push(

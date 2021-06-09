@@ -114,12 +114,14 @@ class OpenShiftCard extends StatelessWidget {
                     Text(
                         shiftName,
                         overflow: TextOverflow.visible,
-                        style:  GoogleFonts.nunito(
-                          height: 1.2,
-                          fontSize: ScreenUtil().setSp(18),
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                        )),
+                        style: TextStyle(
+                            fontFamily: 'Futura Heavy',
+                            color: Colors.white,
+                            fontSize: 18,
+                            height: 1.5,
+                            letterSpacing: .8,
+                            fontWeight: FontWeight.bold),
+                       ),
                     SizedBox(height: 10,),
                     Text(
                         jobDescription,
@@ -253,7 +255,7 @@ class ClosedShiftCard extends StatelessWidget {
                   Container(
                     width: 60,
                     height: 60,
-
+                   margin: EdgeInsets.only(right: 20),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(10)
@@ -270,7 +272,7 @@ class ClosedShiftCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(),
+
 
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -309,9 +311,14 @@ class ClosedShiftCard extends StatelessWidget {
                       SizedBox(height: 5,),
                       Text(
                         shiftName,
-                        style: Theme.of(context).textTheme.headline5,
+                        style: TextStyle(
+                            fontFamily: 'Futura Heavy',
+                            color: Colors.black.withOpacity(.8),
+                            fontSize: 16,
+                            height: 1.5,
+                            letterSpacing: .8,
+                            fontWeight: FontWeight.bold),
                       ),
-
 
                       RichText(
                         text: TextSpan(

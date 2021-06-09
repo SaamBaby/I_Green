@@ -21,12 +21,12 @@ ThemeData theme() {
         color: Colors.white,
         fontWeight: FontWeight.w900,
       ),
-      headline5: GoogleFonts.nunito(
-        color: Colors.black,
-        fontSize: ScreenUtil().setSp(18),
-        height: 1.1,
-        fontWeight: FontWeight.w900,
-      ),
+      headline5: TextStyle(
+          fontFamily: 'Futura Heavy',
+          color: Colors.black.withOpacity(.8),
+          fontSize: 18,
+          fontWeight: FontWeight.bold),
+
       headline3:GoogleFonts.nunito(
         color: Colors.white,
         fontSize: ScreenUtil().setSp(40),
@@ -88,7 +88,7 @@ ThemeData theme() {
 InputDecorationTheme inputDecorationTheme() {
   var outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
-    borderSide: BorderSide(color: Colors.grey),
+    borderSide: BorderSide(color: Colors.white),
     gapPadding: 12,
   );
 

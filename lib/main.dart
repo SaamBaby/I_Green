@@ -1,12 +1,7 @@
-
-import 'package:Quete/models/Job.dart';
 import 'package:Quete/Pages/auth/login.screen.dart';
-import 'package:Quete/providers/appliedJobs_provider.dart';
-import 'package:Quete/providers/jobs_provider.dart';
 import 'package:Quete/providers/auth_provider.dart';
 import 'package:Quete/services/graphql/activity.service.dart';
 import 'package:Quete/services/graphql/client.graphql.service.dart';
-import 'package:Quete/services/graphql/discovery.service.dart';
 import 'package:Quete/services/graphql/user.service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,10 +15,9 @@ import 'Routes.dart';
 import 'Utils/session.service.dart';
 import 'Utils/theme.dart';
 import 'models/user/user.hive.model.dart';
-import 'providers/schedule.shifts.provider.dart';
+
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 
 
 
@@ -51,22 +45,8 @@ void main() async {
           create: (context) => AuthProvider.initialize()),
         ChangeNotifierProvider.value(
           value:  _userService),
-
           ChangeNotifierProvider.value(
               value:  _activityService),
-
-      ChangeNotifierProxyProvider<AuthProvider,Jobs>(
-        update: (context,auth,previousState) => Jobs(auth.idToken,previousState==null?{}:previousState.items),
-      ),
-      ChangeNotifierProxyProvider<AuthProvider,JobModel>(
-        update: (context, auth,_)=>JobModel(authToken: auth.idToken),
-      ),
-      ChangeNotifierProxyProvider<AuthProvider,ShiftProvider>(
-        update: (context,auth,previousState) => ShiftProvider(auth.idToken, auth.firebaseUuid,previousState==null?{}:previousState.items),
-      ),
-      ChangeNotifierProxyProvider<AuthProvider,AppliedJobs>(
-        update: (context,auth,previousState) => AppliedJobs(auth.idToken, auth.firebaseUuid,previousState==null?{}:previousState.items),
-      ),
       ChangeNotifierProvider(
         create: (context) => SessionService(),
       ),

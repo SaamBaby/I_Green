@@ -45,7 +45,6 @@ List<GetAllActivities$QueryRoot$Activities> feed =[];
 
     final query=GetAllActivities$QueryRoot.fromJson(result.data);
     feed=query.activities;
-    print("get all activities result${feed.first.shift}");
 
   }
   Future<CreateActivity$MutationRoot$InsertActivitiesOne> createActivity(

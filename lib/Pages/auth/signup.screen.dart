@@ -1,9 +1,7 @@
 import 'package:Quete/Pages/auth/signUp.profie.screen.dart';
-import 'package:Quete/Utils/sizeConfiguration.dart';
-import 'package:Quete/models/User.dart';
 import 'package:Quete/providers/auth_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screen_util.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
@@ -52,9 +50,9 @@ class body extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(
-            right: getProportionateScreenWidth(30, mediaQuery),
-            left: getProportionateScreenWidth(30, mediaQuery),
-            top: getProportionateScreenWidth(0, mediaQuery)),
+            right:ScreenUtil().setWidth(30),
+            left:ScreenUtil().setWidth(30),
+            top: ScreenUtil().setWidth(30)),
         child: Column(
           children: <Widget>[
             Text(
@@ -282,7 +280,7 @@ class SignUpFormState extends State<SignUpForm> {
                 ),
                 Expanded(child: Divider()),
               ]),
-              socialCard(),
+              SocialCard(),
               Text(
                 "By continuing you are confirming that you agree with Greenline's terms and conditions",
                 textAlign: TextAlign.center,
@@ -297,15 +295,15 @@ class SignUpFormState extends State<SignUpForm> {
   }
 }
 
-class socialCard extends StatelessWidget {
+class SocialCard extends StatelessWidget {
   get mediaQuery => MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(30, mediaQuery),
-          vertical: 30),
+          horizontal:ScreenUtil().setWidth(30),
+          vertical: ScreenUtil().setWidth(30)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

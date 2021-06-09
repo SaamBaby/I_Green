@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'package:Quete/Routes.dart';
-import 'package:Quete/Utils/Widgets/schedule.stopwatch.timer.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:Quete/models/job_shifts.dart';
 import 'package:Quete/models/direction.dart';
-import 'package:Quete/providers/schedule.shifts.provider.dart';
 import 'package:Quete/services/graphql/activity.service.dart';
 import 'package:Quete/services/location/location.helper.services.dart';
 import 'package:avatar_glow/avatar_glow.dart';
@@ -32,7 +29,6 @@ class _LocationMapState extends State<LocationMap> {
   String mapStyle;
   Position _currentLocation;
   Position lastPosition ;
-  CameraPosition currentLocation;
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   GoogleMapController _googleMapController;
   List<LatLng> polyLineCoordinates =[];
@@ -359,7 +355,14 @@ class _LocationMapState extends State<LocationMap> {
                       ),
                       Text(
                           loadedShiftData.shift.shiftName,
-                          style:Theme.of(context).textTheme.headline4
+                          style: TextStyle(
+                              fontFamily: 'Futura Heavy',
+                              color: Colors.black.withOpacity(.8),
+                              fontSize: 25,
+                              height: 1.5,
+                              letterSpacing: .8,
+                              fontWeight: FontWeight.bold),
+
                       ),
                       SizedBox(
                         width:double.infinity,

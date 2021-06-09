@@ -1,6 +1,5 @@
 import 'package:Quete/Utils/Widgets/schedule.card.dart';
 import 'package:Quete/graphql/schema.graphql.dart';
-import 'package:Quete/providers/schedule.shifts.provider.dart';
 import 'package:intl/intl.dart';
 import 'package:Quete/services/graphql/activity.service.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class Schedule extends StatefulWidget {
 
 class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
   CalendarController _calendarController;
-  AnimationController _animationController;
+
   Map<DateTime,List<GetAllActivities$QueryRoot$Activities>> _groupedEvents;
   DateTime _selectedDate;
   var _selectedEvents=[];
@@ -23,20 +22,9 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _calendarController = CalendarController();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-    _animationController.forward();
-    // Future.delayed(Duration.zero).then((value) =>
-    //     Provider.of<ShiftProvider>(context, listen: false).fetchAvailableShifts());
   }
 
-  @override
-  // ignore: must_call_super
-  void dispose() {
-    _calendarController.dispose();
-  }
+
 
  DateTime dateNorm(DateTime date){
     String normDate= DateFormat.yMd().format(date);
@@ -262,7 +250,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
     return AppBar(
       backgroundColor: Colors.white,
       centerTitle: false,
-      toolbarHeight: 70,
+      toolbarHeight: 100,
       title: Padding(
         padding: EdgeInsets.only(left: 10),
         child: Column(

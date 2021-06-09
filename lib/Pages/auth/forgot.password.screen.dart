@@ -1,6 +1,5 @@
-import 'package:Quete/Utils/sizeConfiguration.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screen_util.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -44,10 +43,9 @@ class body extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.only(
-            right: getProportionateScreenWidth(30, mediaQuery),
-            left: getProportionateScreenWidth(30, mediaQuery),
-            top: getProportionateScreenWidth(30, mediaQuery)),
+        padding: EdgeInsets.only(top: ScreenUtil().setWidth(30),left:
+        ScreenUtil().setWidth(30),right: ScreenUtil().setWidth(30)),
+
         child: Column(
           children: <Widget>[
             Text(
@@ -206,9 +204,10 @@ class socialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(30, mediaQuery),
-          vertical: 30),
+          horizontal: ScreenUtil().setWidth(30),
+          vertical: ScreenUtil().setWidth(30)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

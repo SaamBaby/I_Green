@@ -1,10 +1,10 @@
 import 'package:Quete/Pages/profile/profile.screen.dart';
 import 'package:Quete/Pages/schedule/schedule.screen.dart';
+import 'package:Quete/Pages/settings/settings.screen.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'application/application.dart';
+import 'chat/chatRoom.screen.dart';
 import 'home/home.screen.dart';
 
 
@@ -32,11 +32,6 @@ class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        toolbarHeight: 30,
-      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Color(0xffeaeaea)),
@@ -76,7 +71,7 @@ class _RootState extends State<Root> {
                 inactiveColor: Color(0xffdfe6eb)),
 
             BottomNavyBarItem(
-                icon: Icon(Icons.timer),
+                icon: Icon(Icons.timer,size: 24),
                 title: Text(
                     'Schedule',
                   style:Theme.of(context)
@@ -85,7 +80,7 @@ class _RootState extends State<Root> {
                 activeColor:Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
             BottomNavyBarItem(
-                icon: Icon(FontAwesomeIcons.facebookMessenger),
+                icon: Icon(FontAwesomeIcons.facebookMessenger,size: 20,),
                 title: Text(
                   'ChatRoom',
                   style: Theme.of(context)
@@ -95,11 +90,11 @@ class _RootState extends State<Root> {
                 inactiveColor: Color(0xffdfe6eb)),
             BottomNavyBarItem(
                 icon: Icon(
-                  Icons.apps,
-                  size: 20,
+                  Icons.settings,
+                  size: 24,
                 ),
                 title: Text(
-                  'Availabilities',
+                  'Settings',
                   style: Theme.of(context)
                       .textTheme.bodyText2,
                 ),
@@ -117,7 +112,7 @@ class _RootState extends State<Root> {
           children: <Widget>[
             ShiftFeeds(),
             Schedule(),
-            Applications(),
+            ChatRoom()
 
 
           ],

@@ -15,18 +15,10 @@ class AuthProvider with ChangeNotifier {
   UserService _meService= UserService();
   FirebaseAuth _auth;
   User _user;
-  UserModel _userModel;
-  String _idToken;
-
-//  getter
-  UserModel get userModel => _userModel;
 
   Status get status => _status;
 
-  String get idToken => _idToken;
-
   User get user => _user;
-  UserServices _userServices = UserServices();
   Status _status = Status.Uninitialized;
   String firebaseUuid;
   String errorMessage;
@@ -43,9 +35,6 @@ class AuthProvider with ChangeNotifier {
       _user = firebaseUser;
       _status = Status.Authenticated;
       firebaseUuid=_user.uid;
-      await _user.getIdToken(true).then((value) {
-        _idToken = value;
-      });
     }
     notifyListeners();
   }
@@ -82,11 +71,12 @@ class AuthProvider with ChangeNotifier {
         _status = Status.Authenticating;
         await _auth.signInWithEmailAndPassword(email: email, password:password).then((value) async{
           _user = value.user;
-          UserCacheService.user =UserHive(id: firebaseUuid,email: email);
           onStateChanged(value.user);
+          UserCacheService.user =UserHive(id: firebaseUuid,email: email.toString());
+          print("testing email${UserCacheService.user.email}");
           final _userInput = UsersInsertInput(
               userId: _user.uid,
-              emailAddress: email
+              emailAddress: email.toString()
           );
           _meService.createUser( _userInput, graphQLClient: await
           IgreenGraphQLClient.getClient(),);
@@ -102,9 +92,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> updateUser( UsersSetInput user) async {
-
-    _meService.updateUser(user,graphQLClient: await IgreenGraphQLClient
-        .getClient());
+    _meService.updateUser(user,graphQLClient: await IgreenGraphQLClient.getClient());
     notifyListeners();
   }
 }

@@ -1,11 +1,8 @@
-
-import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
-
 import '../../Routes.dart';
-import '../auth/login.screen.dart';
+
 
 class OnBoard extends StatefulWidget {
   static const routName ='/onboard-screen';

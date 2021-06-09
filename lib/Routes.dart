@@ -14,9 +14,11 @@ import 'Pages/introduction/notConnected.screen.dart';
 import 'Pages/introduction/onBoard.screen.dart';
 import 'Pages/introduction/splash.screen.dart';
 import 'Pages/notification/notifications.screen.dart';
+import 'Pages/profile/documents/profile.documents.upload.dart';
 import 'Pages/profile/profile.screen.dart';
 import 'Pages/root.page.dart';
 import 'Pages/schedule/schedule.stopwatch.screen.dart';
+import 'Pages/settings/settings.screen.dart';
 
 class Routes{
 
@@ -57,6 +59,9 @@ class Routes{
   // user
   static const personalInformation = '/user/profile/personalInformation';
   static const userProfile = '/user/profile';
+  static const userDocuments ='/user/documents';
+  // settings
+
 
   // discovery
   static const discovery = '/disovery';
@@ -77,6 +82,8 @@ class Routes{
   static const schedule = '/schedule/calender';
   static const map = '/schedule/maps';
   static const stopWatch = '/schedule/stopWatch';
+
+
 
 
   static PageRouteBuilder generateRoute(RouteSettings routeSettings, {Widget
@@ -124,6 +131,8 @@ class Routes{
         // schedule
       case map:
         return LocationMap(arguments: arguments);
+
+
       case stopWatch:
                 return ScheduleStopWatch(activityId: arguments);
         // user profile
@@ -132,6 +141,14 @@ class Routes{
 
       case personalInformation:
         return PersonalInformation();
+
+      case userDocuments:
+         return UploadDocuments();
+
+    // settings
+      case settings:
+        return Settings();
+   // documents
 
       case  splash:
         return Splash();

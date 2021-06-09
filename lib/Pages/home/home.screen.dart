@@ -29,7 +29,7 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
          child:Scaffold(
 
            backgroundColor: Colors.white,
-           appBar: AppBar(toolbarHeight: 0,),
+           appBar: AppBar(toolbarHeight: 20,),
            body: Padding(
              padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth
                (5),horizontal: ScreenUtil().setWidth(30)),
@@ -79,7 +79,7 @@ class _ShiftFeedsState extends State<ShiftFeeds> {
                          Navigator.push(context,
                              MaterialPageRoute(builder: (context) => Profile()));
                        },
-                       icon: FaIcon(FontAwesomeIcons.user,
+                         icon:Icon(FontAwesomeIcons.user,
                            color: Colors.black, size: 18),
                      ),
 

@@ -1,4 +1,3 @@
-import 'package:Quete/Utils/sizeConfiguration.dart';
 import 'package:Quete/providers/auth_provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -361,8 +360,8 @@ class socialCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(30, mediaQuery),
-          vertical: 30),
+          horizontal: ScreenUtil().setWidth(30),
+          vertical: ScreenUtil().setWidth(30)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

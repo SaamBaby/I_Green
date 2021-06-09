@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import '../../Routes.dart';
-import 'onBoard.screen.dart';
-import 'notConnected.screen.dart';
 
 
 
