@@ -44,6 +44,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to let you pick the image</string>
+	<key>NSCameraUsageDescription</key>
+    <string>We need access to let you pick the image</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to let you pick the image</string>
+
 	<false/>
 </dict>
 </plist>

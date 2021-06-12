@@ -16,7 +16,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _appBar(),
-      body: body(),
+      body: Body(),
     );
   }
 
@@ -32,14 +32,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   );
 }
 
-class body extends StatelessWidget {
-  const body({
+class Body extends StatelessWidget {
+  const Body({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
+
     return SizedBox(
       width: double.infinity,
       child: Padding(
@@ -91,7 +91,6 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    var isCheck = false;
     return Form(
         key: _formKey,
         child: Column(
@@ -198,7 +197,7 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
   }
 }
 
-class socialCard extends StatelessWidget {
+class SocialCard extends StatelessWidget {
   get mediaQuery => MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
   @override

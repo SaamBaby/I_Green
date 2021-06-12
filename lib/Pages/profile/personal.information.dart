@@ -24,11 +24,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
   cState currentState = cState.Uninitialized;
   final _formKey = GlobalKey<FormState>();
 
-  static TextEditingController controllerFirstName = TextEditingController();
-  static TextEditingController controllerLastName = TextEditingController();
-  static TextEditingController controllerAddress = TextEditingController();
-  static TextEditingController controllerContactNumber = TextEditingController();
-  static TextEditingController controllerEmail = TextEditingController();
+  // static TextEditingController controllerFirstName = TextEditingController();
+  // static TextEditingController controllerLastName = TextEditingController();
+  // static TextEditingController controllerAddress = TextEditingController();
+  // static TextEditingController controllerContactNumber = TextEditingController();
+  // static TextEditingController controllerEmail = TextEditingController();
 
 
   // for updating the user info

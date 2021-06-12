@@ -4,6 +4,7 @@ import 'package:Quete/Utils/session.service.dart';
 import 'package:Quete/graphql/schema.dart';
 import 'package:Quete/services/cache/user.cache.service.dart';
 import 'package:Quete/providers/auth_provider.dart';
+import 'package:Quete/services/firebase/firebase.user.services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
@@ -29,7 +30,7 @@ class _BasicInfoState extends State<BasicInfo> {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: _appBar(),
-      body: body(),
+      body: Body(),
     );
   }
 
@@ -48,8 +49,8 @@ class _BasicInfoState extends State<BasicInfo> {
       );
 }
 
-class body extends StatelessWidget {
-  const body({
+class Body extends StatelessWidget {
+  const Body({
     Key key,
   }) : super(key: key);
 
@@ -104,10 +105,6 @@ class SignUpForm extends StatefulWidget {
 }
 
 class SignUpFormState extends State<SignUpForm> {
-
-
-  var fireStoreInstance = FirebaseFirestore.instance.collection('users').doc
-    (UserCacheService.user.id);
   // form variables
   final _formKey = GlobalKey<FormState>();
   final fieldValidator = MultiValidator([
@@ -193,7 +190,8 @@ class SignUpFormState extends State<SignUpForm> {
           contactNumber: _controllerNumber.text,
         );
         await userProvider.updateUser(user).then((value) {
-          fireStoreInstance.set(user.toJson());
+          FirebaseUserServices.createUserProfile(user);
+          // fireStoreInstance.set(user.toJson());
         });
 
 

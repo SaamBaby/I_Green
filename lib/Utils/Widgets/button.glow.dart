@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 
 
-class glowButton extends StatelessWidget {
+class GlowButton extends StatelessWidget {
   final String imgUrl;
 
-  const glowButton({Key key, this.imgUrl}) : super(key: key);
+  const GlowButton({Key key, this.imgUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

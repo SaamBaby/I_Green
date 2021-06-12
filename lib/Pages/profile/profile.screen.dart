@@ -1,12 +1,60 @@
+import 'dart:io';
+
 import 'package:Quete/Routes.dart';
+import 'package:Quete/Utils/Widgets/pickers/file.pickers.dart';
+import 'package:Quete/services/firebase/firebase.user.services.dart';
 import 'package:Quete/services/graphql/user.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:provider/provider.dart';
 
 
-class Profile extends StatelessWidget {
 
+
+class Profile extends StatefulWidget {
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  FirebaseUserServices userServices;
+  File imgFile;
+  bool isNull(String text){
+
+    if(text==null){
+      return true;
+    }
+    return false;
+  }
+
+
+  Future getImage() async {
+    final pickedFile = await FilePickers.pickImage();
+    if (pickedFile != null) {
+      setState(() {
+        imgFile=File(pickedFile.path);
+      });
+       FirebaseUserServices.updateProfilePic(imgFile);
+
+    } else {
+      print('No image selected.');
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.black.withOpacity(.6),
+            content: Text("Please select a valid image as your profile "
+                "picture",
+              style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontFamily: "Futura Book",
+                  letterSpacing: .8,
+                  height: 1.5,
+                  color: Colors.white,
+                  fontSize: 12),),
+          )
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +99,31 @@ class Profile extends StatelessWidget {
                      children: [
                           Expanded(
                             flex:1,
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 50.0,
-                            backgroundImage: (false)?NetworkImage
-                              ("https://images"
-                                ".unsplash"
-                                ".com/photo-1621570274061-6b0c42c7bd13?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"):
-                            AssetImage
-                              ('assets/images/miscellaneous/default-pic.png'),
-                        ),
+                            child:Stack(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 50.0,
+                                  backgroundImage: imgFile!=null?FileImage
+                                    (imgFile):isNull(userInfo.user.profilePic)
+                                      ?AssetImage
+                                    ('assets/images/miscellaneous/default-pic'
+                                      '.png')
+                                      :NetworkImage(userInfo.user.profilePic)
+                                ),
+                                GestureDetector(
+                                  onTap: (){
+                                    getImage();
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 15.0,
+                                    child:  Icon(Icons.camera_alt_rounded,color: Colors
+                                        .blueAccent,),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                        SizedBox(width: 10,),
                        Expanded(

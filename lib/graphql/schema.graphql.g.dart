@@ -2043,6 +2043,53 @@ Map<String, dynamic> _$UsersSetInputToJson(UsersSetInput instance) =>
       'user_id': instance.userId,
     };
 
+UpdateProfilePic$MutationRoot$UpdateUsers$Returning
+    _$UpdateProfilePic$MutationRoot$UpdateUsers$ReturningFromJson(
+        Map<String, dynamic> json) {
+  return UpdateProfilePic$MutationRoot$UpdateUsers$Returning()
+    ..profilePic = json['profile_pic'] as String;
+}
+
+Map<String, dynamic>
+    _$UpdateProfilePic$MutationRoot$UpdateUsers$ReturningToJson(
+            UpdateProfilePic$MutationRoot$UpdateUsers$Returning instance) =>
+        <String, dynamic>{
+          'profile_pic': instance.profilePic,
+        };
+
+UpdateProfilePic$MutationRoot$UpdateUsers
+    _$UpdateProfilePic$MutationRoot$UpdateUsersFromJson(
+        Map<String, dynamic> json) {
+  return UpdateProfilePic$MutationRoot$UpdateUsers()
+    ..returning = (json['returning'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UpdateProfilePic$MutationRoot$UpdateUsers$Returning.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$UpdateProfilePic$MutationRoot$UpdateUsersToJson(
+        UpdateProfilePic$MutationRoot$UpdateUsers instance) =>
+    <String, dynamic>{
+      'returning': instance.returning?.map((e) => e?.toJson())?.toList(),
+    };
+
+UpdateProfilePic$MutationRoot _$UpdateProfilePic$MutationRootFromJson(
+    Map<String, dynamic> json) {
+  return UpdateProfilePic$MutationRoot()
+    ..updateUsers = json['update_users'] == null
+        ? null
+        : UpdateProfilePic$MutationRoot$UpdateUsers.fromJson(
+            json['update_users'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$UpdateProfilePic$MutationRootToJson(
+        UpdateProfilePic$MutationRoot instance) =>
+    <String, dynamic>{
+      'update_users': instance.updateUsers?.toJson(),
+    };
+
 CurrentUser$QueryRoot$Users$Documents
     _$CurrentUser$QueryRoot$Users$DocumentsFromJson(Map<String, dynamic> json) {
   return CurrentUser$QueryRoot$Users$Documents()
@@ -2206,8 +2253,8 @@ UpdateActivityArguments _$UpdateActivityArgumentsFromJson(
     id: json['id'] as String,
     starttime: json['starttime'] as String,
     endtime: json['endtime'] as String,
-    isCompleted: json['isCompleted'] as bool,
     totalHours: json['totalHours'] as int,
+    isCompleted: json['isCompleted'] as bool,
   );
 }
 
@@ -2217,8 +2264,8 @@ Map<String, dynamic> _$UpdateActivityArgumentsToJson(
       'id': instance.id,
       'starttime': instance.starttime,
       'endtime': instance.endtime,
-      'isCompleted': instance.isCompleted,
       'totalHours': instance.totalHours,
+      'isCompleted': instance.isCompleted,
     };
 
 CreateClosedShiftArguments _$CreateClosedShiftArgumentsFromJson(
@@ -2333,6 +2380,21 @@ Map<String, dynamic> _$UpdateUserArgumentsToJson(
         UpdateUserArguments instance) =>
     <String, dynamic>{
       'input': instance.input?.toJson(),
+      'id': instance.id,
+    };
+
+UpdateProfilePicArguments _$UpdateProfilePicArgumentsFromJson(
+    Map<String, dynamic> json) {
+  return UpdateProfilePicArguments(
+    imgUrl: json['imgUrl'] as String,
+    id: json['id'] as String,
+  );
+}
+
+Map<String, dynamic> _$UpdateProfilePicArgumentsToJson(
+        UpdateProfilePicArguments instance) =>
+    <String, dynamic>{
+      'imgUrl': instance.imgUrl,
       'id': instance.id,
     };
 

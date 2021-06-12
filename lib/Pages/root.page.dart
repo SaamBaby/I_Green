@@ -1,6 +1,4 @@
-import 'package:Quete/Pages/profile/profile.screen.dart';
 import 'package:Quete/Pages/schedule/schedule.screen.dart';
-import 'package:Quete/Pages/settings/settings.screen.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

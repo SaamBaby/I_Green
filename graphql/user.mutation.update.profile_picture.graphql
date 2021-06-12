@@ -1,0 +1,7 @@
+mutation UpdateProfilePic($imgUrl: String, $id: String) {
+    update_users(where: {user_id: {_eq: $id}}, _set: {profile_pic: $imgUrl}) {
+        returning {
+            profile_pic
+        }
+    }
+}

@@ -16,7 +16,7 @@ class _OtpVerificationState extends State<OtpVerification> {
       backgroundColor: Colors.white,resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: _appBar(),
-      body: body(),
+      body: Body(),
     );
   }
 
@@ -35,14 +35,13 @@ class _OtpVerificationState extends State<OtpVerification> {
       );
 }
 
-class body extends StatelessWidget {
-  const body({
+class Body extends StatelessWidget {
+  const Body({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return SingleChildScrollView(
 
       child: Padding(
@@ -129,15 +128,15 @@ class OTPverificationFormState extends State<OTPverificationForm> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _focusNode2.dispose();
-    _focusNode3.dispose();
-    _focusNode4.dispose();
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   _focusNode2.dispose();
+  //   _focusNode3.dispose();
+  //   _focusNode4.dispose();
+  //
+  // }
 
-  }
-  @override
   void _autoFocus({String value, FocusNode focusNode}){
     if(value.length==1){
       focusNode.requestFocus();
@@ -146,7 +145,6 @@ class OTPverificationFormState extends State<OTPverificationForm> {
 
   @override
   Widget build(BuildContext context) {
-    var isCheck = false;
     return Form(
         key: _formKey,
         child: Column(

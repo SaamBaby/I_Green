@@ -19,7 +19,7 @@ class _SignUpState extends State<SignUp> {
       backgroundColor: Colors.white,
       appBar: _appBar(),resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
-      body: body(),
+      body: Body(),
     );
   }
 
@@ -38,15 +38,13 @@ class _SignUpState extends State<SignUp> {
       );
 }
 
-class body extends StatelessWidget {
-  const body({
+class Body extends StatelessWidget {
+  const Body({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(

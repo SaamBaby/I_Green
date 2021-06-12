@@ -1,12 +1,83 @@
+import 'dart:io';
+import 'package:Quete/Pages/profile/documents/profile.document.preview.dart';
+import 'package:Quete/Utils/Widgets/pickers/file.pickers.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 
-class UploadDocuments extends StatelessWidget {
+class UploadDocuments extends StatefulWidget {
+  @override
+  _UploadDocumentsState createState() => _UploadDocumentsState();
+}
+
+class _UploadDocumentsState extends State<UploadDocuments> {
   cState currentState = cState.Uninitialized;
+  bool previewAvailable = false;
+  File uploadedFile;
+
+  Future getDocument() async {
+    final pickedFile = await FilePickers.pickDocs().then((value) =>{
+      if(value==null){
+        print('No image selected.'),
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.black.withOpacity(.6),
+          content: Text("Please select a valid image as your profile "
+              "picture",
+            style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontFamily: "Futura Book",
+                letterSpacing: .8,
+                height: 1.5,
+                color: Colors.white,
+                fontSize: 12),),
+        )
+    )
+      } else{
+            setState(() {
+            uploadedFile=File(value.path);
+            previewAvailable= true;
+
+            })
+    }});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return previewAvailable? (uploadedFile == null || uploadedFile.path.isEmpty)
+        ? Center(child: CircularProgressIndicator())
+        : Scaffold(
+        appBar: AppBar(
+          title: Text("Document Preview"),
+        ),
+        body: Container(
+            child: PDFView(
+              filePath: uploadedFile.path,
+              enableSwipe: true,
+              swipeHorizontal: true,
+              autoSpacing: false,
+              pageFling: false,
+              onRender: (_pages) {
+                setState(() {
+                  // pages = _pages;
+                  // isReady = true;
+                });
+              },
+              onError: (error) {
+                print(error.toString());
+              },
+              onPageError: (page, error) {
+                print('$page: ${error.toString()}');
+              },
+              onViewCreated: (PDFViewController pdfViewController) {
+                // _controller.complete(pdfViewController);
+              },
+              onPageChanged: (int page, int total) {
+                print('page change: $page/$total');
+              },
+            ))):Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 80,
@@ -70,9 +141,8 @@ class UploadDocuments extends StatelessWidget {
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
 
-              onTap: () {
-
-
+              onTap: () async {
+                getDocument();
               },
               child: AnimatedContainer(
                   margin: EdgeInsets.only(bottom: 10),
@@ -131,6 +201,7 @@ class UploadDocuments extends StatelessWidget {
       ),
     );
   }
+
   progressButton() {
     if(currentState==cState.Uninitialized){
       return RichText(

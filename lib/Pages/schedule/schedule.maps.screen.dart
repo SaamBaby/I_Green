@@ -99,7 +99,8 @@ class _LocationMapState extends State<LocationMap> {
       });
     }
 
-    setState(() {
+    setState(()
+    {
       Polyline polyline =Polyline(
         polylineId: PolylineId("PolylineId"),
         color: Theme.of(context)

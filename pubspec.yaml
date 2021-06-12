@@ -20,11 +20,14 @@ dependencies:
   font_awesome_flutter: ^8.10.0
   bottom_navy_bar: ^5.6.0
   table_calendar: ^2.3.3
+
   graphql: "4.0.1"
   http: "0.12.2"
   form_field_validator: ^1.0.1
   uuid: ^2.2.2
-  stream_transform: ^1.2.0
+  file_picker:
+  syncfusion_flutter_pdfviewer:
+  flutter_pdfview:
   #read more
   readmore: any
   #firebase
@@ -54,7 +57,7 @@ dependencies:
 
   #hive
   hive: any
-  hive_flutter: any
+  hive_flutter:
   path_provider: ^1.6.5
 
 

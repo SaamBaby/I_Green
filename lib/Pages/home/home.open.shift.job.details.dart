@@ -1,5 +1,3 @@
-import 'package:Quete/Pages/auth/signup.screen.dart';
-import 'package:Quete/graphql/schema.graphql.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:uuid/uuid.dart';

@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: _appBar(),
-      body: body(),
+      body: Body(),
     );
   }
 
@@ -39,8 +39,8 @@ class _LoginState extends State<Login> {
       );
 }
 
-class body extends StatelessWidget {
-  const body({
+class Body extends StatelessWidget {
+  const Body({
     Key key,
   }) : super(key: key);
 
@@ -78,7 +78,7 @@ class body extends StatelessWidget {
               ),
               Expanded(child: Divider()),
             ]),
-            socialCard(),
+            SocialCard(),
             RichText(
               text: TextSpan(
                   text: 'Don\'t have an account?',
@@ -353,7 +353,7 @@ class SignInFormState extends State<SignInForm> {
   }
 }
 
-class socialCard extends StatelessWidget {
+class SocialCard extends StatelessWidget {
   get mediaQuery => MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
   @override

@@ -1,7 +1,6 @@
 import 'package:Quete/Utils/Widgets/badge.dart';
 import 'package:flutter/material.dart';
 import 'package:Quete/Pages/schedule/schedule.screen.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 

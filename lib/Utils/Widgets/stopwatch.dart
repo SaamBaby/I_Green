@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
-import 'dart:math';
-import  'package:circular_countdown/circular_countdown.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import 'animations/animation.stopwatch.dart';
 
 // ignore: must_be_immutable
 class StopWatchTimer extends StatelessWidget{

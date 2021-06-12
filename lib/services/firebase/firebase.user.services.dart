@@ -1,42 +1,28 @@
-import 'package:Quete/models/User.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:Quete/graphql/schema.graphql.dart';
+import 'package:Quete/services/cache/user.cache.service.dart';
+import 'package:Quete/services/graphql/user.service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+class FirebaseUserServices{
 
+  static var  fireStoreUserInstance = FirebaseFirestore.instance.collection('users').doc(UserCacheService.user.id);
+  static var  storageUserInstance= FirebaseStorage.instance;
+  static  UserService userService;
 
-class UserServices{
-  
-  void createUser(String email,String uuid) async{
-   final  url ='https://igreen-458f7-default-rtdb.firebaseio.com/users/$uuid.json';
-    try {
-      final response = await http.patch(
-        url,
-        body: json.encode({
-          "userName": email,
-          "firebaseUserId": uuid
-        }),
-      );
-    } catch (error) {
-      throw error;
-    }
-
-
-
+  static void createUserProfile(UsersSetInput user){
+    fireStoreUserInstance.set(user.toJson());
   }
 
-  void updateUser(Map<String, dynamic> values,id ) async{
-    final  url ='https://igreen-458f7-default-rtdb.firebaseio.com/users/$id.json';
-    try {
-      final response = await http.patch(
-        url,
-        body: json.encode(values),
-      );
-    } catch (error) {
-      throw error;
-    }
-  }
+  static void updateProfilePic(File imgFile)async{
+    String userProfileUrl;
+    var ref =storageUserInstance.ref().child('UserProfile').child(UserCacheService.user.id+'.jpg');
 
-
-  Future<UserModel> getUserById(String id){
-    final  url ='https://igreen-458f7-default-rtdb.firebaseio.com/users/$id.json';
+    // getting the storage upload task
+    await ref.putFile(imgFile).then((value) async {
+      userProfileUrl= await value.ref.getDownloadURL();
+      print(value.state.toString());
+    });
+    UserService()..updateUserProfile(userProfileUrl);
   }
 }

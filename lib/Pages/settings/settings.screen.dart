@@ -1,7 +1,6 @@
 import 'package:Quete/graphql/schema.graphql.dart';
 import 'package:Quete/providers/auth_provider.dart';
 import 'package:Quete/services/cache/user.cache.service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:provider/provider.dart';

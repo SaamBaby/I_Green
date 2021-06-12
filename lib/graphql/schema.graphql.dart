@@ -2272,6 +2272,54 @@ class UsersSetInput with EquatableMixin {
 }
 
 @JsonSerializable(explicitToJson: true)
+class UpdateProfilePic$MutationRoot$UpdateUsers$Returning with EquatableMixin {
+  UpdateProfilePic$MutationRoot$UpdateUsers$Returning();
+
+  factory UpdateProfilePic$MutationRoot$UpdateUsers$Returning.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateProfilePic$MutationRoot$UpdateUsers$ReturningFromJson(json);
+
+  @JsonKey(name: 'profile_pic')
+  String profilePic;
+
+  @override
+  List<Object> get props => [profilePic];
+  Map<String, dynamic> toJson() =>
+      _$UpdateProfilePic$MutationRoot$UpdateUsers$ReturningToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateProfilePic$MutationRoot$UpdateUsers with EquatableMixin {
+  UpdateProfilePic$MutationRoot$UpdateUsers();
+
+  factory UpdateProfilePic$MutationRoot$UpdateUsers.fromJson(
+          Map<String, dynamic> json) =>
+      _$UpdateProfilePic$MutationRoot$UpdateUsersFromJson(json);
+
+  List<UpdateProfilePic$MutationRoot$UpdateUsers$Returning> returning;
+
+  @override
+  List<Object> get props => [returning];
+  Map<String, dynamic> toJson() =>
+      _$UpdateProfilePic$MutationRoot$UpdateUsersToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateProfilePic$MutationRoot with EquatableMixin {
+  UpdateProfilePic$MutationRoot();
+
+  factory UpdateProfilePic$MutationRoot.fromJson(Map<String, dynamic> json) =>
+      _$UpdateProfilePic$MutationRootFromJson(json);
+
+  @JsonKey(name: 'update_users')
+  UpdateProfilePic$MutationRoot$UpdateUsers updateUsers;
+
+  @override
+  List<Object> get props => [updateUsers];
+  Map<String, dynamic> toJson() => _$UpdateProfilePic$MutationRootToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class CurrentUser$QueryRoot$Users$Documents with EquatableMixin {
   CurrentUser$QueryRoot$Users$Documents();
 
@@ -2727,8 +2775,8 @@ class UpdateActivityArguments extends JsonSerializable with EquatableMixin {
       {@required this.id,
       this.starttime,
       this.endtime,
-      this.isCompleted,
-      this.totalHours});
+      this.totalHours,
+      this.isCompleted});
 
   @override
   factory UpdateActivityArguments.fromJson(Map<String, dynamic> json) =>
@@ -2740,12 +2788,12 @@ class UpdateActivityArguments extends JsonSerializable with EquatableMixin {
 
   final String endtime;
 
-  final bool isCompleted;
-
   final int totalHours;
 
+  final bool isCompleted;
+
   @override
-  List<Object> get props => [id, starttime, endtime, isCompleted, totalHours];
+  List<Object> get props => [id, starttime, endtime, totalHours, isCompleted];
   @override
   Map<String, dynamic> toJson() => _$UpdateActivityArgumentsToJson(this);
 }
@@ -2779,15 +2827,15 @@ class UpdateActivityMutation
               defaultValue: DefaultValueNode(value: null),
               directives: []),
           VariableDefinitionNode(
-              variable: VariableNode(name: NameNode(value: 'isCompleted')),
-              type: NamedTypeNode(
-                  name: NameNode(value: 'Boolean'), isNonNull: false),
-              defaultValue: DefaultValueNode(value: null),
-              directives: []),
-          VariableDefinitionNode(
               variable: VariableNode(name: NameNode(value: 'totalHours')),
               type:
                   NamedTypeNode(name: NameNode(value: 'Int'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'isCompleted')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'Boolean'), isNonNull: false),
               defaultValue: DefaultValueNode(value: null),
               directives: [])
         ],
@@ -4112,6 +4160,105 @@ class UpdateUserMutation
   @override
   UpdateUser$MutationRoot parse(Map<String, dynamic> json) =>
       UpdateUser$MutationRoot.fromJson(json);
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateProfilePicArguments extends JsonSerializable with EquatableMixin {
+  UpdateProfilePicArguments({this.imgUrl, this.id});
+
+  @override
+  factory UpdateProfilePicArguments.fromJson(Map<String, dynamic> json) =>
+      _$UpdateProfilePicArgumentsFromJson(json);
+
+  final String imgUrl;
+
+  final String id;
+
+  @override
+  List<Object> get props => [imgUrl, id];
+  @override
+  Map<String, dynamic> toJson() => _$UpdateProfilePicArgumentsToJson(this);
+}
+
+class UpdateProfilePicMutation extends GraphQLQuery<
+    UpdateProfilePic$MutationRoot, UpdateProfilePicArguments> {
+  UpdateProfilePicMutation({this.variables});
+
+  @override
+  final DocumentNode document = DocumentNode(definitions: [
+    OperationDefinitionNode(
+        type: OperationType.mutation,
+        name: NameNode(value: 'UpdateProfilePic'),
+        variableDefinitions: [
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'imgUrl')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: []),
+          VariableDefinitionNode(
+              variable: VariableNode(name: NameNode(value: 'id')),
+              type: NamedTypeNode(
+                  name: NameNode(value: 'String'), isNonNull: false),
+              defaultValue: DefaultValueNode(value: null),
+              directives: [])
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+              name: NameNode(value: 'update_users'),
+              alias: null,
+              arguments: [
+                ArgumentNode(
+                    name: NameNode(value: 'where'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'user_id'),
+                          value: ObjectValueNode(fields: [
+                            ObjectFieldNode(
+                                name: NameNode(value: '_eq'),
+                                value:
+                                    VariableNode(name: NameNode(value: 'id')))
+                          ]))
+                    ])),
+                ArgumentNode(
+                    name: NameNode(value: '_set'),
+                    value: ObjectValueNode(fields: [
+                      ObjectFieldNode(
+                          name: NameNode(value: 'profile_pic'),
+                          value: VariableNode(name: NameNode(value: 'imgUrl')))
+                    ]))
+              ],
+              directives: [],
+              selectionSet: SelectionSetNode(selections: [
+                FieldNode(
+                    name: NameNode(value: 'returning'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                          name: NameNode(value: 'profile_pic'),
+                          alias: null,
+                          arguments: [],
+                          directives: [],
+                          selectionSet: null)
+                    ]))
+              ]))
+        ]))
+  ]);
+
+  @override
+  final String operationName = 'UpdateProfilePic';
+
+  @override
+  final UpdateProfilePicArguments variables;
+
+  @override
+  List<Object> get props => [document, operationName, variables];
+  @override
+  UpdateProfilePic$MutationRoot parse(Map<String, dynamic> json) =>
+      UpdateProfilePic$MutationRoot.fromJson(json);
 }
 
 class CurrentUserQuery

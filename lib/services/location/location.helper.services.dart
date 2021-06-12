@@ -54,7 +54,7 @@ class LocationHelper {
     Position placePosition;
     // for getting the  place id from the address
     String geoLocatorUrl =
-        "https://maps.googleapis.com/maps/api/geocode/json?address=${placeAddress}&key=${Constants.locationAPI}";
+        "https://maps.googleapis.com/maps/api/geocode/json?address=$placeAddress&key=${Constants.locationAPI}";
     var geolocatorResponse = await RequestHelper.getRequest(geoLocatorUrl);
     if (geolocatorResponse != "failed") {
       placeId = geolocatorResponse["results"][0]["place_id"];
