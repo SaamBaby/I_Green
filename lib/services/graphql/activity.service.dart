@@ -59,7 +59,7 @@ getInCompletedActivities(){
   return tempFeed;
 }
 
-getCompletedActivities(){
+List<GetAllActivities$QueryRoot$Activities> getCompletedActivities(){
   List<GetAllActivities$QueryRoot$Activities> tempFeed =[];
   activities.forEach((element) {
     if(element.isCompleted==true){

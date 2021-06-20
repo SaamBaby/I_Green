@@ -11,17 +11,45 @@ class ShiftStats extends StatefulWidget {
 
 class _ShiftStatsState extends State<ShiftStats> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+
+
+  String formatTotalHours(double milliseconds) {
+    var secs = milliseconds ~/ 1000;
+    var seconds = (secs % 60).toString().padLeft(2, '0');
+    var minutes = ((secs % 3600) ~/ 60).toString().padLeft(2, '0');
+    var hours = (secs ~/ 3600).toString().padLeft(2, '0');
+    return '$hours.$minutes:$seconds';
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final _availableShifts =
-        Provider.of<ActivityService>(context).getCompletedActivities();
+    final _availableShifts = Provider.of<ActivityService>(context).getCompletedActivities();
+    double getTotalHours() {
+      double total = 0;
+      _availableShifts.forEach((e) {
+        total += e.totalHours; });
+      return total;
+    }
+    int getTotalDays() {
+      int total = 0;
+      _availableShifts.forEach((e) {
+        total += 1; });
+      return total;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        toolbarHeight: 100,
+        toolbarHeight: 80,
         centerTitle: false,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                getTotalHours();
+              },
               icon: Icon(
                 Icons.my_library_books_rounded,
                 size: 18,
@@ -54,7 +82,7 @@ class _ShiftStatsState extends State<ShiftStats> {
         automaticallyImplyLeading: true,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -82,7 +110,7 @@ class _ShiftStatsState extends State<ShiftStats> {
                               fontSize: 12),
                         ),
                         Text(
-                          "38:24:00",
+                          formatTotalHours(getTotalHours()),
                           style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontFamily: "Futura Heavy",
@@ -100,31 +128,33 @@ class _ShiftStatsState extends State<ShiftStats> {
                     decoration: BoxDecoration(
                         color: Colors.grey.withOpacity(.1),
                         borderRadius: BorderRadius.circular(15)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Total hours so far",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontFamily: "Futura Book",
-                              letterSpacing: 1.2,
-                              height: 1.5,
-                              color: Colors.black.withOpacity(.4),
-                              fontSize: 12),
-                        ),
-                        Text(
-                          "38:24:00",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontFamily: "Futura Heavy",
-                              letterSpacing: 1.2,
-                              height: 1.5,
-                              color: Colors.black.withOpacity(.8),
-                              fontSize: 16),
-                        ),
-                      ],
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Total days worked",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Book",
+                                letterSpacing: 1.2,
+                                height: 1.5,
+                                color: Colors.black.withOpacity(.4),
+                                fontSize: 12),
+                          ),
+                          Text(
+                            getTotalDays().toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Futura Heavy",
+                                letterSpacing: 1.2,
+                                height: 1.5,
+                                color: Colors.black.withOpacity(.8),
+                                fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -168,7 +198,7 @@ class _ShiftStatsState extends State<ShiftStats> {
                     child: RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                          text: "Last week  ",
+                          text: "Ascending order",
                           style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontFamily: "Futura Book",

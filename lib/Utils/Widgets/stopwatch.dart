@@ -10,7 +10,6 @@ class StopWatchTimer extends StatelessWidget{
   }
   String formatMinute(int milliseconds) {
     var secs = milliseconds ~/ 1000;
-
     var minutes = ((secs % 3600) ~/ 60).toString().padLeft(2, '0');
     return minutes;
   }
