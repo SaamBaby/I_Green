@@ -16,6 +16,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
   cState currentState = cState.Uninitialized;
   bool previewAvailable = false;
   File uploadedFile;
+  String uploadedFileName;
 
   Future getDocument() async {
     final pickedFile = await FilePickers.pickDocs().then((value) =>{
@@ -39,6 +40,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
             setState(() {
             uploadedFile=File(value.path);
             previewAvailable= true;
+            uploadedFileName= value.name;
 
             })
     }});
@@ -50,7 +52,22 @@ class _UploadDocumentsState extends State<UploadDocuments> {
         ? Center(child: CircularProgressIndicator())
         : Scaffold(
         appBar: AppBar(
-          title: Text("Document Preview"),
+          centerTitle: false,
+          toolbarHeight: 50,
+          title: Text(uploadedFileName,style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontFamily: "Futura Book",
+              letterSpacing: .8,
+              height: 1.5,
+              color: Colors.black,
+              fontSize: 16),),
+          actions: [
+            IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.check,size:25,color: Theme.of(context)
+                  .primaryColor,),
+            )
+          ],
         ),
         body: Container(
             child: PDFView(
@@ -61,8 +78,6 @@ class _UploadDocumentsState extends State<UploadDocuments> {
               pageFling: false,
               onRender: (_pages) {
                 setState(() {
-                  // pages = _pages;
-                  // isReady = true;
                 });
               },
               onError: (error) {

@@ -168,7 +168,7 @@ class _LocationMapState extends State<LocationMap> {
         statusBarColor: Colors.transparent));
 
     final activityId = widget.arguments;
-    final loadedShiftData = Provider.of<ActivityService>(context, listen: true).feed.firstWhere((element) => element.activityId==activityId);
+    final loadedShiftData = Provider.of<ActivityService>(context, listen: true).activities.firstWhere((element) => element.activityId==activityId);
     List<String> tempLocation=loadedShiftData.shift.job.jobLocation.split(',');
     return Scaffold(
       body: Stack(

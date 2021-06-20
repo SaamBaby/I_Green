@@ -1,7 +1,7 @@
 import 'package:Quete/Utils/Widgets/messages/chatRoom.input.message.dart';
 import 'package:Quete/Utils/Widgets/messages/chatRoom.messages.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChatRoom extends StatelessWidget {
   @override
@@ -11,71 +11,44 @@ class ChatRoom extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: false,
-        toolbarHeight: 70,
+        toolbarHeight: 100,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Greenline.Inc  ",
-              style:    TextStyle(
+              style: GoogleFonts.nunito(
                   fontWeight: FontWeight.w900,
-                  fontFamily: "Futura Book",
                   letterSpacing: 1,
                   color: Colors.black,
-                  fontSize: 18),
-
+                  fontSize: 20),
             ),
             Text(
-              "Online. ",
-              style:    TextStyle(
+              "Welcome to our chat group\n ",
+              style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontFamily: "Futura Book",
                   letterSpacing: 1,
-                  color: Colors.black.withOpacity(.6),
+                  color: Colors.black.withOpacity(.4),
                   fontSize: 12),
-
             ),
-
-          ],),
+          ],
+        ),
         actions: [
           Padding(
-              padding:EdgeInsets.only(right: 20),child: Icon(Icons.attach_file_outlined,
-            color: Colors
-              .black.withOpacity(.6),
-                size: 20,))
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.attach_file_outlined,
+                color: Colors.black.withOpacity(.6),
+                size: 20,
+              ))
         ],
       ),
       body: Container(
-
         child: Column(
           children: [
-            Container(
-              height: 30,
-              width: 250,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10)
-              ),
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
-              child: Center(
-                child: Text(
-                  "Welcome to iGreen  chat group\n ",
-                  style:    TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontFamily: "Futura Book",
-                      letterSpacing: 1,
-                      color: Colors.black,
-                      fontSize: 12),
-
-                ),
-              ),
-            ),
             Expanded(child: Messages()),
-            Padding(
-                padding: EdgeInsets.zero,
-                child: NewMessageInput())
-
+            Padding(padding: EdgeInsets.zero, child: NewMessageInput())
           ],
         ),
       ),

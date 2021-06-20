@@ -86,11 +86,13 @@ class _PersonalInformationState extends State<PersonalInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80,
         leading: IconButton(
             onPressed: (){
               Navigator.of(context).pop();
             },
-            icon: Icon(Icons.clear,size: 18,)),
+
+            icon: Icon(Icons.clear,size: 18,color: Theme.of(context).primaryColor,)),
         title:  Text("Personal information",
           style: TextStyle(
               fontWeight: FontWeight.w900,
@@ -99,7 +101,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
               height: 1.5,
               color: Colors.black.withOpacity(.8),
               fontSize: 18),),
-        centerTitle: false,actions: [],
+        centerTitle: true,
       ),
       body: Center(
         child: SingleChildScrollView(

@@ -71,7 +71,7 @@ class _ScheduleState extends State<Schedule>with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final _availableShifts = Provider.of<ActivityService>(context);
 
-    _groupEvents(_availableShifts.feed);
+    _groupEvents(_availableShifts.getInCompletedActivities());
 
     _selectedDate=(_calendarController.selectedDay!=null)?dateNorm(_calendarController.selectedDay):dateNorm(DateTime.now());
 

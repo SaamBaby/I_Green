@@ -25,6 +25,7 @@ dependencies:
   http: "0.12.2"
   form_field_validator: ^1.0.1
   uuid: ^2.2.2
+  fl_chart:
   file_picker:
   syncfusion_flutter_pdfviewer:
   flutter_pdfview:

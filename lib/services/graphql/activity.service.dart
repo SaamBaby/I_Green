@@ -5,7 +5,7 @@ import 'package:graphql/client.dart';
 import 'client.graphql.service.dart';
 
 class ActivityService extends ChangeNotifier{
-List<GetAllActivities$QueryRoot$Activities> feed =[];
+List<GetAllActivities$QueryRoot$Activities> activities =[];
   // Todo please figure out this way of inserting if possible
   // Future<CreateActivity$MutationRoot$InsertActivitiesOne> createActivity(ActivitiesInsertInput input) async{
   //   try{
@@ -44,9 +44,31 @@ List<GetAllActivities$QueryRoot$Activities> feed =[];
     }
 
     final query=GetAllActivities$QueryRoot.fromJson(result.data);
-    feed=query.activities;
+    activities=query.activities;
 
   }
+
+
+getInCompletedActivities(){
+  List<GetAllActivities$QueryRoot$Activities> tempFeed =[];
+  activities.forEach((element) {
+    if(element.isCompleted==false){
+      tempFeed.add(element);
+    }
+  });
+  return tempFeed;
+}
+
+getCompletedActivities(){
+  List<GetAllActivities$QueryRoot$Activities> tempFeed =[];
+  activities.forEach((element) {
+    if(element.isCompleted==true){
+      tempFeed.add(element);
+    }
+  });
+  return tempFeed;
+}
+
   Future<CreateActivity$MutationRoot$InsertActivitiesOne> createActivity(
       String activityId,int shiftId, String userId, bool isAccepted) async{
     try{

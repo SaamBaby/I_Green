@@ -1,4 +1,5 @@
 import 'package:Quete/Pages/home/home.screen.dart';
+import 'package:Quete/Pages/profile/history/profile.shift.history.dart';
 import 'package:Quete/Pages/profile/personal.information.dart';
 import 'package:Quete/Pages/schedule/schedule.maps.screen.dart';
 import 'package:Quete/services/helper/circle.transicion.route.dart';
@@ -60,6 +61,7 @@ class Routes{
   static const personalInformation = '/user/profile/personalInformation';
   static const userProfile = '/user/profile';
   static const userDocuments ='/user/documents';
+  static const userShiftHistory ='/user/shiftHistory';
   // settings
 
 
@@ -144,6 +146,8 @@ class Routes{
 
       case userDocuments:
          return UploadDocuments();
+      case userShiftHistory:
+          return ShiftStats();
 
     // settings
       case settings:

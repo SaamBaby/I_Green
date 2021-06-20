@@ -5,6 +5,7 @@ query GetAllActivities {
         is_completed
         shift_endtime
         shift_id
+        total_hours
         shift_starttime
         shift {
             shift_date

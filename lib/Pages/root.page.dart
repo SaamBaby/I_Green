@@ -86,18 +86,6 @@ class _RootState extends State<Root> {
                 ),
                 activeColor: Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
-            BottomNavyBarItem(
-                icon: Icon(
-                  Icons.settings,
-                  size: 24,
-                ),
-                title: Text(
-                  'Settings',
-                  style: Theme.of(context)
-                      .textTheme.bodyText2,
-                ),
-                activeColor:Color(0xFF54E597),
-                inactiveColor: Color(0xffdfe6eb)),
           ],
         ),
       ),

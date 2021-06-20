@@ -132,6 +132,7 @@ GetAllActivities$QueryRoot$Activities
     ..isCompleted = json['is_completed'] as bool
     ..shiftEndtime = json['shift_endtime'] as String
     ..shiftId = json['shift_id'] as int
+    ..totalHours = json['total_hours'] as int
     ..shiftStarttime = json['shift_starttime'] as String
     ..shift = json['shift'] == null
         ? null
@@ -147,6 +148,7 @@ Map<String, dynamic> _$GetAllActivities$QueryRoot$ActivitiesToJson(
       'is_completed': instance.isCompleted,
       'shift_endtime': instance.shiftEndtime,
       'shift_id': instance.shiftId,
+      'total_hours': instance.totalHours,
       'shift_starttime': instance.shiftStarttime,
       'shift': instance.shift?.toJson(),
     };

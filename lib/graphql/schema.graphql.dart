@@ -162,6 +162,9 @@ class GetAllActivities$QueryRoot$Activities with EquatableMixin {
   @JsonKey(name: 'shift_id')
   int shiftId;
 
+  @JsonKey(name: 'total_hours')
+  int totalHours;
+
   @JsonKey(name: 'shift_starttime')
   String shiftStarttime;
 
@@ -174,6 +177,7 @@ class GetAllActivities$QueryRoot$Activities with EquatableMixin {
         isCompleted,
         shiftEndtime,
         shiftId,
+        totalHours,
         shiftStarttime,
         shift
       ];
@@ -2963,6 +2967,12 @@ class GetAllActivitiesQuery
                     selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'shift_id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'total_hours'),
                     alias: null,
                     arguments: [],
                     directives: [],

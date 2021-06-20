@@ -23,12 +23,12 @@ class ScheduleCard extends StatelessWidget {
       },
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           width: double.infinity,
 
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xffeaeaea)),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
             color: Colors.white,
           ),
           child: Column(
@@ -73,7 +73,7 @@ class ScheduleCard extends StatelessWidget {
                             fontWeight: FontWeight.w900,
                             fontFamily: "Futura Book",
                             letterSpacing: 1,
-                            color: Colors.black.withOpacity(.8),
+                            color: Colors.black.withOpacity(.5),
                             fontSize: 12),
                       ),
 
@@ -91,7 +91,7 @@ class ScheduleCard extends StatelessWidget {
                             fontWeight: FontWeight.w900,
                             fontFamily: "Futura Book",
                             letterSpacing: 1,
-                            color: Colors.black.withOpacity(.8),
+                            color: Colors.black.withOpacity(.5),
                             fontSize: 12),
                       ),
                     ],
