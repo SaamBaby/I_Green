@@ -1,45 +1,95 @@
 import 'package:Quete/Utils/Widgets/shift.history.card.dart';
 import 'package:Quete/Utils/Widgets/shifts/activities.line.chart.dart';
 import 'package:Quete/services/graphql/activity.service.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ShiftStats extends StatefulWidget {
+class ShiftHistory extends StatefulWidget {
   @override
-  _ShiftStatsState createState() => _ShiftStatsState();
+  _ShiftHistoryState createState() => _ShiftHistoryState();
 }
 
-class _ShiftStatsState extends State<ShiftStats> {
+class _ShiftHistoryState extends State<ShiftHistory> {
+  List<FlSpot> spotData = [FlSpot(0, 0)];
+  bool isEmpty = false;
+
   @override
   void initState() {
     super.initState();
   }
 
-
+  double formatChartTotalHours(int milliseconds) {
+    var secs = milliseconds ~/ 1000;
+    var minutes = ((secs % 3600) ~/ 60) / 60;
+    var hours = (secs ~/ 3600);
+    return double.parse((hours + minutes).toStringAsFixed(2));
+  }
 
   String formatTotalHours(double milliseconds) {
     var secs = milliseconds ~/ 1000;
     var seconds = (secs % 60).toString().padLeft(2, '0');
     var minutes = ((secs % 3600) ~/ 60).toString().padLeft(2, '0');
     var hours = (secs ~/ 3600).toString().padLeft(2, '0');
-    return '$hours.$minutes:$seconds';
+
+    return '$hours:$minutes:$seconds';
   }
 
   @override
   Widget build(BuildContext context) {
-    final _availableShifts = Provider.of<ActivityService>(context).getCompletedActivities();
+    final _availableShifts =
+        Provider.of<ActivityService>(context).getCompletedActivities();
+    List<FlSpot> createGraphPlot() {
+      _availableShifts.forEach((element) {
+        switch (
+            DateTime.now().day - (DateTime.parse(element.shiftStarttime).day)) {
+          case 1:
+            return spotData
+                .add(FlSpot(7, formatChartTotalHours(element.totalHours)));
+          case 2:
+            return spotData
+                .add(FlSpot(6, formatChartTotalHours(element.totalHours)));
+          case 3:
+            return spotData
+                .add(FlSpot(5, formatChartTotalHours(element.totalHours)));
+          case 4:
+            return spotData
+                .add(FlSpot(4, formatChartTotalHours(element.totalHours)));
+          case 5:
+            return spotData
+                .add(FlSpot(3, formatChartTotalHours(element.totalHours)));
+          case 6:
+            return spotData
+                .add(FlSpot(2, formatChartTotalHours(element.totalHours)));
+          case 7:
+            return spotData
+                .add(FlSpot(1, formatChartTotalHours(element.totalHours)));
+          default:
+            setState(() {
+              isEmpty = true;
+            });
+            return spotData.add(FlSpot(0, 0));
+        }
+      });
+      return spotData;
+    }
+
     double getTotalHours() {
       double total = 0;
       _availableShifts.forEach((e) {
-        total += e.totalHours; });
+        total += e.totalHours;
+      });
       return total;
     }
+
     int getTotalDays() {
       int total = 0;
       _availableShifts.forEach((e) {
-        total += 1; });
+        total += 1;
+      });
       return total;
     }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -48,7 +98,7 @@ class _ShiftStatsState extends State<ShiftStats> {
         actions: [
           IconButton(
               onPressed: () {
-                getTotalHours();
+                print(createGraphPlot().first.y);
               },
               icon: Icon(
                 Icons.my_library_books_rounded,
@@ -166,10 +216,36 @@ class _ShiftStatsState extends State<ShiftStats> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * .43,
-                  child: AttendanceChart()),
+              (!isEmpty)
+                  ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * .43,
+                      child: AttendanceChart(spotData: createGraphPlot()))
+                  : Center(
+                      child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/Schedule/noData.png',
+                                height: 240.0,
+                                width: 240.0,
+                              ),
+                              Text(
+                                "No shifts on last week",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontFamily: "Futura Book",
+                                    letterSpacing: 1,
+                                    height: 1.5,
+                                    color: Colors.black.withOpacity(.8),
+                                    fontSize: 12),
+                              )
+                            ],
+                          )),
+                    ),
               SizedBox(
                 height: 10,
               ),

@@ -147,7 +147,7 @@ class Routes{
       case userDocuments:
          return UploadDocuments();
       case userShiftHistory:
-          return ShiftStats();
+          return ShiftHistory();
 
     // settings
       case settings:

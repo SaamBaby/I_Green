@@ -296,34 +296,6 @@ class _ProfileState extends State<Profile> {
                 ),
                 Divider(),
                 ListTile(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder:
-                        (context)=>AttendanceChart()));
-                  },
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  leading: Icon(
-                    Icons.book,
-                    color: Colors.orange,
-                  ),
-                  title: Text(
-                    "Education",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontFamily: "Futura Book",
-                        letterSpacing: .8,
-                        height: 1.5,
-                        color: Colors.black.withOpacity(.8),
-                        fontSize: 14),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    size: 18,
-                  ),
-                ),
-                Divider(),
-                ListTile(
                   onTap: () {
                     Navigator.of(context).pushNamed(Routes.userShiftHistory);
                   },

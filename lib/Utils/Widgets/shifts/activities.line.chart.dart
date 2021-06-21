@@ -2,15 +2,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AttendanceChart extends StatefulWidget {
-  @override
-  _AttendanceChartState createState() => _AttendanceChartState();
-}
+class AttendanceChart extends StatelessWidget {
 
-class _AttendanceChartState extends State<AttendanceChart> {
-  List<Color> gradientColors = [
+  final List<FlSpot> spotData;
+  final List<Color> gradientColors = [
     Color(0xFF54E597),
   ];
+
+
+  AttendanceChart({this.spotData});
 
   @override
   Widget build(BuildContext context) {
@@ -135,16 +135,7 @@ class _AttendanceChartState extends State<AttendanceChart> {
       maxY: 11,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0, 0),
-            FlSpot(1, 8),
-            FlSpot(2, 5),
-            FlSpot(3, 9.5),
-            FlSpot(4, 7),
-            FlSpot(5, 8),
-            FlSpot(6, 8),
-            FlSpot(7, 8),
-          ],
+          spots:spotData ,
           isCurved: true,
           colors: gradientColors,
           barWidth: 3,
@@ -161,4 +152,6 @@ class _AttendanceChartState extends State<AttendanceChart> {
       ],
     );
   }
+
+
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'chat/chatRoom.screen.dart';
 import 'home/home.screen.dart';
+import 'profile/history/profile.shift.history.dart';
 
 
 class Root extends StatefulWidget {
@@ -86,6 +87,15 @@ class _RootState extends State<Root> {
                 ),
                 activeColor: Color(0xFF54E597),
                 inactiveColor: Color(0xffdfe6eb)),
+            BottomNavyBarItem(
+                icon: Icon(FontAwesomeIcons.history,size: 20,),
+                title: Text(
+                  'History',
+                  style: Theme.of(context)
+                      .textTheme.bodyText2,
+                ),
+                activeColor: Color(0xFF54E597),
+                inactiveColor: Color(0xffdfe6eb))
           ],
         ),
       ),
@@ -98,7 +108,8 @@ class _RootState extends State<Root> {
           children: <Widget>[
             ShiftFeeds(),
             Schedule(),
-            ChatRoom()
+            ChatRoom(),
+            ShiftHistory()
 
 
           ],
